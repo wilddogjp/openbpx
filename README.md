@@ -14,20 +14,22 @@ BPX runs on **Windows**, **macOS**, and **Linux**.
 ## Project Status
 
 - Phase: **Alpha**
-- Current CLI version: **0.1.1**
+- Current CLI version: **0.1.2**
 - Supported UE window: **UE 5.0 to UE 5.6** (`FileVersionUE5=1000..1017`)
 - Supported platforms: **Windows / macOS / Linux** (`amd64`, `arm64`)
 - Core principles: **unknown-byte preservation**, **round-trip fidelity**, **safety-first editing**, **UE behavior-grounded implementation**
 
 ## Install
 
-### From source with `go install`
+### CLI (`bpx`)
+
+#### From source with `go install`
 
 ```bash
 go install github.com/wilddogjp/openbpx/cmd/bpx@latest
 ```
 
-### Build locally
+#### Build locally
 
 ```bash
 git clone https://github.com/wilddogjp/openbpx.git
@@ -36,6 +38,34 @@ go build ./cmd/bpx
 ```
 
 Official release artifacts are published on [GitHub Releases](https://github.com/wilddogjp/openbpx/releases).
+
+### Install BPX skill for Codex
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo wilddogjp/openbpx \
+  --path .agents/skills/bpx \
+  --method git
+```
+
+After installation, restart Codex.
+
+If you install with `--method auto` or `--method download`, ensure executable bits are set on Unix-like systems:
+
+```bash
+chmod +x ~/.codex/skills/bpx/bpx_*
+```
+
+### Install BPX plugin for Claude Code
+
+```bash
+git clone https://github.com/wilddogjp/openbpx.git
+cd openbpx
+claude --plugin-dir .
+```
+
+This repository ships fallback BPX binaries for supported platforms in `.agents/skills/bpx/`.
+Use the skill in Claude prompts as `/openbpx:bpx`.
 
 ## Quick Start
 

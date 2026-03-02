@@ -77,6 +77,8 @@ case "${OUTPUT_DIR}" in
 esac
 
 INCLUDE_PATHS=(
+  ".agents"
+  ".claude-plugin"
   "CHANGELOG.md"
   "CONTRIBUTING.md"
   ".github/workflows/build-artifacts-main.yml"
@@ -100,6 +102,7 @@ INCLUDE_PATHS=(
   "go.sum"
   "internal"
   "pkg"
+  "skills"
   "scripts"
   "testdata"
 )

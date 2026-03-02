@@ -18,7 +18,7 @@ import (
 const (
 	structuredOutputFormatJSON = "json"
 	structuredOutputFormatTOML = "toml"
-	defaultToolVersion         = "0.1.1"
+	defaultToolVersion         = "0.1.2"
 )
 
 var currentStructuredOutputFormat = structuredOutputFormatJSON
