@@ -1,4 +1,4 @@
-# BPX: Blueprint Toolkit for Unreal Engine (`bpx`)
+# OpenBPX: Blueprint Toolkit for Unreal Engine (`bpx`)
 
 [![Test](https://github.com/wilddogjp/openbpx/actions/workflows/test.yml/badge.svg)](https://github.com/wilddogjp/openbpx/actions/workflows/test.yml)
 [![Release](https://img.shields.io/github/v/release/wilddogjp/openbpx)](https://github.com/wilddogjp/openbpx/releases)
