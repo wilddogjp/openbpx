@@ -1,0 +1,10 @@
+{
+  "command": "var rename",
+  "args": {
+    "from": "MyProp",
+    "to": "RenamedProp"
+  },
+  "ue_procedure": "rename identifier used by serialized references",
+  "expect": "byte_equal",
+  "notes": "Verifies NameMap hash recomputation and cross-reference update"
+}

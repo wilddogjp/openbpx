@@ -1,0 +1,19 @@
+{
+	"command": "prop set",
+	"args":
+	{
+		"export": 5,
+		"path": "FixtureBool",
+		"value": "true"
+	},
+	"ue_procedure": "Toggle native bool property",
+	"expect": "unsupported",
+	"notes": "Native bool default-elision behavior is not emulated yet.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

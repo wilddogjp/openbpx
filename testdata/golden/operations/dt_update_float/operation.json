@@ -1,0 +1,10 @@
+{
+  "command": "datatable update-row",
+  "args": {
+    "row": "Row_B",
+    "values": "{\"Rate\":0.5}"
+  },
+  "ue_procedure": "update one float column",
+  "expect": "unsupported",
+  "notes": "datatable update-row is not implemented yet"
+}

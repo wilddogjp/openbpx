@@ -1,0 +1,10 @@
+{
+  "command": "export set-header",
+  "args": {
+    "fields": "{\"objectFlags\":1}",
+    "index": 1
+  },
+  "ue_procedure": "set export header fields",
+  "expect": "unsupported",
+  "notes": "export set-header is not implemented yet"
+}

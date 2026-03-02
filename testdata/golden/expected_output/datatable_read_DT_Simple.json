@@ -1,0 +1,84 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "datatable",
+    "read",
+    "testdata/golden/parse/DT_Simple.uasset"
+  ],
+  "expected": {
+    "file": "testdata/golden/parse/DT_Simple.uasset",
+    "tableCount": 1,
+    "tables": [
+      {
+        "className": "DataTable",
+        "headerProperties": [
+          {
+            "arrayIndex": 0,
+            "flags": 0,
+            "name": "RowStruct",
+            "offset": 1438,
+            "size": 4,
+            "type": "ObjectProperty",
+            "value": {
+              "index": -4,
+              "resolved": "import:4:TableRowBase"
+            },
+            "valueOffset": 1463
+          },
+          {
+            "arrayIndex": 0,
+            "flags": 0,
+            "name": "AssetImportData",
+            "offset": 1467,
+            "size": 4,
+            "type": "ObjectProperty",
+            "value": {
+              "index": 1,
+              "resolved": "export:1:AssetImportData"
+            },
+            "valueOffset": 1492
+          },
+          {
+            "arrayIndex": 0,
+            "flags": 0,
+            "name": "RowStructPathName",
+            "offset": 1496,
+            "size": 74,
+            "type": "StructProperty(TopLevelAssetPath(/Script/CoreUObject))",
+            "value": {
+              "structType": "TopLevelAssetPath",
+              "value": {
+                "AssetName": {
+                  "type": "NameProperty",
+                  "value": {
+                    "index": 12,
+                    "name": "TableRowBase",
+                    "number": 0
+                  }
+                },
+                "PackageName": {
+                  "type": "NameProperty",
+                  "value": {
+                    "index": 1,
+                    "name": "/Script/Engine",
+                    "number": 0
+                  }
+                }
+              }
+            },
+            "valueOffset": 1545
+          }
+        ],
+        "headerWarnings": null,
+        "index": 2,
+        "objectName": "DT_Simple",
+        "rowCount": 0,
+        "rowWarnings": [
+          "datatable row count selected from secondary header (count@+4=0)"
+        ],
+        "rows": []
+      }
+    ]
+  },
+  "name": "datatable_read_DT_Simple"
+}

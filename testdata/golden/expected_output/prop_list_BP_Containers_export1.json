@@ -1,0 +1,245 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "prop",
+    "list",
+    "testdata/golden/parse/BP_Containers.uasset",
+    "--export",
+    "1"
+  ],
+  "expected": {
+    "className": "Blueprint",
+    "decoded": true,
+    "export": 1,
+    "file": "testdata/golden/parse/BP_Containers.uasset",
+    "objectName": "BP_Containers",
+    "properties": [
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "ParentClass",
+        "offset": 18371,
+        "size": 4,
+        "type": "ObjectProperty",
+        "value": {
+          "index": -6,
+          "resolved": "import:6:Actor"
+        },
+        "valueOffset": 18396
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "BlueprintSystemVersion",
+        "offset": 18400,
+        "size": 4,
+        "type": "IntProperty",
+        "value": 2,
+        "valueOffset": 18425
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "SimpleConstructionScript",
+        "offset": 18429,
+        "size": 4,
+        "type": "ObjectProperty",
+        "value": {
+          "index": 12,
+          "resolved": "export:12:SimpleConstructionScript_0"
+        },
+        "valueOffset": 18454
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "UbergraphPages",
+        "offset": 18458,
+        "size": 8,
+        "type": "ArrayProperty(ObjectProperty)",
+        "value": {
+          "arrayType": "ObjectProperty",
+          "value": [
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 4,
+                "resolved": "export:4:EventGraph"
+              }
+            }
+          ]
+        },
+        "valueOffset": 18495
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "FunctionGraphs",
+        "offset": 18503,
+        "size": 8,
+        "type": "ArrayProperty(ObjectProperty)",
+        "value": {
+          "arrayType": "ObjectProperty",
+          "value": [
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 5,
+                "resolved": "export:5:UserConstructionScript"
+              }
+            }
+          ]
+        },
+        "valueOffset": 18540
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "LastEditedDocuments",
+        "offset": 18548,
+        "size": 445,
+        "type": "ArrayProperty(StructProperty(EditedDocumentInfo(/Script/Engine)))",
+        "value": {
+          "arrayType": "StructProperty",
+          "value": [
+            {
+              "type": "StructProperty",
+              "value": {
+                "structType": "EditedDocumentInfo",
+                "value": {
+                  "EditedObjectPath": {
+                    "type": "StructProperty(SoftObjectPath(/Script/CoreUObject))",
+                    "value": {
+                      "structType": "SoftObjectPath",
+                      "value": {
+                        "error": "soft object path index 0 out of range",
+                        "softObjectPathIndex": 0
+                      }
+                    }
+                  },
+                  "SavedViewOffset": {
+                    "type": "StructProperty(DeprecateSlateVector2D(/Script/SlateCore))",
+                    "value": {
+                      "structType": "DeprecateSlateVector2D",
+                      "value": {
+                        "rawBase64": "AAAAAAAAAAA=",
+                        "structType": "DeprecateSlateVector2D"
+                      }
+                    }
+                  },
+                  "SavedZoomAmount": {
+                    "type": "FloatProperty",
+                    "value": -1
+                  }
+                }
+              }
+            },
+            {
+              "type": "StructProperty",
+              "value": {
+                "structType": "EditedDocumentInfo",
+                "value": {
+                  "EditedObjectPath": {
+                    "type": "StructProperty(SoftObjectPath(/Script/CoreUObject))",
+                    "value": {
+                      "structType": "SoftObjectPath",
+                      "value": {
+                        "error": "soft object path index 1 out of range",
+                        "softObjectPathIndex": 1
+                      }
+                    }
+                  },
+                  "SavedViewOffset": {
+                    "type": "StructProperty(DeprecateSlateVector2D(/Script/SlateCore))",
+                    "value": {
+                      "structType": "DeprecateSlateVector2D",
+                      "value": {
+                        "rawBase64": "AAAAAAAAAAA=",
+                        "structType": "DeprecateSlateVector2D"
+                      }
+                    }
+                  },
+                  "SavedZoomAmount": {
+                    "type": "FloatProperty",
+                    "value": -1
+                  }
+                }
+              }
+            },
+            {
+              "type": "StructProperty",
+              "value": {
+                "structType": "EditedDocumentInfo",
+                "value": {
+                  "EditedObjectPath": {
+                    "type": "StructProperty(SoftObjectPath(/Script/CoreUObject))",
+                    "value": {
+                      "structType": "SoftObjectPath",
+                      "value": {
+                        "error": "soft object path index 2 out of range",
+                        "softObjectPathIndex": 2
+                      }
+                    }
+                  },
+                  "SavedViewOffset": {
+                    "type": "StructProperty(DeprecateSlateVector2D(/Script/SlateCore))",
+                    "value": {
+                      "structType": "DeprecateSlateVector2D",
+                      "value": {
+                        "rawBase64": "AAAAAAAAAAA=",
+                        "structType": "DeprecateSlateVector2D"
+                      }
+                    }
+                  },
+                  "SavedZoomAmount": {
+                    "type": "FloatProperty",
+                    "value": -1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "valueOffset": 18609
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "GeneratedClass",
+        "offset": 19054,
+        "size": 4,
+        "type": "ObjectProperty",
+        "value": {
+          "index": 2,
+          "resolved": "export:2:BP_Containers_C"
+        },
+        "valueOffset": 19079
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "bLegacyNeedToPurgeSkelRefs",
+        "offset": 19083,
+        "size": 0,
+        "type": "BoolProperty",
+        "value": false,
+        "valueOffset": 19108
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 8,
+        "name": "BlueprintGuid",
+        "offset": 19108,
+        "size": 16,
+        "type": "StructProperty(Guid(/Script/CoreUObject))",
+        "value": {
+          "structType": "Guid",
+          "value": "3ea4b456-f245-4c4b-b6b7-868e3ae8e995"
+        },
+        "valueOffset": 19157
+      }
+    ],
+    "warnings": null
+  },
+  "name": "prop_list_BP_Containers_export1"
+}

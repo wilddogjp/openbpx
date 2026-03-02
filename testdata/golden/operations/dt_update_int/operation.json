@@ -1,0 +1,10 @@
+{
+  "command": "datatable update-row",
+  "args": {
+    "row": "Row_A",
+    "values": "{\"Score\":999}"
+  },
+  "ue_procedure": "update one integer column",
+  "expect": "unsupported",
+  "notes": "datatable update-row is not implemented yet"
+}

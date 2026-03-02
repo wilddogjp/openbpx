@@ -1,0 +1,20 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "raw",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--export",
+    "2"
+  ],
+  "expected": {
+    "className": "BlueprintGeneratedClass",
+    "dataBase64": "AEsAAAAAAAAAPgAAAAAAAAAAAAAABAAAAAAMAAAAPAAAAAAAAAAAAAAA+v///wAAAAABAAAAPgAAAAAAAAAaAAAAAAAAAAEAIAABAAAAAQAAABQAAAAAAAAA+v///8cw1TCpMOswyDAAAAEAAAAIAAAABAAIAAQAAAAAADwAAAAAAAAAAPb///8AAAAAAAAAAAAAAAAEAYQA+////yMAAAAAAAAAAQAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAAwAAAA==",
+    "export": 2,
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "objectName": "BP_Empty_C",
+    "serialOffset": 19091,
+    "serialSize": 193,
+    "truncated": false
+  },
+  "name": "raw_BP_Empty_export2"
+}

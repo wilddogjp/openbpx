@@ -1,0 +1,17 @@
+{
+	"command": "datatable add-row",
+	"args":
+	{
+		"row": "Row_A_1"
+	},
+	"ue_procedure": "Add one DataTable row",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

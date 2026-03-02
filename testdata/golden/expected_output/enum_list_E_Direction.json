@@ -1,0 +1,31 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "enum",
+    "list",
+    "testdata/golden/parse/E_Direction.uasset"
+  ],
+  "expected": {
+    "count": 1,
+    "enums": [
+      {
+        "classIndex": -1,
+        "className": "UserDefinedEnum",
+        "index": 1,
+        "objectName": "E_Direction",
+        "outerIndex": 0,
+        "properties": [],
+        "serial": {
+          "offset": 1104,
+          "scriptSerializationEnd": 9,
+          "scriptSerializationStart": 0,
+          "size": 34
+        },
+        "superIndex": 0,
+        "warnings": null
+      }
+    ],
+    "file": "testdata/golden/parse/E_Direction.uasset"
+  },
+  "name": "enum_list_E_Direction"
+}

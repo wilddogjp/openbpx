@@ -1,0 +1,28 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "name",
+    "add",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--value",
+    "BPX_Golden_Add_HashOverride",
+    "--non-case-hash",
+    "4660",
+    "--case-preserving-hash",
+    "43981",
+    "--dry-run"
+  ],
+  "expected": {
+    "addedIndex": 103,
+    "casePreservingHash": 43981,
+    "changed": true,
+    "dryRun": true,
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "newCount": 104,
+    "nonCaseHash": 4660,
+    "oldCount": 103,
+    "outputBytes": 23723,
+    "value": "BPX_Golden_Add_HashOverride"
+  },
+  "name": "name_add_BP_Empty_hash_override_dry_run"
+}

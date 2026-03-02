@@ -1,0 +1,18 @@
+{
+	"command": "datatable update-row",
+	"args":
+	{
+		"row": "Row_A",
+		"values": "{\"Score\":999}"
+	},
+	"ue_procedure": "Reject update-row against CompositeDataTable",
+	"expect": "unsupported",
+	"notes": "UE5.6 composite tables rebuild rows from parents; bpx rejects writes to composite tables.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

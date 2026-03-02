@@ -1,0 +1,43 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "class",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--export",
+    "2"
+  ],
+  "expected": {
+    "export": {
+      "classIndex": -8,
+      "className": "BlueprintGeneratedClass",
+      "index": 2,
+      "objectName": "BP_Empty_C",
+      "outerIndex": 0,
+      "properties": [
+        {
+          "arrayIndex": 0,
+          "flags": 0,
+          "name": "SimpleConstructionScript",
+          "offset": 19092,
+          "size": 4,
+          "type": "ObjectProperty",
+          "value": {
+            "index": 12,
+            "resolved": "export:12:SimpleConstructionScript_0"
+          },
+          "valueOffset": 19117
+        }
+      ],
+      "serial": {
+        "offset": 19091,
+        "scriptSerializationEnd": 38,
+        "scriptSerializationStart": 0,
+        "size": 193
+      },
+      "superIndex": -6,
+      "warnings": null
+    },
+    "file": "testdata/golden/parse/BP_Empty.uasset"
+  },
+  "name": "class_BP_Empty_export2"
+}

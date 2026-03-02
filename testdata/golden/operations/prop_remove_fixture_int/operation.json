@@ -1,0 +1,18 @@
+{
+	"command": "prop remove",
+	"args":
+	{
+		"export": 5,
+		"path": "FixtureInt"
+	},
+	"ue_procedure": "Remove FixtureInt override tag by changing default 42 -> 0",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

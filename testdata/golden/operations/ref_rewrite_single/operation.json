@@ -1,0 +1,10 @@
+{
+  "command": "ref rewrite",
+  "args": {
+    "from": "MyStr",
+    "to": "MyString"
+  },
+  "ue_procedure": "rewrite a single reference token",
+  "expect": "byte_equal",
+  "notes": "Rewrites one NameMap token"
+}

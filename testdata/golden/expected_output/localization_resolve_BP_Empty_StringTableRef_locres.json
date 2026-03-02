@@ -1,0 +1,53 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "localization",
+    "resolve",
+    "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+    "--export",
+    "11",
+    "--culture",
+    "ja",
+    "--locres",
+    "testdata/golden/parse/Localization_Test.locres"
+  ],
+  "expected": {
+    "culture": "ja",
+    "entries": [
+      {
+        "className": "SCS_Node",
+        "culture": "ja",
+        "export": 11,
+        "historyType": "StringTableEntry",
+        "historyTypeCode": 11,
+        "key": "ST_ENTRY_KEY_000001",
+        "locresNamespace": "SimpleConstructionScript",
+        "locresSourceHash": 0,
+        "missing": false,
+        "objectName": "SCS_Node_0",
+        "path": "CategoryName",
+        "resolved": true,
+        "resolvedBy": "locres",
+        "resolvedString": "StringTableResolved",
+        "source": "TextProperty",
+        "tableIdName": "SimpleConstructionScript",
+        "type": "TextProperty"
+      }
+    ],
+    "entryCount": 1,
+    "exportFilter": 11,
+    "file": "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+    "gatherableTextDataCount": 1,
+    "locres": {
+      "path": "testdata/golden/parse/Localization_Test.locres",
+      "version": 2
+    },
+    "missingCount": 0,
+    "missingOnly": false,
+    "resolvedCount": 1,
+    "warnings": [
+      "gatherable text data is package-level (count=1) and is omitted when --export is specified"
+    ]
+  },
+  "name": "localization_resolve_BP_Empty_StringTableRef_locres"
+}

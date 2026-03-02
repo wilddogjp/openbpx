@@ -1,0 +1,48 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "localization",
+    "read",
+    "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+    "--export",
+    "11",
+    "--include-history"
+  ],
+  "expected": {
+    "entries": [
+      {
+        "className": "SCS_Node",
+        "export": 11,
+        "history": {
+          "flags": 8,
+          "historyType": "StringTableEntry",
+          "historyTypeCode": 11,
+          "key": "ST_ENTRY_KEY_000001",
+          "tableId": {
+            "index": 75,
+            "name": "SimpleConstructionScript",
+            "number": 0
+          },
+          "tableIdName": "SimpleConstructionScript"
+        },
+        "historyType": "StringTableEntry",
+        "historyTypeCode": 11,
+        "key": "ST_ENTRY_KEY_000001",
+        "objectName": "SCS_Node_0",
+        "path": "CategoryName",
+        "source": "TextProperty",
+        "tableIdName": "SimpleConstructionScript",
+        "type": "TextProperty"
+      }
+    ],
+    "entryCount": 1,
+    "exportFilter": 11,
+    "file": "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+    "gatherableTextDataCount": 1,
+    "includeHistory": true,
+    "warnings": [
+      "gatherable text data is package-level (count=1) and is omitted when --export is specified"
+    ]
+  },
+  "name": "localization_read_BP_Empty_StringTableRef_export11"
+}

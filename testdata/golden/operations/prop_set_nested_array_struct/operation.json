@@ -1,0 +1,11 @@
+{
+  "command": "prop set",
+  "args": {
+    "export": 1,
+    "path": "InnerArray[0].StrVal",
+    "value": "\"new\""
+  },
+  "ue_procedure": "prepare writable nested fixture and compare against UE output",
+  "expect": "unsupported",
+  "notes": "fixture migration pending for nested array path"
+}

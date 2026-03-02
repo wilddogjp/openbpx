@@ -1,0 +1,19 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "BPX Fixture Generator",
+  "Description": "Generates BPX test fixtures and exports them to wilddog-bpx/testdata.",
+  "Category": "Developer",
+  "CreatedBy": "wilddog",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "BPXFixtureGenerator",
+      "Type": "Editor",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

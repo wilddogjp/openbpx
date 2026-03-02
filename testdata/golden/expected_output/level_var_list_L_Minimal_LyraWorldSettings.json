@@ -1,0 +1,140 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "level",
+    "var-list",
+    "testdata/golden/parse/L_Minimal.umap",
+    "--actor",
+    "LyraWorldSettings"
+  ],
+  "expected": {
+    "actor": {
+      "className": "LyraWorldSettings",
+      "export": 4,
+      "matchedBy": "name",
+      "objectName": "LyraWorldSettings",
+      "objectPath": "PersistentLevel.LyraWorldSettings",
+      "outer": {
+        "index": 3,
+        "resolved": "export:3:PersistentLevel"
+      }
+    },
+    "count": 3,
+    "file": "testdata/golden/parse/L_Minimal.umap",
+    "properties": [
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "NavigationSystemConfig",
+        "offset": 4633,
+        "size": 4,
+        "type": "ObjectProperty",
+        "value": {
+          "index": 7,
+          "resolved": "export:7:NavigationSystemModuleConfig_0"
+        },
+        "valueOffset": 4658
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "BookmarkArray",
+        "offset": 4662,
+        "size": 44,
+        "type": "ArrayProperty(ObjectProperty)",
+        "value": {
+          "arrayType": "ObjectProperty",
+          "value": [
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            },
+            {
+              "type": "ObjectProperty",
+              "value": {
+                "index": 0,
+                "resolved": "null"
+              }
+            }
+          ]
+        },
+        "valueOffset": 4699
+      },
+      {
+        "arrayIndex": 0,
+        "flags": 8,
+        "name": "ActorGuid",
+        "offset": 4743,
+        "size": 16,
+        "type": "StructProperty(Guid(/Script/CoreUObject))",
+        "value": {
+          "structType": "Guid",
+          "value": "c3b6b3e9-f8a3-4772-85dd-c5786e84a965"
+        },
+        "valueOffset": 4792
+      }
+    ],
+    "selector": "LyraWorldSettings",
+    "warnings": null
+  },
+  "name": "level_var_list_L_Minimal_LyraWorldSettings"
+}

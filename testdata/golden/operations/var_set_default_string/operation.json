@@ -1,0 +1,10 @@
+{
+  "command": "var set-default",
+  "args": {
+    "name": "FixtureValue",
+    "value": "\"NewTitle\""
+  },
+  "ue_procedure": "update default string variable",
+  "expect": "unsupported",
+  "notes": "fixture migration pending for string default path"
+}

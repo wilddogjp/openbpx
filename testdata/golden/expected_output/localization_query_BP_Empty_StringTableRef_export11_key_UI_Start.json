@@ -1,0 +1,29 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "localization",
+    "query",
+    "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+    "--export",
+    "11",
+    "--key",
+    "UI.Start"
+  ],
+  "expected": {
+    "entries": [],
+    "entryCount": 0,
+    "exportFilter": 11,
+    "file": "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+    "filters": {
+      "historyType": "",
+      "key": "UI.Start",
+      "limit": 0,
+      "namespace": "",
+      "text": ""
+    },
+    "warnings": [
+      "gatherable text data is package-level (count=1) and is omitted when --export is specified"
+    ]
+  },
+  "name": "localization_query_BP_Empty_StringTableRef_export11_key_UI_Start"
+}

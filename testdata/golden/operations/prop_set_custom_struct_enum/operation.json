@@ -1,0 +1,19 @@
+{
+	"command": "prop set",
+	"args":
+	{
+		"export": 5,
+		"path": "FixtureCustom.EnumVal",
+		"value": "\"BPXEnum_ValueB\""
+	},
+	"ue_procedure": "Set custom struct enum field",
+	"expect": "unsupported",
+		"notes": "Custom StructProperty enum writes requiring NameMap value replacement remain unsupported in current update scope.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

@@ -1,0 +1,42 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "prop",
+    "list",
+    "testdata/golden/operations/prop_set_custom_struct_enum/before.uasset",
+    "--export",
+    "5"
+  ],
+  "expected": {
+    "className": "Fixture_C",
+    "decoded": true,
+    "export": 5,
+    "file": "testdata/golden/operations/prop_set_custom_struct_enum/before.uasset",
+    "objectName": "Default__Fixture_C",
+    "properties": [
+      {
+        "arrayIndex": 0,
+        "flags": 0,
+        "name": "FixtureCustom",
+        "offset": 20437,
+        "size": 65,
+        "type": "StructProperty(BPXFixtureCustomStruct(/Script/BPXFixtureGenerator))",
+        "value": {
+          "structType": "BPXFixtureCustomStruct",
+          "value": {
+            "EnumVal": {
+              "type": "ByteProperty(EBPXFixtureEnum(/Script/BPXFixtureGenerator))",
+              "value": {
+                "enumType": "EBPXFixtureEnum",
+                "value": "EBPXFixtureEnum::BPXEnum_ValueC"
+              }
+            }
+          }
+        },
+        "valueOffset": 20486
+      }
+    ],
+    "warnings": null
+  },
+  "name": "prop_list_prop_set_custom_struct_enum_before_export5"
+}

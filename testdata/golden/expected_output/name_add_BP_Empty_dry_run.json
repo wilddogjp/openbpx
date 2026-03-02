@@ -1,0 +1,24 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "name",
+    "add",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--value",
+    "BPX_Golden_Add",
+    "--dry-run"
+  ],
+  "expected": {
+    "addedIndex": 103,
+    "casePreservingHash": 4414,
+    "changed": true,
+    "dryRun": true,
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "newCount": 104,
+    "nonCaseHash": 60458,
+    "oldCount": 103,
+    "outputBytes": 23710,
+    "value": "BPX_Golden_Add"
+  },
+  "name": "name_add_BP_Empty_dry_run"
+}

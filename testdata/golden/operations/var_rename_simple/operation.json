@@ -1,0 +1,10 @@
+{
+  "command": "var rename",
+  "args": {
+    "from": "MyStr",
+    "to": "RenamedStr"
+  },
+  "ue_procedure": "rename simple variable-like identifier",
+  "expect": "byte_equal",
+  "notes": "NameMap-level rename on existing fixture asset"
+}

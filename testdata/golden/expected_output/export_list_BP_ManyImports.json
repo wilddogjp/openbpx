@@ -1,0 +1,136 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "export",
+    "list",
+    "testdata/golden/parse/BP_ManyImports.uasset"
+  ],
+  "expected": {
+    "classFilter": "",
+    "count": 12,
+    "exports": [
+      {
+        "classIndex": -7,
+        "className": "Blueprint",
+        "index": 1,
+        "objectName": "BP_ManyImports",
+        "outerIndex": 0,
+        "serialOffset": 18392,
+        "serialSize": 815,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -8,
+        "className": "BlueprintGeneratedClass",
+        "index": 2,
+        "objectName": "BP_ManyImports_C",
+        "outerIndex": 0,
+        "serialOffset": 19207,
+        "serialSize": 193,
+        "superIndex": -6
+      },
+      {
+        "classIndex": 2,
+        "className": "BP_ManyImports_C",
+        "index": 3,
+        "objectName": "Default__BP_ManyImports_C",
+        "outerIndex": 0,
+        "serialOffset": 19400,
+        "serialSize": 13,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -9,
+        "className": "EdGraph",
+        "index": 4,
+        "objectName": "EventGraph",
+        "outerIndex": 1,
+        "serialOffset": 19413,
+        "serialSize": 185,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -9,
+        "className": "EdGraph",
+        "index": 5,
+        "objectName": "UserConstructionScript",
+        "outerIndex": 1,
+        "serialOffset": 19598,
+        "serialSize": 177,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -3,
+        "className": "K2Node_Event",
+        "index": 6,
+        "objectName": "K2Node_Event_0",
+        "outerIndex": 4,
+        "serialOffset": 19775,
+        "serialSize": 870,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -3,
+        "className": "K2Node_Event",
+        "index": 7,
+        "objectName": "K2Node_Event_1",
+        "outerIndex": 4,
+        "serialOffset": 20645,
+        "serialSize": 1145,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -3,
+        "className": "K2Node_Event",
+        "index": 8,
+        "objectName": "K2Node_Event_2",
+        "outerIndex": 4,
+        "serialOffset": 21790,
+        "serialSize": 1155,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -4,
+        "className": "K2Node_FunctionEntry",
+        "index": 9,
+        "objectName": "K2Node_FunctionEntry_0",
+        "outerIndex": 5,
+        "serialOffset": 22945,
+        "serialSize": 401,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -10,
+        "className": "SceneComponent",
+        "index": 10,
+        "objectName": "DefaultSceneRoot_GEN_VARIABLE",
+        "outerIndex": 2,
+        "serialOffset": 23346,
+        "serialSize": 42,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -11,
+        "className": "SCS_Node",
+        "index": 11,
+        "objectName": "SCS_Node_0",
+        "outerIndex": 12,
+        "serialOffset": 23388,
+        "serialSize": 231,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -12,
+        "className": "SimpleConstructionScript",
+        "index": 12,
+        "objectName": "SimpleConstructionScript_0",
+        "outerIndex": 2,
+        "serialOffset": 23619,
+        "serialSize": 132,
+        "superIndex": 0
+      }
+    ],
+    "file": "testdata/golden/parse/BP_ManyImports.uasset"
+  },
+  "name": "export_list_BP_ManyImports"
+}

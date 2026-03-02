@@ -1,0 +1,13 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "name",
+    "remove",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--index",
+    "1"
+  ],
+  "expectedCode": 1,
+  "expectedStderr": "error: name remove currently supports tail entry only (--index must be nameCount-1)",
+  "name": "name_remove_BP_Empty_non_tail_fail"
+}

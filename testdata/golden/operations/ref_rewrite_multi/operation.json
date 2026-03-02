@@ -1,0 +1,10 @@
+{
+  "command": "ref rewrite",
+  "args": {
+    "from": "ノード",
+    "to": "エレメント"
+  },
+  "ue_procedure": "rewrite multiple references by substring",
+  "expect": "byte_equal",
+  "notes": "Rewrites graph comment strings across multiple exports"
+}

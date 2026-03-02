@@ -1,0 +1,11 @@
+{
+  "command": "metadata set-root",
+  "args": {
+    "export": 1,
+    "key": "ToolTip",
+    "value": "Updated"
+  },
+  "ue_procedure": "set root metadata tooltip",
+  "expect": "unsupported",
+  "notes": "metadata set-root is not implemented yet"
+}

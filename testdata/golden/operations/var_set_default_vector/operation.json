@@ -1,0 +1,10 @@
+{
+  "command": "var set-default",
+  "args": {
+    "name": "FixtureValue",
+    "value": "{\"X\":1,\"Y\":2,\"Z\":3}"
+  },
+  "ue_procedure": "update default vector variable",
+  "expect": "unsupported",
+  "notes": "fixture migration pending for vector default path"
+}

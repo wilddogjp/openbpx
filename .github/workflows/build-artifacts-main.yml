@@ -1,0 +1,52 @@
+name: build-artifacts-main
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-single-binary:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        goos: [linux, darwin, windows]
+        goarch: [amd64, arm64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+
+      - name: Build single binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist/single
+
+          ext=""
+          if [[ "${{ matrix.goos }}" == "windows" ]]; then
+            ext=".exe"
+          fi
+
+          out="dist/single/bpx_${{ matrix.goos }}_${{ matrix.goarch }}${ext}"
+          CGO_ENABLED=0 GOOS="${{ matrix.goos }}" GOARCH="${{ matrix.goarch }}" \
+            go build -trimpath -ldflags="-s -w" -o "${out}" ./cmd/bpx
+
+          sha256sum "${out}" > "${out}.sha256"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bpx-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: |
+            dist/single/bpx_${{ matrix.goos }}_${{ matrix.goarch }}*
+          if-no-files-found: error

@@ -1,0 +1,11 @@
+{
+  "command": "metadata set-root",
+  "args": {
+    "export": 1,
+    "key": "Category",
+    "value": "Gameplay"
+  },
+  "ue_procedure": "set root metadata category",
+  "expect": "unsupported",
+  "notes": "metadata set-root is not implemented yet"
+}

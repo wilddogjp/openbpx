@@ -1,0 +1,633 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "name",
+    "list",
+    "testdata/golden/parse/BP_Empty.uasset"
+  ],
+  "expected": {
+    "count": 103,
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "names": [
+      {
+        "casePreservingHash": 24152,
+        "index": 0,
+        "nonCaseHash": 31042,
+        "value": "/Game/BPXFixtures/Parse/BP_Empty"
+      },
+      {
+        "casePreservingHash": 15917,
+        "index": 1,
+        "nonCaseHash": 18936,
+        "value": "/Script/CoreUObject"
+      },
+      {
+        "casePreservingHash": 18821,
+        "index": 2,
+        "nonCaseHash": 16518,
+        "value": "/Script/Engine"
+      },
+      {
+        "casePreservingHash": 31610,
+        "index": 3,
+        "nonCaseHash": 24884,
+        "value": "/Script/SlateCore"
+      },
+      {
+        "casePreservingHash": 17127,
+        "index": 4,
+        "nonCaseHash": 5631,
+        "value": "AllNodes"
+      },
+      {
+        "casePreservingHash": 27107,
+        "index": 5,
+        "nonCaseHash": 45129,
+        "value": "ArrayProperty"
+      },
+      {
+        "casePreservingHash": 60174,
+        "index": 6,
+        "nonCaseHash": 61951,
+        "value": "bAllowDeletion"
+      },
+      {
+        "casePreservingHash": 19493,
+        "index": 7,
+        "nonCaseHash": 11889,
+        "value": "bCommentBubblePinned"
+      },
+      {
+        "casePreservingHash": 15420,
+        "index": 8,
+        "nonCaseHash": 9297,
+        "value": "bCommentBubbleVisible"
+      },
+      {
+        "casePreservingHash": 15196,
+        "index": 9,
+        "nonCaseHash": 44431,
+        "value": "bLegacyNeedToPurgeSkelRefs"
+      },
+      {
+        "casePreservingHash": 21786,
+        "index": 10,
+        "nonCaseHash": 1999,
+        "value": "BlueprintGuid"
+      },
+      {
+        "casePreservingHash": 20896,
+        "index": 11,
+        "nonCaseHash": 57478,
+        "value": "BlueprintInternalUseOnly"
+      },
+      {
+        "casePreservingHash": 11017,
+        "index": 12,
+        "nonCaseHash": 29825,
+        "value": "BlueprintSystemVersion"
+      },
+      {
+        "casePreservingHash": 57234,
+        "index": 13,
+        "nonCaseHash": 4364,
+        "value": "BlueprintType"
+      },
+      {
+        "casePreservingHash": 35504,
+        "index": 14,
+        "nonCaseHash": 1040,
+        "value": "BoolProperty"
+      },
+      {
+        "casePreservingHash": 23440,
+        "index": 15,
+        "nonCaseHash": 62992,
+        "value": "bOverrideFunction"
+      },
+      {
+        "casePreservingHash": 46482,
+        "index": 16,
+        "nonCaseHash": 46388,
+        "value": "BP_Empty"
+      },
+      {
+        "casePreservingHash": 35964,
+        "index": 17,
+        "nonCaseHash": 22165,
+        "value": "BP_Empty_C"
+      },
+      {
+        "casePreservingHash": 55862,
+        "index": 18,
+        "nonCaseHash": 34731,
+        "value": "bVisualizeComponent"
+      },
+      {
+        "casePreservingHash": 49197,
+        "index": 19,
+        "nonCaseHash": 20198,
+        "value": "ByteProperty"
+      },
+      {
+        "casePreservingHash": 50580,
+        "index": 20,
+        "nonCaseHash": 32503,
+        "value": "Category"
+      },
+      {
+        "casePreservingHash": 3160,
+        "index": 21,
+        "nonCaseHash": 13966,
+        "value": "CategoryName"
+      },
+      {
+        "casePreservingHash": 40892,
+        "index": 22,
+        "nonCaseHash": 6602,
+        "value": "Comment"
+      },
+      {
+        "casePreservingHash": 22006,
+        "index": 23,
+        "nonCaseHash": 65073,
+        "value": "ComponentClass"
+      },
+      {
+        "casePreservingHash": 49698,
+        "index": 24,
+        "nonCaseHash": 43732,
+        "value": "ComponentTemplate"
+      },
+      {
+        "casePreservingHash": 30438,
+        "index": 25,
+        "nonCaseHash": 58036,
+        "value": "DefaultGraphNode"
+      },
+      {
+        "casePreservingHash": 1438,
+        "index": 26,
+        "nonCaseHash": 36028,
+        "value": "DefaultSceneRoot"
+      },
+      {
+        "casePreservingHash": 58813,
+        "index": 27,
+        "nonCaseHash": 20538,
+        "value": "DefaultSceneRootNode"
+      },
+      {
+        "casePreservingHash": 36762,
+        "index": 28,
+        "nonCaseHash": 64503,
+        "value": "delegate"
+      },
+      {
+        "casePreservingHash": 891,
+        "index": 29,
+        "nonCaseHash": 21698,
+        "value": "DeltaSeconds"
+      },
+      {
+        "casePreservingHash": 19331,
+        "index": 30,
+        "nonCaseHash": 63077,
+        "value": "DeprecateSlateVector2D"
+      },
+      {
+        "casePreservingHash": 17126,
+        "index": 31,
+        "nonCaseHash": 38266,
+        "value": "DisplayName"
+      },
+      {
+        "casePreservingHash": 64272,
+        "index": 32,
+        "nonCaseHash": 24507,
+        "value": "EditedDocumentInfo"
+      },
+      {
+        "casePreservingHash": 32927,
+        "index": 33,
+        "nonCaseHash": 16846,
+        "value": "EditedObjectPath"
+      },
+      {
+        "casePreservingHash": 56654,
+        "index": 34,
+        "nonCaseHash": 9665,
+        "value": "EnabledState"
+      },
+      {
+        "casePreservingHash": 58948,
+        "index": 35,
+        "nonCaseHash": 439,
+        "value": "Engine"
+      },
+      {
+        "casePreservingHash": 62427,
+        "index": 36,
+        "nonCaseHash": 16518,
+        "value": "ENodeEnabledState"
+      },
+      {
+        "casePreservingHash": 54526,
+        "index": 37,
+        "nonCaseHash": 43953,
+        "value": "ENodeEnabledState::Disabled"
+      },
+      {
+        "casePreservingHash": 16541,
+        "index": 38,
+        "nonCaseHash": 55121,
+        "value": "EnumProperty"
+      },
+      {
+        "casePreservingHash": 44001,
+        "index": 39,
+        "nonCaseHash": 41639,
+        "value": "EventReference"
+      },
+      {
+        "casePreservingHash": 6908,
+        "index": 40,
+        "nonCaseHash": 60028,
+        "value": "exec"
+      },
+      {
+        "casePreservingHash": 52381,
+        "index": 41,
+        "nonCaseHash": 30996,
+        "value": "float"
+      },
+      {
+        "casePreservingHash": 64990,
+        "index": 42,
+        "nonCaseHash": 43003,
+        "value": "FloatProperty"
+      },
+      {
+        "casePreservingHash": 15656,
+        "index": 43,
+        "nonCaseHash": 10564,
+        "value": "FunctionGraphs"
+      },
+      {
+        "casePreservingHash": 5628,
+        "index": 44,
+        "nonCaseHash": 23205,
+        "value": "FunctionReference"
+      },
+      {
+        "casePreservingHash": 21592,
+        "index": 45,
+        "nonCaseHash": 2182,
+        "value": "GeneratedClass"
+      },
+      {
+        "casePreservingHash": 30411,
+        "index": 46,
+        "nonCaseHash": 33442,
+        "value": "GraphGuid"
+      },
+      {
+        "casePreservingHash": 26874,
+        "index": 47,
+        "nonCaseHash": 20547,
+        "value": "Guid"
+      },
+      {
+        "casePreservingHash": 64778,
+        "index": 48,
+        "nonCaseHash": 65341,
+        "value": "InternalVariableName"
+      },
+      {
+        "casePreservingHash": 18998,
+        "index": 49,
+        "nonCaseHash": 54181,
+        "value": "IntProperty"
+      },
+      {
+        "casePreservingHash": 53250,
+        "index": 50,
+        "nonCaseHash": 7692,
+        "value": "LastEditedDocuments"
+      },
+      {
+        "casePreservingHash": 46771,
+        "index": 51,
+        "nonCaseHash": 8076,
+        "value": "MemberName"
+      },
+      {
+        "casePreservingHash": 15485,
+        "index": 52,
+        "nonCaseHash": 59774,
+        "value": "MemberParent"
+      },
+      {
+        "casePreservingHash": 16313,
+        "index": 53,
+        "nonCaseHash": 46718,
+        "value": "MemberReference"
+      },
+      {
+        "casePreservingHash": 24971,
+        "index": 54,
+        "nonCaseHash": 8816,
+        "value": "ModuleRelativePath"
+      },
+      {
+        "casePreservingHash": 18952,
+        "index": 55,
+        "nonCaseHash": 62082,
+        "value": "NameProperty"
+      },
+      {
+        "casePreservingHash": 62303,
+        "index": 56,
+        "nonCaseHash": 9312,
+        "value": "NodeComment"
+      },
+      {
+        "casePreservingHash": 43780,
+        "index": 57,
+        "nonCaseHash": 44241,
+        "value": "NodeGuid"
+      },
+      {
+        "casePreservingHash": 26093,
+        "index": 58,
+        "nonCaseHash": 18034,
+        "value": "NodePosY"
+      },
+      {
+        "casePreservingHash": 27803,
+        "index": 59,
+        "nonCaseHash": 65209,
+        "value": "Nodes"
+      },
+      {
+        "casePreservingHash": 3525,
+        "index": 60,
+        "nonCaseHash": 1012,
+        "value": "None"
+      },
+      {
+        "casePreservingHash": 65431,
+        "index": 61,
+        "nonCaseHash": 19301,
+        "value": "object"
+      },
+      {
+        "casePreservingHash": 60083,
+        "index": 62,
+        "nonCaseHash": 56129,
+        "value": "ObjectProperty"
+      },
+      {
+        "casePreservingHash": 64347,
+        "index": 63,
+        "nonCaseHash": 60607,
+        "value": "OtherActor"
+      },
+      {
+        "casePreservingHash": 19858,
+        "index": 64,
+        "nonCaseHash": 27916,
+        "value": "OutputDelegate"
+      },
+      {
+        "casePreservingHash": 34937,
+        "index": 65,
+        "nonCaseHash": 29714,
+        "value": "PackageLocalizationNamespace"
+      },
+      {
+        "casePreservingHash": 23461,
+        "index": 66,
+        "nonCaseHash": 56600,
+        "value": "ParentClass"
+      },
+      {
+        "casePreservingHash": 11945,
+        "index": 67,
+        "nonCaseHash": 51542,
+        "value": "real"
+      },
+      {
+        "casePreservingHash": 47985,
+        "index": 68,
+        "nonCaseHash": 62953,
+        "value": "ReceiveActorBeginOverlap"
+      },
+      {
+        "casePreservingHash": 51810,
+        "index": 69,
+        "nonCaseHash": 32129,
+        "value": "ReceiveBeginPlay"
+      },
+      {
+        "casePreservingHash": 52988,
+        "index": 70,
+        "nonCaseHash": 20811,
+        "value": "ReceiveTick"
+      },
+      {
+        "casePreservingHash": 22343,
+        "index": 71,
+        "nonCaseHash": 3095,
+        "value": "RootNodes"
+      },
+      {
+        "casePreservingHash": 17644,
+        "index": 72,
+        "nonCaseHash": 51324,
+        "value": "SavedViewOffset"
+      },
+      {
+        "casePreservingHash": 51597,
+        "index": 73,
+        "nonCaseHash": 5727,
+        "value": "SavedZoomAmount"
+      },
+      {
+        "casePreservingHash": 30603,
+        "index": 74,
+        "nonCaseHash": 48127,
+        "value": "Schema"
+      },
+      {
+        "casePreservingHash": 8274,
+        "index": 75,
+        "nonCaseHash": 11028,
+        "value": "SimpleConstructionScript"
+      },
+      {
+        "casePreservingHash": 225,
+        "index": 76,
+        "nonCaseHash": 60285,
+        "value": "SKEL_BP_Empty_C"
+      },
+      {
+        "casePreservingHash": 41435,
+        "index": 77,
+        "nonCaseHash": 41343,
+        "value": "SoftObjectPath"
+      },
+      {
+        "casePreservingHash": 9330,
+        "index": 78,
+        "nonCaseHash": 49467,
+        "value": "StrProperty"
+      },
+      {
+        "casePreservingHash": 64668,
+        "index": 79,
+        "nonCaseHash": 48,
+        "value": "StructProperty"
+      },
+      {
+        "casePreservingHash": 46964,
+        "index": 80,
+        "nonCaseHash": 15044,
+        "value": "TextProperty"
+      },
+      {
+        "casePreservingHash": 32978,
+        "index": 81,
+        "nonCaseHash": 45441,
+        "value": "then"
+      },
+      {
+        "casePreservingHash": 48647,
+        "index": 82,
+        "nonCaseHash": 60085,
+        "value": "ToolTip"
+      },
+      {
+        "casePreservingHash": 13218,
+        "index": 83,
+        "nonCaseHash": 8986,
+        "value": "UbergraphPages"
+      },
+      {
+        "casePreservingHash": 96,
+        "index": 84,
+        "nonCaseHash": 45901,
+        "value": "UserConstructionScript"
+      },
+      {
+        "casePreservingHash": 55934,
+        "index": 85,
+        "nonCaseHash": 38571,
+        "value": "VariableGuid"
+      },
+      {
+        "casePreservingHash": 17532,
+        "index": 86,
+        "nonCaseHash": 56297,
+        "value": "/Script/BlueprintGraph"
+      },
+      {
+        "casePreservingHash": 22819,
+        "index": 87,
+        "nonCaseHash": 53037,
+        "value": "Actor"
+      },
+      {
+        "casePreservingHash": 3379,
+        "index": 88,
+        "nonCaseHash": 14612,
+        "value": "Blueprint"
+      },
+      {
+        "casePreservingHash": 11632,
+        "index": 89,
+        "nonCaseHash": 39721,
+        "value": "BlueprintGeneratedClass"
+      },
+      {
+        "casePreservingHash": 37240,
+        "index": 90,
+        "nonCaseHash": 30580,
+        "value": "Class"
+      },
+      {
+        "casePreservingHash": 37723,
+        "index": 91,
+        "nonCaseHash": 52377,
+        "value": "Default__Actor"
+      },
+      {
+        "casePreservingHash": 44881,
+        "index": 92,
+        "nonCaseHash": 64162,
+        "value": "Default__BP_Empty_C"
+      },
+      {
+        "casePreservingHash": 18564,
+        "index": 93,
+        "nonCaseHash": 32430,
+        "value": "DefaultSceneRoot_GEN_VARIABLE"
+      },
+      {
+        "casePreservingHash": 23988,
+        "index": 94,
+        "nonCaseHash": 28420,
+        "value": "EdGraph"
+      },
+      {
+        "casePreservingHash": 3480,
+        "index": 95,
+        "nonCaseHash": 49592,
+        "value": "EdGraphSchema_K2"
+      },
+      {
+        "casePreservingHash": 23809,
+        "index": 96,
+        "nonCaseHash": 42333,
+        "value": "EventGraph"
+      },
+      {
+        "casePreservingHash": 7002,
+        "index": 97,
+        "nonCaseHash": 34163,
+        "value": "K2Node_Event"
+      },
+      {
+        "casePreservingHash": 10757,
+        "index": 98,
+        "nonCaseHash": 54171,
+        "value": "K2Node_FunctionEntry"
+      },
+      {
+        "casePreservingHash": 493,
+        "index": 99,
+        "nonCaseHash": 19301,
+        "value": "Object"
+      },
+      {
+        "casePreservingHash": 5512,
+        "index": 100,
+        "nonCaseHash": 18291,
+        "value": "Package"
+      },
+      {
+        "casePreservingHash": 24420,
+        "index": 101,
+        "nonCaseHash": 6216,
+        "value": "SceneComponent"
+      },
+      {
+        "casePreservingHash": 50642,
+        "index": 102,
+        "nonCaseHash": 54065,
+        "value": "SCS_Node"
+      }
+    ]
+  },
+  "name": "name_list_BP_Empty"
+}

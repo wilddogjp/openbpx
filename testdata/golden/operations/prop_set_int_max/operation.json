@@ -1,0 +1,19 @@
+{
+	"command": "prop set",
+	"args":
+	{
+		"export": 5,
+		"path": "FixtureInt",
+		"value": "2147483647"
+	},
+	"ue_procedure": "Set int variable to int32 max",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

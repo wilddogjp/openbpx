@@ -1,0 +1,56 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "export",
+    "info",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--export",
+    "2"
+  ],
+  "expected": {
+    "class": {
+      "index": -8,
+      "name": "BlueprintGeneratedClass",
+      "resolved": "import:8:BlueprintGeneratedClass"
+    },
+    "dependencyHeader": {
+      "createBeforeCreateDependencies": 0,
+      "createBeforeSerializationDeps": 0,
+      "firstExportDependency": -1,
+      "serializationBeforeCreateDependencies": 0,
+      "serializationBeforeSerializationDeps": 0
+    },
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "flags": {
+      "forcedExport": false,
+      "generatePublicHash": false,
+      "isAsset": true,
+      "isInheritedInstance": false,
+      "notAlwaysLoadedForEditor": false,
+      "notForClient": false,
+      "notForServer": false
+    },
+    "index": 2,
+    "objectFlags": 9,
+    "objectName": "BP_Empty_C",
+    "outer": {
+      "index": 0,
+      "resolved": "null"
+    },
+    "serial": {
+      "offset": 19091,
+      "scriptSerializationEnd": 38,
+      "scriptSerializationStart": 0,
+      "size": 193
+    },
+    "super": {
+      "index": -6,
+      "resolved": "import:6:Actor"
+    },
+    "template": {
+      "index": 0,
+      "resolved": "null"
+    }
+  },
+  "name": "export_info_BP_Empty_export2"
+}

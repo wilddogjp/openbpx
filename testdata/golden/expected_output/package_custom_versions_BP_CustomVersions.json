@@ -1,0 +1,54 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "package",
+    "custom-versions",
+    "testdata/golden/parse/BP_CustomVersions.uasset"
+  ],
+  "expected": {
+    "customVersions": [
+      {
+        "guid": "375ec13c-48fb-06e4-f084-00b57e712a26",
+        "version": 4
+      },
+      {
+        "guid": "59da5d52-4948-1232-7859-78b88be9b870",
+        "version": 9
+      },
+      {
+        "guid": "601d1886-4f84-ac64-ded3-16aad6c7ea0d",
+        "version": 207
+      },
+      {
+        "guid": "697dd581-41ab-e64f-ec51-4aaa28b6b7be",
+        "version": 121
+      },
+      {
+        "guid": "9c54d522-4fbe-a826-4607-2194d082b461",
+        "version": 44
+      },
+      {
+        "guid": "b0d832e4-4f0d-1f89-b77e-cfaca24afd36",
+        "version": 10
+      },
+      {
+        "guid": "cffc743f-4480-43b0-df14-919373201d17",
+        "version": 37
+      },
+      {
+        "guid": "d89b5e42-4d46-24bd-a8ac-1284791764df",
+        "version": 56
+      },
+      {
+        "guid": "e4b068ed-42e9-f494-0bda-31a241bb462e",
+        "version": 40
+      },
+      {
+        "guid": "e7086368-4c58-6b23-701b-3984915e2616",
+        "version": 17
+      }
+    ],
+    "file": "testdata/golden/parse/BP_CustomVersions.uasset"
+  },
+  "name": "package_custom_versions_BP_CustomVersions"
+}

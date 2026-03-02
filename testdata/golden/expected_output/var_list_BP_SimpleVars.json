@@ -1,0 +1,16 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "var",
+    "list",
+    "testdata/golden/parse/BP_SimpleVars.uasset"
+  ],
+  "expected": {
+    "cdoExport": 3,
+    "count": 0,
+    "file": "testdata/golden/parse/BP_SimpleVars.uasset",
+    "variables": [],
+    "warnings": []
+  },
+  "name": "var_list_BP_SimpleVars"
+}

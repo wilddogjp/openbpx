@@ -1,0 +1,109 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "blueprint",
+    "scan-functions",
+    "testdata/golden/parse",
+    "--recursive",
+    "--aggregate"
+  ],
+  "expected": {
+    "aggregate": true,
+    "directory": "testdata/golden/parse",
+    "fileCount": 28,
+    "fileToFunctions": {
+      "testdata/golden/parse/BP_AllScalarTypes.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Base.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Child.uasset": [
+        "K2Node_CallParentFunction_0",
+        "K2Node_CallParentFunction_0",
+        "K2Node_CallParentFunction_1",
+        "K2Node_CallParentFunction_2",
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Containers.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_CustomVersions.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_DependsMap.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Empty.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Empty_PackageNamespace.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Empty_StringTableRef.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_GameplayTags.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_LargeArray.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_ManyImports.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_MathTypes.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Mid.uasset": [
+        "K2Node_CallParentFunction_0",
+        "K2Node_CallParentFunction_0",
+        "K2Node_CallParentFunction_1",
+        "K2Node_CallParentFunction_2",
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Nested.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_RefTypes.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_SimpleVars.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_SoftRefs.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_Unicode.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_WithFunctions.uasset": [
+        "Default__BP_WithFunctions_C",
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_WithMetadata.uasset": [
+        "K2Node_FunctionEntry_0"
+      ],
+      "testdata/golden/parse/BP_WithThumbnail.uasset": [
+        "K2Node_FunctionEntry_0"
+      ]
+    },
+    "functionDirCounts": {
+      ".": 31
+    },
+    "functionFileCount": 22,
+    "functionNameCounts": {
+      "Default__BP_WithFunctions_C": 1,
+      "K2Node_CallParentFunction_0": 4,
+      "K2Node_CallParentFunction_1": 2,
+      "K2Node_CallParentFunction_2": 2,
+      "K2Node_FunctionEntry_0": 22
+    },
+    "nameLike": "",
+    "parseFailCount": 0,
+    "parseFailures": [],
+    "pattern": "*.uasset",
+    "recursive": true
+  },
+  "name": "blueprint_scan_functions_parse_recursive_aggregate"
+}

@@ -1,0 +1,26 @@
+name: fuzz-weekly
+
+on:
+  schedule:
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+jobs:
+  fuzz-weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+
+      - name: Download modules
+        run: go mod download
+
+      - name: long fuzz (parse)
+        run: go test ./pkg/uasset -fuzz FuzzParseAsset -fuzztime 1h
+
+      - name: long fuzz (roundtrip)
+        run: go test ./pkg/uasset -fuzz FuzzRoundTrip -fuzztime 1h

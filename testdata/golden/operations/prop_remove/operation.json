@@ -1,0 +1,19 @@
+{
+	"command": "prop remove",
+	"args":
+	{
+		"export": 5,
+		"path": "bCanBeDamaged"
+	},
+	"ue_procedure": "Remove bCanBeDamaged override tag by changing default false -> true",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets":
+	[
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

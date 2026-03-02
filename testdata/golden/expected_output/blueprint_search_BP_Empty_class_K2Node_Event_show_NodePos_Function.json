@@ -1,0 +1,84 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "blueprint",
+    "search",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--class",
+    "K2Node_Event",
+    "--show",
+    "NodePos,Function"
+  ],
+  "expected": {
+    "classFilter": "K2Node_Event",
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "limit": 0,
+    "matchCount": 3,
+    "matches": [
+      {
+        "className": "K2Node_Event",
+        "export": 6,
+        "function": {
+          "customFunctionName": "",
+          "delegatePropertyName": "",
+          "eventMemberName": "ReceiveBeginPlay",
+          "eventMemberParent": "import:6:<out-of-range>",
+          "eventSignatureName": "",
+          "functionMemberName": "",
+          "functionMemberParent": ""
+        },
+        "graphName": "EventGraph",
+        "nodeGuid": "f6e97335-1ebf-4540-ba1e-ecd21ce65eba",
+        "objectName": "K2Node_Event_0"
+      },
+      {
+        "className": "K2Node_Event",
+        "export": 7,
+        "function": {
+          "customFunctionName": "",
+          "delegatePropertyName": "",
+          "eventMemberName": "ReceiveActorBeginOverlap",
+          "eventMemberParent": "import:6:<out-of-range>",
+          "eventSignatureName": "",
+          "functionMemberName": "",
+          "functionMemberParent": ""
+        },
+        "graphName": "EventGraph",
+        "nodeGuid": "56c4f50f-c58c-4e60-bb20-3d33676875f0",
+        "nodePos": {
+          "x": 0,
+          "y": 208
+        },
+        "objectName": "K2Node_Event_1"
+      },
+      {
+        "className": "K2Node_Event",
+        "export": 8,
+        "function": {
+          "customFunctionName": "",
+          "delegatePropertyName": "",
+          "eventMemberName": "ReceiveTick",
+          "eventMemberParent": "import:6:<out-of-range>",
+          "eventSignatureName": "",
+          "functionMemberName": "",
+          "functionMemberParent": ""
+        },
+        "graphName": "EventGraph",
+        "nodeGuid": "b61ec367-f958-427e-aee1-95ca3d554652",
+        "nodePos": {
+          "x": 0,
+          "y": 416
+        },
+        "objectName": "K2Node_Event_2"
+      }
+    ],
+    "memberFilter": "",
+    "nameFilter": "",
+    "show": [
+      "NodePos",
+      "Function"
+    ],
+    "warnings": []
+  },
+  "name": "blueprint_search_BP_Empty_class_K2Node_Event_show_NodePos_Function"
+}

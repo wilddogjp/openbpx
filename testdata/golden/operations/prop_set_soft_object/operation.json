@@ -1,0 +1,11 @@
+{
+  "command": "prop set",
+  "args": {
+    "export": 1,
+    "path": "FixtureSoft",
+    "value": "{\"packageName\":\"/Game/New\",\"assetName\":\"Asset\"}"
+  },
+  "ue_procedure": "prepare writable soft object fixture and compare against UE output",
+  "expect": "unsupported",
+  "notes": "fixture migration pending for soft object path"
+}
