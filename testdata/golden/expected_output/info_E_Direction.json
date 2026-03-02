@@ -1,0 +1,29 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "info",
+    "testdata/golden/parse/E_Direction.uasset"
+  ],
+  "expected": {
+    "assetKind": "Unknown",
+    "customVersionCount": 4,
+    "engineVersion": {
+      "branch": "",
+      "changelist": 0,
+      "major": 0,
+      "minor": 0,
+      "patch": 0
+    },
+    "exportCount": 1,
+    "file": "testdata/golden/parse/E_Direction.uasset",
+    "fileVersionUE4": 522,
+    "fileVersionUE5": 1017,
+    "importCount": 2,
+    "nameCount": 11,
+    "packageFlags": 0,
+    "packageName": "/Game/BPXFixtures/Parse/E_Direction",
+    "summarySize": 409,
+    "totalHeaderSize": 1104
+  },
+  "name": "info_E_Direction"
+}

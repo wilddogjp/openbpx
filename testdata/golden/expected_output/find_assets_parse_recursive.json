@@ -1,0 +1,48 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "find",
+    "assets",
+    "testdata/golden/parse",
+    "--pattern",
+    "*.uasset",
+    "--recursive"
+  ],
+  "expected": {
+    "assets": [
+      "testdata/golden/parse/BP_AllScalarTypes.uasset",
+      "testdata/golden/parse/BP_Base.uasset",
+      "testdata/golden/parse/BP_Child.uasset",
+      "testdata/golden/parse/BP_Containers.uasset",
+      "testdata/golden/parse/BP_CustomVersions.uasset",
+      "testdata/golden/parse/BP_DependsMap.uasset",
+      "testdata/golden/parse/BP_Empty.uasset",
+      "testdata/golden/parse/BP_Empty_PackageNamespace.uasset",
+      "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+      "testdata/golden/parse/BP_GameplayTags.uasset",
+      "testdata/golden/parse/BP_LargeArray.uasset",
+      "testdata/golden/parse/BP_ManyImports.uasset",
+      "testdata/golden/parse/BP_MathTypes.uasset",
+      "testdata/golden/parse/BP_Mid.uasset",
+      "testdata/golden/parse/BP_Nested.uasset",
+      "testdata/golden/parse/BP_RefTypes.uasset",
+      "testdata/golden/parse/BP_SimpleVars.uasset",
+      "testdata/golden/parse/BP_SoftRefs.uasset",
+      "testdata/golden/parse/BP_Unicode.uasset",
+      "testdata/golden/parse/BP_WithFunctions.uasset",
+      "testdata/golden/parse/BP_WithMetadata.uasset",
+      "testdata/golden/parse/BP_WithThumbnail.uasset",
+      "testdata/golden/parse/DT_Complex.uasset",
+      "testdata/golden/parse/DT_Simple.uasset",
+      "testdata/golden/parse/E_Direction.uasset",
+      "testdata/golden/parse/MI_Chrome.uasset",
+      "testdata/golden/parse/ST_UI.uasset",
+      "testdata/golden/parse/S_PlayerData.uasset"
+    ],
+    "count": 28,
+    "directory": "testdata/golden/parse",
+    "pattern": "*.uasset",
+    "recursive": true
+  },
+  "name": "find_assets_parse_recursive"
+}

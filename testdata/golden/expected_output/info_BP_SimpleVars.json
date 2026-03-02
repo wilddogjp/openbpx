@@ -1,0 +1,29 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "info",
+    "testdata/golden/parse/BP_SimpleVars.uasset"
+  ],
+  "expected": {
+    "assetKind": "Blueprint",
+    "customVersionCount": 10,
+    "engineVersion": {
+      "branch": "",
+      "changelist": 0,
+      "major": 0,
+      "minor": 0,
+      "patch": 0
+    },
+    "exportCount": 12,
+    "file": "testdata/golden/parse/BP_SimpleVars.uasset",
+    "fileVersionUE4": 522,
+    "fileVersionUE5": 1017,
+    "importCount": 15,
+    "nameCount": 103,
+    "packageFlags": 262144,
+    "packageName": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+    "summarySize": 531,
+    "totalHeaderSize": 18370
+  },
+  "name": "info_BP_SimpleVars"
+}

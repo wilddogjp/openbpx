@@ -1,0 +1,29 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "info",
+    "testdata/golden/parse/S_PlayerData.uasset"
+  ],
+  "expected": {
+    "assetKind": "Unknown",
+    "customVersionCount": 5,
+    "engineVersion": {
+      "branch": "",
+      "changelist": 0,
+      "major": 0,
+      "minor": 0,
+      "patch": 0
+    },
+    "exportCount": 2,
+    "file": "testdata/golden/parse/S_PlayerData.uasset",
+    "fileVersionUE4": 522,
+    "fileVersionUE5": 1017,
+    "importCount": 4,
+    "nameCount": 57,
+    "packageFlags": 0,
+    "packageName": "/Game/BPXFixtures/Parse/S_PlayerData",
+    "summarySize": 430,
+    "totalHeaderSize": 2497
+  },
+  "name": "info_S_PlayerData"
+}

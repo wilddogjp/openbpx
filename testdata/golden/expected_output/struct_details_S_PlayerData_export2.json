@@ -1,0 +1,54 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "struct",
+    "details",
+    "testdata/golden/parse/S_PlayerData.uasset",
+    "--export",
+    "2"
+  ],
+  "expected": {
+    "export": {
+      "classIndex": -2,
+      "className": "UserDefinedStructEditorData",
+      "index": 2,
+      "objectName": "UserDefinedStructEditorData_0",
+      "outerIndex": 1,
+      "properties": [
+        {
+          "arrayIndex": 0,
+          "flags": 0,
+          "name": "UniqueNameId",
+          "offset": 2759,
+          "size": 4,
+          "type": "UInt32Property",
+          "value": 1,
+          "valueOffset": 2784
+        },
+        {
+          "arrayIndex": 0,
+          "flags": 0,
+          "name": "VariablesDescriptions",
+          "offset": 2788,
+          "size": 798,
+          "type": "ArrayProperty(StructProperty(StructVariableDescription(/Script/UnrealEd)))",
+          "value": {
+            "arrayType": "StructProperty",
+            "rawBase64": "AQAAADQAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAdAAAAAAAAADIAAAAAAAAAJwAAAAAAAAABAAAAGwAAAAAAAAABAAAAAQAAAAAAAAAAAAAAEAAAAAjTzVJCcUtkRq7E9mPQCXFRGgAAAAAAAAAmAAAAAAAAAAAAAAAQAAAAAAwAAABNZW1iZXJWYXJfMAATAAAAAAAAACYAAAAAAAAAAAAAAAoAAAAABgAAAEZhbHNlABAAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAKAAAAAAAAACkAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAgAAAAAAAAACoAAAAAAAAAJQAAAAAAAAAAAAAABAAAAAAAAAAAIwAAAAAAAAAnAAAAAAAAAAEAAAAVAAAAAAAAAAEAAAACAAAAAAAAAAAAAACyAAAAACsAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAgAAAAAAAAACwAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAgAAAAAAAAAC0AAAAAAAAAIQAAAAAAAAAAAAAABAAAAAAAAAAADAAAAAAAAAALAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAACwAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAARAAAAAAAAABcAAAAAAAAAAgAAABgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAgAAAAAGQAAAAAAAAAFAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAALAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAACwAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAmAAAAAAAAAAAAAAAKAAAAAAYAAABGYWxzZQAuAAAAAAAAACYAAAAAAAAAAAAAAAQAAAAAAAAAAB4AAAAAAAAAHAAAAAAAAAACAAAAHwAAAAAAAAAAAAAAJgAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAAAAAAAAA"
+          },
+          "valueOffset": 2849
+        }
+      ],
+      "serial": {
+        "offset": 2758,
+        "scriptSerializationEnd": 897,
+        "scriptSerializationStart": 0,
+        "size": 901
+      },
+      "superIndex": 0,
+      "warnings": null
+    },
+    "file": "testdata/golden/parse/S_PlayerData.uasset"
+  },
+  "name": "struct_details_S_PlayerData_export2"
+}

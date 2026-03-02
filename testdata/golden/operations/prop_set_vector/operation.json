@@ -1,0 +1,19 @@
+{
+	"command": "prop set",
+	"args":
+	{
+		"export": 5,
+		"path": "FixtureVector",
+		"value": "{\"X\":1.5,\"Y\":-2.3,\"Z\":100.0}"
+	},
+	"ue_procedure": "Set Vector variable",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

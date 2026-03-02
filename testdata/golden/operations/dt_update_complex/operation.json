@@ -1,0 +1,10 @@
+{
+  "command": "datatable update-row",
+  "args": {
+    "row": "Row_A",
+    "values": "{\"Tags\":[\"TagA\",\"TagB\"]}"
+  },
+  "ue_procedure": "update complex row value",
+  "expect": "unsupported",
+  "notes": "datatable update-row is not implemented yet"
+}

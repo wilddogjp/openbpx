@@ -1,0 +1,19 @@
+{
+	"command": "prop set",
+	"args":
+	{
+		"export": 5,
+		"path": "MyArray",
+		"value": "[1,2,3,4,5,6,7,8]"
+	},
+	"ue_procedure": "Replace array with longer payload",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

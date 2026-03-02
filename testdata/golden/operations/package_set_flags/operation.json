@@ -1,0 +1,9 @@
+{
+  "command": "package set-flags",
+  "args": {
+    "flags": "PKG_FilterEditorOnly"
+  },
+  "ue_procedure": "set package flags",
+  "expect": "unsupported",
+  "notes": "package set-flags is not implemented yet"
+}

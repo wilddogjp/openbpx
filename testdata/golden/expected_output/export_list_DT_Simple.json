@@ -1,0 +1,36 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "export",
+    "list",
+    "testdata/golden/parse/DT_Simple.uasset"
+  ],
+  "expected": {
+    "classFilter": "",
+    "count": 2,
+    "exports": [
+      {
+        "classIndex": -1,
+        "className": "AssetImportData",
+        "index": 1,
+        "objectName": "AssetImportData",
+        "outerIndex": 2,
+        "serialOffset": 1417,
+        "serialSize": 20,
+        "superIndex": 0
+      },
+      {
+        "classIndex": -2,
+        "className": "DataTable",
+        "index": 2,
+        "objectName": "DT_Simple",
+        "outerIndex": 0,
+        "serialOffset": 1437,
+        "serialSize": 198,
+        "superIndex": 0
+      }
+    ],
+    "file": "testdata/golden/parse/DT_Simple.uasset"
+  },
+  "name": "export_list_DT_Simple"
+}

@@ -1,0 +1,10 @@
+{
+  "command": "datatable update-row",
+  "args": {
+    "row": "Row_A",
+    "values": "{\"Score\":50,\"Rate\":0.1}"
+  },
+  "ue_procedure": "update multiple columns",
+  "expect": "unsupported",
+  "notes": "datatable update-row is not implemented yet"
+}

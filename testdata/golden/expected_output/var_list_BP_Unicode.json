@@ -1,0 +1,16 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "var",
+    "list",
+    "testdata/golden/parse/BP_Unicode.uasset"
+  ],
+  "expected": {
+    "cdoExport": 3,
+    "count": 0,
+    "file": "testdata/golden/parse/BP_Unicode.uasset",
+    "variables": [],
+    "warnings": []
+  },
+  "name": "var_list_BP_Unicode"
+}

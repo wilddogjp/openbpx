@@ -1,0 +1,18 @@
+{
+	"command": "prop add",
+	"args":
+	{
+		"export": 5,
+		"spec": "{\"name\":\"FixtureInt\",\"type\":\"IntProperty\",\"value\":42}"
+	},
+	"ue_procedure": "Add FixtureInt override tag by changing default 0 -> 42",
+	"expect": "byte_equal",
+	"notes": "Validated by operation-equivalence test.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

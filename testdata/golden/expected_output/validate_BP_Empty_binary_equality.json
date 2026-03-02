@@ -1,0 +1,47 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "validate",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--binary-equality"
+  ],
+  "expected": {
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "result": {
+      "checks": [
+        {
+          "details": "counts are consistent",
+          "name": "table-counts",
+          "passed": true
+        },
+        {
+          "details": "core table offsets are within file",
+          "name": "table-offsets",
+          "passed": true
+        },
+        {
+          "details": "all export serial ranges are valid",
+          "name": "export-serial-ranges",
+          "passed": true
+        },
+        {
+          "details": "all name references are in range",
+          "name": "name-references",
+          "passed": true
+        },
+        {
+          "details": "FileVersionUE5=1017",
+          "name": "ue-version-window",
+          "passed": true
+        },
+        {
+          "details": "no-op bytes are equal and reparsed tables are consistent",
+          "name": "binary-equality",
+          "passed": true
+        }
+      ],
+      "ok": true
+    }
+  },
+  "name": "validate_BP_Empty_binary_equality"
+}

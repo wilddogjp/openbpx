@@ -1,0 +1,10 @@
+{
+  "command": "var rename",
+  "args": {
+    "from": "MyStr",
+    "to": "体力"
+  },
+  "ue_procedure": "rename identifier to unicode name",
+  "expect": "byte_equal",
+  "notes": "NameMap-level rename with UTF-16 FString encoding"
+}

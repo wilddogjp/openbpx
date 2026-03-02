@@ -1,0 +1,31 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "stringtable",
+    "read",
+    "testdata/golden/parse/ST_UI.uasset"
+  ],
+  "expected": {
+    "count": 1,
+    "file": "testdata/golden/parse/ST_UI.uasset",
+    "stringTables": [
+      {
+        "classIndex": -1,
+        "className": "StringTable",
+        "index": 1,
+        "objectName": "ST_UI",
+        "outerIndex": 0,
+        "properties": [],
+        "serial": {
+          "offset": 1058,
+          "scriptSerializationEnd": 9,
+          "scriptSerializationStart": 0,
+          "size": 72
+        },
+        "superIndex": 0,
+        "warnings": null
+      }
+    ]
+  },
+  "name": "stringtable_read_ST_UI"
+}

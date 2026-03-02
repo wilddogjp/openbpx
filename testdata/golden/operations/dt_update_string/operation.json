@@ -1,0 +1,10 @@
+{
+  "command": "datatable update-row",
+  "args": {
+    "row": "Row_A",
+    "values": "{\"Name\":\"NewName\"}"
+  },
+  "ue_procedure": "update one string column",
+  "expect": "unsupported",
+  "notes": "datatable update-row is not implemented yet"
+}

@@ -1,0 +1,125 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "package",
+    "depends",
+    "testdata/golden/parse/BP_DependsMap.uasset"
+  ],
+  "expected": {
+    "dependsMap": [
+      {
+        "dependencies": [],
+        "dependencyCount": 0,
+        "export": 1,
+        "exportName": "BP_DependsMap"
+      },
+      {
+        "dependencies": [],
+        "dependencyCount": 0,
+        "export": 2,
+        "exportName": "BP_DependsMap_C"
+      },
+      {
+        "dependencies": [],
+        "dependencyCount": 0,
+        "export": 3,
+        "exportName": "Default__BP_DependsMap_C"
+      },
+      {
+        "dependencies": [
+          {
+            "index": 6,
+            "resolved": "export:6:K2Node_Event_0"
+          },
+          {
+            "index": 7,
+            "resolved": "export:7:K2Node_Event_1"
+          },
+          {
+            "index": 8,
+            "resolved": "export:8:K2Node_Event_2"
+          }
+        ],
+        "dependencyCount": 3,
+        "export": 4,
+        "exportName": "EventGraph"
+      },
+      {
+        "dependencies": [
+          {
+            "index": 9,
+            "resolved": "export:9:K2Node_FunctionEntry_0"
+          }
+        ],
+        "dependencyCount": 1,
+        "export": 5,
+        "exportName": "UserConstructionScript"
+      },
+      {
+        "dependencies": [
+          {
+            "index": 6,
+            "resolved": "export:6:K2Node_Event_0"
+          }
+        ],
+        "dependencyCount": 1,
+        "export": 6,
+        "exportName": "K2Node_Event_0"
+      },
+      {
+        "dependencies": [
+          {
+            "index": 7,
+            "resolved": "export:7:K2Node_Event_1"
+          }
+        ],
+        "dependencyCount": 1,
+        "export": 7,
+        "exportName": "K2Node_Event_1"
+      },
+      {
+        "dependencies": [
+          {
+            "index": 8,
+            "resolved": "export:8:K2Node_Event_2"
+          }
+        ],
+        "dependencyCount": 1,
+        "export": 8,
+        "exportName": "K2Node_Event_2"
+      },
+      {
+        "dependencies": [
+          {
+            "index": 9,
+            "resolved": "export:9:K2Node_FunctionEntry_0"
+          }
+        ],
+        "dependencyCount": 1,
+        "export": 9,
+        "exportName": "K2Node_FunctionEntry_0"
+      },
+      {
+        "dependencies": [],
+        "dependencyCount": 0,
+        "export": 10,
+        "exportName": "DefaultSceneRoot_GEN_VARIABLE"
+      },
+      {
+        "dependencies": [],
+        "dependencyCount": 0,
+        "export": 11,
+        "exportName": "SCS_Node_0"
+      },
+      {
+        "dependencies": [],
+        "dependencyCount": 0,
+        "export": 12,
+        "exportName": "SimpleConstructionScript_0"
+      }
+    ],
+    "file": "testdata/golden/parse/BP_DependsMap.uasset",
+    "warnings": []
+  },
+  "name": "package_depends_BP_DependsMap"
+}

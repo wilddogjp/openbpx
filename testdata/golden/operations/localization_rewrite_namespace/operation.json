@@ -1,0 +1,10 @@
+{
+  "command": "localization rewrite-namespace",
+  "args": {
+    "from": "SCS",
+    "to": "UI"
+  },
+  "ue_procedure": "rewrite localization namespace across text sources",
+  "expect": "byte_equal",
+  "notes": "Updates TextProperty and GatherableTextData entries"
+}

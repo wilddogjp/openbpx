@@ -1,0 +1,17 @@
+{
+	"command": "datatable remove-row",
+	"args":
+	{
+		"row": "Row_A"
+	},
+	"ue_procedure": "Reject remove-row against CompositeDataTable",
+	"expect": "unsupported",
+	"notes": "UE5.6 UCompositeDataTable::RemoveRow is no-op; bpx rejects writes to composite tables.",
+	"ignore_offsets": [
+		{
+			"offset": 24,
+			"length": 20,
+			"reason": "ue-save-nondeterministic"
+		}
+	]
+}

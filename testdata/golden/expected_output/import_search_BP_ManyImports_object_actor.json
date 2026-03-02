@@ -1,0 +1,42 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "import",
+    "search",
+    "testdata/golden/parse/BP_ManyImports.uasset",
+    "--object",
+    "Actor"
+  ],
+  "expected": {
+    "file": "testdata/golden/parse/BP_ManyImports.uasset",
+    "matchCount": 2,
+    "matchImport": [
+      {
+        "className": "Actor",
+        "classPackage": "/Script/Engine",
+        "importOptional": false,
+        "index": 1,
+        "objectName": "Default__Actor",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 6,
+        "objectName": "Actor",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      }
+    ],
+    "query": {
+      "className": "",
+      "classPackage": "",
+      "object": "Actor"
+    }
+  },
+  "name": "import_search_BP_ManyImports_object_actor"
+}

@@ -1,0 +1,10 @@
+{
+  "command": "stringtable set-namespace",
+  "args": {
+    "export": 1,
+    "namespace": "UI.Common"
+  },
+  "ue_procedure": "set string table namespace",
+  "expect": "byte_equal",
+  "notes": "Serialized FStringTable namespace rewrite"
+}

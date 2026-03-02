@@ -1,0 +1,10 @@
+{
+  "command": "stringtable remove-entry",
+  "args": {
+    "export": 1,
+    "key": "BTN_CANCEL"
+  },
+  "ue_procedure": "remove one key from string table",
+  "expect": "byte_equal",
+  "notes": "Serialized FStringTable payload rewrite"
+}

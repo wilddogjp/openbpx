@@ -1,0 +1,29 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "blueprint",
+    "bytecode",
+    "testdata/golden/parse/BP_WithFunctions.uasset",
+    "--export",
+    "5"
+  ],
+  "expected": {
+    "className": "EdGraph",
+    "dataBase64": "AEoAAAAAAAAAPgAAAAAAAAAAAAAABAAAAAD+////OwAAAAAAAAAFAAAAAAAAAAEAAAA+AAAAAAAAAAAAAAAIAAAAAAEAAAAJAAAABgAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAC4AAAAAAAAATwAAAAAAAAABAAAALwAAAAAAAAABAAAAAQAAAAAAAAAAAAAAEAAAAAhz5gHaUnIxSbthcLOZCbGgPAAAAAAAAAAAAAAA",
+    "export": 5,
+    "file": "testdata/golden/parse/BP_WithFunctions.uasset",
+    "objectName": "UserConstructionScript",
+    "rangeConfidence": "low",
+    "rangeScore": 7,
+    "rangeSource": "serial-full",
+    "scriptEndOffset": 173,
+    "scriptStartOffset": 0,
+    "selectedDataOffset": 19634,
+    "selectedDataSize": 177,
+    "serialOffset": 19634,
+    "serialSize": 177,
+    "truncated": false,
+    "usingScriptRange": false
+  },
+  "name": "blueprint_bytecode_BP_WithFunctions_export5"
+}

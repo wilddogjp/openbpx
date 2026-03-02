@@ -1,0 +1,1489 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "dump",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--format",
+    "json"
+  ],
+  "expected": {
+    "exports": [
+      {
+        "classIndex": -7,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": true,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": true,
+        "notForServer": true,
+        "objectFlags": 11,
+        "objectName": {
+          "index": 16,
+          "number": 0
+        },
+        "outerIndex": 0,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 811,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 18276,
+        "serialSize": 815,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -8,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": true,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 9,
+        "objectName": {
+          "index": 17,
+          "number": 0
+        },
+        "outerIndex": 0,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 38,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 19091,
+        "serialSize": 193,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": -6,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": 2,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 49,
+        "objectName": {
+          "index": 92,
+          "number": 0
+        },
+        "outerIndex": 0,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 9,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 19284,
+        "serialSize": 13,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -9,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 96,
+          "number": 0
+        },
+        "outerIndex": 1,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 181,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 19297,
+        "serialSize": 185,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -9,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 84,
+          "number": 0
+        },
+        "outerIndex": 1,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 173,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 19482,
+        "serialSize": 177,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -3,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 97,
+          "number": 1
+        },
+        "outerIndex": 4,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 466,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 19659,
+        "serialSize": 870,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -3,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 97,
+          "number": 2
+        },
+        "outerIndex": 4,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 495,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 20529,
+        "serialSize": 1145,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -3,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 97,
+          "number": 3
+        },
+        "outerIndex": 4,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 495,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 21674,
+        "serialSize": 1155,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -4,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 98,
+          "number": 1
+        },
+        "outerIndex": 5,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 193,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 22829,
+        "serialSize": 401,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -10,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 41,
+        "objectName": {
+          "index": 93,
+          "number": 0
+        },
+        "outerIndex": 2,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 34,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 23230,
+        "serialSize": 42,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -11,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 102,
+          "number": 1
+        },
+        "outerIndex": 12,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 227,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 23272,
+        "serialSize": 231,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      },
+      {
+        "classIndex": -12,
+        "createBeforeCreateDependencies": 0,
+        "createBeforeSerializationDependencies": 0,
+        "firstExportDependency": -1,
+        "forcedExport": false,
+        "generatePublicHash": false,
+        "isAsset": false,
+        "isInheritedInstance": false,
+        "notAlwaysLoadedForEditor": false,
+        "notForClient": false,
+        "notForServer": false,
+        "objectFlags": 8,
+        "objectName": {
+          "index": 75,
+          "number": 1
+        },
+        "outerIndex": 2,
+        "packageFlags": 0,
+        "scriptSerializationEndOffset": 128,
+        "scriptSerializationStartOffset": 0,
+        "serialOffset": 23503,
+        "serialSize": 132,
+        "serializationBeforeCreateDependencies": 0,
+        "serializationBeforeSerializationDependencies": 0,
+        "superIndex": 0,
+        "templateIndex": 0
+      }
+    ],
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "imports": [
+      {
+        "className": {
+          "index": 87,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 2,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 91,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 95,
+          "number": 0
+        },
+        "outerIndex": -13,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 97,
+          "number": 0
+        },
+        "outerIndex": -13,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 98,
+          "number": 0
+        },
+        "outerIndex": -13,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 99,
+          "number": 0
+        },
+        "outerIndex": -14,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 87,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 88,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 89,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 94,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 101,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 102,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 90,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 75,
+          "number": 0
+        },
+        "outerIndex": -15,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 100,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 86,
+          "number": 0
+        },
+        "outerIndex": 0,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 100,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 1,
+          "number": 0
+        },
+        "outerIndex": 0,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      },
+      {
+        "className": {
+          "index": 100,
+          "number": 0
+        },
+        "classPackage": {
+          "index": 1,
+          "number": 0
+        },
+        "importOptional": false,
+        "objectName": {
+          "index": 2,
+          "number": 0
+        },
+        "outerIndex": 0,
+        "packageName": {
+          "index": 60,
+          "number": 0
+        }
+      }
+    ],
+    "names": [
+      {
+        "casePreservingHash": 24152,
+        "nonCaseHash": 31042,
+        "value": "/Game/BPXFixtures/Parse/BP_Empty"
+      },
+      {
+        "casePreservingHash": 15917,
+        "nonCaseHash": 18936,
+        "value": "/Script/CoreUObject"
+      },
+      {
+        "casePreservingHash": 18821,
+        "nonCaseHash": 16518,
+        "value": "/Script/Engine"
+      },
+      {
+        "casePreservingHash": 31610,
+        "nonCaseHash": 24884,
+        "value": "/Script/SlateCore"
+      },
+      {
+        "casePreservingHash": 17127,
+        "nonCaseHash": 5631,
+        "value": "AllNodes"
+      },
+      {
+        "casePreservingHash": 27107,
+        "nonCaseHash": 45129,
+        "value": "ArrayProperty"
+      },
+      {
+        "casePreservingHash": 60174,
+        "nonCaseHash": 61951,
+        "value": "bAllowDeletion"
+      },
+      {
+        "casePreservingHash": 19493,
+        "nonCaseHash": 11889,
+        "value": "bCommentBubblePinned"
+      },
+      {
+        "casePreservingHash": 15420,
+        "nonCaseHash": 9297,
+        "value": "bCommentBubbleVisible"
+      },
+      {
+        "casePreservingHash": 15196,
+        "nonCaseHash": 44431,
+        "value": "bLegacyNeedToPurgeSkelRefs"
+      },
+      {
+        "casePreservingHash": 21786,
+        "nonCaseHash": 1999,
+        "value": "BlueprintGuid"
+      },
+      {
+        "casePreservingHash": 20896,
+        "nonCaseHash": 57478,
+        "value": "BlueprintInternalUseOnly"
+      },
+      {
+        "casePreservingHash": 11017,
+        "nonCaseHash": 29825,
+        "value": "BlueprintSystemVersion"
+      },
+      {
+        "casePreservingHash": 57234,
+        "nonCaseHash": 4364,
+        "value": "BlueprintType"
+      },
+      {
+        "casePreservingHash": 35504,
+        "nonCaseHash": 1040,
+        "value": "BoolProperty"
+      },
+      {
+        "casePreservingHash": 23440,
+        "nonCaseHash": 62992,
+        "value": "bOverrideFunction"
+      },
+      {
+        "casePreservingHash": 46482,
+        "nonCaseHash": 46388,
+        "value": "BP_Empty"
+      },
+      {
+        "casePreservingHash": 35964,
+        "nonCaseHash": 22165,
+        "value": "BP_Empty_C"
+      },
+      {
+        "casePreservingHash": 55862,
+        "nonCaseHash": 34731,
+        "value": "bVisualizeComponent"
+      },
+      {
+        "casePreservingHash": 49197,
+        "nonCaseHash": 20198,
+        "value": "ByteProperty"
+      },
+      {
+        "casePreservingHash": 50580,
+        "nonCaseHash": 32503,
+        "value": "Category"
+      },
+      {
+        "casePreservingHash": 3160,
+        "nonCaseHash": 13966,
+        "value": "CategoryName"
+      },
+      {
+        "casePreservingHash": 40892,
+        "nonCaseHash": 6602,
+        "value": "Comment"
+      },
+      {
+        "casePreservingHash": 22006,
+        "nonCaseHash": 65073,
+        "value": "ComponentClass"
+      },
+      {
+        "casePreservingHash": 49698,
+        "nonCaseHash": 43732,
+        "value": "ComponentTemplate"
+      },
+      {
+        "casePreservingHash": 30438,
+        "nonCaseHash": 58036,
+        "value": "DefaultGraphNode"
+      },
+      {
+        "casePreservingHash": 1438,
+        "nonCaseHash": 36028,
+        "value": "DefaultSceneRoot"
+      },
+      {
+        "casePreservingHash": 58813,
+        "nonCaseHash": 20538,
+        "value": "DefaultSceneRootNode"
+      },
+      {
+        "casePreservingHash": 36762,
+        "nonCaseHash": 64503,
+        "value": "delegate"
+      },
+      {
+        "casePreservingHash": 891,
+        "nonCaseHash": 21698,
+        "value": "DeltaSeconds"
+      },
+      {
+        "casePreservingHash": 19331,
+        "nonCaseHash": 63077,
+        "value": "DeprecateSlateVector2D"
+      },
+      {
+        "casePreservingHash": 17126,
+        "nonCaseHash": 38266,
+        "value": "DisplayName"
+      },
+      {
+        "casePreservingHash": 64272,
+        "nonCaseHash": 24507,
+        "value": "EditedDocumentInfo"
+      },
+      {
+        "casePreservingHash": 32927,
+        "nonCaseHash": 16846,
+        "value": "EditedObjectPath"
+      },
+      {
+        "casePreservingHash": 56654,
+        "nonCaseHash": 9665,
+        "value": "EnabledState"
+      },
+      {
+        "casePreservingHash": 58948,
+        "nonCaseHash": 439,
+        "value": "Engine"
+      },
+      {
+        "casePreservingHash": 62427,
+        "nonCaseHash": 16518,
+        "value": "ENodeEnabledState"
+      },
+      {
+        "casePreservingHash": 54526,
+        "nonCaseHash": 43953,
+        "value": "ENodeEnabledState::Disabled"
+      },
+      {
+        "casePreservingHash": 16541,
+        "nonCaseHash": 55121,
+        "value": "EnumProperty"
+      },
+      {
+        "casePreservingHash": 44001,
+        "nonCaseHash": 41639,
+        "value": "EventReference"
+      },
+      {
+        "casePreservingHash": 6908,
+        "nonCaseHash": 60028,
+        "value": "exec"
+      },
+      {
+        "casePreservingHash": 52381,
+        "nonCaseHash": 30996,
+        "value": "float"
+      },
+      {
+        "casePreservingHash": 64990,
+        "nonCaseHash": 43003,
+        "value": "FloatProperty"
+      },
+      {
+        "casePreservingHash": 15656,
+        "nonCaseHash": 10564,
+        "value": "FunctionGraphs"
+      },
+      {
+        "casePreservingHash": 5628,
+        "nonCaseHash": 23205,
+        "value": "FunctionReference"
+      },
+      {
+        "casePreservingHash": 21592,
+        "nonCaseHash": 2182,
+        "value": "GeneratedClass"
+      },
+      {
+        "casePreservingHash": 30411,
+        "nonCaseHash": 33442,
+        "value": "GraphGuid"
+      },
+      {
+        "casePreservingHash": 26874,
+        "nonCaseHash": 20547,
+        "value": "Guid"
+      },
+      {
+        "casePreservingHash": 64778,
+        "nonCaseHash": 65341,
+        "value": "InternalVariableName"
+      },
+      {
+        "casePreservingHash": 18998,
+        "nonCaseHash": 54181,
+        "value": "IntProperty"
+      },
+      {
+        "casePreservingHash": 53250,
+        "nonCaseHash": 7692,
+        "value": "LastEditedDocuments"
+      },
+      {
+        "casePreservingHash": 46771,
+        "nonCaseHash": 8076,
+        "value": "MemberName"
+      },
+      {
+        "casePreservingHash": 15485,
+        "nonCaseHash": 59774,
+        "value": "MemberParent"
+      },
+      {
+        "casePreservingHash": 16313,
+        "nonCaseHash": 46718,
+        "value": "MemberReference"
+      },
+      {
+        "casePreservingHash": 24971,
+        "nonCaseHash": 8816,
+        "value": "ModuleRelativePath"
+      },
+      {
+        "casePreservingHash": 18952,
+        "nonCaseHash": 62082,
+        "value": "NameProperty"
+      },
+      {
+        "casePreservingHash": 62303,
+        "nonCaseHash": 9312,
+        "value": "NodeComment"
+      },
+      {
+        "casePreservingHash": 43780,
+        "nonCaseHash": 44241,
+        "value": "NodeGuid"
+      },
+      {
+        "casePreservingHash": 26093,
+        "nonCaseHash": 18034,
+        "value": "NodePosY"
+      },
+      {
+        "casePreservingHash": 27803,
+        "nonCaseHash": 65209,
+        "value": "Nodes"
+      },
+      {
+        "casePreservingHash": 3525,
+        "nonCaseHash": 1012,
+        "value": "None"
+      },
+      {
+        "casePreservingHash": 65431,
+        "nonCaseHash": 19301,
+        "value": "object"
+      },
+      {
+        "casePreservingHash": 60083,
+        "nonCaseHash": 56129,
+        "value": "ObjectProperty"
+      },
+      {
+        "casePreservingHash": 64347,
+        "nonCaseHash": 60607,
+        "value": "OtherActor"
+      },
+      {
+        "casePreservingHash": 19858,
+        "nonCaseHash": 27916,
+        "value": "OutputDelegate"
+      },
+      {
+        "casePreservingHash": 34937,
+        "nonCaseHash": 29714,
+        "value": "PackageLocalizationNamespace"
+      },
+      {
+        "casePreservingHash": 23461,
+        "nonCaseHash": 56600,
+        "value": "ParentClass"
+      },
+      {
+        "casePreservingHash": 11945,
+        "nonCaseHash": 51542,
+        "value": "real"
+      },
+      {
+        "casePreservingHash": 47985,
+        "nonCaseHash": 62953,
+        "value": "ReceiveActorBeginOverlap"
+      },
+      {
+        "casePreservingHash": 51810,
+        "nonCaseHash": 32129,
+        "value": "ReceiveBeginPlay"
+      },
+      {
+        "casePreservingHash": 52988,
+        "nonCaseHash": 20811,
+        "value": "ReceiveTick"
+      },
+      {
+        "casePreservingHash": 22343,
+        "nonCaseHash": 3095,
+        "value": "RootNodes"
+      },
+      {
+        "casePreservingHash": 17644,
+        "nonCaseHash": 51324,
+        "value": "SavedViewOffset"
+      },
+      {
+        "casePreservingHash": 51597,
+        "nonCaseHash": 5727,
+        "value": "SavedZoomAmount"
+      },
+      {
+        "casePreservingHash": 30603,
+        "nonCaseHash": 48127,
+        "value": "Schema"
+      },
+      {
+        "casePreservingHash": 8274,
+        "nonCaseHash": 11028,
+        "value": "SimpleConstructionScript"
+      },
+      {
+        "casePreservingHash": 225,
+        "nonCaseHash": 60285,
+        "value": "SKEL_BP_Empty_C"
+      },
+      {
+        "casePreservingHash": 41435,
+        "nonCaseHash": 41343,
+        "value": "SoftObjectPath"
+      },
+      {
+        "casePreservingHash": 9330,
+        "nonCaseHash": 49467,
+        "value": "StrProperty"
+      },
+      {
+        "casePreservingHash": 64668,
+        "nonCaseHash": 48,
+        "value": "StructProperty"
+      },
+      {
+        "casePreservingHash": 46964,
+        "nonCaseHash": 15044,
+        "value": "TextProperty"
+      },
+      {
+        "casePreservingHash": 32978,
+        "nonCaseHash": 45441,
+        "value": "then"
+      },
+      {
+        "casePreservingHash": 48647,
+        "nonCaseHash": 60085,
+        "value": "ToolTip"
+      },
+      {
+        "casePreservingHash": 13218,
+        "nonCaseHash": 8986,
+        "value": "UbergraphPages"
+      },
+      {
+        "casePreservingHash": 96,
+        "nonCaseHash": 45901,
+        "value": "UserConstructionScript"
+      },
+      {
+        "casePreservingHash": 55934,
+        "nonCaseHash": 38571,
+        "value": "VariableGuid"
+      },
+      {
+        "casePreservingHash": 17532,
+        "nonCaseHash": 56297,
+        "value": "/Script/BlueprintGraph"
+      },
+      {
+        "casePreservingHash": 22819,
+        "nonCaseHash": 53037,
+        "value": "Actor"
+      },
+      {
+        "casePreservingHash": 3379,
+        "nonCaseHash": 14612,
+        "value": "Blueprint"
+      },
+      {
+        "casePreservingHash": 11632,
+        "nonCaseHash": 39721,
+        "value": "BlueprintGeneratedClass"
+      },
+      {
+        "casePreservingHash": 37240,
+        "nonCaseHash": 30580,
+        "value": "Class"
+      },
+      {
+        "casePreservingHash": 37723,
+        "nonCaseHash": 52377,
+        "value": "Default__Actor"
+      },
+      {
+        "casePreservingHash": 44881,
+        "nonCaseHash": 64162,
+        "value": "Default__BP_Empty_C"
+      },
+      {
+        "casePreservingHash": 18564,
+        "nonCaseHash": 32430,
+        "value": "DefaultSceneRoot_GEN_VARIABLE"
+      },
+      {
+        "casePreservingHash": 23988,
+        "nonCaseHash": 28420,
+        "value": "EdGraph"
+      },
+      {
+        "casePreservingHash": 3480,
+        "nonCaseHash": 49592,
+        "value": "EdGraphSchema_K2"
+      },
+      {
+        "casePreservingHash": 23809,
+        "nonCaseHash": 42333,
+        "value": "EventGraph"
+      },
+      {
+        "casePreservingHash": 7002,
+        "nonCaseHash": 34163,
+        "value": "K2Node_Event"
+      },
+      {
+        "casePreservingHash": 10757,
+        "nonCaseHash": 54171,
+        "value": "K2Node_FunctionEntry"
+      },
+      {
+        "casePreservingHash": 493,
+        "nonCaseHash": 19301,
+        "value": "Object"
+      },
+      {
+        "casePreservingHash": 5512,
+        "nonCaseHash": 18291,
+        "value": "Package"
+      },
+      {
+        "casePreservingHash": 24420,
+        "nonCaseHash": 6216,
+        "value": "SceneComponent"
+      },
+      {
+        "casePreservingHash": 50642,
+        "nonCaseHash": 54065,
+        "value": "SCS_Node"
+      }
+    ],
+    "summary": {
+      "CompressedChunks": [],
+      "SavedHash": [
+        83,
+        68,
+        32,
+        115,
+        14,
+        243,
+        147,
+        142,
+        146,
+        207,
+        72,
+        162,
+        53,
+        48,
+        0,
+        245,
+        56,
+        247,
+        144,
+        243
+      ],
+      "additionalPackagesToCook": [],
+      "assetRegistryDataOffset": 7301,
+      "bulkDataStartOffset": 23635,
+      "cellExportCount": 0,
+      "cellExportOffset": 7209,
+      "cellImportCount": 0,
+      "cellImportOffset": 7209,
+      "chunkIds": [],
+      "compatibleEngineVersion": {
+        "branch": "",
+        "changelist": 0,
+        "major": 0,
+        "minor": 0,
+        "patch": 0
+      },
+      "compressionFlags": 0,
+      "customVersions": [
+        {
+          "key": [
+            60,
+            193,
+            94,
+            55,
+            251,
+            72,
+            228,
+            6,
+            240,
+            132,
+            0,
+            181,
+            126,
+            113,
+            42,
+            38
+          ],
+          "version": 4
+        },
+        {
+          "key": [
+            82,
+            93,
+            218,
+            89,
+            72,
+            73,
+            50,
+            18,
+            120,
+            89,
+            120,
+            184,
+            139,
+            233,
+            184,
+            112
+          ],
+          "version": 9
+        },
+        {
+          "key": [
+            134,
+            24,
+            29,
+            96,
+            132,
+            79,
+            100,
+            172,
+            222,
+            211,
+            22,
+            170,
+            214,
+            199,
+            234,
+            13
+          ],
+          "version": 207
+        },
+        {
+          "key": [
+            129,
+            213,
+            125,
+            105,
+            171,
+            65,
+            79,
+            230,
+            236,
+            81,
+            74,
+            170,
+            40,
+            182,
+            183,
+            190
+          ],
+          "version": 121
+        },
+        {
+          "key": [
+            34,
+            213,
+            84,
+            156,
+            190,
+            79,
+            38,
+            168,
+            70,
+            7,
+            33,
+            148,
+            208,
+            130,
+            180,
+            97
+          ],
+          "version": 44
+        },
+        {
+          "key": [
+            228,
+            50,
+            216,
+            176,
+            13,
+            79,
+            137,
+            31,
+            183,
+            126,
+            207,
+            172,
+            162,
+            74,
+            253,
+            54
+          ],
+          "version": 10
+        },
+        {
+          "key": [
+            63,
+            116,
+            252,
+            207,
+            128,
+            68,
+            176,
+            67,
+            223,
+            20,
+            145,
+            147,
+            115,
+            32,
+            29,
+            23
+          ],
+          "version": 37
+        },
+        {
+          "key": [
+            66,
+            94,
+            155,
+            216,
+            70,
+            77,
+            189,
+            36,
+            168,
+            172,
+            18,
+            132,
+            121,
+            23,
+            100,
+            223
+          ],
+          "version": 56
+        },
+        {
+          "key": [
+            237,
+            104,
+            176,
+            228,
+            233,
+            66,
+            148,
+            244,
+            11,
+            218,
+            49,
+            162,
+            65,
+            187,
+            70,
+            46
+          ],
+          "version": 40
+        },
+        {
+          "key": [
+            104,
+            99,
+            8,
+            231,
+            88,
+            76,
+            35,
+            107,
+            112,
+            27,
+            57,
+            132,
+            145,
+            94,
+            38,
+            22
+          ],
+          "version": 17
+        }
+      ],
+      "dataResourceOffset": 0,
+      "dependsOffset": 7209,
+      "exportCount": 12,
+      "exportOffset": 5865,
+      "fileVersionLicenseeUE4": 0,
+      "fileVersionUE4": 522,
+      "fileVersionUE5": 1017,
+      "gatherableTextDataCount": 1,
+      "gatherableTextDataOffset": 3374,
+      "generations": [
+        {
+          "exportCount": 12,
+          "nameCount": 103
+        }
+      ],
+      "importCount": 15,
+      "importOffset": 5265,
+      "legacyFileVersion": -9,
+      "legacyUE3Version": 864,
+      "localizationId": "6B7ED38EFFFC8B11B9023658A331DD55",
+      "metaDataOffset": 3529,
+      "nameCount": 103,
+      "nameOffset": 526,
+      "namesReferencedFromExportDataCount": 86,
+      "packageFlags": 262144,
+      "packageName": "/Game/BPXFixtures/Parse/BP_Empty",
+      "packageSource": 495072423,
+      "payloadTocOffset": 23639,
+      "persistentGuid": [
+        155,
+        93,
+        168,
+        77,
+        99,
+        27,
+        115,
+        75,
+        161,
+        84,
+        158,
+        240,
+        129,
+        74,
+        165,
+        188
+      ],
+      "preloadDependencyCount": -1,
+      "preloadDependencyOffset": 18276,
+      "savedByEngineVersion": {
+        "branch": "",
+        "changelist": 0,
+        "major": 0,
+        "minor": 0,
+        "patch": 0
+      },
+      "searchableNamesOffset": 7297,
+      "softObjectPathsCount": 13,
+      "softObjectPathsOffset": 2863,
+      "softPackageReferencesCount": 1,
+      "softPackageReferencesOffset": 7289,
+      "summarySize": 526,
+      "tag": -1641380927,
+      "thumbnailTableOffset": 0,
+      "totalHeaderSize": 18276,
+      "unversioned": false,
+      "worldTileInfoDataOffset": 0
+    }
+  },
+  "name": "dump_BP_Empty_json"
+}

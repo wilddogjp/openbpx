@@ -1,0 +1,21 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "blueprint",
+    "call-args",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--member",
+    "OpenLevelBySoftObjectPtr"
+  ],
+  "expected": {
+    "allPins": false,
+    "classFilter": "K2Node_CallFunction",
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "includeExec": false,
+    "matchCount": 0,
+    "matches": [],
+    "member": "OpenLevelBySoftObjectPtr",
+    "warnings": []
+  },
+  "name": "blueprint_call_args_BP_Empty_member_OpenLevelBySoftObjectPtr"
+}

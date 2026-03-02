@@ -1,0 +1,1703 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "import",
+    "graph",
+    "testdata/golden/parse",
+    "--recursive",
+    "--group-by",
+    "object"
+  ],
+  "expected": {
+    "directory": "testdata/golden/parse",
+    "edges": [
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Base",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Game/BPXFixtures/Parse/BP_Mid:/Game/BPXFixtures/Parse/BP_Mid"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Game/BPXFixtures/Parse/BP_Mid:BP_Mid_C"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Game/BPXFixtures/Parse/BP_Mid:Default__BP_Mid_C"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/BlueprintGraph:K2Node_CallParentFunction"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Child",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Containers",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_CustomVersions",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_GameplayTags",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_LargeArray",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_ManyImports",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Game/BPXFixtures/Parse/BP_Base:/Game/BPXFixtures/Parse/BP_Base"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Game/BPXFixtures/Parse/BP_Base:BP_Base_C"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Game/BPXFixtures/Parse/BP_Base:Default__BP_Base_C"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/BlueprintGraph:K2Node_CallParentFunction"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Mid",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Nested",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_RefTypes",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SimpleVars",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_Unicode",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithFunctions",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithMetadata",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/BlueprintGraph:/Script/BlueprintGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/BlueprintGraph:EdGraphSchema_K2"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/BlueprintGraph:K2Node_Event"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/BlueprintGraph:K2Node_FunctionEntry"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/CoreUObject:Object"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:Blueprint"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:BlueprintGeneratedClass"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:Default__Actor"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:EdGraph"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:SCS_Node"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:SceneComponent"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/BP_WithThumbnail",
+        "to": "/Script/Engine:SimpleConstructionScript"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Complex",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Complex",
+        "to": "/Script/Engine:AssetImportData"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Complex",
+        "to": "/Script/Engine:DataTable"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Complex",
+        "to": "/Script/Engine:TableRowBase"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Simple",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Simple",
+        "to": "/Script/Engine:AssetImportData"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Simple",
+        "to": "/Script/Engine:DataTable"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/DT_Simple",
+        "to": "/Script/Engine:TableRowBase"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/E_Direction",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/E_Direction",
+        "to": "/Script/Engine:UserDefinedEnum"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/MI_Chrome",
+        "to": "/Engine/EngineMaterials/WorldGridMaterial:/Engine/EngineMaterials/WorldGridMaterial"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/MI_Chrome",
+        "to": "/Engine/EngineMaterials/WorldGridMaterial:WorldGridMaterial"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/MI_Chrome",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/MI_Chrome",
+        "to": "/Script/Engine:MaterialInstanceConstant"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/MI_Chrome",
+        "to": "/Script/Engine:MaterialInstanceEditorOnlyData"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/ST_UI",
+        "to": "/Script/Engine:/Script/Engine"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/ST_UI",
+        "to": "/Script/Engine:StringTable"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/S_PlayerData",
+        "to": "/Script/CoreUObject:/Script/CoreUObject"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/S_PlayerData",
+        "to": "/Script/CoreUObject:UserDefinedStruct"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/S_PlayerData",
+        "to": "/Script/UnrealEd:/Script/UnrealEd"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/S_PlayerData",
+        "to": "/Script/UnrealEd:UserDefinedStructEditorData"
+      }
+    ],
+    "fileCount": 28,
+    "filter": "",
+    "groupBy": "object",
+    "objectCounts": {
+      "/Engine/EngineMaterials/WorldGridMaterial:/Engine/EngineMaterials/WorldGridMaterial": 1,
+      "/Engine/EngineMaterials/WorldGridMaterial:WorldGridMaterial": 1,
+      "/Game/BPXFixtures/Parse/BP_Base:/Game/BPXFixtures/Parse/BP_Base": 1,
+      "/Game/BPXFixtures/Parse/BP_Base:BP_Base_C": 1,
+      "/Game/BPXFixtures/Parse/BP_Base:Default__BP_Base_C": 1,
+      "/Game/BPXFixtures/Parse/BP_Mid:/Game/BPXFixtures/Parse/BP_Mid": 1,
+      "/Game/BPXFixtures/Parse/BP_Mid:BP_Mid_C": 1,
+      "/Game/BPXFixtures/Parse/BP_Mid:Default__BP_Mid_C": 1,
+      "/Script/BlueprintGraph:/Script/BlueprintGraph": 22,
+      "/Script/BlueprintGraph:EdGraphSchema_K2": 22,
+      "/Script/BlueprintGraph:K2Node_CallParentFunction": 2,
+      "/Script/BlueprintGraph:K2Node_Event": 22,
+      "/Script/BlueprintGraph:K2Node_FunctionEntry": 22,
+      "/Script/CoreUObject:/Script/CoreUObject": 23,
+      "/Script/CoreUObject:Object": 22,
+      "/Script/CoreUObject:UserDefinedStruct": 1,
+      "/Script/Engine:/Script/Engine": 27,
+      "/Script/Engine:Actor": 22,
+      "/Script/Engine:AssetImportData": 2,
+      "/Script/Engine:Blueprint": 22,
+      "/Script/Engine:BlueprintGeneratedClass": 22,
+      "/Script/Engine:DataTable": 2,
+      "/Script/Engine:Default__Actor": 20,
+      "/Script/Engine:EdGraph": 22,
+      "/Script/Engine:MaterialInstanceConstant": 1,
+      "/Script/Engine:MaterialInstanceEditorOnlyData": 1,
+      "/Script/Engine:SCS_Node": 22,
+      "/Script/Engine:SceneComponent": 22,
+      "/Script/Engine:SimpleConstructionScript": 22,
+      "/Script/Engine:StringTable": 1,
+      "/Script/Engine:TableRowBase": 2,
+      "/Script/Engine:UserDefinedEnum": 1,
+      "/Script/UnrealEd:/Script/UnrealEd": 1,
+      "/Script/UnrealEd:UserDefinedStructEditorData": 1
+    },
+    "parseFailCount": 0,
+    "parseFailures": [],
+    "pattern": "*.uasset",
+    "recursive": true,
+    "rootCounts": {
+      "/Engine/EngineMaterials": 2,
+      "/Game/BPXFixtures": 6,
+      "/Script/BlueprintGraph": 90,
+      "/Script/CoreUObject": 46,
+      "/Script/Engine": 211,
+      "/Script/UnrealEd": 2
+    }
+  },
+  "name": "import_graph_parse_group_by_object"
+}

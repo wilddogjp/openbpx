@@ -1,0 +1,57 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "find",
+    "summary",
+    "testdata/golden/parse",
+    "--recursive",
+    "--format",
+    "json"
+  ],
+  "expected": {
+    "assetKindCounts": {
+      "Blueprint": 22,
+      "DataTable": 2,
+      "Unknown": 4
+    },
+    "blueprintFiles": [
+      "testdata/golden/parse/BP_AllScalarTypes.uasset",
+      "testdata/golden/parse/BP_Base.uasset",
+      "testdata/golden/parse/BP_Child.uasset",
+      "testdata/golden/parse/BP_Containers.uasset",
+      "testdata/golden/parse/BP_CustomVersions.uasset",
+      "testdata/golden/parse/BP_DependsMap.uasset",
+      "testdata/golden/parse/BP_Empty.uasset",
+      "testdata/golden/parse/BP_Empty_PackageNamespace.uasset",
+      "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
+      "testdata/golden/parse/BP_GameplayTags.uasset",
+      "testdata/golden/parse/BP_LargeArray.uasset",
+      "testdata/golden/parse/BP_ManyImports.uasset",
+      "testdata/golden/parse/BP_MathTypes.uasset",
+      "testdata/golden/parse/BP_Mid.uasset",
+      "testdata/golden/parse/BP_Nested.uasset",
+      "testdata/golden/parse/BP_RefTypes.uasset",
+      "testdata/golden/parse/BP_SimpleVars.uasset",
+      "testdata/golden/parse/BP_SoftRefs.uasset",
+      "testdata/golden/parse/BP_Unicode.uasset",
+      "testdata/golden/parse/BP_WithFunctions.uasset",
+      "testdata/golden/parse/BP_WithMetadata.uasset",
+      "testdata/golden/parse/BP_WithThumbnail.uasset"
+    ],
+    "datatableFiles": [
+      "testdata/golden/parse/DT_Complex.uasset",
+      "testdata/golden/parse/DT_Simple.uasset"
+    ],
+    "directory": "testdata/golden/parse",
+    "fileCount": 28,
+    "parseFailCount": 0,
+    "parseFailures": [],
+    "parsedCount": 28,
+    "pattern": "*.uasset",
+    "recursive": true,
+    "topDirCounts": {
+      ".": 28
+    }
+  },
+  "name": "find_summary_parse_recursive"
+}

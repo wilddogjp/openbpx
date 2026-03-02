@@ -1,0 +1,11 @@
+{
+  "command": "localization rekey",
+  "args": {
+    "from-key": "Default",
+    "namespace": "SCS",
+    "to-key": "MainMenu"
+  },
+  "ue_procedure": "rekey localization IDs within namespace",
+  "expect": "byte_equal",
+  "notes": "Updates TextProperty and GatherableTextData keys"
+}

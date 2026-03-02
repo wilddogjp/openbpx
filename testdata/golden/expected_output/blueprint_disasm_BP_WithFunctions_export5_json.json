@@ -1,0 +1,40 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "blueprint",
+    "disasm",
+    "testdata/golden/parse/BP_WithFunctions.uasset",
+    "--export",
+    "5",
+    "--format",
+    "json"
+  ],
+  "expected": {
+    "className": "EdGraph",
+    "decodeFailedAt": 0,
+    "export": 5,
+    "file": "testdata/golden/parse/BP_WithFunctions.uasset",
+    "instructions": [
+      {
+        "offset": 0,
+        "opcode": "EX_LocalVariable",
+        "token": 0,
+        "vmOffset": 0
+      }
+    ],
+    "objectName": "UserConstructionScript",
+    "rangeConfidence": "low",
+    "rangeScore": 7,
+    "rangeSource": "serial-full",
+    "selectedDataOffset": 19634,
+    "selectedDataSize": 177,
+    "truncated": true,
+    "usingScriptRange": false,
+    "warnings": [
+      "truncated EX_LocalVariable field path at 0x0000",
+      "EX_EndOfScript not found in selected range",
+      "selected range does not end with EX_EndOfScript"
+    ]
+  },
+  "name": "blueprint_disasm_BP_WithFunctions_export5_json"
+}

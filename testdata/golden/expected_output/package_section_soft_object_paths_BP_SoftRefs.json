@@ -1,0 +1,91 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "package",
+    "section",
+    "testdata/golden/parse/BP_SoftRefs.uasset",
+    "--name",
+    "soft-object-paths"
+  ],
+  "expected": {
+    "count": 13,
+    "dataBase64": "AAAAAAAAAAARAAAAAAAAABoAAABTaW1wbGVDb25zdHJ1Y3Rpb25TY3JpcHRfMAAAAAAAAAAAEAAAAAAAAAAWAAAAVXNlckNvbnN0cnVjdGlvblNjcmlwdAAAAAAAAAAAEAAAAAAAAAAKAAAARXZlbnRHcmFwaAAAAAAAAAAAEAAAAAAAAAAtAAAAVXNlckNvbnN0cnVjdGlvblNjcmlwdC5LMk5vZGVfRnVuY3Rpb25FbnRyeV8wAAAAAAAAAABMAAAAAAAAABAAAABSZWNlaXZlQmVnaW5QbGF5AAAAAAAAAABMAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAZAAAARXZlbnRHcmFwaC5LMk5vZGVfRXZlbnRfMAAAAAAAAAAAEAAAAAAAAAAZAAAARXZlbnRHcmFwaC5LMk5vZGVfRXZlbnRfMQAAAAAAAAAAEAAAAAAAAAAZAAAARXZlbnRHcmFwaC5LMk5vZGVfRXZlbnRfMgAAAAAAAAAATAAAAAAAAAAYAAAAUmVjZWl2ZUFjdG9yQmVnaW5PdmVybGFwAAAAAAAAAABMAAAAAAAAAAsAAABSZWNlaXZlVGljawAAAAAAAAAATAAAAAAAAAAWAAAAVXNlckNvbnN0cnVjdGlvblNjcmlwdA==",
+    "endOffset": 3392,
+    "entries": [
+      {
+        "assetName": "BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "SimpleConstructionScript_0"
+      },
+      {
+        "assetName": "BP_SoftRefs",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "UserConstructionScript"
+      },
+      {
+        "assetName": "BP_SoftRefs",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "EventGraph"
+      },
+      {
+        "assetName": "BP_SoftRefs",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "UserConstructionScript.K2Node_FunctionEntry_0"
+      },
+      {
+        "assetName": "SKEL_BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "ReceiveBeginPlay"
+      },
+      {
+        "assetName": "SKEL_BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": ""
+      },
+      {
+        "assetName": "BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": ""
+      },
+      {
+        "assetName": "BP_SoftRefs",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "EventGraph.K2Node_Event_0"
+      },
+      {
+        "assetName": "BP_SoftRefs",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "EventGraph.K2Node_Event_1"
+      },
+      {
+        "assetName": "BP_SoftRefs",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "EventGraph.K2Node_Event_2"
+      },
+      {
+        "assetName": "SKEL_BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "ReceiveActorBeginOverlap"
+      },
+      {
+        "assetName": "SKEL_BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "ReceiveTick"
+      },
+      {
+        "assetName": "SKEL_BP_SoftRefs_C",
+        "packageName": "/Game/BPXFixtures/Parse/BP_SoftRefs",
+        "subPath": "UserConstructionScript"
+      }
+    ],
+    "file": "testdata/golden/parse/BP_SoftRefs.uasset",
+    "offset": 2881,
+    "present": true,
+    "section": "softObjectPaths",
+    "sectionName": "soft-object-paths",
+    "size": 511,
+    "truncated": false,
+    "warnings": []
+  },
+  "name": "package_section_soft_object_paths_BP_SoftRefs"
+}

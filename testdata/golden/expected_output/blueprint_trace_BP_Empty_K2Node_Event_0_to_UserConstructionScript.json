@@ -1,0 +1,34 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "blueprint",
+    "trace",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--from",
+    "K2Node_Event_0",
+    "--to-function",
+    "UserConstructionScript"
+  ],
+  "expected": {
+    "edgeCount": 0,
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "found": false,
+    "from": "K2Node_Event_0",
+    "graphWarning": [],
+    "maxDepth": 128,
+    "nodeCount": 4,
+    "path": [],
+    "pathLength": 0,
+    "startNodes": [
+      {
+        "className": "K2Node_Event",
+        "export": 6,
+        "graphName": "EventGraph",
+        "objectName": "K2Node_Event_0"
+      }
+    ],
+    "toFunction": "UserConstructionScript",
+    "toNode": ""
+  },
+  "name": "blueprint_trace_BP_Empty_K2Node_Event_0_to_UserConstructionScript"
+}

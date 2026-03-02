@@ -1,0 +1,164 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "import",
+    "list",
+    "testdata/golden/parse/BP_ManyImports.uasset"
+  ],
+  "expected": {
+    "file": "testdata/golden/parse/BP_ManyImports.uasset",
+    "imports": [
+      {
+        "className": "Actor",
+        "classPackage": "/Script/Engine",
+        "importOptional": false,
+        "index": 1,
+        "objectName": "Default__Actor",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 2,
+        "objectName": "EdGraphSchema_K2",
+        "outerIndex": -13,
+        "outerResolved": "import:13:/Script/BlueprintGraph",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 3,
+        "objectName": "K2Node_Event",
+        "outerIndex": -13,
+        "outerResolved": "import:13:/Script/BlueprintGraph",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 4,
+        "objectName": "K2Node_FunctionEntry",
+        "outerIndex": -13,
+        "outerResolved": "import:13:/Script/BlueprintGraph",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 5,
+        "objectName": "Object",
+        "outerIndex": -14,
+        "outerResolved": "import:14:/Script/CoreUObject",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 6,
+        "objectName": "Actor",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 7,
+        "objectName": "Blueprint",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 8,
+        "objectName": "BlueprintGeneratedClass",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 9,
+        "objectName": "EdGraph",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 10,
+        "objectName": "SceneComponent",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 11,
+        "objectName": "SCS_Node",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Class",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 12,
+        "objectName": "SimpleConstructionScript",
+        "outerIndex": -15,
+        "outerResolved": "import:15:/Script/Engine",
+        "packageName": "None"
+      },
+      {
+        "className": "Package",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 13,
+        "objectName": "/Script/BlueprintGraph",
+        "outerIndex": 0,
+        "outerResolved": "null",
+        "packageName": "None"
+      },
+      {
+        "className": "Package",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 14,
+        "objectName": "/Script/CoreUObject",
+        "outerIndex": 0,
+        "outerResolved": "null",
+        "packageName": "None"
+      },
+      {
+        "className": "Package",
+        "classPackage": "/Script/CoreUObject",
+        "importOptional": false,
+        "index": 15,
+        "objectName": "/Script/Engine",
+        "outerIndex": 0,
+        "outerResolved": "null",
+        "packageName": "None"
+      }
+    ]
+  },
+  "name": "import_list_BP_ManyImports"
+}

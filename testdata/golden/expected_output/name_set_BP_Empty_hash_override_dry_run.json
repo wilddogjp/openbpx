@@ -1,0 +1,35 @@
+{
+  "oracle": "ue-fixture",
+  "argv": [
+    "name",
+    "set",
+    "testdata/golden/parse/BP_Empty.uasset",
+    "--index",
+    "2",
+    "--value",
+    "/Script/Engine_Renamed",
+    "--non-case-hash",
+    "22136",
+    "--case-preserving-hash",
+    "39612",
+    "--dry-run"
+  ],
+  "expected": {
+    "changed": true,
+    "dryRun": true,
+    "file": "testdata/golden/parse/BP_Empty.uasset",
+    "index": 2,
+    "newEntry": {
+      "casePreservingHash": 39612,
+      "nonCaseHash": 22136,
+      "value": "/Script/Engine_Renamed"
+    },
+    "oldEntry": {
+      "casePreservingHash": 18821,
+      "nonCaseHash": 16518,
+      "value": "/Script/Engine"
+    },
+    "outputBytes": 23695
+  },
+  "name": "name_set_BP_Empty_hash_override_dry_run"
+}

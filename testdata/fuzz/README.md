@@ -1,0 +1,2 @@
+- `corpus/`: initial fuzz inputs
+- `crashers/`: crashing inputs found by fuzzing (keep after fixes for regression)
