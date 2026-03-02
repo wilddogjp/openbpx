@@ -8,7 +8,11 @@ description: Operate and troubleshoot BPX (`bpx`) safely for Unreal Engine packa
 
 - This skill is for users who want to use `bpx` from Claude Code.
 - Assume `bpx` is available on `PATH`.
-- If `bpx` is not installed, use fallback binaries bundled in `.agents/skills/bpx/`.
+- If `bpx` is not installed, install it from GitHub Releases with checksum verification:
+  - Unix-like shells:
+    - `bash ./skills/bpx/scripts/install-bpx-from-release.sh`
+  - PowerShell (Windows):
+    - `pwsh -File ./skills/bpx/scripts/install-bpx-from-release.ps1`
 
 ## Purpose
 

@@ -6,6 +6,17 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ## [Unreleased]
 
+## [0.1.3]
+
+### Added
+
+- Release-based BPX installer scripts for Codex/Claude skill flows (`install-bpx-from-release.sh` / `.ps1`) with SHA-256 verification against release `checksums.txt`.
+
+### Changed
+
+- Removed bundled prebuilt binaries from `.agents/skills/bpx/`.
+- Updated skill and README installation guidance to use release download + checksum verification.
+
 ## [0.1.2]
 
 ### Added

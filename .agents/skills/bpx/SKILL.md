@@ -1,21 +1,19 @@
 ---
 name: bpx
-description: Operate and troubleshoot BPX (`bpx`) for users who already installed the CLI and have it on PATH. Use this skill to run or guide Unreal Engine 5.6 `.uasset` and `.umap` read/write commands safely and explain command output.
+description: Operate and troubleshoot BPX (`bpx`) and guide safe installation from official releases when needed. Use this skill to run or guide Unreal Engine 5.6 `.uasset` and `.umap` read/write commands safely and explain command output.
 ---
 
 # BPX Installed CLI Skill
 
 ## Audience
 
-- This skill is for users who already installed `bpx`.
+- This skill is for users who need to run `bpx` in their local environment.
 - Assume `bpx` is available on `PATH`.
-- If `bpx` is not installed, use the fallback binary in `.agents/skills/bpx/` by this mapping:
-  - `darwin` + `amd64` -> `bpx_darwin_amd64`
-  - `darwin` + `arm64` -> `bpx_darwin_arm64`
-  - `linux` + `amd64` -> `bpx_linux_amd64`
-  - `linux` + `arm64` -> `bpx_linux_arm64`
-  - `windows` + `amd64` -> `bpx_windows_amd64.exe`
-  - `windows` + `arm64` -> `bpx_windows_arm64.exe`
+- If `bpx` is not installed, install it from GitHub Releases with checksum verification:
+  - Unix-like shells:
+    - `bash ./scripts/install-bpx-from-release.sh`
+  - PowerShell (Windows):
+    - `pwsh -File ./scripts/install-bpx-from-release.ps1`
 
 ## Purpose
 
