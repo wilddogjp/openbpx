@@ -22,12 +22,10 @@ builds:
 
 archives:
   - id: default
-    formats:
-      - tar.gz
+    format: tar.gz
     format_overrides:
       - goos: windows
-        formats:
-          - zip
+        format: zip
 
 checksum:
   name_template: "checksums.txt"
