@@ -1,10 +1,18 @@
 param(
     [string]$Version = "",
     [string]$InstallDir = "$HOME\\.local\\bin",
-    [string]$Repo = "wilddogjp/openbpx"
+    [string]$Repo = "wilddogjp/openbpx",
+    [switch]$NoPackageManager,
+    [switch]$PackageManagerOnly,
+    [string]$WingetId = "WilddogJP.OpenBPX"
 )
 
 $ErrorActionPreference = "Stop"
+
+function Write-Log {
+    param([string]$Message)
+    Write-Host "[install-bpx] $Message"
+}
 
 function Normalize-Version {
     param([string]$Raw)
@@ -22,11 +30,57 @@ function Resolve-Arch {
     }
 }
 
+function Try-WingetInstall {
+    param([string]$Id)
+
+    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+        Write-Log "winget not found; skipping winget install"
+        return $false
+    }
+
+    Write-Log "trying winget install: $Id"
+    $installArgs = @("install", "--id", $Id, "--exact", "--accept-package-agreements", "--accept-source-agreements", "--silent")
+    $installProc = Start-Process -FilePath "winget" -ArgumentList $installArgs -NoNewWindow -Wait -PassThru
+    if ($installProc.ExitCode -ne 0) {
+        Write-Log "winget install failed (exit $($installProc.ExitCode))"
+        return $false
+    }
+
+    $cmd = Get-Command bpx -ErrorAction SilentlyContinue
+    if ($cmd) {
+        Write-Log "bpx available from winget: $($cmd.Source)"
+        & bpx version | Out-Host
+        return $true
+    }
+
+    Write-Log "winget succeeded but bpx is not on PATH in this shell"
+    return $false
+}
+
+$usePackageManager = -not $NoPackageManager
+$Version = Normalize-Version $Version
+
+if (-not [string]::IsNullOrWhiteSpace($Version)) {
+    Write-Log "explicit version requested ($Version); skipping package manager step"
+    $usePackageManager = $false
+}
+
+if ($usePackageManager) {
+    if (Try-WingetInstall -Id $WingetId) {
+        return
+    }
+}
+
+if ($PackageManagerOnly) {
+    throw "package-manager-only mode requested, but package manager install did not succeed"
+}
+
 if ([string]::IsNullOrWhiteSpace($Version)) {
     $latest = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/latest"
     $Version = $latest.tag_name
 }
 $Version = Normalize-Version $Version
+
 $versionNoV = $Version.TrimStart('v')
 $arch = Resolve-Arch
 $assetName = "bpx_${versionNoV}_windows_${arch}.zip"
@@ -40,6 +94,7 @@ $assetPath = Join-Path $tmpRoot $assetName
 New-Item -ItemType Directory -Path $tmpRoot -Force | Out-Null
 
 try {
+    Write-Log "downloading release assets: $Version"
     Invoke-WebRequest -Uri "$baseUrl/checksums.txt" -OutFile $checksumPath
     Invoke-WebRequest -Uri "$baseUrl/$assetName" -OutFile $assetPath
 
@@ -66,7 +121,7 @@ try {
     Copy-Item -Path $binary.FullName -Destination $target -Force
 
     Write-Host "Installed: $target"
-    & $target version
+    & $target version | Out-Host
 
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
     if (-not ($currentPath -split ';' | Where-Object { $_ -eq $InstallDir })) {

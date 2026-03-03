@@ -9,11 +9,10 @@ description: Operate and troubleshoot BPX (`bpx`) and guide safe installation fr
 
 - This skill is for users who need to run `bpx` in their local environment.
 - Assume `bpx` is available on `PATH`.
-- If `bpx` is not installed, install it from GitHub Releases with checksum verification:
-  - Unix-like shells:
-    - `bash ./scripts/install-bpx-from-release.sh`
-  - PowerShell (Windows):
-    - `pwsh -File ./scripts/install-bpx-from-release.ps1`
+- If `bpx` is not installed, use one of these commands:
+  - macOS: `brew install --formula https://raw.githubusercontent.com/wilddogjp/openbpx/main/packaging/homebrew/openbpx.rb`
+  - Debian/Ubuntu: `VER=0.1.4; ARCH="$(dpkg --print-architecture)"; curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"; sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"`
+  - Windows: `pwsh -File ./scripts/install-bpx-from-release.ps1` (or `winget install --id WilddogJP.OpenBPX --exact`)
 
 ## Purpose
 

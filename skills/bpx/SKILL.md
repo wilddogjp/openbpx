@@ -8,11 +8,10 @@ description: Operate and troubleshoot BPX (`bpx`) safely for Unreal Engine packa
 
 - This skill is for users who want to use `bpx` from Claude Code.
 - Assume `bpx` is available on `PATH`.
-- If `bpx` is not installed, install it from GitHub Releases with checksum verification:
-  - Unix-like shells:
-    - `bash ./skills/bpx/scripts/install-bpx-from-release.sh`
-  - PowerShell (Windows):
-    - `pwsh -File ./skills/bpx/scripts/install-bpx-from-release.ps1`
+- If `bpx` is not installed, use one of these commands:
+  - macOS: `brew install --formula https://raw.githubusercontent.com/wilddogjp/openbpx/main/packaging/homebrew/openbpx.rb`
+  - Debian/Ubuntu: `VER=0.1.4; ARCH="$(dpkg --print-architecture)"; curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"; sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"`
+  - Windows: `pwsh -File ./skills/bpx/scripts/install-bpx-from-release.ps1` (or `winget install --id WilddogJP.OpenBPX --exact`)
 
 ## Purpose
 

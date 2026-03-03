@@ -27,6 +27,20 @@ archives:
       - goos: windows
         format: zip
 
+nfpms:
+  - id: deb
+    package_name: openbpx
+    file_name_template: "{{ .PackageName }}_{{ .Version }}_{{ .Arch }}"
+    homepage: "https://github.com/wilddogjp/openbpx"
+    maintainer: "Wild Dog, Inc."
+    description: "Blueprint Toolkit CLI for Unreal Engine packages"
+    license: "Apache-2.0"
+    formats:
+      - deb
+    bindir: /usr/local/bin
+    builds:
+      - bpx
+
 checksum:
   name_template: "checksums.txt"
 

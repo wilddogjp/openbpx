@@ -14,7 +14,7 @@ BPX runs on **Windows**, **macOS**, and **Linux**.
 ## Project Status
 
 - Phase: **Alpha**
-- Current CLI version: **0.1.3**
+- Current CLI version: **0.1.4**
 - Supported UE window: **UE 5.0 to UE 5.6** (`FileVersionUE5=1000..1017`)
 - Supported platforms: **Windows / macOS / Linux** (`amd64`, `arm64`)
 - Core principles: **unknown-byte preservation**, **round-trip fidelity**, **safety-first editing**, **UE behavior-grounded implementation**
@@ -22,6 +22,22 @@ BPX runs on **Windows**, **macOS**, and **Linux**.
 ## Install
 
 ### CLI (`bpx`)
+
+#### From package managers
+
+```bash
+# macOS (Homebrew formula hosted in this repository)
+brew install --formula https://raw.githubusercontent.com/wilddogjp/openbpx/main/packaging/homebrew/openbpx.rb
+
+# Debian / Ubuntu (dpkg from GitHub Releases)
+VER=0.1.4
+ARCH="$(dpkg --print-architecture)" # amd64 / arm64
+curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"
+sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"
+
+# Windows
+winget install --id WilddogJP.OpenBPX --exact
+```
 
 #### From source with `go install`
 
@@ -48,7 +64,7 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   --method git
 ```
 
-After installation, restart Codex. If `bpx` is not available on `PATH`, the skill installs it from GitHub Releases with checksum verification.
+After installation, restart Codex. Ensure `bpx` is available on `PATH` before using the skill.
 
 ### Install BPX plugin for Claude Code
 
@@ -59,7 +75,7 @@ cd openbpx
 claude --plugin-dir .
 ```
 
-If `bpx` is not available on `PATH`, the plugin skill installs it from GitHub Releases with checksum verification.
+Ensure `bpx` is available on `PATH` before using the plugin skill. On Windows you can use the helper installer: `pwsh -File ./skills/bpx/scripts/install-bpx-from-release.ps1`.
 
 Use the skill in Claude prompts as `/openbpx:bpx`.
 
@@ -115,6 +131,7 @@ See [SECURITY.md](SECURITY.md) for vulnerability reporting and response policy.
 - [Test Plan and Fixture Specification](docs/test-fixtures.md)
 - [Distribution Build Guide](docs/build-distribution.md)
 - [Disassembly Script Extraction Notes](docs/disasm-script-extraction.md)
+- [Package Manager Publish Guide](docs/dev/package-manager-publish.md)
 
 ## Contributing
 
