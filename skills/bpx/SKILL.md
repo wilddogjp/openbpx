@@ -11,7 +11,7 @@ description: Use this skill when a user asks to inspect, validate, diff, or safe
 - Assume `bpx` is available on `PATH`.
 - If `bpx` is not installed, use one of these commands:
   - macOS: `brew install --formula https://raw.githubusercontent.com/wilddogjp/openbpx/main/packaging/homebrew/openbpx.rb`
-  - Debian/Ubuntu: `VER=0.1.6; ARCH="$(dpkg --print-architecture)"; curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"; sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"`
+  - Debian/Ubuntu: `ARCH="$(dpkg --print-architecture)"; TAG="$(basename "$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/wilddogjp/openbpx/releases/latest)")"; VER="${TAG#v}"; DEB="/tmp/openbpx_${VER}_${ARCH}.deb"; curl -fsSL -o "${DEB}" "https://github.com/wilddogjp/openbpx/releases/download/${TAG}/openbpx_${VER}_${ARCH}.deb"; sudo dpkg -i "${DEB}"`
   - Windows: `winget install --id WilddogJP.OpenBPX --exact`
 
 ## Purpose
