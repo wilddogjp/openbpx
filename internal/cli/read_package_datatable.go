@@ -177,23 +177,17 @@ func normalizePackageSectionName(section string) (string, bool) {
 }
 
 func runDataTable(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx datatable <read|update-row|add-row|remove-row> ...")
-		return 1
-	}
-	switch args[0] {
-	case "read":
-		return runDataTableRead(args[1:], stdout, stderr)
-	case "update-row":
-		return runDataTableUpdateRow(args[1:], stdout, stderr)
-	case "add-row":
-		return runDataTableAddRow(args[1:], stdout, stderr)
-	case "remove-row":
-		return runDataTableRemoveRow(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown datatable command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx datatable <read|update-row|add-row|remove-row> ...",
+		"unknown datatable command: %s\n",
+		subcommandSpec{Name: "read", Run: runDataTableRead},
+		subcommandSpec{Name: "update-row", Run: runDataTableUpdateRow},
+		subcommandSpec{Name: "add-row", Run: runDataTableAddRow},
+		subcommandSpec{Name: "remove-row", Run: runDataTableRemoveRow},
+	)
 }
 
 func runDataTableRead(args []string, stdout, stderr io.Writer) int {

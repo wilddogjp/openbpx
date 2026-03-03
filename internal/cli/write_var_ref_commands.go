@@ -108,17 +108,14 @@ func runVarRename(args []string, stdout, stderr io.Writer) int {
 }
 
 func runRef(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx ref <rewrite> ...")
-		return 1
-	}
-	switch args[0] {
-	case "rewrite":
-		return runRefRewrite(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown ref command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx ref <rewrite> ...",
+		"unknown ref command: %s\n",
+		subcommandSpec{Name: "rewrite", Run: runRefRewrite},
+	)
 }
 
 func runRefRewrite(args []string, stdout, stderr io.Writer) int {

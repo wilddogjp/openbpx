@@ -287,21 +287,16 @@ func runPropRemove(args []string, stdout, stderr io.Writer) int {
 }
 
 func runVar(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx var <list|set-default|rename> ...")
-		return 1
-	}
-	switch args[0] {
-	case "list":
-		return runVarList(args[1:], stdout, stderr)
-	case "set-default":
-		return runVarSetDefault(args[1:], stdout, stderr)
-	case "rename":
-		return runVarRename(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown var command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx var <list|set-default|rename> ...",
+		"unknown var command: %s\n",
+		subcommandSpec{Name: "list", Run: runVarList},
+		subcommandSpec{Name: "set-default", Run: runVarSetDefault},
+		subcommandSpec{Name: "rename", Run: runVarRename},
+	)
 }
 
 func runVarList(args []string, stdout, stderr io.Writer) int {

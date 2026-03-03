@@ -71,33 +71,22 @@ type bytecodeRangeAnalysis struct {
 }
 
 func runBlueprint(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx blueprint <info|bytecode|disasm|trace|call-args|refs|search|scan-functions|infer-pack> ...")
-		return 1
-	}
-	switch args[0] {
-	case "info":
-		return runBlueprintInfo(args[1:], stdout, stderr)
-	case "bytecode":
-		return runBlueprintBytecode(args[1:], stdout, stderr)
-	case "disasm":
-		return runBlueprintDisasm(args[1:], stdout, stderr)
-	case "trace":
-		return runBlueprintTrace(args[1:], stdout, stderr)
-	case "call-args":
-		return runBlueprintCallArgs(args[1:], stdout, stderr)
-	case "refs":
-		return runBlueprintRefs(args[1:], stdout, stderr)
-	case "search":
-		return runBlueprintSearch(args[1:], stdout, stderr)
-	case "scan-functions":
-		return runBlueprintScanFunctions(args[1:], stdout, stderr)
-	case "infer-pack":
-		return runBlueprintInferPack(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown blueprint command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx blueprint <info|bytecode|disasm|trace|call-args|refs|search|scan-functions|infer-pack> ...",
+		"unknown blueprint command: %s\n",
+		subcommandSpec{Name: "info", Run: runBlueprintInfo},
+		subcommandSpec{Name: "bytecode", Run: runBlueprintBytecode},
+		subcommandSpec{Name: "disasm", Run: runBlueprintDisasm},
+		subcommandSpec{Name: "trace", Run: runBlueprintTrace},
+		subcommandSpec{Name: "call-args", Run: runBlueprintCallArgs},
+		subcommandSpec{Name: "refs", Run: runBlueprintRefs},
+		subcommandSpec{Name: "search", Run: runBlueprintSearch},
+		subcommandSpec{Name: "scan-functions", Run: runBlueprintScanFunctions},
+		subcommandSpec{Name: "infer-pack", Run: runBlueprintInferPack},
+	)
 }
 
 func runBlueprintInfo(args []string, stdout, stderr io.Writer) int {
@@ -959,82 +948,84 @@ func runBlueprintScanFunctions(args []string, stdout, stderr io.Writer) int {
 }
 
 func runEnum(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx enum <list|write-value> ...")
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx enum <list|write-value> ...",
+		"unknown enum command: %s\n",
+		subcommandSpec{Name: "list", Run: runEnumList},
+		subcommandSpec{Name: "write-value", Run: runEnumWriteValue},
+	)
+}
+
+func runEnumList(args []string, stdout, stderr io.Writer) int {
+	file, asset, ok := parseSingleAssetCommand(args, "enum list", "usage: bpx enum list <file.uasset>", stderr)
+	if !ok {
 		return 1
 	}
-	switch args[0] {
-	case "list":
-		file, asset, ok := parseSingleAssetCommand(args[1:], "enum list", "usage: bpx enum list <file.uasset>", stderr)
-		if !ok {
-			return 1
-		}
-		items := collectExportsByClassKeyword(asset, []string{"enum"})
-		return printJSON(stdout, map[string]any{
-			"file":  file,
-			"count": len(items),
-			"enums": items,
-		})
-	case "write-value":
-		return runEnumWriteValue(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown enum command: %s\n", args[0])
-		return 1
-	}
+	items := collectExportsByClassKeyword(asset, []string{"enum"})
+	return printJSON(stdout, map[string]any{
+		"file":  file,
+		"count": len(items),
+		"enums": items,
+	})
 }
 
 func runStruct(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx struct <definition|details> ...")
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx struct <definition|details> ...",
+		"unknown struct command: %s\n",
+		subcommandSpec{Name: "definition", Run: runStructDefinition},
+		subcommandSpec{Name: "details", Run: runStructDetails},
+	)
+}
+
+func runStructDefinition(args []string, stdout, stderr io.Writer) int {
+	file, asset, ok := parseSingleAssetCommand(args, "struct definition", "usage: bpx struct definition <file.uasset>", stderr)
+	if !ok {
 		return 1
 	}
-	switch args[0] {
-	case "definition":
-		file, asset, ok := parseSingleAssetCommand(args[1:], "struct definition", "usage: bpx struct definition <file.uasset>", stderr)
-		if !ok {
-			return 1
-		}
-		items := collectExportsByClassKeyword(asset, []string{"struct"})
-		return printJSON(stdout, map[string]any{
-			"file":    file,
-			"count":   len(items),
-			"structs": items,
-		})
-	case "details":
-		return runGenericExportInfo(args[1:], stdout, stderr, "struct details", "usage: bpx struct details <file.uasset> --export <n>")
-	default:
-		fmt.Fprintf(stderr, "unknown struct command: %s\n", args[0])
-		return 1
-	}
+	items := collectExportsByClassKeyword(asset, []string{"struct"})
+	return printJSON(stdout, map[string]any{
+		"file":    file,
+		"count":   len(items),
+		"structs": items,
+	})
+}
+
+func runStructDetails(args []string, stdout, stderr io.Writer) int {
+	return runGenericExportInfo(args, stdout, stderr, "struct details", "usage: bpx struct details <file.uasset> --export <n>")
 }
 
 func runStringTable(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx stringtable <read|write-entry|remove-entry|set-namespace> ...")
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx stringtable <read|write-entry|remove-entry|set-namespace> ...",
+		"unknown stringtable command: %s\n",
+		subcommandSpec{Name: "read", Run: runStringTableRead},
+		subcommandSpec{Name: "write-entry", Run: runStringTableWriteEntry},
+		subcommandSpec{Name: "remove-entry", Run: runStringTableRemoveEntry},
+		subcommandSpec{Name: "set-namespace", Run: runStringTableSetNamespace},
+	)
+}
+
+func runStringTableRead(args []string, stdout, stderr io.Writer) int {
+	file, asset, ok := parseSingleAssetCommand(args, "stringtable read", "usage: bpx stringtable read <file.uasset>", stderr)
+	if !ok {
 		return 1
 	}
-	switch args[0] {
-	case "read":
-		file, asset, ok := parseSingleAssetCommand(args[1:], "stringtable read", "usage: bpx stringtable read <file.uasset>", stderr)
-		if !ok {
-			return 1
-		}
-		items := collectExportsByClassKeyword(asset, []string{"stringtable"})
-		return printJSON(stdout, map[string]any{
-			"file":         file,
-			"stringTables": items,
-			"count":        len(items),
-		})
-	case "write-entry":
-		return runStringTableWriteEntry(args[1:], stdout, stderr)
-	case "remove-entry":
-		return runStringTableRemoveEntry(args[1:], stdout, stderr)
-	case "set-namespace":
-		return runStringTableSetNamespace(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown stringtable command: %s\n", args[0])
-		return 1
-	}
+	items := collectExportsByClassKeyword(asset, []string{"stringtable"})
+	return printJSON(stdout, map[string]any{
+		"file":         file,
+		"stringTables": items,
+		"count":        len(items),
+	})
 }
 
 func runClass(args []string, stdout, stderr io.Writer) int {
@@ -1046,21 +1037,20 @@ func runClass(args []string, stdout, stderr io.Writer) int {
 }
 
 func runLevel(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx level <info|var-list|var-set> ...")
-		return 1
-	}
-	switch args[0] {
-	case "info":
-		return runGenericExportInfo(args[1:], stdout, stderr, "level info", "usage: bpx level info <file.umap> --export <n>")
-	case "var-list":
-		return runLevelVarList(args[1:], stdout, stderr)
-	case "var-set":
-		return runLevelVarSet(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown level command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx level <info|var-list|var-set> ...",
+		"unknown level command: %s\n",
+		subcommandSpec{Name: "info", Run: runLevelInfo},
+		subcommandSpec{Name: "var-list", Run: runLevelVarList},
+		subcommandSpec{Name: "var-set", Run: runLevelVarSet},
+	)
+}
+
+func runLevelInfo(args []string, stdout, stderr io.Writer) int {
+	return runGenericExportInfo(args, stdout, stderr, "level info", "usage: bpx level info <file.umap> --export <n>")
 }
 
 func runRaw(args []string, stdout, stderr io.Writer) int {

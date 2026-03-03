@@ -33,6 +33,7 @@ Use implemented BPX commands safely for UE 5.x assets, with round-trip safety an
 ## Standard Workflow
 
 1. Confirm target file and command shape from built-in help (`bpx help` / `bpx help <command>`).
+   - Prefer `bpx help <command>` before execution. It includes subcommand-level behavior details (for example `bpx help prop` explains `list` / `set` / `add` / `remove` behavior).
 2. Run read commands to identify exact export/path/row/key targets.
 3. Run the write command with `--dry-run`.
 4. If output is correct, run the real write with `--backup`.

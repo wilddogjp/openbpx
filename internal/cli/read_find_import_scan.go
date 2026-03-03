@@ -11,19 +11,15 @@ import (
 )
 
 func runFind(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx find <assets|summary> ...")
-		return 1
-	}
-	switch args[0] {
-	case "assets":
-		return runFindAssets(args[1:], stdout, stderr)
-	case "summary":
-		return runFindSummary(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown find command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx find <assets|summary> ...",
+		"unknown find command: %s\n",
+		subcommandSpec{Name: "assets", Run: runFindAssets},
+		subcommandSpec{Name: "summary", Run: runFindSummary},
+	)
 }
 
 func runFindAssets(args []string, stdout, stderr io.Writer) int {
@@ -56,21 +52,16 @@ func runFindAssets(args []string, stdout, stderr io.Writer) int {
 }
 
 func runImport(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx import <list|search|graph> ...")
-		return 1
-	}
-	switch args[0] {
-	case "list":
-		return runImportList(args[1:], stdout, stderr)
-	case "search":
-		return runImportSearch(args[1:], stdout, stderr)
-	case "graph":
-		return runImportGraph(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown import command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx import <list|search|graph> ...",
+		"unknown import command: %s\n",
+		subcommandSpec{Name: "list", Run: runImportList},
+		subcommandSpec{Name: "search", Run: runImportSearch},
+		subcommandSpec{Name: "graph", Run: runImportGraph},
+	)
 }
 
 func runImportList(args []string, stdout, stderr io.Writer) int {

@@ -8,6 +8,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"testing"
 
@@ -215,6 +216,9 @@ func TestRunHelpRootListsHelpAndWriteCommands(t *testing.T) {
 	if !strings.Contains(stdout.String(), "bpx export set-header") {
 		t.Fatalf("expected write command usage in root help, got: %s", stdout.String())
 	}
+	if !strings.Contains(stdout.String(), "`bpx help <command>` shows usage plus command behavior details.") {
+		t.Fatalf("expected detailed help tip in root help, got: %s", stdout.String())
+	}
 }
 
 func TestRunHelpTopicShowsMetadataCommands(t *testing.T) {
@@ -268,6 +272,51 @@ func TestRunHelpImportShowsPatternOnGraph(t *testing.T) {
 	out := stdout.String()
 	if !strings.Contains(out, "bpx import graph <directory> [--pattern \"*.uasset\"]") {
 		t.Fatalf("expected import graph pattern usage, got: %s", out)
+	}
+}
+
+func TestRunHelpPropShowsBehaviorDetails(t *testing.T) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	code := Run([]string{"help", "prop"}, &stdout, &stderr)
+	if code != 0 {
+		t.Fatalf("exit code: got %d want 0", code)
+	}
+	if stderr.Len() != 0 {
+		t.Fatalf("unexpected stderr: %s", stderr.String())
+	}
+	out := stdout.String()
+	if !strings.Contains(out, "Behavior:") {
+		t.Fatalf("expected behavior section, got: %s", out)
+	}
+	if !strings.Contains(out, "`set`: updates an existing property value at --path.") {
+		t.Fatalf("expected prop set behavior detail, got: %s", out)
+	}
+	if !strings.Contains(out, "`remove`: removes a property at --path.") {
+		t.Fatalf("expected prop remove behavior detail, got: %s", out)
+	}
+}
+
+func TestHelpTopicBehaviorLinesCoverAllTopics(t *testing.T) {
+	topics := make(map[string]struct{})
+	for _, category := range helpCatalog() {
+		for _, line := range category.Lines {
+			topic := usageTopicFromLine(line)
+			if topic != "" {
+				topics[topic] = struct{}{}
+			}
+		}
+	}
+
+	missing := make([]string, 0)
+	for topic := range topics {
+		if len(helpTopicBehaviorLines(topic)) == 0 {
+			missing = append(missing, topic)
+		}
+	}
+	sort.Strings(missing)
+	if len(missing) > 0 {
+		t.Fatalf("missing behavior help for topics: %s", strings.Join(missing, ", "))
 	}
 }
 

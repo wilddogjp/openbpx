@@ -13,23 +13,17 @@ import (
 )
 
 func runName(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx name <list|add|set|remove> ...")
-		return 1
-	}
-	switch args[0] {
-	case "list":
-		return runNameList(args[1:], stdout, stderr)
-	case "add":
-		return runNameAdd(args[1:], stdout, stderr)
-	case "set":
-		return runNameSet(args[1:], stdout, stderr)
-	case "remove":
-		return runNameRemove(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown name command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx name <list|add|set|remove> ...",
+		"unknown name command: %s\n",
+		subcommandSpec{Name: "list", Run: runNameList},
+		subcommandSpec{Name: "add", Run: runNameAdd},
+		subcommandSpec{Name: "set", Run: runNameSet},
+		subcommandSpec{Name: "remove", Run: runNameRemove},
+	)
 }
 
 func runNameList(args []string, stdout, stderr io.Writer) int {

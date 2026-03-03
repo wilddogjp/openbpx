@@ -71,31 +71,21 @@ type gatherableTextSourceSiteContext struct {
 }
 
 func runLocalization(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx localization <read|query|resolve|set-source|set-id|set-stringtable-ref|rewrite-namespace|rekey> ...")
-		return 1
-	}
-	switch args[0] {
-	case "read":
-		return runLocalizationRead(args[1:], stdout, stderr)
-	case "query":
-		return runLocalizationQuery(args[1:], stdout, stderr)
-	case "resolve":
-		return runLocalizationResolve(args[1:], stdout, stderr)
-	case "set-source":
-		return runLocalizationSetSource(args[1:], stdout, stderr)
-	case "set-id":
-		return runLocalizationSetID(args[1:], stdout, stderr)
-	case "set-stringtable-ref":
-		return runLocalizationSetStringTableRef(args[1:], stdout, stderr)
-	case "rewrite-namespace":
-		return runLocalizationRewriteNamespace(args[1:], stdout, stderr)
-	case "rekey":
-		return runLocalizationRekey(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown localization command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx localization <read|query|resolve|set-source|set-id|set-stringtable-ref|rewrite-namespace|rekey> ...",
+		"unknown localization command: %s\n",
+		subcommandSpec{Name: "read", Run: runLocalizationRead},
+		subcommandSpec{Name: "query", Run: runLocalizationQuery},
+		subcommandSpec{Name: "resolve", Run: runLocalizationResolve},
+		subcommandSpec{Name: "set-source", Run: runLocalizationSetSource},
+		subcommandSpec{Name: "set-id", Run: runLocalizationSetID},
+		subcommandSpec{Name: "set-stringtable-ref", Run: runLocalizationSetStringTableRef},
+		subcommandSpec{Name: "rewrite-namespace", Run: runLocalizationRewriteNamespace},
+		subcommandSpec{Name: "rekey", Run: runLocalizationRekey},
+	)
 }
 
 func runLocalizationRead(args []string, stdout, stderr io.Writer) int {

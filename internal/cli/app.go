@@ -276,21 +276,16 @@ func runInfo(args []string, stdout, stderr io.Writer) int {
 }
 
 func runExport(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx export <list|info|set-header> ...")
-		return 1
-	}
-	switch args[0] {
-	case "list":
-		return runExportList(args[1:], stdout, stderr)
-	case "info":
-		return runExportInfo(args[1:], stdout, stderr)
-	case "set-header":
-		return runExportSetHeader(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown export command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx export <list|info|set-header> ...",
+		"unknown export command: %s\n",
+		subcommandSpec{Name: "list", Run: runExportList},
+		subcommandSpec{Name: "info", Run: runExportInfo},
+		subcommandSpec{Name: "set-header", Run: runExportSetHeader},
+	)
 }
 
 func runExportList(args []string, stdout, stderr io.Writer) int {
@@ -420,23 +415,17 @@ func runExportInfo(args []string, stdout, stderr io.Writer) int {
 }
 
 func runProp(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx prop <list|set|add|remove> ...")
-		return 1
-	}
-	switch args[0] {
-	case "list":
-		return runPropList(args[1:], stdout, stderr)
-	case "set":
-		return runPropSet(args[1:], stdout, stderr)
-	case "add":
-		return runPropAdd(args[1:], stdout, stderr)
-	case "remove":
-		return runPropRemove(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown prop command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx prop <list|set|add|remove> ...",
+		"unknown prop command: %s\n",
+		subcommandSpec{Name: "list", Run: runPropList},
+		subcommandSpec{Name: "set", Run: runPropSet},
+		subcommandSpec{Name: "add", Run: runPropAdd},
+		subcommandSpec{Name: "remove", Run: runPropRemove},
+	)
 }
 
 func runPropList(args []string, stdout, stderr io.Writer) int {
@@ -477,27 +466,19 @@ func runPropList(args []string, stdout, stderr io.Writer) int {
 }
 
 func runPackage(args []string, stdout, stderr io.Writer) int {
-	if len(args) == 0 {
-		fmt.Fprintln(stderr, "usage: bpx package <meta|custom-versions|depends|resolve-index|section|set-flags> ...")
-		return 1
-	}
-	switch args[0] {
-	case "meta":
-		return runPackageMeta(args[1:], stdout, stderr)
-	case "custom-versions":
-		return runPackageCustomVersions(args[1:], stdout, stderr)
-	case "depends":
-		return runPackageDepends(args[1:], stdout, stderr)
-	case "resolve-index":
-		return runPackageResolveIndex(args[1:], stdout, stderr)
-	case "section":
-		return runPackageSection(args[1:], stdout, stderr)
-	case "set-flags":
-		return runPackageSetFlags(args[1:], stdout, stderr)
-	default:
-		fmt.Fprintf(stderr, "unknown package command: %s\n", args[0])
-		return 1
-	}
+	return dispatchSubcommand(
+		args,
+		stdout,
+		stderr,
+		"usage: bpx package <meta|custom-versions|depends|resolve-index|section|set-flags> ...",
+		"unknown package command: %s\n",
+		subcommandSpec{Name: "meta", Run: runPackageMeta},
+		subcommandSpec{Name: "custom-versions", Run: runPackageCustomVersions},
+		subcommandSpec{Name: "depends", Run: runPackageDepends},
+		subcommandSpec{Name: "resolve-index", Run: runPackageResolveIndex},
+		subcommandSpec{Name: "section", Run: runPackageSection},
+		subcommandSpec{Name: "set-flags", Run: runPackageSetFlags},
+	)
 }
 
 func runPackageMeta(args []string, stdout, stderr io.Writer) int {
@@ -784,6 +765,9 @@ func printRootUsage(w io.Writer) {
 	fmt.Fprintln(w, "  bpx help [command]")
 	fmt.Fprintln(w, "  bpx <command> help")
 	fmt.Fprintln(w, "")
+	fmt.Fprintln(w, "Help tips:")
+	fmt.Fprintln(w, "  `bpx help <command>` shows usage plus command behavior details.")
+	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, "Parse behavior:")
 	fmt.Fprintln(w, "  Unknown-byte preservation is always enabled (fixed).")
 	fmt.Fprintln(w, "")
@@ -818,6 +802,13 @@ func printTopicUsage(w io.Writer, topic string) bool {
 	fmt.Fprintln(w, "Usage:")
 	for _, line := range lines {
 		fmt.Fprintf(w, "  %s\n", line)
+	}
+	if behaviorLines := helpTopicBehaviorLines(topic); len(behaviorLines) > 0 {
+		fmt.Fprintln(w, "")
+		fmt.Fprintln(w, "Behavior:")
+		for _, line := range behaviorLines {
+			fmt.Fprintf(w, "  %s\n", line)
+		}
 	}
 	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, "Parse behavior:")
@@ -958,6 +949,152 @@ func helpTopicSummary(topic string) string {
 		return "Rewrite package bytes to a target file while preserving structure."
 	default:
 		return ""
+	}
+}
+
+func helpTopicBehaviorLines(topic string) []string {
+	switch topic {
+	case "version":
+		return []string{
+			"Prints the CLI semantic version string and exits.",
+		}
+	case "find":
+		return []string{
+			"`assets`: collects files matching --pattern under a directory.",
+			"`summary`: parses each match and reports parse summary + parse failures.",
+		}
+	case "info":
+		return []string{
+			"Parses one package and prints summary metadata and table counts.",
+		}
+	case "dump":
+		return []string{
+			"Emits Summary/NameMap/ImportMap/ExportMap payload for one package.",
+			"Supports --format json|toml|yaml and optional --out file write.",
+		}
+	case "validate":
+		return []string{
+			"Runs parse and consistency checks for one package.",
+			"`--binary-equality` also checks no-op rewrite byte equality.",
+			"Returns exit code 2 when validation result is not OK.",
+		}
+	case "export":
+		return []string{
+			"`list`: lists export headers with class/object/serial info.",
+			"`info`: inspects one export header by --export index.",
+			"`set-header`: updates selected export header fields (write command).",
+		}
+	case "import":
+		return []string{
+			"`list`: lists ImportMap entries for one package.",
+			"`search`: filters imports by object/class tokens.",
+			"`graph`: aggregates import dependency edges across a directory.",
+		}
+	case "prop":
+		return []string{
+			"`list`: decodes properties for one export and includes warnings.",
+			"`set`: updates an existing property value at --path.",
+			"`add`: appends a new top-level property from --spec JSON.",
+			"`remove`: removes a property at --path.",
+		}
+	case "write":
+		return []string{
+			"Rewrites parsed package bytes to --out using current in-memory structure.",
+			"`--dry-run` reports changed/bytes without writing files.",
+		}
+	case "var":
+		return []string{
+			"`list`: merges CDO defaults with declaration metadata.",
+			"`set-default`: writes a variable default on CDO properties.",
+			"`rename`: rewrites matching NameMap entries from --from to --to.",
+		}
+	case "ref":
+		return []string{
+			"`rewrite`: replaces reference tokens across NameMap and decodable properties.",
+		}
+	case "name":
+		return []string{
+			"`list`: lists NameMap entries and hashes.",
+			"`add`: appends a new NameMap entry.",
+			"`set`: rewrites one NameMap entry by index.",
+			"`remove`: removes tail NameMap entry only when safety checks pass.",
+		}
+	case "package":
+		return []string{
+			"`meta`: shows package GUID/flags/version/offset summary.",
+			"`custom-versions`: lists custom version GUID/version pairs.",
+			"`depends`: decodes DependsMap entries.",
+			"`resolve-index`: classifies and resolves signed FPackageIndex.",
+			"`section`: reads one raw package section by --name.",
+			"`set-flags`: rewrites package flags within supported safe scope.",
+		}
+	case "localization":
+		return []string{
+			"`read`: enumerates TextProperty + GatherableTextData entries.",
+			"`query`: filters entries by namespace/key/text/history type.",
+			"`resolve`: previews localized strings for --culture (optional .locres).",
+			"`set-source`/`set-id`/`set-stringtable-ref`: updates existing text data.",
+			"`rewrite-namespace`/`rekey`: bulk-rewrites namespace or key values.",
+		}
+	case "datatable":
+		return []string{
+			"`read`: decodes DataTable/CurveTable/CompositeDataTable rows.",
+			"`update-row`: patches fields in an existing row.",
+			"`add-row`: appends a new row (using existing NameMap entries).",
+			"`remove-row`: removes a row by name.",
+		}
+	case "blueprint":
+		return []string{
+			"`info`: summarizes blueprint/function exports.",
+			"`bytecode`: extracts selected bytecode range as base64.",
+			"`disasm`: disassembles bytecode (json|toml|text, optional analysis).",
+			"`trace`: traces an execution path between nodes.",
+			"`call-args`: inspects call-node argument pins/defaults.",
+			"`refs`: reverse-searches soft-path usage on node pins.",
+			"`search`: token-searches nodes/pins in one blueprint package.",
+			"`scan-functions`: aggregates function names across a directory.",
+			"`infer-pack`: emits CFG/callsite/def-use inference artifacts.",
+		}
+	case "enum":
+		return []string{
+			"`list`: enumerates enum exports.",
+			"`write-value`: updates an existing enum entry value.",
+		}
+	case "struct":
+		return []string{
+			"`definition`: lists struct-like exports.",
+			"`details`: inspects one struct export by --export index.",
+		}
+	case "stringtable":
+		return []string{
+			"`read`: lists string table exports.",
+			"`write-entry`: updates an existing key value.",
+			"`remove-entry`: removes an existing key.",
+			"`set-namespace`: rewrites string table namespace.",
+		}
+	case "class":
+		return []string{
+			"Inspects one class export payload/header by --export index.",
+		}
+	case "level":
+		return []string{
+			"`info`: inspects one level export.",
+			"`var-list`: decodes actor properties selected by --actor.",
+			"`var-set`: updates one actor property at --path.",
+		}
+	case "raw":
+		return []string{
+			"Reads raw serial payload bytes for one export.",
+			"`--full` includes the complete base64 payload.",
+		}
+	case "metadata":
+		return []string{
+			"Default form reads one metadata export by --export index.",
+			"`set-root`: updates root metadata key/value.",
+			"`set-object`: updates metadata for one import key/value.",
+		}
+	default:
+		return nil
 	}
 }
 

@@ -2,6 +2,14 @@
 
 This document defines `bpx` capabilities by implementation phase and risk level.
 
+## Built-in Help
+
+- Use `bpx help` to list all commands.
+- Use `bpx help <command>` (or `bpx <command> help`) to see:
+  - command-specific usage lines
+  - behavior details for each subcommand (for example `bpx help prop` shows `list`/`set`/`add`/`remove` behavior)
+  - shared safety/output notes (`--format`, `--dry-run`, `--backup`)
+
 ## Read / Validate Commands
 
 These are read/validate commands (implemented plus planned additions).
