@@ -1,17 +1,18 @@
 ---
-description: Operate and troubleshoot BPX (`bpx`) safely for Unreal Engine package assets. Use this skill to run read/write commands with explicit safety checks and predictable output.
+name: bpx
+description: Use this skill when a user asks to inspect, validate, diff, or safely edit Unreal Engine `.uasset` / `.umap` assets with `bpx` (including `prop`, `datatable`, `stringtable`, `metadata`, `blueprint disasm`, `infer-pack`, `level`, `import/export`, `ref rewrite`). Also trigger for BPX install/troubleshooting, command-output interpretation, or Japanese requests like uasset解析・umap編集・DataTable更新・Blueprint逆アセンブル.
 ---
 
-# BPX Claude Plugin Skill
+# BPX Skill
 
 ## Audience
 
-- This skill is for users who want to use `bpx` from Claude Code.
+- This skill is for users who want to use `bpx` from Codex and Claude Code.
 - Assume `bpx` is available on `PATH`.
 - If `bpx` is not installed, use one of these commands:
   - macOS: `brew install --formula https://raw.githubusercontent.com/wilddogjp/openbpx/main/packaging/homebrew/openbpx.rb`
-  - Debian/Ubuntu: `VER=0.1.4; ARCH="$(dpkg --print-architecture)"; curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"; sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"`
-  - Windows: `pwsh -File ./skills/bpx/scripts/install-bpx-from-release.ps1` (or `winget install --id WilddogJP.OpenBPX --exact`)
+  - Debian/Ubuntu: `VER=0.1.5; ARCH="$(dpkg --print-architecture)"; curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"; sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"`
+  - Windows: `winget install --id WilddogJP.OpenBPX --exact`
 
 ## Purpose
 

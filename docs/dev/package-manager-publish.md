@@ -12,8 +12,7 @@ This document tracks how OpenBPX is published to package managers and how Skill 
 
 ## Current Installer Behavior
 
-- macOS/Linux: users install manually via package manager instructions in `README.md`.
-- Windows PowerShell helper installer: `winget` first, release fallback second.
+- Users install manually via package manager instructions in `README.md`.
 
 ## Publish Targets
 
@@ -49,5 +48,4 @@ This document tracks how OpenBPX is published to package managers and how Skill 
 2. Update Homebrew formula in `openbpx` and verify raw-URL install.
 3. Verify `.deb` assets are present in the GitHub Release.
 4. Submit WinGet manifest update.
-5. Smoke test installer helper:
-   - `.agents/skills/bpx/scripts/install-bpx-from-release.ps1`
+5. Smoke test package-manager installation commands on each target platform.

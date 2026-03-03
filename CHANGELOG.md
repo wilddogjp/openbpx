@@ -6,6 +6,15 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ## [Unreleased]
 
+## [0.1.5]
+
+### Changed
+
+- BPX CLI and plugin version strings updated to `0.1.5`.
+- Removed helper installer scripts from skill/plugin paths (`install-bpx-from-release.ps1`); package-manager install flow is now standard (`brew` / `dpkg` / `winget`).
+- Consolidated skill definition to a single file at `skills/bpx/SKILL.md` and updated Codex install path accordingly.
+- Updated BPX skill description to improve trigger coverage for asset inspection/edit requests.
+
 ## [0.1.4]
 
 ### Added
@@ -18,7 +27,7 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 - BPX CLI and plugin version strings updated to `0.1.4`.
 - Skill installation guidance is now self-contained in each `SKILL.md` without README indirection.
 - Linux installation guidance standardized on `.deb` + `dpkg` from GitHub Releases.
-- Removed Unix helper installer script (`install-bpx-from-release.sh`) from skill/plugin paths; Windows PowerShell helper remains.
+- Removed helper installer scripts (`install-bpx-from-release.sh` / `.ps1`) from skill/plugin paths; installation now assumes package-manager availability (`brew` / `dpkg` / `winget`).
 - Public export allowlist updated to include package-manager docs and Homebrew formula path.
 
 ## [0.1.3]

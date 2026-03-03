@@ -14,7 +14,7 @@ BPX runs on **Windows**, **macOS**, and **Linux**.
 ## Project Status
 
 - Phase: **Alpha**
-- Current CLI version: **0.1.4**
+- Current CLI version: **0.1.5**
 - Supported UE window: **UE 5.0 to UE 5.6** (`FileVersionUE5=1000..1017`)
 - Supported platforms: **Windows / macOS / Linux** (`amd64`, `arm64`)
 - Core principles: **unknown-byte preservation**, **round-trip fidelity**, **safety-first editing**, **UE behavior-grounded implementation**
@@ -30,10 +30,7 @@ BPX runs on **Windows**, **macOS**, and **Linux**.
 brew install --formula https://raw.githubusercontent.com/wilddogjp/openbpx/main/packaging/homebrew/openbpx.rb
 
 # Debian / Ubuntu (dpkg from GitHub Releases)
-VER=0.1.4
-ARCH="$(dpkg --print-architecture)" # amd64 / arm64
-curl -fsSLO "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb"
-sudo dpkg -i "openbpx_${VER}_${ARCH}.deb"
+VER=0.1.5 && ARCH="$(dpkg --print-architecture)" && curl -fsSL -o "/tmp/openbpx_${VER}_${ARCH}.deb" "https://github.com/wilddogjp/openbpx/releases/download/v${VER}/openbpx_${VER}_${ARCH}.deb" && sudo dpkg -i "/tmp/openbpx_${VER}_${ARCH}.deb"
 
 # Windows
 winget install --id WilddogJP.OpenBPX --exact
@@ -60,7 +57,7 @@ Official release artifacts are published on [GitHub Releases](https://github.com
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo wilddogjp/openbpx \
-  --path .agents/skills/bpx \
+  --path skills/bpx \
   --method git
 ```
 
@@ -75,7 +72,7 @@ cd openbpx
 claude --plugin-dir .
 ```
 
-Ensure `bpx` is available on `PATH` before using the plugin skill. On Windows you can use the helper installer: `pwsh -File ./skills/bpx/scripts/install-bpx-from-release.ps1`.
+Ensure `bpx` is available on `PATH` before using the plugin skill.
 
 Use the skill in Claude prompts as `/openbpx:bpx`.
 
