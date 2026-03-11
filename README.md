@@ -1,5 +1,12 @@
 # OpenBPX: Blueprint Toolkit for Unreal Engine (`bpx`)
 
+<p align="center">
+    <picture>
+        <source media="(prefers-color-scheme: light)" srcset="docs/assets/openbpx-logo-dark.png">
+        <img src="docs/assets/openbpx-logo-light.png" alt="OpenBPX logo" width="500">
+    </picture>
+</p>
+
 [![Test](https://github.com/wilddogjp/openbpx/actions/workflows/test.yml/badge.svg)](https://github.com/wilddogjp/openbpx/actions/workflows/test.yml)
 [![Release](https://img.shields.io/github/v/release/wilddogjp/openbpx)](https://github.com/wilddogjp/openbpx/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
