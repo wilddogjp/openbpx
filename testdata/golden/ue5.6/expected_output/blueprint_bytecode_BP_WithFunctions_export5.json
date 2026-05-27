@@ -8,7 +8,7 @@
   ],
   "expected": {
     "className": "EdGraph",
-    "dataBase64": "AEoAAAAAAAAAPgAAAAAAAAAAAAAABAAAAAD+////OwAAAAAAAAAFAAAAAAAAAAEAAAA+AAAAAAAAAAAAAAAIAAAAAAEAAAAJAAAABgAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAC4AAAAAAAAATwAAAAAAAAABAAAALwAAAAAAAAABAAAAAQAAAAAAAAAAAAAAEAAAAAiSlox5QWoCSJXgjvdeCVIoPAAAAAAAAAAAAAAA",
+    "dataBase64": "AEoAAAAAAAAAPgAAAAAAAAAAAAAABAAAAAD+////OwAAAAAAAAAFAAAAAAAAAAEAAAA+AAAAAAAAAAAAAAAIAAAAAAEAAAAJAAAABgAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAC4AAAAAAAAATwAAAAAAAAABAAAALwAAAAAAAAABAAAAAQAAAAAAAAAAAAAAEAAAAAg12FqrWUpWTJ4s/bAy13gYPAAAAAAAAAAAAAAA",
     "export": 5,
     "file": "testdata/golden/parse/BP_WithFunctions.uasset",
     "objectName": "UserConstructionScript",
@@ -24,8 +24,6 @@
     "truncated": false,
     "usingScriptRange": false
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "blueprint_bytecode_BP_WithFunctions_export5",
   "oracle": "ue-fixture"
 }

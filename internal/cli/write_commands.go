@@ -1045,15 +1045,26 @@ func extractVariableNameFromTaggedStruct(asset *uasset.Asset, props []uasset.Pro
 }
 
 func decodeExportRootPropertyValue(asset *uasset.Asset, exportIndex int, rootName string) (any, error) {
+	value, found, err := decodeExportRootPropertyValueIfPresent(asset, exportIndex, rootName)
+	if err != nil {
+		return nil, err
+	}
+	if !found {
+		return nil, fmt.Errorf("property not found: %s", rootName)
+	}
+	return value, nil
+}
+
+func decodeExportRootPropertyValueIfPresent(asset *uasset.Asset, exportIndex int, rootName string) (any, bool, error) {
 	if asset == nil {
-		return nil, fmt.Errorf("asset is nil")
+		return nil, false, fmt.Errorf("asset is nil")
 	}
 	if exportIndex < 0 || exportIndex >= len(asset.Exports) {
-		return nil, fmt.Errorf("export index out of range: %d", exportIndex+1)
+		return nil, false, fmt.Errorf("export index out of range: %d", exportIndex+1)
 	}
 	rootName = strings.TrimSpace(rootName)
 	if rootName == "" {
-		return nil, fmt.Errorf("root property name is empty")
+		return nil, false, fmt.Errorf("root property name is empty")
 	}
 
 	parsed := asset.ParseExportProperties(exportIndex)
@@ -1063,11 +1074,11 @@ func decodeExportRootPropertyValue(asset *uasset.Asset, exportIndex int, rootNam
 		}
 		value, ok := asset.DecodePropertyValue(tag)
 		if !ok {
-			return nil, fmt.Errorf("property %s is not decodable", rootName)
+			return nil, false, fmt.Errorf("property %s is not decodable", rootName)
 		}
-		return value, nil
+		return value, true, nil
 	}
-	return nil, fmt.Errorf("property not found: %s", rootName)
+	return nil, false, nil
 }
 
 func compactPropertyWriteNameMap(asset *uasset.Asset, oldValue, newValue any, opts uasset.ParseOptions) ([]byte, bool, error) {
@@ -1086,59 +1097,66 @@ func compactUnusedNames(asset *uasset.Asset, opts uasset.ParseOptions, candidate
 	workingAsset := asset
 	workingBytes := append([]byte(nil), asset.Raw.Bytes...)
 	changed := false
-	for _, candidate := range candidates {
-		removeIdx := findNameIndex(workingAsset.Names, candidate)
-		if removeIdx < 0 {
-			continue
-		}
-		if countNameEntriesByValue(workingAsset.Names, candidate) != 1 {
-			continue
-		}
-		if propertyWriteNameStillReferenced(workingAsset, candidate) {
-			continue
-		}
-
-		updatedNames := make([]uasset.NameEntry, 0, len(workingAsset.Names)-1)
-		updatedNames = append(updatedNames, workingAsset.Names[:removeIdx]...)
-		updatedNames = append(updatedNames, workingAsset.Names[removeIdx+1:]...)
-
-		indexRemap := buildDeleteNameIndexRemap(len(workingAsset.Names), removeIdx)
-		outBytes, err := edit.RewriteImportExportNameRefs(workingAsset, indexRemap)
-		if err != nil {
-			return nil, changed, fmt.Errorf("rewrite import/export name refs removing %q: %w", candidate, err)
-		}
-
-		remappedAsset := *workingAsset
-		remappedAsset.Raw.Bytes = outBytes
-		remappedAsset.Names = updatedNames
-
-		exportMutations, err := edit.BuildExportNameRemapMutations(workingAsset, &remappedAsset, indexRemap, "", "")
-		if err != nil {
-			return nil, changed, fmt.Errorf("rewrite export payload name refs removing %q: %w", candidate, err)
-		}
-		if len(exportMutations) > 0 {
-			outBytes, err = edit.RewriteAsset(&remappedAsset, exportMutations)
-			if err != nil {
-				return nil, changed, fmt.Errorf("rewrite export payloads removing %q: %w", candidate, err)
+	for {
+		passChanged := false
+		for _, candidate := range candidates {
+			removeIdx := findNameIndex(workingAsset.Names, candidate)
+			if removeIdx < 0 {
+				continue
 			}
-		}
+			if countNameEntriesByValue(workingAsset.Names, candidate) != 1 {
+				continue
+			}
+			if propertyWriteNameStillReferencedWithoutAssetRegistry(workingAsset, candidate) {
+				continue
+			}
 
-		remappedParsedAsset, err := uasset.ParseBytes(outBytes, opts)
-		if err != nil {
-			return nil, changed, fmt.Errorf("reparse asset before name map compaction removing %q: %w", candidate, err)
-		}
-		outBytes, err = edit.RewriteNameMap(remappedParsedAsset, updatedNames)
-		if err != nil {
-			return nil, changed, fmt.Errorf("rewrite name map removing %q: %w", candidate, err)
-		}
-		updatedAsset, err := uasset.ParseBytes(outBytes, opts)
-		if err != nil {
-			return nil, changed, fmt.Errorf("reparse compacted asset removing %q: %w", candidate, err)
-		}
+			updatedNames := make([]uasset.NameEntry, 0, len(workingAsset.Names)-1)
+			updatedNames = append(updatedNames, workingAsset.Names[:removeIdx]...)
+			updatedNames = append(updatedNames, workingAsset.Names[removeIdx+1:]...)
 
-		workingAsset = updatedAsset
-		workingBytes = outBytes
-		changed = true
+			indexRemap := buildDeleteNameIndexRemap(len(workingAsset.Names), removeIdx)
+			outBytes, err := edit.RewriteImportExportNameRefs(workingAsset, indexRemap)
+			if err != nil {
+				return nil, changed, fmt.Errorf("rewrite import/export name refs removing %q: %w", candidate, err)
+			}
+
+			remappedAsset := *workingAsset
+			remappedAsset.Raw.Bytes = outBytes
+			remappedAsset.Names = updatedNames
+
+			exportMutations, err := edit.BuildExportNameRemapMutations(workingAsset, &remappedAsset, indexRemap, "", "")
+			if err != nil {
+				return nil, changed, fmt.Errorf("rewrite export payload name refs removing %q: %w", candidate, err)
+			}
+			if len(exportMutations) > 0 {
+				outBytes, err = edit.RewriteAsset(&remappedAsset, exportMutations)
+				if err != nil {
+					return nil, changed, fmt.Errorf("rewrite export payloads removing %q: %w", candidate, err)
+				}
+			}
+
+			remappedParsedAsset, err := uasset.ParseBytes(outBytes, opts)
+			if err != nil {
+				return nil, changed, fmt.Errorf("reparse asset before name map compaction removing %q: %w", candidate, err)
+			}
+			outBytes, err = edit.RewriteNameMap(remappedParsedAsset, updatedNames)
+			if err != nil {
+				return nil, changed, fmt.Errorf("rewrite name map removing %q: %w", candidate, err)
+			}
+			updatedAsset, err := uasset.ParseBytes(outBytes, opts)
+			if err != nil {
+				return nil, changed, fmt.Errorf("reparse compacted asset removing %q: %w", candidate, err)
+			}
+
+			workingAsset = updatedAsset
+			workingBytes = outBytes
+			changed = true
+			passChanged = true
+		}
+		if !passChanged {
+			break
+		}
 	}
 	return workingBytes, changed, nil
 }
@@ -1276,63 +1294,6 @@ func countNameEntriesByValue(names []uasset.NameEntry, needle string) int {
 		}
 	}
 	return count
-}
-
-func propertyWriteNameStillReferenced(asset *uasset.Asset, candidate string) bool {
-	if asset == nil {
-		return false
-	}
-	candidate = strings.TrimSpace(candidate)
-	if candidate == "" {
-		return false
-	}
-
-	for _, imp := range asset.Imports {
-		if strings.TrimSpace(imp.ClassPackage.Display(asset.Names)) == candidate ||
-			strings.TrimSpace(imp.ClassName.Display(asset.Names)) == candidate ||
-			strings.TrimSpace(imp.ObjectName.Display(asset.Names)) == candidate ||
-			strings.TrimSpace(imp.PackageName.Display(asset.Names)) == candidate {
-			return true
-		}
-	}
-	for _, exp := range asset.Exports {
-		if strings.TrimSpace(exp.ObjectName.Display(asset.Names)) == candidate {
-			return true
-		}
-	}
-
-	for exportIndex := range asset.Exports {
-		parsed := asset.ParseExportProperties(exportIndex)
-		for _, tag := range parsed.Properties {
-			if strings.TrimSpace(tag.Name.Display(asset.Names)) == candidate {
-				return true
-			}
-			for _, node := range tag.TypeNodes {
-				if strings.TrimSpace(node.Name.Display(asset.Names)) == candidate {
-					return true
-				}
-			}
-			value, ok := asset.DecodePropertyValue(tag)
-			if ok && decodedValueUsesName(value, candidate) {
-				return true
-			}
-		}
-	}
-
-	section, _, _, err := parseAssetRegistrySection(asset)
-	if err == nil && section != nil {
-		for _, obj := range section.Objects {
-			if strings.TrimSpace(obj.ObjectPath) == candidate || strings.TrimSpace(obj.ObjectClass) == candidate {
-				return true
-			}
-			for _, tag := range obj.Tags {
-				if strings.TrimSpace(tag.Key) == candidate || strings.Contains(tag.Value, candidate) {
-					return true
-				}
-			}
-		}
-	}
-	return false
 }
 
 func propertyWriteNameStillReferencedWithoutAssetRegistry(asset *uasset.Asset, candidate string) bool {

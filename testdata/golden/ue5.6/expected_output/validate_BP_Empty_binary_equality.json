@@ -42,8 +42,6 @@
       "ok": true
     }
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "validate_BP_Empty_binary_equality",
   "oracle": "ue-fixture"
 }

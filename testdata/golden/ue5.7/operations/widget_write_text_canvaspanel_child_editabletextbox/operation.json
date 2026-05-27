@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/EditableTextBox_1",
+		"property": "text",
+		"value": "Player Name"
+	},
+	"ue_procedure": "Set Text to Player Name on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox",
+	"expect": "byte_equal",
+	"notes": "Covers EditableTextBox text rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-text-localization-keys",
+		"saved-hash"
+	]
+}

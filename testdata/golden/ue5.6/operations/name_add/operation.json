@@ -5,5 +5,12 @@
   },
   "ue_procedure": "Append one NameMap entry",
   "expect": "byte_equal",
-  "notes": "Low-level NameMap append fixture."
+  "notes": "Low-level NameMap append fixture.",
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
 }

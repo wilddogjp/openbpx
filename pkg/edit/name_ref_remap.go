@@ -83,6 +83,43 @@ func BuildNameIndexRemap(oldNames, newNames []uasset.NameEntry) (map[int32]int32
 	return remap, nil
 }
 
+// BuildNameIndexRemapAllowInsertedNewEntries matches each old NameMap entry to
+// an exact entry in newNames while permitting additional unmatched entries in
+// newNames. This is suitable for flows that insert new names without deleting
+// or renaming existing ones.
+func BuildNameIndexRemapAllowInsertedNewEntries(oldNames, newNames []uasset.NameEntry) (map[int32]int32, error) {
+	if len(oldNames) == 0 {
+		return map[int32]int32{}, nil
+	}
+
+	newQueues := make(map[nameEntryKey][]int32, len(newNames))
+	for i, entry := range newNames {
+		key := nameEntryKey{
+			Value:              entry.Value,
+			NonCaseHash:        entry.NonCaseHash,
+			CasePreservingHash: entry.CasePreservingHash,
+		}
+		newQueues[key] = append(newQueues[key], int32(i))
+	}
+
+	remap := make(map[int32]int32, len(oldNames))
+	for i, entry := range oldNames {
+		key := nameEntryKey{
+			Value:              entry.Value,
+			NonCaseHash:        entry.NonCaseHash,
+			CasePreservingHash: entry.CasePreservingHash,
+		}
+		queue := newQueues[key]
+		if len(queue) == 0 {
+			return nil, fmt.Errorf("cannot build insertion name remap: old index %d (%q) missing in rewritten NameMap", i, entry.Value)
+		}
+		newIdx := queue[0]
+		newQueues[key] = queue[1:]
+		remap[int32(i)] = newIdx
+	}
+	return remap, nil
+}
+
 // RewriteImportExportNameRefs patches ImportMap / ExportMap NameRef indices
 // after the NameMap ordering changes.
 func RewriteImportExportNameRefs(asset *uasset.Asset, indexRemap map[int32]int32) ([]byte, error) {
@@ -122,6 +159,7 @@ func RewriteImportExportNameRefs(asset *uasset.Asset, indexRemap map[int32]int32
 
 	out := append([]byte(nil), asset.Raw.Bytes...)
 	changed := false
+	targetNameCount := maxRemappedNameCount(len(asset.Names), indexRemap)
 	for i := range imports {
 		for _, pos := range []int{
 			imports[i].classPackagePos,
@@ -132,7 +170,7 @@ func RewriteImportExportNameRefs(asset *uasset.Asset, indexRemap map[int32]int32
 			if pos < 0 {
 				continue
 			}
-			patched, err := patchNameRefIndexAt(out, pos, indexRemap, order, len(asset.Names))
+			patched, err := patchNameRefIndexAt(out, pos, indexRemap, order, targetNameCount)
 			if err != nil {
 				return nil, fmt.Errorf("patch import[%d] name ref: %w", i+1, err)
 			}
@@ -140,14 +178,14 @@ func RewriteImportExportNameRefs(asset *uasset.Asset, indexRemap map[int32]int32
 		}
 	}
 	for i := range exports {
-		patched, err := patchNameRefIndexAt(out, exports[i].objectNamePos, indexRemap, order, len(asset.Names))
+		patched, err := patchNameRefIndexAt(out, exports[i].objectNamePos, indexRemap, order, targetNameCount)
 		if err != nil {
 			return nil, fmt.Errorf("patch export[%d] object name: %w", i+1, err)
 		}
 		changed = changed || patched
 	}
 	for i, pos := range softObjectPathRefs {
-		patched, err := patchNameRefIndexAt(out, pos, indexRemap, order, len(asset.Names))
+		patched, err := patchNameRefIndexAt(out, pos, indexRemap, order, targetNameCount)
 		if err != nil {
 			return nil, fmt.Errorf("patch soft object path ref[%d]: %w", i+1, err)
 		}
@@ -171,10 +209,32 @@ func RewriteImportExportNameRefs(asset *uasset.Asset, indexRemap map[int32]int32
 	return out, nil
 }
 
+func maxRemappedNameCount(baseCount int, indexRemap map[int32]int32) int {
+	count := baseCount
+	for _, idx := range indexRemap {
+		if next := int(idx) + 1; next > count {
+			count = next
+		}
+	}
+	return count
+}
+
 // BuildExportNameRemapMutations reserializes tagged-property exports against the
 // rewritten NameMap and updates Blueprint-facing display strings that UE renames
 // alongside variable declarations.
+// BuildExportNameRemapMutationsPropertyOnly remaps NameRef indices only within
+// the tagged-property region of each export. Bytecode, script headers, and
+// other opaque areas are left untouched. This avoids false-positive remapping
+// of int32 values that coincidentally match old name indices.
+func BuildExportNameRemapMutationsPropertyOnly(oldAsset, newAsset *uasset.Asset, indexRemap map[int32]int32) ([]ExportMutation, error) {
+	return buildExportNameRemapMutationsInner(oldAsset, newAsset, indexRemap, "", "", true)
+}
+
 func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap map[int32]int32, fromDisplay, toDisplay string) ([]ExportMutation, error) {
+	return buildExportNameRemapMutationsInner(oldAsset, newAsset, indexRemap, fromDisplay, toDisplay, false)
+}
+
+func buildExportNameRemapMutationsInner(oldAsset, newAsset *uasset.Asset, indexRemap map[int32]int32, fromDisplay, toDisplay string, propertyOnly bool) ([]ExportMutation, error) {
 	if oldAsset == nil {
 		return nil, fmt.Errorf("old asset is nil")
 	}
@@ -211,86 +271,163 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 			return nil, fmt.Errorf("export[%d] property range out of bounds", i+1)
 		}
 
+		className := oldAsset.ResolveClassName(oldExp)
+		useSafePartialRemap := !propertyOnly &&
+			fromDisplay == "" &&
+			toDisplay == "" &&
+			packageIndexRemapCanSkipTaggedPropertyWarnings(className) &&
+			!strings.EqualFold(className, "WidgetBlueprint")
 		parsed := oldAsset.ParseTaggedPropertiesRange(propertyStart, propertyEnd, withClassControl)
 		if len(parsed.Warnings) > 0 {
+			if packageIndexRemapCanSkipTaggedPropertyWarnings(className) {
+				mutation, changed, err := buildPartialNameMapRemapMutation(oldAsset, newAsset, i, oldExp, parsed, order, indexRemap, fromDisplay, toDisplay)
+				if err != nil {
+					return nil, err
+				}
+				if changed {
+					mutations = append(mutations, *mutation)
+				}
+				continue
+			}
 			return nil, fmt.Errorf("cannot safely remap export[%d] tagged properties: %s", i+1, strings.Join(parsed.Warnings, "; "))
 		}
 		if parsed.EndOffset < propertyStart+8 {
 			return nil, fmt.Errorf("export[%d] property terminator not found", i+1)
 		}
+		if useSafePartialRemap {
+			mutation, changed, err := buildPartialNameMapRemapMutation(oldAsset, newAsset, i, oldExp, parsed, order, indexRemap, fromDisplay, toDisplay)
+			if err != nil {
+				return nil, err
+			}
+			if changed {
+				mutations = append(mutations, *mutation)
+			}
+			continue
+		}
 		noneStart := parsed.EndOffset - 8
-		prefixEnd := noneStart
-		if len(parsed.Properties) > 0 {
-			prefixEnd = parsed.Properties[0].Offset
-		}
-		tagBlob := append([]byte(nil), oldAsset.Raw.Bytes[propertyStart:prefixEnd]...)
 		propsChanged := false
-		for j, tag := range parsed.Properties {
-			decoded, ok := oldAsset.DecodePropertyValue(tag)
-			if !ok {
-				return nil, fmt.Errorf("cannot decode export[%d] property %s for name remap", i+1, tag.Name.Display(oldAsset.Names))
-			}
-			remappedValue, valueChanged, err := remapDecodedValueForNameMap(decoded, indexRemap, newAsset.Names, fromDisplay, toDisplay)
-			if err != nil {
-				return nil, fmt.Errorf("remap export[%d] property %s value: %w", i+1, tag.Name.Display(oldAsset.Names), err)
-			}
-			remappedTag, tagChanged, err := remapPropertyTagNameRefs(tag, indexRemap, newAsset.Names)
-			if err != nil {
-				return nil, fmt.Errorf("remap export[%d] property %s tag: %w", i+1, tag.Name.Display(oldAsset.Names), err)
-			}
-			typeTree, err := buildTypeTree(remappedTag.TypeNodes, newAsset.Names)
-			if err != nil {
-				return nil, fmt.Errorf("build export[%d] property %s type tree: %w", i+1, tag.Name.Display(oldAsset.Names), err)
-			}
-			valueBytes, boolValue, err := encodePropertyValue(newAsset, typeTree, remappedValue, order)
-			if err != nil {
-				return nil, fmt.Errorf("encode export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
-			}
-			tagBytes, _, err := serializePropertyTag(newAsset, remappedTag, valueBytes, boolValue, order)
-			if err != nil {
-				return nil, fmt.Errorf("serialize export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
-			}
-			tagStart := tag.Offset
-			tagEnd := noneStart
-			if j+1 < len(parsed.Properties) {
-				tagEnd = parsed.Properties[j+1].Offset
-			}
-			if !bytes.Equal(tagBytes, oldAsset.Raw.Bytes[tagStart:tagEnd]) || tagChanged || valueChanged {
-				propsChanged = true
-			}
-			tagBlob = append(tagBlob, tagBytes...)
-		}
-		if propsChanged {
-			noneBytes := oldAsset.Raw.Bytes[noneStart:parsed.EndOffset]
-			trailing := oldAsset.Raw.Bytes[parsed.EndOffset:propertyEnd]
-			newPropertyRegion := make([]byte, 0, len(tagBlob)+len(noneBytes)+len(trailing))
-			newPropertyRegion = append(newPropertyRegion, tagBlob...)
-			newPropertyRegion = append(newPropertyRegion, noneBytes...)
-			newPropertyRegion = append(newPropertyRegion, trailing...)
 
-			relStart := propertyStart - oldStart
-			relEnd := propertyEnd - oldStart
-			nextPayload := make([]byte, 0, len(oldPayload)+(len(newPropertyRegion)-(propertyEnd-propertyStart)))
-			nextPayload = append(nextPayload, oldPayload[:relStart]...)
-			nextPayload = append(nextPayload, newPropertyRegion...)
-			nextPayload = append(nextPayload, oldPayload[relEnd:]...)
-			newPayload = nextPayload
-			propertyDelta = len(newPropertyRegion) - (propertyEnd - propertyStart)
+		if propertyOnly {
+			// Property-only mode: remap NameRefs in the property region using
+			// direct byte scanning, avoiding the decode→encode roundtrip.
+			propRelStart := propertyStart - oldStart
+			propRelEnd := parsed.EndOffset - oldStart
+			if propRelStart >= 0 && propRelEnd <= len(newPayload) {
+				rewritten, changed := remapOpaqueNameRefPairsLE(newPayload[propRelStart:propRelEnd], indexRemap)
+				if changed {
+					patchedPayload := append([]byte(nil), newPayload...)
+					copy(patchedPayload[propRelStart:], rewritten)
+					newPayload = patchedPayload
+					propsChanged = true
+				}
+			}
+		} else {
+			prefixEnd := noneStart
+			if len(parsed.Properties) > 0 {
+				prefixEnd = parsed.Properties[0].Offset
+			}
+			tagBlob := append([]byte(nil), oldAsset.Raw.Bytes[propertyStart:prefixEnd]...)
+			for j, tag := range parsed.Properties {
+				decoded, ok := oldAsset.DecodePropertyValue(tag)
+				if !ok {
+					tagStart := tag.Offset
+					tagEnd := noneStart
+					if j+1 < len(parsed.Properties) {
+						tagEnd = parsed.Properties[j+1].Offset
+					}
+					tagBlob = append(tagBlob, oldAsset.Raw.Bytes[tagStart:tagEnd]...)
+					continue
+				}
+				remappedValue, valueChanged, err := remapDecodedValueForNameMap(decoded, indexRemap, newAsset.Names, fromDisplay, toDisplay)
+				if err != nil {
+					return nil, fmt.Errorf("remap export[%d] property %s value: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+				}
+				remappedTag, tagChanged, err := remapPropertyTagNameRefs(tag, indexRemap, newAsset.Names)
+				if err != nil {
+					return nil, fmt.Errorf("remap export[%d] property %s tag: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+				}
+				typeTree, err := buildTypeTree(remappedTag.TypeNodes, newAsset.Names)
+				if err != nil {
+					return nil, fmt.Errorf("build export[%d] property %s type tree: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+				}
+				valueBytes, boolValue, err := encodePropertyValue(newAsset, typeTree, remappedValue, order)
+				if err != nil {
+					return nil, fmt.Errorf("encode export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+				}
+				tagBytes, _, err := serializePropertyTag(newAsset, remappedTag, valueBytes, boolValue, order)
+				if err != nil {
+					return nil, fmt.Errorf("serialize export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+				}
+				tagStart := tag.Offset
+				tagEnd := noneStart
+				if j+1 < len(parsed.Properties) {
+					tagEnd = parsed.Properties[j+1].Offset
+				}
+				if !bytes.Equal(tagBytes, oldAsset.Raw.Bytes[tagStart:tagEnd]) || tagChanged || valueChanged {
+					propsChanged = true
+				}
+				tagBlob = append(tagBlob, tagBytes...)
+			}
+			if propsChanged {
+				noneBytes := oldAsset.Raw.Bytes[noneStart:parsed.EndOffset]
+				trailing := oldAsset.Raw.Bytes[parsed.EndOffset:propertyEnd]
+				newPropertyRegion := make([]byte, 0, len(tagBlob)+len(noneBytes)+len(trailing))
+				newPropertyRegion = append(newPropertyRegion, tagBlob...)
+				newPropertyRegion = append(newPropertyRegion, noneBytes...)
+				newPropertyRegion = append(newPropertyRegion, trailing...)
+
+				relStart := propertyStart - oldStart
+				relEnd := propertyEnd - oldStart
+				nextPayload := make([]byte, 0, len(oldPayload)+(len(newPropertyRegion)-(propertyEnd-propertyStart)))
+				nextPayload = append(nextPayload, oldPayload[:relStart]...)
+				nextPayload = append(nextPayload, newPropertyRegion...)
+				nextPayload = append(nextPayload, oldPayload[relEnd:]...)
+				newPayload = nextPayload
+				propertyDelta = len(newPropertyRegion) - (propertyEnd - propertyStart)
+			}
 		}
 
 		rawChanged := false
 		tailStart := parsed.EndOffset - oldStart
-		if fromDisplay == "" {
+		if propertyOnly {
+			// Property-only mode: remap NameRefs only in the property region
+			// using opaque scanning (avoids decode→encode roundtrip issues).
+			propRelStart := propertyStart - oldStart
+			propRelEnd := parsed.EndOffset - oldStart
+			if propRelStart >= 0 && propRelEnd <= len(newPayload) {
+				rewritten, propChanged := remapOpaqueNameRefPairsLE(newPayload[propRelStart:propRelEnd], indexRemap)
+				if propChanged {
+					patchedPayload := append([]byte(nil), newPayload...)
+					copy(patchedPayload[propRelStart:], rewritten)
+					newPayload = patchedPayload
+					rawChanged = true
+					propsChanged = false // clear to avoid double-write below
+				}
+			}
+		} else if fromDisplay == "" {
 			blockedTailOffsets := map[int]struct{}{}
+			className := oldAsset.ResolveClassName(oldExp)
+			blockedOpaqueNoneOffsets := map[int]struct{}{}
+			if strings.EqualFold(className, "WidgetBlueprintGeneratedClass") && tailStart >= 0 && tailStart < len(newPayload) {
+				for off := range collectOpaqueExportIndexLikeZeroNumberOffsets(newPayload[tailStart:], int32(len(newAsset.Exports)), className, order) {
+					blockedOpaqueNoneOffsets[tailStart+off] = struct{}{}
+				}
+			}
 			if hasNoneRemap {
-				className := newAsset.ResolveClassName(newAsset.Exports[i])
+				// Determine the opaque-scan region for None remapping.
+				// When propsChanged is true, the property region was already
+				// rebuilt with correct NameRefs by the decode→encode cycle.
+				// Scanning it again would double-remap values that coincidentally
+				// equal oldNoneIndex.  Restrict the scan to non-property areas.
+				_ = propertyStart // used only in propsChanged branch below
+				_ = propertyEnd
 				if strings.EqualFold(className, "EdGraph") {
 					specificTailStart := len(newPayload) - 32
 					if specificTailStart < 0 {
 						specificTailStart = 0
 					}
 					if specificTailStart >= 0 && specificTailStart < len(newPayload) {
-						rewrittenTail, changedOffsets, changed := remapOpaqueSpecificNameRefPairLEPositions(newPayload[specificTailStart:], oldNoneIndex, newNoneIndex)
+						rewrittenTail, changedOffsets, changed := remapOpaqueSpecificNameRefPairLEPositionsSkipBlocked(newPayload[specificTailStart:], oldNoneIndex, newNoneIndex, nil)
 						if changed {
 							nextPayload := append([]byte(nil), newPayload[:specificTailStart]...)
 							nextPayload = append(nextPayload, rewrittenTail...)
@@ -304,8 +441,37 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 							}
 						}
 					}
+				} else if propsChanged {
+					// Property region was rebuilt by decode→encode. Some NameRefs
+					// now equal oldNoneIndex (e.g. NameProperty remapped to 71)
+					// while embedded opaque data still has the old None (71).
+					// Only remap positions where the ORIGINAL byte was also
+					// oldNoneIndex to avoid double-remapping.
+					for off := 0; off+8 <= len(newPayload); off++ {
+						cur := int32(order.Uint32(newPayload[off : off+4]))
+						num := int32(order.Uint32(newPayload[off+4 : off+8]))
+						if _, blocked := blockedOpaqueNoneOffsets[off]; blocked {
+							continue
+						}
+						if cur != oldNoneIndex || num != 0 {
+							continue
+						}
+						// Check original payload at this position.
+						if off < len(oldPayload) && off+4 <= len(oldPayload) {
+							orig := int32(order.Uint32(oldPayload[off : off+4]))
+							if orig != oldNoneIndex {
+								continue // Was remapped TO oldNoneIndex by encode; skip.
+							}
+						}
+						order.PutUint32(newPayload[off:off+4], uint32(newNoneIndex))
+						rawChanged = true
+						if off >= tailStart {
+							blockedTailOffsets[off-tailStart] = struct{}{}
+						}
+						off += 7
+					}
 				} else {
-					rewritten, changedOffsets, changed := remapOpaqueSpecificNameRefPairLEPositions(newPayload, oldNoneIndex, newNoneIndex)
+					rewritten, changedOffsets, changed := remapOpaqueSpecificNameRefPairLEPositionsSkipBlocked(newPayload, oldNoneIndex, newNoneIndex, blockedOpaqueNoneOffsets)
 					if changed {
 						newPayload = rewritten
 						rawChanged = true
@@ -316,24 +482,46 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 						}
 					}
 				}
+				_ = propertyDelta
+			}
+			if tailStart >= 0 && tailStart < len(newPayload) {
+				for off := range collectOpaqueExportIndexLikeZeroNumberOffsets(newPayload[tailStart:], int32(len(newAsset.Exports)), className, order) {
+					blockedTailOffsets[off] = struct{}{}
+				}
+			}
+			if strings.EqualFold(className, "WidgetBlueprintGeneratedClass") && tailStart >= 0 && tailStart < len(newPayload) {
+				nameRefOffsets, err := collectWidgetBlueprintGeneratedClassFieldNameRefOffsets(newPayload[tailStart:], order)
+				if err != nil {
+					return nil, fmt.Errorf("collect export[%d] WidgetBlueprintGeneratedClass field refs: %w", i+1, err)
+				}
+				for _, off := range nameRefOffsets {
+					blockedTailOffsets[off] = struct{}{}
+				}
 			}
 			if tailStart >= 0 && tailStart < len(newPayload) {
 				for off := range collectASCIIFStringDataOffsets(newPayload[tailStart:]) {
 					blockedTailOffsets[off] = struct{}{}
 				}
 			}
-			if hasNoneRemap && tailStart >= 0 && tailStart < len(newPayload) {
-				rewrittenTail, tailChanged := remapOpaqueNameRefPairsLESkipBlocked(newPayload[tailStart:], indexRemap, oldNoneIndex, blockedTailOffsets)
+			if tailStart >= 0 && tailStart < len(newPayload) {
+				rewrittenTail, tailChanged := remapOpaqueNameRefPairsLESkipBlocked(newPayload[tailStart:], indexRemap, -1, blockedTailOffsets)
 				if tailChanged {
 					nextPayload := append([]byte(nil), newPayload[:tailStart]...)
 					nextPayload = append(nextPayload, rewrittenTail...)
 					newPayload = nextPayload
 					rawChanged = true
 				}
+			}
+			if strings.EqualFold(className, "WidgetBlueprintGeneratedClass") && tailStart >= 0 && tailStart < len(newPayload) {
+				tailChanged, err := remapWidgetBlueprintGeneratedClassFieldNameRefs(newPayload[tailStart:], indexRemap, order)
+				if err != nil {
+					return nil, fmt.Errorf("remap export[%d] WidgetBlueprintGeneratedClass field refs: %w", i+1, err)
+				}
+				rawChanged = rawChanged || tailChanged
 			}
 		} else {
 			if tailStart >= 0 && tailStart < len(newPayload) {
-				rewrittenTail, tailChanged := remapOpaqueNameRefPairsLE(newPayload[tailStart:], indexRemap)
+				rewrittenTail, tailChanged := remapOpaqueNameRefPairsLEAnyNumber(newPayload[tailStart:], indexRemap)
 				if tailChanged {
 					nextPayload := append([]byte(nil), newPayload[:tailStart]...)
 					nextPayload = append(nextPayload, rewrittenTail...)
@@ -341,7 +529,7 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 					rawChanged = true
 				}
 			}
-			if isBlueprintLikeExport(newAsset, newAsset.Exports[i]) && fromDisplay != toDisplay {
+			if isBlueprintLikeExport(oldAsset, oldExp) && fromDisplay != toDisplay {
 				rewritten, changed := replaceEncodedFStringLiterals(newPayload, order, fromDisplay, toDisplay)
 				if changed {
 					newPayload = rewritten
@@ -349,7 +537,18 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 				}
 			}
 			if hasNoneRemap {
-				className := newAsset.ResolveClassName(newAsset.Exports[i])
+				className := oldAsset.ResolveClassName(oldExp)
+				blockedOpaqueNoneOffsets := map[int]struct{}{}
+				if strings.EqualFold(className, "WidgetBlueprintGeneratedClass") {
+					propStart, propEnd, withCC := exportPropertyBounds(newAsset, newAsset.Exports[i])
+					parsed := newAsset.ParseTaggedPropertiesRange(propStart, propEnd, withCC)
+					tailStart := parsed.EndOffset - int(newAsset.Exports[i].SerialOffset)
+					if tailStart >= 0 && tailStart < len(newPayload) {
+						for off := range collectOpaqueExportIndexLikeZeroNumberOffsets(newPayload[tailStart:], int32(len(newAsset.Exports)), className, order) {
+							blockedOpaqueNoneOffsets[tailStart+off] = struct{}{}
+						}
+					}
+				}
 				if strings.EqualFold(className, "EdGraph") {
 					specificTailStart := len(newPayload) - 32
 					if specificTailStart < 0 {
@@ -365,7 +564,7 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 						}
 					}
 				} else {
-					rewritten, changed := remapOpaqueSpecificNameRefPairLE(newPayload, oldNoneIndex, newNoneIndex)
+					rewritten, _, changed := remapOpaqueSpecificNameRefPairLEPositionsSkipBlocked(newPayload, oldNoneIndex, newNoneIndex, blockedOpaqueNoneOffsets)
 					if changed {
 						newPayload = rewritten
 						rawChanged = true
@@ -383,6 +582,566 @@ func BuildExportNameRemapMutations(oldAsset, newAsset *uasset.Asset, indexRemap 
 			Payload:     newPayload,
 		}
 		if propertyDelta != 0 && !newAsset.Summary.UsesUnversionedPropertySerialization() && newAsset.Summary.FileVersionUE5 >= ue5ScriptSerializationOffset {
+			oldStartRel := oldExp.ScriptSerializationStartOffset
+			oldEndRel := oldExp.ScriptSerializationEndOffset
+			if oldEndRel >= oldStartRel {
+				rangeStartRel := int64(propertyStart - oldStart)
+				rangeEndRel := int64(propertyEnd - oldStart)
+				if oldStartRel == rangeStartRel && oldEndRel == rangeEndRel {
+					mutation.UpdateScript = true
+					mutation.ScriptStartRel = oldStartRel
+					mutation.ScriptEndRel = oldEndRel + int64(propertyDelta)
+				}
+			}
+		}
+		mutations = append(mutations, mutation)
+	}
+	return mutations, nil
+}
+
+func buildPartialNameMapRemapMutation(oldAsset, newAsset *uasset.Asset, exportIndex int, oldExp uasset.ExportEntry, parsed uasset.PropertyListResult, order binary.ByteOrder, indexRemap map[int32]int32, fromDisplay, toDisplay string) (*ExportMutation, bool, error) {
+	oldStart := int(oldExp.SerialOffset)
+	oldEnd := int(oldExp.SerialOffset + oldExp.SerialSize)
+	if oldStart < 0 || oldEnd < oldStart || oldEnd > len(oldAsset.Raw.Bytes) {
+		return nil, false, fmt.Errorf("export[%d] serial range out of bounds", exportIndex+1)
+	}
+	className := oldAsset.ResolveClassName(oldExp)
+	newPayload := append([]byte(nil), oldAsset.Raw.Bytes[oldStart:oldEnd]...)
+	changed := false
+	if strings.EqualFold(className, "WidgetBlueprintGeneratedClass") && fromDisplay == "" && toDisplay == "" {
+		rawChanged, err := remapWidgetBlueprintGeneratedClassPropertiesFromOld(oldAsset, oldStart, oldEnd, newPayload, parsed, indexRemap, order)
+		if err != nil {
+			return nil, false, fmt.Errorf("export[%d] raw WidgetBlueprintGeneratedClass property remap: %w", exportIndex+1, err)
+		}
+		changed = changed || rawChanged
+	} else {
+		for i, tag := range parsed.Properties {
+			decoded, ok := oldAsset.DecodePropertyValue(tag)
+			if !ok {
+				continue
+			}
+			remappedValue, valueChanged, err := remapDecodedValueForNameMap(decoded, indexRemap, newAsset.Names, fromDisplay, toDisplay)
+			if err != nil {
+				return nil, false, fmt.Errorf("remap export[%d] property %s value: %w", exportIndex+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			remappedTag, tagChanged, err := remapPropertyTagNameRefs(tag, indexRemap, newAsset.Names)
+			if err != nil {
+				return nil, false, fmt.Errorf("remap export[%d] property %s tag: %w", exportIndex+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			if !valueChanged && !tagChanged {
+				continue
+			}
+			typeTree, err := buildTypeTree(remappedTag.TypeNodes, newAsset.Names)
+			if err != nil {
+				return nil, false, fmt.Errorf("build export[%d] property %s type tree: %w", exportIndex+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			valueBytes, boolValue, err := encodePropertyValue(newAsset, typeTree, remappedValue, order)
+			if err != nil {
+				return nil, false, fmt.Errorf("encode export[%d] property %s: %w", exportIndex+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			tagBytes, _, err := serializePropertyTag(newAsset, remappedTag, valueBytes, boolValue, order)
+			if err != nil {
+				return nil, false, fmt.Errorf("serialize export[%d] property %s: %w", exportIndex+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			tagStartRel := tag.Offset - oldStart
+			tagEndAbs := tag.ValueOffset + int(tag.Size)
+			if i+1 < len(parsed.Properties) {
+				tagEndAbs = parsed.Properties[i+1].Offset
+			}
+			tagEndRel := tagEndAbs - oldStart
+			if tagStartRel < 0 || tagEndRel < tagStartRel || tagEndRel > len(newPayload) {
+				return nil, false, fmt.Errorf("export[%d] property %s partial range out of bounds", exportIndex+1, tag.Name.Display(oldAsset.Names))
+			}
+			if len(tagBytes) != tagEndRel-tagStartRel {
+				continue
+			}
+			copy(newPayload[tagStartRel:tagEndRel], tagBytes)
+			changed = true
+		}
+	}
+	if parsed.EndOffset >= oldStart+8 {
+		noneStartRel := parsed.EndOffset - 8 - oldStart
+		if noneStartRel >= 0 && noneStartRel+8 <= len(newPayload) {
+			if patchNameRefIndexInPlace(newPayload[noneStartRel:noneStartRel+8], indexRemap, order) {
+				changed = true
+			}
+		}
+	}
+	tailStartRel := parsed.EndOffset - oldStart
+	if tailStartRel >= 0 && tailStartRel < len(newPayload) {
+		blockedTailOffsets := map[int]struct{}{}
+		for off := range collectOpaqueExportIndexLikeZeroNumberOffsets(oldAsset.Raw.Bytes[oldStart+tailStartRel:oldEnd], int32(len(newAsset.Exports)), className, order) {
+			blockedTailOffsets[off] = struct{}{}
+		}
+		for off := range collectASCIIFStringDataOffsets(oldAsset.Raw.Bytes[oldStart+tailStartRel : oldEnd]) {
+			blockedTailOffsets[off] = struct{}{}
+		}
+		if remapOpaqueNameRefPairsFromOldSkipBlocked(
+			oldAsset.Raw.Bytes[oldStart+tailStartRel:oldEnd],
+			newPayload[tailStartRel:],
+			indexRemap,
+			blockedTailOffsets,
+			order,
+		) {
+			changed = true
+		}
+	}
+	if strings.EqualFold(className, "WidgetBlueprintGeneratedClass") {
+		fieldRaw := oldAsset.Raw.Bytes[oldStart+tailStartRel : oldEnd]
+		fieldOffsets, err := collectWidgetBlueprintGeneratedClassFieldNameRefOffsets(fieldRaw, order)
+		if err == nil {
+			for _, off := range fieldOffsets {
+				if patchNameRefIndexFromOldAtOffset(
+					oldAsset.Raw.Bytes[oldStart:oldEnd],
+					newPayload,
+					tailStartRel+off,
+					indexRemap,
+					order,
+				) {
+					changed = true
+				}
+			}
+		}
+	}
+	if !changed {
+		return nil, false, nil
+	}
+	return &ExportMutation{ExportIndex: exportIndex, Payload: newPayload}, true, nil
+}
+
+func remapWidgetBlueprintGeneratedClassPropertiesFromOld(oldAsset *uasset.Asset, oldStart, oldEnd int, newPayload []byte, parsed uasset.PropertyListResult, indexRemap map[int32]int32, order binary.ByteOrder) (bool, error) {
+	if oldAsset == nil || len(indexRemap) == 0 {
+		return false, nil
+	}
+	oldPayload := oldAsset.Raw.Bytes[oldStart:oldEnd]
+	changed := false
+	for _, tag := range parsed.Properties {
+		if err := remapPropertyTagNameRefsFromOld(oldPayload, newPayload, tag, oldStart, indexRemap, order); err != nil {
+			return false, err
+		}
+		name := tag.Name.Display(oldAsset.Names)
+		if !strings.EqualFold(name, "PropertyGuids") {
+			continue
+		}
+		entryOffsets, err := widgetBlueprintGeneratedClassPropertyGuidsKeyOffsets(oldPayload, tag, oldStart, order)
+		if err != nil {
+			return false, err
+		}
+		for _, off := range entryOffsets {
+			if patchNameRefIndexFromOldAtOffset(oldPayload, newPayload, off, indexRemap, order) {
+				changed = true
+			}
+		}
+	}
+	for _, tag := range parsed.Properties {
+		if remapPropertyTagNameRefsChanged(oldPayload, newPayload, tag, oldStart, indexRemap, order) {
+			changed = true
+		}
+	}
+	return changed, nil
+}
+
+func remapPropertyTagNameRefsFromOld(oldPayload, newPayload []byte, tag uasset.PropertyTag, oldStart int, indexRemap map[int32]int32, order binary.ByteOrder) error {
+	tagStartRel := tag.Offset - oldStart
+	if tagStartRel < 0 || tagStartRel+8 > len(oldPayload) || tagStartRel+8 > len(newPayload) {
+		return fmt.Errorf("property tag start out of bounds: %d", tagStartRel)
+	}
+	valueStartRel := tag.ValueOffset - oldStart
+	if valueStartRel < tagStartRel {
+		return fmt.Errorf("property value start out of bounds: %d", valueStartRel)
+	}
+	cursor := tagStartRel
+	_ = patchNameRefIndexFromOldAtOffset(oldPayload, newPayload, cursor, indexRemap, order)
+	cursor += 8
+	for range tag.TypeNodes {
+		if cursor+12 > valueStartRel {
+			break
+		}
+		if cursor+12 > len(oldPayload) || cursor+12 > len(newPayload) {
+			return fmt.Errorf("property type node out of bounds: %d", cursor)
+		}
+		_ = patchNameRefIndexFromOldAtOffset(oldPayload, newPayload, cursor, indexRemap, order)
+		cursor += 12
+	}
+	return nil
+}
+
+func remapPropertyTagNameRefsChanged(oldPayload, newPayload []byte, tag uasset.PropertyTag, oldStart int, indexRemap map[int32]int32, order binary.ByteOrder) bool {
+	tagStartRel := tag.Offset - oldStart
+	valueStartRel := tag.ValueOffset - oldStart
+	changed := patchNameRefIndexFromOldAtOffset(oldPayload, newPayload, tagStartRel, indexRemap, order)
+	cursor := tagStartRel + 8
+	for range tag.TypeNodes {
+		if cursor+12 > valueStartRel {
+			break
+		}
+		if patchNameRefIndexFromOldAtOffset(oldPayload, newPayload, cursor, indexRemap, order) {
+			changed = true
+		}
+		cursor += 12
+	}
+	return changed
+}
+
+func widgetBlueprintGeneratedClassPropertyGuidsKeyOffsets(oldPayload []byte, tag uasset.PropertyTag, oldStart int, order binary.ByteOrder) ([]int, error) {
+	if tag.ValueOffset < oldStart {
+		return nil, fmt.Errorf("PropertyGuids value offset out of bounds")
+	}
+	valueRel := tag.ValueOffset - oldStart
+	if valueRel < 0 || valueRel+8 > len(oldPayload) {
+		return nil, fmt.Errorf("PropertyGuids value range out of bounds")
+	}
+	entryCount := int(order.Uint32(oldPayload[valueRel+4 : valueRel+8]))
+	if entryCount < 0 || entryCount > 1024 {
+		return nil, fmt.Errorf("PropertyGuids entry count out of bounds: %d", entryCount)
+	}
+	off := valueRel + 8
+	offsets := make([]int, 0, entryCount)
+	for i := 0; i < entryCount; i++ {
+		if off+24 > len(oldPayload) {
+			return nil, fmt.Errorf("PropertyGuids entry %d out of bounds", i)
+		}
+		offsets = append(offsets, off)
+		off += 24
+	}
+	return offsets, nil
+}
+
+func packageIndexRemapCanSkipTaggedPropertyWarnings(className string) bool {
+	switch strings.ToLower(strings.TrimSpace(className)) {
+	case "widgetblueprint", "widgetblueprintgeneratedclass", "edgraph", "k2node_event":
+		return true
+	default:
+		return false
+	}
+}
+
+// BuildExportPackageIndexRemapMutations reserializes tagged-property exports
+// after ImportMap insertion shifts import package indices referenced from
+// export payloads.
+func BuildExportPackageIndexRemapMutations(oldAsset, newAsset *uasset.Asset, importRemap map[int]int) ([]ExportMutation, error) {
+	if oldAsset == nil {
+		return nil, fmt.Errorf("old asset is nil")
+	}
+	if newAsset == nil {
+		return nil, fmt.Errorf("new asset is nil")
+	}
+	if len(oldAsset.Exports) != len(newAsset.Exports) {
+		return nil, fmt.Errorf("export count mismatch: old=%d new=%d", len(oldAsset.Exports), len(newAsset.Exports))
+	}
+	if len(importRemap) == 0 {
+		return nil, nil
+	}
+
+	var order binary.ByteOrder = binary.LittleEndian
+	if newAsset.Summary.UsesByteSwappedSerialization() {
+		order = binary.BigEndian
+	}
+
+	mutations := make([]ExportMutation, 0, len(oldAsset.Exports))
+	for i, oldExp := range oldAsset.Exports {
+		oldStart := int(oldExp.SerialOffset)
+		oldEnd := int(oldExp.SerialOffset + oldExp.SerialSize)
+		if oldStart < 0 || oldEnd < oldStart || oldEnd > len(oldAsset.Raw.Bytes) {
+			return nil, fmt.Errorf("export[%d] serial range out of bounds", i+1)
+		}
+		propertyStart, propertyEnd, withClassControl := exportPropertyBounds(oldAsset, oldExp)
+		if propertyStart < oldStart || propertyEnd < propertyStart || propertyEnd > oldEnd {
+			return nil, fmt.Errorf("export[%d] property range out of bounds", i+1)
+		}
+
+		parsed := oldAsset.ParseTaggedPropertiesRange(propertyStart, propertyEnd, withClassControl)
+		if len(parsed.Warnings) > 0 {
+			className := oldAsset.ResolveClassName(oldExp)
+			if packageIndexRemapCanSkipTaggedPropertyWarnings(className) {
+				continue
+			}
+			return nil, fmt.Errorf("cannot safely remap export[%d] tagged properties: %s", i+1, strings.Join(parsed.Warnings, "; "))
+		}
+		if parsed.EndOffset < propertyStart+8 {
+			return nil, fmt.Errorf("export[%d] property terminator not found", i+1)
+		}
+		noneStart := parsed.EndOffset - 8
+		prefixEnd := noneStart
+		if len(parsed.Properties) > 0 {
+			prefixEnd = parsed.Properties[0].Offset
+		}
+		tagBlob := append([]byte(nil), oldAsset.Raw.Bytes[propertyStart:prefixEnd]...)
+		propsChanged := false
+		for j, tag := range parsed.Properties {
+			decoded, ok := oldAsset.DecodePropertyValue(tag)
+			if !ok {
+				tagStart := tag.Offset
+				tagEnd := noneStart
+				if j+1 < len(parsed.Properties) {
+					tagEnd = parsed.Properties[j+1].Offset
+				}
+				tagBlob = append(tagBlob, oldAsset.Raw.Bytes[tagStart:tagEnd]...)
+				continue
+			}
+			remappedValue, valueChanged, err := remapDecodedValueForPackageIndex(decoded, newAsset, importRemap)
+			if err != nil {
+				return nil, fmt.Errorf("remap export[%d] property %s package indices: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			tagStart := tag.Offset
+			tagEnd := noneStart
+			if j+1 < len(parsed.Properties) {
+				tagEnd = parsed.Properties[j+1].Offset
+			}
+			if !valueChanged {
+				tagBlob = append(tagBlob, oldAsset.Raw.Bytes[tagStart:tagEnd]...)
+				continue
+			}
+			typeTree, err := buildTypeTree(tag.TypeNodes, newAsset.Names)
+			if err != nil {
+				return nil, fmt.Errorf("build export[%d] property %s type tree: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			valueBytes, boolValue, err := encodePropertyValue(newAsset, typeTree, remappedValue, order)
+			if err != nil {
+				return nil, fmt.Errorf("encode export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			tagBytes, _, err := serializePropertyTag(newAsset, tag, valueBytes, boolValue, order)
+			if err != nil {
+				return nil, fmt.Errorf("serialize export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			if !bytes.Equal(tagBytes, oldAsset.Raw.Bytes[tagStart:tagEnd]) || valueChanged {
+				propsChanged = true
+			}
+			tagBlob = append(tagBlob, tagBytes...)
+		}
+		oldPayload := oldAsset.Raw.Bytes[oldStart:oldEnd]
+
+		// Scan the tail region for PackageIndex values that need remapping
+		// (import indices shifted after import insertion).
+		tailStart := parsed.EndOffset - oldStart
+		tailChanged := false
+		if tailStart >= 0 && tailStart < len(oldPayload) {
+			serializedPkgRemap := make(map[int32]int32, len(importRemap))
+			for oldIdx, newIdx := range importRemap {
+				oldPkg := int32(-(oldIdx + 1))
+				newPkg := int32(-(newIdx + 1))
+				if oldPkg != newPkg {
+					serializedPkgRemap[oldPkg] = newPkg
+				}
+			}
+			if len(serializedPkgRemap) > 0 {
+				tail := append([]byte(nil), oldPayload[tailStart:]...)
+				// Scan at every byte offset since bytecode int32 values
+				// may not be aligned to the tail start boundary.
+				for pos := 0; pos+4 <= len(tail); pos++ {
+					cur := int32(order.Uint32(tail[pos : pos+4]))
+					if replacement, ok := serializedPkgRemap[cur]; ok {
+						order.PutUint32(tail[pos:pos+4], uint32(replacement))
+						tailChanged = true
+						pos += 3 // skip past this int32
+					}
+				}
+				if tailChanged {
+					copy(oldPayload[tailStart:], tail)
+				}
+			}
+		}
+
+		if !propsChanged && !tailChanged {
+			continue
+		}
+
+		var newPayload []byte
+		if propsChanged {
+			noneBytes := oldAsset.Raw.Bytes[noneStart:parsed.EndOffset]
+			trailing := oldAsset.Raw.Bytes[parsed.EndOffset:propertyEnd]
+			newPropertyRegion := make([]byte, 0, len(tagBlob)+len(noneBytes)+len(trailing))
+			newPropertyRegion = append(newPropertyRegion, tagBlob...)
+			newPropertyRegion = append(newPropertyRegion, noneBytes...)
+			newPropertyRegion = append(newPropertyRegion, trailing...)
+
+			relStart := propertyStart - oldStart
+			relEnd := propertyEnd - oldStart
+			newPayload = make([]byte, 0, len(oldPayload)+(len(newPropertyRegion)-(propertyEnd-propertyStart)))
+			newPayload = append(newPayload, oldPayload[:relStart]...)
+			newPayload = append(newPayload, newPropertyRegion...)
+			newPayload = append(newPayload, oldPayload[relEnd:]...)
+		} else {
+			newPayload = append([]byte(nil), oldPayload...)
+		}
+
+		mutation := ExportMutation{ExportIndex: i, Payload: newPayload}
+		propertyDelta := len(newPayload) - len(oldPayload)
+		if propertyDelta != 0 && !newAsset.Summary.UsesUnversionedPropertySerialization() && newAsset.Summary.FileVersionUE5 >= ue5ScriptSerializationOffset {
+			oldStartRel := oldExp.ScriptSerializationStartOffset
+			oldEndRel := oldExp.ScriptSerializationEndOffset
+			if oldEndRel >= oldStartRel {
+				rangeStartRel := int64(propertyStart - oldStart)
+				rangeEndRel := int64(propertyEnd - oldStart)
+				if oldStartRel == rangeStartRel && oldEndRel == rangeEndRel {
+					mutation.UpdateScript = true
+					mutation.ScriptStartRel = oldStartRel
+					mutation.ScriptEndRel = oldEndRel + int64(propertyDelta)
+				}
+			}
+		}
+		mutations = append(mutations, mutation)
+	}
+	return mutations, nil
+}
+
+// BuildExportPackageIndexDeleteMutations reserializes tagged-property exports
+// after ImportMap deletion shifts or removes import package indices referenced
+// from export payloads.
+func BuildExportPackageIndexDeleteMutations(oldAsset, newAsset *uasset.Asset, importRemap map[int]int, removeSet map[int]bool) ([]ExportMutation, error) {
+	if oldAsset == nil {
+		return nil, fmt.Errorf("old asset is nil")
+	}
+	if newAsset == nil {
+		return nil, fmt.Errorf("new asset is nil")
+	}
+	if len(oldAsset.Exports) != len(newAsset.Exports) {
+		return nil, fmt.Errorf("export count mismatch: old=%d new=%d", len(oldAsset.Exports), len(newAsset.Exports))
+	}
+	if len(importRemap) == 0 && len(removeSet) == 0 {
+		return nil, nil
+	}
+
+	var order binary.ByteOrder = binary.LittleEndian
+	if newAsset.Summary.UsesByteSwappedSerialization() {
+		order = binary.BigEndian
+	}
+
+	mutations := make([]ExportMutation, 0, len(oldAsset.Exports))
+	for i, oldExp := range oldAsset.Exports {
+		oldStart := int(oldExp.SerialOffset)
+		oldEnd := int(oldExp.SerialOffset + oldExp.SerialSize)
+		if oldStart < 0 || oldEnd < oldStart || oldEnd > len(oldAsset.Raw.Bytes) {
+			return nil, fmt.Errorf("export[%d] serial range out of bounds", i+1)
+		}
+		propertyStart, propertyEnd, withClassControl := exportPropertyBounds(oldAsset, oldExp)
+		if propertyStart < oldStart || propertyEnd < propertyStart || propertyEnd > oldEnd {
+			return nil, fmt.Errorf("export[%d] property range out of bounds", i+1)
+		}
+
+		parsed := oldAsset.ParseTaggedPropertiesRange(propertyStart, propertyEnd, withClassControl)
+		if len(parsed.Warnings) > 0 {
+			className := oldAsset.ResolveClassName(oldExp)
+			if packageIndexRemapCanSkipTaggedPropertyWarnings(className) {
+				continue
+			}
+			return nil, fmt.Errorf("cannot safely remap export[%d] tagged properties: %s", i+1, strings.Join(parsed.Warnings, "; "))
+		}
+		if parsed.EndOffset < propertyStart+8 {
+			return nil, fmt.Errorf("export[%d] property terminator not found", i+1)
+		}
+		noneStart := parsed.EndOffset - 8
+		prefixEnd := noneStart
+		if len(parsed.Properties) > 0 {
+			prefixEnd = parsed.Properties[0].Offset
+		}
+		tagBlob := append([]byte(nil), oldAsset.Raw.Bytes[propertyStart:prefixEnd]...)
+		propsChanged := false
+		for j, tag := range parsed.Properties {
+			decoded, ok := oldAsset.DecodePropertyValue(tag)
+			if !ok {
+				tagStart := tag.Offset
+				tagEnd := noneStart
+				if j+1 < len(parsed.Properties) {
+					tagEnd = parsed.Properties[j+1].Offset
+				}
+				tagBlob = append(tagBlob, oldAsset.Raw.Bytes[tagStart:tagEnd]...)
+				continue
+			}
+			remappedValue, valueChanged, err := remapDecodedValueForDeletedImportPackageIndex(decoded, newAsset, importRemap, removeSet)
+			if err != nil {
+				return nil, fmt.Errorf("remap export[%d] property %s package indices: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			tagStart := tag.Offset
+			tagEnd := noneStart
+			if j+1 < len(parsed.Properties) {
+				tagEnd = parsed.Properties[j+1].Offset
+			}
+			if !valueChanged {
+				tagBlob = append(tagBlob, oldAsset.Raw.Bytes[tagStart:tagEnd]...)
+				continue
+			}
+			typeTree, err := buildTypeTree(tag.TypeNodes, newAsset.Names)
+			if err != nil {
+				return nil, fmt.Errorf("build export[%d] property %s type tree: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			valueBytes, boolValue, err := encodePropertyValue(newAsset, typeTree, remappedValue, order)
+			if err != nil {
+				return nil, fmt.Errorf("encode export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			tagBytes, _, err := serializePropertyTag(newAsset, tag, valueBytes, boolValue, order)
+			if err != nil {
+				return nil, fmt.Errorf("serialize export[%d] property %s: %w", i+1, tag.Name.Display(oldAsset.Names), err)
+			}
+			if !bytes.Equal(tagBytes, oldAsset.Raw.Bytes[tagStart:tagEnd]) || valueChanged {
+				propsChanged = true
+			}
+			tagBlob = append(tagBlob, tagBytes...)
+		}
+		oldPayload := oldAsset.Raw.Bytes[oldStart:oldEnd]
+
+		tailStart := parsed.EndOffset - oldStart
+		tailChanged := false
+		if tailStart >= 0 && tailStart < len(oldPayload) {
+			serializedPkgRemap := make(map[int32]int32, len(importRemap))
+			serializedRemoved := make(map[int32]bool, len(removeSet))
+			for oldIdx := range removeSet {
+				serializedRemoved[int32(-(oldIdx + 1))] = true
+			}
+			for oldIdx, newIdx := range importRemap {
+				oldPkg := int32(-(oldIdx + 1))
+				newPkg := int32(-(newIdx + 1))
+				if oldPkg != newPkg {
+					serializedPkgRemap[oldPkg] = newPkg
+				}
+			}
+			if len(serializedPkgRemap) > 0 || len(serializedRemoved) > 0 {
+				tail := append([]byte(nil), oldPayload[tailStart:]...)
+				for pos := 0; pos+4 <= len(tail); pos++ {
+					cur := int32(order.Uint32(tail[pos : pos+4]))
+					if serializedRemoved[cur] {
+						return nil, fmt.Errorf("export[%d] tail still references removed import %d", i+1, -cur)
+					}
+					replacement, ok := serializedPkgRemap[cur]
+					if !ok || replacement == cur {
+						continue
+					}
+					order.PutUint32(tail[pos:pos+4], uint32(replacement))
+					tailChanged = true
+					pos += 3
+				}
+				if tailChanged {
+					copy(oldPayload[tailStart:], tail)
+				}
+			}
+		}
+
+		if !propsChanged && !tailChanged {
+			continue
+		}
+
+		var newPayload []byte
+		if propsChanged {
+			noneBytes := oldAsset.Raw.Bytes[noneStart:parsed.EndOffset]
+			trailing := oldAsset.Raw.Bytes[parsed.EndOffset:propertyEnd]
+			newPropertyRegion := make([]byte, 0, len(tagBlob)+len(noneBytes)+len(trailing))
+			newPropertyRegion = append(newPropertyRegion, tagBlob...)
+			newPropertyRegion = append(newPropertyRegion, noneBytes...)
+			newPropertyRegion = append(newPropertyRegion, trailing...)
+
+			relStart := propertyStart - oldStart
+			relEnd := propertyEnd - oldStart
+			newPayload = make([]byte, 0, len(oldPayload)+(len(newPropertyRegion)-(propertyEnd-propertyStart)))
+			newPayload = append(newPayload, oldPayload[:relStart]...)
+			newPayload = append(newPayload, newPropertyRegion...)
+			newPayload = append(newPayload, oldPayload[relEnd:]...)
+		} else {
+			newPayload = append([]byte(nil), oldPayload...)
+		}
+
+		mutation := ExportMutation{ExportIndex: i, Payload: newPayload}
+		propertyDelta := len(newPayload) - len(oldPayload)
+		if propertyDelta != 0 && !oldAsset.Summary.UsesUnversionedPropertySerialization() && oldAsset.Summary.FileVersionUE5 >= ue5ScriptSerializationOffset {
 			oldStartRel := oldExp.ScriptSerializationStartOffset
 			oldEndRel := oldExp.ScriptSerializationEndOffset
 			if oldEndRel >= oldStartRel {
@@ -532,6 +1291,127 @@ func remapDecodedValueForNameMap(value any, indexRemap map[int32]int32, newNames
 	}
 }
 
+func remapDecodedValueForPackageIndex(value any, asset *uasset.Asset, importRemap map[int]int) (any, bool, error) {
+	switch v := value.(type) {
+	case map[string]any:
+		out := make(map[string]any, len(v))
+		changed := false
+		for key, item := range v {
+			next, itemChanged, err := remapDecodedValueForPackageIndex(item, asset, importRemap)
+			if err != nil {
+				return nil, false, err
+			}
+			out[key] = next
+			changed = changed || itemChanged
+		}
+		if resolved, ok := v["resolved"].(string); ok {
+			if idx, err := asInt64(v["index"]); err == nil {
+				newIdx := remapImportPackageIndex(uasset.PackageIndex(int32(idx)), importRemap)
+				if int32(newIdx) != int32(idx) {
+					out["index"] = int32(newIdx)
+					out["resolved"] = asset.ParseIndex(newIdx)
+					changed = true
+				} else {
+					out["resolved"] = resolved
+				}
+			}
+		}
+		return out, changed, nil
+	case []any:
+		out := make([]any, len(v))
+		changed := false
+		for i, item := range v {
+			next, itemChanged, err := remapDecodedValueForPackageIndex(item, asset, importRemap)
+			if err != nil {
+				return nil, false, err
+			}
+			out[i] = next
+			changed = changed || itemChanged
+		}
+		return out, changed, nil
+	case []map[string]any:
+		out := make([]map[string]any, len(v))
+		changed := false
+		for i, item := range v {
+			next, itemChanged, err := remapDecodedValueForPackageIndex(item, asset, importRemap)
+			if err != nil {
+				return nil, false, err
+			}
+			nextMap, ok := next.(map[string]any)
+			if !ok {
+				return nil, false, fmt.Errorf("remapped array item has invalid type %T", next)
+			}
+			out[i] = nextMap
+			changed = changed || itemChanged
+		}
+		return out, changed, nil
+	default:
+		return value, false, nil
+	}
+}
+
+func remapDecodedValueForDeletedImportPackageIndex(value any, asset *uasset.Asset, importRemap map[int]int, removeSet map[int]bool) (any, bool, error) {
+	switch v := value.(type) {
+	case map[string]any:
+		out := make(map[string]any, len(v))
+		changed := false
+		for key, item := range v {
+			next, itemChanged, err := remapDecodedValueForDeletedImportPackageIndex(item, asset, importRemap, removeSet)
+			if err != nil {
+				return nil, false, err
+			}
+			out[key] = next
+			changed = changed || itemChanged
+		}
+		if resolved, ok := v["resolved"].(string); ok {
+			if idx, err := asInt64(v["index"]); err == nil {
+				newIdx, err := remapImportPackageIndexForDeletion(uasset.PackageIndex(int32(idx)), importRemap, removeSet)
+				if err != nil {
+					return nil, false, err
+				}
+				if int32(newIdx) != int32(idx) {
+					out["index"] = int32(newIdx)
+					out["resolved"] = asset.ParseIndex(newIdx)
+					changed = true
+				} else {
+					out["resolved"] = resolved
+				}
+			}
+		}
+		return out, changed, nil
+	case []any:
+		out := make([]any, len(v))
+		changed := false
+		for i, item := range v {
+			next, itemChanged, err := remapDecodedValueForDeletedImportPackageIndex(item, asset, importRemap, removeSet)
+			if err != nil {
+				return nil, false, err
+			}
+			out[i] = next
+			changed = changed || itemChanged
+		}
+		return out, changed, nil
+	case []map[string]any:
+		out := make([]map[string]any, len(v))
+		changed := false
+		for i, item := range v {
+			next, itemChanged, err := remapDecodedValueForDeletedImportPackageIndex(item, asset, importRemap, removeSet)
+			if err != nil {
+				return nil, false, err
+			}
+			nextMap, ok := next.(map[string]any)
+			if !ok {
+				return nil, false, fmt.Errorf("remapped array item has invalid type %T", next)
+			}
+			out[i] = nextMap
+			changed = changed || itemChanged
+		}
+		return out, changed, nil
+	default:
+		return value, false, nil
+	}
+}
+
 func remapOpaqueStructRawBase64(rawB64, structType string, indexRemap map[int32]int32) (string, bool, error) {
 	if rawB64 == "" {
 		return "", false, nil
@@ -552,8 +1432,51 @@ func remapOpaqueStructRawBase64(rawB64, structType string, indexRemap map[int32]
 	}
 }
 
+// RemapOpaqueExportNameRefs performs an opaque scan of an export payload,
+// remapping all NameRef-like int32 pairs according to the index remap.
+func RemapOpaqueExportNameRefs(payload []byte, indexRemap map[int32]int32) ([]byte, bool) {
+	return remapOpaqueNameRefPairsLESkip(payload, indexRemap, -1)
+}
+
 func remapOpaqueNameRefPairsLE(raw []byte, indexRemap map[int32]int32) ([]byte, bool) {
 	return remapOpaqueNameRefPairsLESkip(raw, indexRemap, -1)
+}
+
+// remapOpaqueNameRefPairsLEAnyNumber is like remapOpaqueNameRefPairsLE but
+// also matches NameRef pairs where Number != 0 (e.g., instanced names like
+// "Image_22" → Name="Image" Number=23). This is needed for tail/bytecode
+// regions that contain instanced name references.
+func remapOpaqueNameRefPairsLEAnyNumber(raw []byte, indexRemap map[int32]int32) ([]byte, bool) {
+	return remapOpaqueNameRefPairsLEAnyNumberSkipBlocked(raw, indexRemap, nil)
+}
+
+func remapOpaqueNameRefPairsLEAnyNumberSkipBlocked(raw []byte, indexRemap map[int32]int32, blocked map[int]struct{}) ([]byte, bool) {
+	if len(raw) < 8 || len(indexRemap) == 0 {
+		return append([]byte(nil), raw...), false
+	}
+	out := append([]byte(nil), raw...)
+	changed := false
+	for off := 0; off+8 <= len(out); off++ {
+		if _, ok := blocked[off]; ok {
+			continue
+		}
+		idx := int32(binary.LittleEndian.Uint32(out[off : off+4]))
+		if idx < 0 {
+			continue
+		}
+		num := int32(binary.LittleEndian.Uint32(out[off+4 : off+8]))
+		if num < 0 || num > 10000 {
+			continue
+		}
+		newIdx, ok := indexRemap[idx]
+		if !ok || newIdx == idx {
+			continue
+		}
+		binary.LittleEndian.PutUint32(out[off:off+4], uint32(newIdx))
+		changed = true
+		off += 7
+	}
+	return out, changed
 }
 
 func remapOpaqueNameRefPairsLESkip(raw []byte, indexRemap map[int32]int32, skipIndex int32) ([]byte, bool) {
@@ -594,6 +1517,34 @@ func remapOpaqueSpecificNameRefPairLE(raw []byte, oldIndex, newIndex int32) ([]b
 	return rewritten, changed
 }
 
+func remapOpaqueSpecificNameRefPairLEPositionsSkipBlocked(raw []byte, oldIndex, newIndex int32, blocked map[int]struct{}) ([]byte, map[int]struct{}, bool) {
+	if len(blocked) == 0 {
+		return remapOpaqueSpecificNameRefPairLEPositions(raw, oldIndex, newIndex)
+	}
+	if len(raw) < 8 || oldIndex < 0 || newIndex < 0 || oldIndex == newIndex {
+		return append([]byte(nil), raw...), nil, false
+	}
+	out := append([]byte(nil), raw...)
+	changed := false
+	offsets := map[int]struct{}{}
+	for off := 0; off+8 <= len(out); off++ {
+		if _, skip := blocked[off]; skip {
+			continue
+		}
+		if int32(binary.LittleEndian.Uint32(out[off:off+4])) != oldIndex {
+			continue
+		}
+		if binary.LittleEndian.Uint32(out[off+4:off+8]) != 0 {
+			continue
+		}
+		binary.LittleEndian.PutUint32(out[off:off+4], uint32(newIndex))
+		offsets[off] = struct{}{}
+		changed = true
+		off += 7
+	}
+	return out, offsets, changed
+}
+
 func remapOpaqueSpecificNameRefPairLEPositions(raw []byte, oldIndex, newIndex int32) ([]byte, map[int]struct{}, bool) {
 	if len(raw) < 8 || oldIndex < 0 || newIndex < 0 || oldIndex == newIndex {
 		return append([]byte(nil), raw...), nil, false
@@ -614,6 +1565,30 @@ func remapOpaqueSpecificNameRefPairLEPositions(raw []byte, oldIndex, newIndex in
 		off += 7
 	}
 	return out, offsets, changed
+}
+
+func collectOpaqueExportIndexLikeZeroNumberOffsets(raw []byte, maxSerializedExport int32, className string, order binary.ByteOrder) map[int]struct{} {
+	blocked := map[int]struct{}{}
+	if len(raw) < 8 || maxSerializedExport <= 0 {
+		return blocked
+	}
+	switch {
+	case strings.EqualFold(className, "K2Node_Event"), strings.EqualFold(className, "WidgetBlueprintGeneratedClass"):
+	default:
+		return blocked
+	}
+	for off := 0; off+8 <= len(raw); off++ {
+		idx := int32(order.Uint32(raw[off : off+4]))
+		if idx <= 0 || idx > maxSerializedExport {
+			continue
+		}
+		num := int32(order.Uint32(raw[off+4 : off+8]))
+		if num != 0 {
+			continue
+		}
+		blocked[off] = struct{}{}
+	}
+	return blocked
 }
 
 func collectASCIIFStringDataOffsets(raw []byte) map[int]struct{} {

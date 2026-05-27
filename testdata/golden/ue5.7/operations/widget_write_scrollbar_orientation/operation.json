@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ScrollBar_1",
+		"property": "scrollbar-orientation",
+		"value": "Vertical"
+	},
+	"ue_procedure": "Set Orientation to Vertical on the ScrollBar child under the root CanvasPanel on WBP_CanvasPanel_ScrollBar",
+	"expect": "byte_equal",
+	"notes": "Generator after-state is implemented; operation remains deferred until UE-generated golden fixtures and source widget fixtures are checked in.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}

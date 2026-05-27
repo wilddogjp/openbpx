@@ -15,7 +15,7 @@
         "outerIndex": 0,
         "properties": [],
         "serial": {
-          "offset": 1104,
+          "offset": 1140,
           "scriptSerializationEnd": 9,
           "scriptSerializationStart": 0,
           "size": 34
@@ -26,8 +26,6 @@
     ],
     "file": "testdata/golden/parse/E_Direction.uasset"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "enum_list_E_Direction",
   "oracle": "ue-fixture"
 }

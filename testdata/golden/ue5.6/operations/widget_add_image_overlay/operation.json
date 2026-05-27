@@ -1,0 +1,23 @@
+{
+	"command": "blueprint widget-add",
+	"args": {
+		"parent": "Overlay_116",
+		"type": "image",
+		"name": "Image_23"
+	},
+	"ue_procedure": "Add one bare Image child under the root Overlay on WBP_Overlay",
+	"expect": "byte_equal",
+	"notes": "Validated against UE-generated widget-add fixture.",
+	"ignore_offsets": [
+		{
+			"offset": 3445,
+			"length": 5405,
+			"reason": "UE5.6 Overlay fixture rewrites metadata tooltip ordering; treat package metadata as editor-only noise for this operation."
+		}
+	],
+	"ignore_package_sections": [
+		"saved-hash",
+		"editor-thumbnails",
+		"widget-variable-guid-map-values"
+	]
+}

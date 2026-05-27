@@ -27,7 +27,7 @@
           "functionMemberParent": ""
         },
         "graphName": "EventGraph",
-        "nodeGuid": "4666d957-00cf-48ce-a3bc-949c26034734",
+        "nodeGuid": "727a3072-c008-49e9-a1aa-f4a44d115ed7",
         "objectName": "K2Node_Event_0"
       },
       {
@@ -43,7 +43,7 @@
           "functionMemberParent": ""
         },
         "graphName": "EventGraph",
-        "nodeGuid": "7eec80dd-5fe5-40b5-bcfc-49f31b786411",
+        "nodeGuid": "bd4e669c-c3e5-476d-9e12-7847ab655913",
         "nodePos": {
           "x": 0,
           "y": 208
@@ -63,7 +63,7 @@
           "functionMemberParent": ""
         },
         "graphName": "EventGraph",
-        "nodeGuid": "05ae12c5-05ee-4df4-8dbf-dfaae24cae8f",
+        "nodeGuid": "a3ed5a18-7a4c-4687-9ead-896123e6d016",
         "nodePos": {
           "x": 0,
           "y": 416
@@ -79,8 +79,6 @@
     ],
     "warnings": []
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "blueprint_search_BP_Empty_class_K2Node_Event_show_NodePos_Function",
   "oracle": "ue-fixture"
 }

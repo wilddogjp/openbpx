@@ -1,5 +1,8 @@
 # Go build outputs
-/bin/
+/bin/*
+!/bin/
+!/bin/bpx
+!/bin/bpx.cmd
 /dist/
 *.test
 *.out

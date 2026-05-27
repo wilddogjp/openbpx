@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ListView_1",
+		"property": "listview-is-focusable",
+		"value": "false"
+	},
+	"ue_procedure": "Disable focus on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView",
+	"expect": "byte_equal",
+	"notes": "Covers ListView bIsFocusable rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

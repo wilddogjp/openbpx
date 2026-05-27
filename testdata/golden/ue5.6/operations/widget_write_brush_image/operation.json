@@ -1,0 +1,21 @@
+{
+  "command": "blueprint widget-write",
+  "args": {
+    "property": "brush-image",
+    "value": "/Game/Effects/Textures/Decals/chippedcracks",
+    "widget": "Image_22"
+  },
+  "ue_procedure": "Set the Brush ResourceObject on root Image widget to Texture2D chippedcracks via UE Editor property panel",
+  "expect": "byte_equal",
+  "notes": "Covers brush-image assignment on root Image widget: adds Texture2D import, inserts NameMap entries in alphabetical order, sets SlateBrush struct with ImageType/ImageSize/ResourceObject, and syncs DependsMap.",
+  "ignore_package_sections": [
+    "editor-thumbnails"
+  ],
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "SavedHash (non-deterministic)"
+    }
+  ]
+}

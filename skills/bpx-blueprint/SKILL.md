@@ -48,17 +48,42 @@ bpx blueprint scan-functions <directory> --recursive [--name-like <regex>] [--ag
 | `infer-pack` | emits CFG/callsite/def-use inference artifacts. | Check `bpx help` for exact required flags. |
 | `scan-functions` | aggregates function names across a directory. | Check `bpx help` for exact required flags. |
 
+## Recommended Workflow
+
+- Start with `bpx blueprint info` to identify candidate exports and confirm whether you are dealing with a Blueprint asset, a WidgetBlueprint, or a generated class payload.
+- Use `search` to narrow by member, node, or symbol name before moving to heavier analysis commands.
+- Reach for `trace` and `call-args` when you already know the node or function you care about and want a focused dependency path.
+- Use `disasm` or `bytecode` only after you have identified the target export and execution slice; they are best for instruction-level inspection, not broad discovery.
+- Prefer `refs` when you need reverse lookup from a soft object path back to the Blueprint nodes/pins that mention it.
+- For WidgetBlueprint construction and edit workflows, switch to [bpx-widget](../bpx-widget/SKILL.md). Keep this skill focused on Blueprint analysis rather than widget tree authoring.
+
+## Worked Recipe
+
+```bash
+bpx blueprint info ./Content/BP_Player.uasset
+bpx blueprint search ./Content/BP_Player.uasset --member ApplyDamage --show name,class,member
+bpx blueprint trace ./Content/BP_Player.uasset --from K2Node_CallFunction_12 --max-depth 6
+bpx blueprint call-args ./Content/BP_Player.uasset --member ApplyDamage --all-pins
+bpx blueprint disasm ./Content/BP_Player.uasset --export 21 --analysis --format text
+```
+
+- This is the preferred shape for "find a Blueprint function, inspect the call path, then disassemble the final target export".
+- Use `search` and `trace` first so `disasm` stays focused on a specific export instead of becoming a broad dump.
+- If your goal is WidgetBlueprint construction or widget property mutation, use [bpx-widget](../bpx-widget/SKILL.md) instead of treating this analysis recipe as an authoring workflow.
+
 ## Code-Aligned Caveats
 
 - Large blueprints can produce very large payloads; constrain via `--limit`/`--max-steps`.
 - `refs --include-routes` can be expensive; disable routes when doing broad scans.
 - `disasm --entrypoint` implies analysis-oriented output.
+- `trace` and `call-args` are most useful after `search` or `info` has already narrowed the target export/node set.
+- For WidgetBlueprint edit flows and UE-openability caveats, prefer [bpx-widget](../bpx-widget/SKILL.md) over embedding widget-authoring guidance here.
 
 ## High-Signal Examples
 
 ```bash
-bpx blueprint info ./Sample.uasset [--export 1]
-bpx blueprint bytecode ./Sample.uasset --export 1 [--range-source auto|export-map|ustruct-script|serial-full] [--strict-range] [--diagnostics]
-bpx blueprint disasm ./Sample.uasset --export 1 [--format json|toml|text] [--analysis] [--entrypoint 0] [--max-steps 1] [--range-source auto|export-map|ustruct-script|serial-full] [--strict-range] [--diagnostics]
-bpx blueprint trace ./Sample.uasset --from <Node|Node.Pin> [--to-node SampleToken] [--to-function SampleToken] [--max-depth 1]
+bpx blueprint info ./Content/BP_Player.uasset
+bpx blueprint search ./Content/BP_Player.uasset --member ApplyDamage --show name,class,member
+bpx blueprint trace ./Content/BP_Player.uasset --from K2Node_CallFunction_12 --max-depth 6
+bpx blueprint disasm ./Content/BP_Player.uasset --export 21 --analysis --format text
 ```

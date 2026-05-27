@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/EditableText_1",
+		"property": "editabletext-is-read-only",
+		"value": "true"
+	},
+	"ue_procedure": "Enable IsReadOnly on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText",
+	"expect": "byte_equal",
+	"notes": "Covers EditableText is-read-only bool rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

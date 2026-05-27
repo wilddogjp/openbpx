@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/CheckBox_1",
+		"property": "checkbox-is-checked",
+		"value": "true"
+	},
+	"ue_procedure": "Set CheckedState to Checked on the CheckBox child under the root CanvasPanel on WBP_CanvasPanel_CheckBox",
+	"expect": "byte_equal",
+	"notes": "Covers CheckBox bool-to-state rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

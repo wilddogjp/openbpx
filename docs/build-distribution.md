@@ -14,7 +14,7 @@ This document describes how to build `bpx` as standalone executables for Windows
 ## Local Build (Manual)
 
 ```bash
-cd bpx
+cd openbpx
 mkdir -p dist/single
 
 CGO_ENABLED=0 GOOS=linux   GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o dist/single/bpx_linux_amd64 ./cmd/bpx
@@ -28,7 +28,7 @@ CGO_ENABLED=0 GOOS=windows GOARCH=arm64 go build -trimpath -ldflags="-s -w" -o d
 If needed, generate checksums:
 
 ```bash
-cd bpx
+cd openbpx
 sha256sum dist/single/* > dist/single/checksums.txt
 ```
 
@@ -44,3 +44,4 @@ Notes:
 
 - Artifacts are uploaded as raw binaries (`bpx_*`), not pre-zipped by this workflow.
 - Artifact storage format follows GitHub Actions behavior.
+- `bpx blueprint widget-init --template minimum` uses a WidgetBlueprint template embedded into the executable, so standalone binaries do not need `testdata/golden/ue5.6/parse/WBP_Minimum.uasset` at runtime.

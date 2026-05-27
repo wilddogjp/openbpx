@@ -14,7 +14,7 @@
         "index": 1,
         "objectName": "BP_Empty",
         "outerIndex": 0,
-        "serialOffset": 18276,
+        "serialOffset": 18280,
         "serialSize": 815,
         "superIndex": 0
       },
@@ -24,8 +24,8 @@
         "index": 2,
         "objectName": "BP_Empty_C",
         "outerIndex": 0,
-        "serialOffset": 19091,
-        "serialSize": 193,
+        "serialOffset": 19095,
+        "serialSize": 189,
         "superIndex": -6
       },
       {
@@ -65,7 +65,7 @@
         "objectName": "K2Node_Event_0",
         "outerIndex": 4,
         "serialOffset": 19659,
-        "serialSize": 870,
+        "serialSize": 854,
         "superIndex": 0
       },
       {
@@ -74,8 +74,8 @@
         "index": 7,
         "objectName": "K2Node_Event_1",
         "outerIndex": 4,
-        "serialOffset": 20529,
-        "serialSize": 1145,
+        "serialOffset": 20513,
+        "serialSize": 1114,
         "superIndex": 0
       },
       {
@@ -84,8 +84,8 @@
         "index": 8,
         "objectName": "K2Node_Event_2",
         "outerIndex": 4,
-        "serialOffset": 21674,
-        "serialSize": 1155,
+        "serialOffset": 21627,
+        "serialSize": 1126,
         "superIndex": 0
       },
       {
@@ -94,7 +94,7 @@
         "index": 9,
         "objectName": "K2Node_FunctionEntry_0",
         "outerIndex": 5,
-        "serialOffset": 22829,
+        "serialOffset": 22753,
         "serialSize": 401,
         "superIndex": 0
       },
@@ -104,7 +104,7 @@
         "index": 10,
         "objectName": "DefaultSceneRoot_GEN_VARIABLE",
         "outerIndex": 2,
-        "serialOffset": 23230,
+        "serialOffset": 23154,
         "serialSize": 42,
         "superIndex": 0
       },
@@ -114,7 +114,7 @@
         "index": 11,
         "objectName": "SCS_Node_0",
         "outerIndex": 12,
-        "serialOffset": 23272,
+        "serialOffset": 23196,
         "serialSize": 231,
         "superIndex": 0
       },
@@ -124,15 +124,13 @@
         "index": 12,
         "objectName": "SimpleConstructionScript_0",
         "outerIndex": 2,
-        "serialOffset": 23503,
+        "serialOffset": 23427,
         "serialSize": 132,
         "superIndex": 0
       }
     ],
     "file": "testdata/golden/parse/BP_Empty.uasset"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "export_list_BP_Empty",
   "oracle": "ue-fixture"
 }

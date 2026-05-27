@@ -23,8 +23,6 @@
     "rangeSource": "serial-full",
     "selectedEntrypoint": 0
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "blueprint_infer_pack_BP_WithFunctions_export5",
   "oracle": "ue-fixture"
 }

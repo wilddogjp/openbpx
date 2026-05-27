@@ -272,6 +272,12 @@ func (a *Asset) decodeTopLevelStructProperty(tag PropertyTag, raw []byte, node *
 			"rawBase64":  base64.StdEncoding.EncodeToString(raw),
 		}, true
 	}
+	if len(props.Warnings) > 0 || props.EndOffset < len(raw) {
+		return map[string]any{
+			"structType": structType,
+			"rawBase64":  base64.StdEncoding.EncodeToString(raw),
+		}, true
+	}
 	if len(props.Properties) == 0 && !isKnownTaggedStructDecodeCandidate(strings.ToLower(structType)) {
 		return map[string]any{
 			"structType": structType,
@@ -279,12 +285,6 @@ func (a *Asset) decodeTopLevelStructProperty(tag PropertyTag, raw []byte, node *
 		}, true
 	}
 	out, _ := decoded.(map[string]any)
-	if len(props.Warnings) > 0 {
-		out["warnings"] = props.Warnings
-	}
-	if props.EndOffset < len(raw) {
-		out["trailingBytes"] = len(raw) - props.EndOffset
-	}
 	return out, true
 }
 

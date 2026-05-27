@@ -1,5 +1,22 @@
 {
   "name": "openbpx",
-  "version": "0.1.8",
-  "description": "BPX plugin for Unreal Engine asset inspection and safe edit workflows."
+  "version": "0.2.0",
+  "description": "BPX plugin for Unreal Engine asset inspection and safe edit workflows.",
+  "author": {
+    "name": "Wild Dog, Inc.",
+    "url": "https://wilddog.jp"
+  },
+  "homepage": "https://github.com/wilddogjp/openbpx",
+  "repository": "https://github.com/wilddogjp/openbpx",
+  "license": "Apache-2.0",
+  "keywords": [
+    "bpx",
+    "openbpx",
+    "unreal-engine",
+    "uasset",
+    "umap",
+    "blueprint",
+    "agent-skill"
+  ],
+  "skills": "./skills/"
 }

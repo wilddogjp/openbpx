@@ -14,7 +14,7 @@
         "index": 1,
         "objectName": "AssetImportData",
         "outerIndex": 2,
-        "serialOffset": 1459,
+        "serialOffset": 1495,
         "serialSize": 20,
         "superIndex": 0
       },
@@ -24,15 +24,13 @@
         "index": 2,
         "objectName": "DT_Simple",
         "outerIndex": 0,
-        "serialOffset": 1479,
+        "serialOffset": 1515,
         "serialSize": 246,
         "superIndex": 0
       }
     ],
     "file": "testdata/golden/parse/DT_Simple.uasset"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "export_list_DT_Simple",
   "oracle": "ue-fixture"
 }

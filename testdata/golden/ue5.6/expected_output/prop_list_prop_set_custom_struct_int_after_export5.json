@@ -42,8 +42,6 @@
     ],
     "warnings": null
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "prop_list_prop_set_custom_struct_int_after_export5",
   "oracle": "ue-fixture"
 }

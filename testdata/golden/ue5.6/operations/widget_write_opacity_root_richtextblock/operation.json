@@ -1,0 +1,12 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "RichTextBlock_72",
+		"property": "render-opacity",
+		"value": "0.8"
+	},
+	"ue_procedure": "Set RenderOpacity to 0.8 on the root RichTextBlock on WBP_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root RichTextBlock RenderOpacity write across designer/generated WidgetTree exports."
+}

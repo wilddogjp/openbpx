@@ -30,6 +30,8 @@ public class BPXFixtureGenerator : ModuleRules
                 "Projects",
                 "Slate",
                 "SlateCore",
+                "UMG",
+                "UMGEditor",
                 "UnrealEd"
             }
         );

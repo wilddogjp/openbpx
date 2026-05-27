@@ -1,12 +1,19 @@
 {
   "command": "name set",
   "args": {
+    "case-preserving-hash": "4444",
     "index": "2",
-    "value": "BPX_Name_Alt",
     "non-case-hash": "3333",
-    "case-preserving-hash": "4444"
+    "value": "BPX_Name_Alt"
   },
   "ue_procedure": "Update one NameMap entry with alternate explicit hashes",
   "expect": "byte_equal",
-  "notes": "Low-level NameMap set fixture with alternate hash override."
+  "notes": "Low-level NameMap set fixture with alternate hash override.",
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
 }

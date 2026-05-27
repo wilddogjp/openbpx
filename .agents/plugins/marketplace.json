@@ -1,0 +1,20 @@
+{
+  "name": "openbpx",
+  "interface": {
+    "displayName": "OpenBPX"
+  },
+  "plugins": [
+    {
+      "name": "openbpx",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Coding"
+    }
+  ]
+}

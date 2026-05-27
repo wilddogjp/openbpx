@@ -7,8 +7,9 @@ description: Shared BPX safety and execution guidance. Use before command-specif
 
 ## Installation
 
-- Ensure `bpx` is available on `PATH`.
-- Confirm with `bpx version` and `bpx help`.
+- Prefer `bpx` from `PATH` when available.
+- Plugin installs include a bundled fallback wrapper at `../../bin/bpx` (or `../../bin/bpx.cmd` on Windows) relative to this skill.
+- Confirm with `<bpx-command> version` and `<bpx-command> help`; use the same resolved command in later examples.
 
 ## Safety Rules
 

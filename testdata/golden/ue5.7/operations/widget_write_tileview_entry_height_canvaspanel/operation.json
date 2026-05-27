@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/TileView_1",
+		"property": "tileview-entry-height",
+		"value": "96"
+	},
+	"ue_procedure": "Set EntryHeight to 96 on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView",
+	"expect": "byte_equal",
+	"notes": "Covers TileView entry-height rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

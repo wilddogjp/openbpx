@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "RichTextBlock_72",
+		"property": "richtext-default-outline-color",
+		"value": "0.2,0.3,0.9,1"
+	},
+	"ue_procedure": "Set DefaultTextStyleOverride.Font.OutlineSettings.OutlineColor on the root RichTextBlock on WBP_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers RichTextBlock outline-color insertion inside FontOutlineSettings.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}

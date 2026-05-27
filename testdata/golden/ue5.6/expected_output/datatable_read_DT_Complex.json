@@ -15,33 +15,33 @@
             "arrayIndex": 0,
             "flags": 0,
             "name": "RowStruct",
-            "offset": 1484,
+            "offset": 1520,
             "size": 4,
             "type": "ObjectProperty",
             "value": {
               "index": -4,
               "resolved": "import:4:TableRowBase"
             },
-            "valueOffset": 1509
+            "valueOffset": 1545
           },
           {
             "arrayIndex": 0,
             "flags": 0,
             "name": "AssetImportData",
-            "offset": 1513,
+            "offset": 1549,
             "size": 4,
             "type": "ObjectProperty",
             "value": {
               "index": 1,
               "resolved": "export:1:AssetImportData"
             },
-            "valueOffset": 1538
+            "valueOffset": 1574
           },
           {
             "arrayIndex": 0,
             "flags": 0,
             "name": "RowStructPathName",
-            "offset": 1542,
+            "offset": 1578,
             "size": 74,
             "type": "StructProperty(TopLevelAssetPath(/Script/CoreUObject))",
             "value": {
@@ -81,7 +81,7 @@
                 }
               }
             },
-            "valueOffset": 1591
+            "valueOffset": 1627
           }
         ],
         "headerWarnings": null,
@@ -117,8 +117,6 @@
       }
     ]
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "datatable_read_DT_Complex",
   "oracle": "ue-fixture"
 }

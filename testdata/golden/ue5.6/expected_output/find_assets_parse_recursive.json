@@ -36,15 +36,21 @@
       "testdata/golden/parse/E_Direction.uasset",
       "testdata/golden/parse/MI_Chrome.uasset",
       "testdata/golden/parse/ST_UI.uasset",
-      "testdata/golden/parse/S_PlayerData.uasset"
+      "testdata/golden/parse/S_PlayerData.uasset",
+      "testdata/golden/parse/WBP_CanvasPanel.uasset",
+      "testdata/golden/parse/WBP_CanvasPanel_RichTextBlock.uasset",
+      "testdata/golden/parse/WBP_CanvasPanel_TextBlock.uasset",
+      "testdata/golden/parse/WBP_Minimum.uasset",
+      "testdata/golden/parse/WBP_Overlay.uasset",
+      "testdata/golden/parse/WBP_Overlay_TextBlock.uasset",
+      "testdata/golden/parse/WBP_RichTextBlock.uasset",
+      "testdata/golden/parse/WBP_TextBlock.uasset"
     ],
-    "count": 28,
+    "count": 36,
     "directory": "testdata/golden/parse",
     "pattern": "*.uasset",
     "recursive": true
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "find_assets_parse_recursive",
   "oracle": "ue-fixture"
 }

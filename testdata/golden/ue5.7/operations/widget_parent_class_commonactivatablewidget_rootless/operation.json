@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-parent-class",
+	"args":
+	{
+		"class": "/Script/CommonUI.CommonActivatableWidget"
+	},
+	"ue_procedure": "Replace the rootless WBP_Minimum parent class with CommonActivatableWidget",
+	"expect": "byte_equal",
+	"notes": "Covers native WidgetBlueprint parent-class rewrites while the blueprint is still rootless.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

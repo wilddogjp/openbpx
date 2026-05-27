@@ -9,7 +9,7 @@
   ],
   "expected": {
     "assetKindCounts": {
-      "Blueprint": 22,
+      "Blueprint": 30,
       "DataTable": 2,
       "Unknown": 4
     },
@@ -35,25 +35,31 @@
       "testdata/golden/parse/BP_Unicode.uasset",
       "testdata/golden/parse/BP_WithFunctions.uasset",
       "testdata/golden/parse/BP_WithMetadata.uasset",
-      "testdata/golden/parse/BP_WithThumbnail.uasset"
+      "testdata/golden/parse/BP_WithThumbnail.uasset",
+      "testdata/golden/parse/WBP_CanvasPanel.uasset",
+      "testdata/golden/parse/WBP_CanvasPanel_RichTextBlock.uasset",
+      "testdata/golden/parse/WBP_CanvasPanel_TextBlock.uasset",
+      "testdata/golden/parse/WBP_Minimum.uasset",
+      "testdata/golden/parse/WBP_Overlay.uasset",
+      "testdata/golden/parse/WBP_Overlay_TextBlock.uasset",
+      "testdata/golden/parse/WBP_RichTextBlock.uasset",
+      "testdata/golden/parse/WBP_TextBlock.uasset"
     ],
     "datatableFiles": [
       "testdata/golden/parse/DT_Complex.uasset",
       "testdata/golden/parse/DT_Simple.uasset"
     ],
     "directory": "testdata/golden/parse",
-    "fileCount": 28,
+    "fileCount": 36,
     "parseFailCount": 0,
     "parseFailures": [],
-    "parsedCount": 28,
+    "parsedCount": 36,
     "pattern": "*.uasset",
     "recursive": true,
     "topDirCounts": {
-      ".": 28
+      ".": 36
     }
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "find_summary_parse_recursive",
   "oracle": "ue-fixture"
 }

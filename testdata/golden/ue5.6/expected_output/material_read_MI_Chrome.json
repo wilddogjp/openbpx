@@ -74,8 +74,6 @@
     },
     "readVersion": 1
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "material_read_MI_Chrome",
   "oracle": "ue-fixture"
 }

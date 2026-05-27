@@ -108,7 +108,7 @@ function Invoke-BatchFile {
 
     $startInfo = New-Object System.Diagnostics.ProcessStartInfo
     $startInfo.FileName = $cmdExePath
-    $startInfo.Arguments = "/d /s /c $commandLine"
+    $startInfo.Arguments = "/d /c call $commandLine"
     $startInfo.UseShellExecute = $false
     $startInfo.RedirectStandardOutput = $true
     $startInfo.RedirectStandardError = $true

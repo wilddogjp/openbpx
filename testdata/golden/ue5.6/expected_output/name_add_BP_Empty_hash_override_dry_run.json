@@ -20,11 +20,9 @@
     "newCount": 104,
     "nonCaseHash": 4660,
     "oldCount": 103,
-    "outputBytes": 23723,
+    "outputBytes": 23647,
     "value": "BPX_Golden_Add_HashOverride"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "name_add_BP_Empty_hash_override_dry_run",
   "oracle": "ue-fixture"
 }

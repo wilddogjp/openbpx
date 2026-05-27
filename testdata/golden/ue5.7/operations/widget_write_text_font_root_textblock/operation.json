@@ -1,0 +1,18 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "TextBlock_72",
+		"property": "text-font",
+		"value": "/Game/UI/Foundation/Fonts/NotoSans"
+	},
+	"ue_procedure": "Set Font.FontObject on the root TextBlock on WBP_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root TextBlock font-object rewrite inside SlateFontInfo.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"soft-package-references",
+		"soft-package-searchable-summary-offsets"
+	]
+}

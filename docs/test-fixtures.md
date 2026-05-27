@@ -157,6 +157,51 @@ testdata/
 | `BP_WithThumbnail.uasset` | Save with generated asset thumbnail | `package section --name thumbnails` |
 | `BP_DependsMap.uasset` | Include multiple inter-asset dependencies | `package depends` |
 
+
+### 3.4 WidgetBlueprint Fixtures
+
+WidgetBlueprint coverage is tracked separately because it is expected to grow into a major write surface for BPX.
+
+Current fixture set already includes:
+
+| File | UE creation steps | Verification focus |
+|---|---|---|
+| `WBP_Minimum.uasset` | Empty WidgetBlueprint with default root setup | minimal WidgetBlueprint / WidgetTree shape |
+| `WBP_TextBlock.uasset` | Root `TextBlock` only | root widget discovery, text property handling |
+| `WBP_CanvasPanel.uasset` | Root `CanvasPanel` only | panel/root hierarchy |
+| `WBP_CanvasPanel_TextBlock.uasset` | Root `CanvasPanel` with child `TextBlock` | parent/slot/child ordering |
+| `WBP_Overlay.uasset` | Root `Overlay` only | alternative panel hierarchy |
+| `WBP_Overlay_TextBlock.uasset` | Root `Overlay` with child `TextBlock` | nested WidgetTree traversal |
+
+Planned near-term additions for image/brush work:
+
+| File | UE creation steps | Verification focus |
+|---|---|---|
+| `WBP_Image.uasset` | Root `Image` widget with an assigned brush/image asset | root `Image` widget parse, `Brush` payload visibility, image reference decode |
+| `WBP_CanvasPanel_Image.uasset` | Root `CanvasPanel` with child `Image` | child image widget discovery, slot + brush decode |
+| `WBP_Button_Image.uasset` | `Button` using image/brush styling | button-state brush structure and reference shape |
+| `T_UI_Icon.uasset` or equivalent texture fixture | Imported texture asset referenced by WidgetBlueprint fixtures | texture-side parse/reference target for widget brush wiring |
+
+Notes:
+
+- `WBP_Image*` fixtures are currently missing and should be added before implementing WidgetImage-specific write commands.
+- For image-oriented WidgetBlueprint work, expected-output fixtures should make the `Brush` / asset reference shape observable via CLI output.
+- If direct texture import is pursued, the texture fixture must be UE-generated and documented like other golden assets.
+
+Planned near-term additions for basic widget write work:
+
+| File | UE creation steps | Verification focus |
+|---|---|---|
+| `WBP_CanvasPanel_ProgressBar.uasset` | Root `CanvasPanel` with child `ProgressBar` | child `ProgressBar` discovery, `Percent` and `FillColorAndOpacity` writes |
+| `WBP_CanvasPanel_Slider.uasset` | Root `CanvasPanel` with child `Slider` | child `Slider` discovery, `Value` and `Orientation` writes |
+| `WBP_CanvasPanel_Spacer.uasset` | Root `CanvasPanel` with child `Spacer` | child `Spacer` discovery, `Size` write |
+| `WBP_CanvasPanel_ScrollBar.uasset` | Root `CanvasPanel` with child `ScrollBar` | child `ScrollBar` discovery, `Thickness` and `Orientation` writes |
+
+Notes:
+
+- These fixtures should be UE-generated before removing the corresponding `widget_write_*` deferrals in `BPXGenerateFixtures`.
+- The initial operation-equivalence scope only needs representative properties for each widget family; it does not need every supported `widget-write` flag on day one.
+
 ---
 
 ## 4. Golden Operation Pairs (`golden/<engine>/operations/`)
@@ -213,7 +258,55 @@ The BPX output is valid only when it is byte-identical to `after.uasset`.
 | `export_set_header/` | update Export header field | `bpx export set-header ...` |
 | `package_set_flags/` | update PackageFlags | `bpx package set-flags ...` |
 
-### 4.4 Low-Risk Abstraction Operations
+### 4.4 WidgetBlueprint Operations
+
+Current WidgetBlueprint coverage includes rootless parent-class rewrites, root/container insertion, child widget insertion, conservative leaf removal, and a growing set of widget-write operations across text, image, layout, button, RichTextBlock, and basic scalar widget families.
+
+| Directory | UE operation | BPX command | Key concern |
+|---|---|---|---|
+| `widget_parent_class_commonactivatablewidget_rootless/` | rewrite rootless WidgetBlueprint parent class to `CommonActivatableWidget` | `bpx blueprint widget-parent-class ... --class /Script/CommonUI.CommonActivatableWidget` | rootless parent-class rewrite and generated-class super/import synchronization |
+| `widget_add_userwidget_canvaspanel/` | add one child WidgetBlueprint instance under `CanvasPanel` | `bpx blueprint widget-add ... --type userwidget --class /Game/...` | WidgetBlueprintGeneratedClass import wiring |
+| `widget_write_text_root_textblock/` | update root `TextBlock` text | `bpx blueprint widget-write ... --property text` | cross-tree text rewrite |
+| `widget_write_text_canvaspanel_child/` | update child `TextBlock` text | `bpx blueprint widget-write ... --property text` | child widget targeting |
+| `widget_write_text_overlay_child/` | update child `TextBlock` text under `Overlay` | `bpx blueprint widget-write ... --property text` | alternate panel hierarchy |
+| `widget_write_opacity_root_textblock/` | update root `RenderOpacity` | `bpx blueprint widget-write ... --property render-opacity` | scalar widget property write |
+| `widget_write_opacity_canvaspanel_child/` | update child `RenderOpacity` | `bpx blueprint widget-write ... --property render-opacity` | child scalar property write |
+| `widget_write_visibility_root_textblock/` | update root `Visibility` | `bpx blueprint widget-write ... --property visibility` | enum property write |
+| `widget_write_visibility_overlay_child/` | update child `Visibility` | `bpx blueprint widget-write ... --property visibility` | enum property write |
+| `widget_write_progressbar_percent/` | update `ProgressBar.Percent` | `bpx blueprint widget-write ... --property progressbar-percent` | basic scalar widget write |
+| `widget_write_progressbar_fill_color/` | update `ProgressBar.FillColorAndOpacity` | `bpx blueprint widget-write ... --property progressbar-fill-color` | widget color write |
+| `widget_write_slider_value/` | update `Slider.Value` | `bpx blueprint widget-write ... --property slider-value` | basic scalar widget write |
+| `widget_write_slider_orientation/` | update `Slider.Orientation` | `bpx blueprint widget-write ... --property slider-orientation` | enum-backed widget write |
+| `widget_write_spacer_size/` | update `Spacer.Size` | `bpx blueprint widget-write ... --property spacer-size` | vector-style widget write |
+| `widget_write_scrollbar_thickness/` | update `ScrollBar.Thickness` | `bpx blueprint widget-write ... --property scrollbar-thickness` | widget struct leaf write |
+| `widget_write_scrollbar_orientation/` | update `ScrollBar.Orientation` | `bpx blueprint widget-write ... --property scrollbar-orientation` | enum-backed widget write |
+| `widget_write_text_color_root_textblock/` | update `TextBlock.ColorAndOpacity` | `bpx blueprint widget-write ... --property text-color` | TextBlock style write |
+| `widget_write_text_font_size_root_textblock/` | update `TextBlock.Font.Size` | `bpx blueprint widget-write ... --property text-font-size` | nested style write |
+| `widget_write_text_justification_root_textblock/` | update `TextBlock.Justification` | `bpx blueprint widget-write ... --property text-justification` | enum-backed TextBlock style write |
+| `widget_write_sizebox_width_canvaspanel/` | update `SizeBox.WidthOverride` | `bpx blueprint widget-write ... --property sizebox-width` | SizeBox override flag + scalar write |
+| `widget_write_sizebox_height_canvaspanel/` | update `SizeBox.HeightOverride` | `bpx blueprint widget-write ... --property sizebox-height` | SizeBox override flag + scalar write |
+| `widget_write_scrollbox_orientation_canvaspanel/` | update `ScrollBox.Orientation` | `bpx blueprint widget-write ... --property scrollbox-orientation` | enum-backed ScrollBox write |
+| `widget_write_scrollbox_scrollbar_visibility_canvaspanel/` | update `ScrollBox.ScrollBarVisibility` | `bpx blueprint widget-write ... --property scrollbox-scrollbar-visibility` | enum-backed ScrollBox write |
+
+Additional image/style/layout-oriented WidgetBlueprint operations:
+
+| Directory | UE operation | BPX command | Key concern |
+|---|---|---|---|
+| `widget_write_image_root_image/` | assign existing imported texture/brush to root `Image` widget | `bpx blueprint widget-write ... --property brush-image` | `Brush`/asset reference rewrite |
+| `widget_write_image_canvaspanel_child/` | assign image to child `Image` widget | `bpx blueprint widget-write ... --property brush-image` | child widget image targeting |
+| `widget_write_image_size/` | update brush image size metadata | `bpx blueprint widget-write ... --property brush-image-size` | brush struct leaf update |
+| `widget_write_button_brush_normal/` | assign texture to button normal state brush | `bpx blueprint widget-write ... --property button-normal-image` | nested style/brush write |
+| `widget_write_button_brush_tint/` | update button state brush tint | `bpx blueprint widget-write ... --property button-normal-tint` | nested style/brush color write |
+| `widget_write_button_brush_draw_as/` | update button state brush draw type | `bpx blueprint widget-write ... --property button-normal-draw-as` | nested style/brush enum write |
+| `widget_write_button_brush_image_size/` | update button state brush image size | `bpx blueprint widget-write ... --property button-normal-image-size` | nested style/brush vector write |
+
+Notes:
+
+- WidgetBlueprint fixture coverage is intentionally incremental: each new widget family should land with a representative UE-generated operation fixture, not every possible property on day one.
+- Direct texture import should be validated as a separate workstream from WidgetBlueprint brush assignment.
+- `widget-remove` coverage remains intentionally conservative and should continue to favor leaf-removal fixtures with clean post-removal validation over broader structural rewrite scenarios.
+
+### 4.5 Low-Risk Abstraction Operations
 
 | Directory | UE operation | BPX command |
 |---|---|---|

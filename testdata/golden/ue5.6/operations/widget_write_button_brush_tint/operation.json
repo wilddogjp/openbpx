@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "Button_1",
+		"property": "button-normal-tint",
+		"value": "0.25,0.4,0.9,0.8"
+	},
+	"ue_procedure": "Set Button_1 normal state brush tint on WBP_ButtonVisualSmoke",
+	"expect": "byte_equal",
+	"notes": "Covers Button.WidgetStyle.Normal.TintColor write using a specified SlateColor value.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}
