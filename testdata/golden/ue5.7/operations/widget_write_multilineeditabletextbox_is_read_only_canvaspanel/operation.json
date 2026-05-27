@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/MultiLineEditableTextBox_1",
+		"property": "multilineeditabletextbox-is-read-only",
+		"value": "true"
+	},
+	"ue_procedure": "Enable IsReadOnly on the MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_MultiLineEditableTextBox",
+	"expect": "byte_equal",
+	"notes": "Covers MultiLineEditableTextBox is-read-only bool rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

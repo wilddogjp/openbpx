@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-add",
+	"args": {
+		"parent": "CanvasPanel_22",
+		"type": "image",
+		"name": "Image_23"
+	},
+	"ue_procedure": "Add one bare Image child under the root CanvasPanel on WBP_CanvasPanel",
+	"expect": "byte_equal",
+	"notes": "Validated against UE-generated widget-add fixture.",
+	"ignore_package_sections": [
+		"saved-hash",
+		"editor-thumbnails",
+		"widget-variable-guid-map-values"
+	]
+}

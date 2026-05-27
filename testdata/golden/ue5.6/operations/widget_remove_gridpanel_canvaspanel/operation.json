@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "CanvasPanel_1/GridPanel_1"
+	},
+	"ue_procedure": "Remove the bare GridPanel child under the root CanvasPanel on WBP_CanvasPanel_GridPanel",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root GridPanel leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

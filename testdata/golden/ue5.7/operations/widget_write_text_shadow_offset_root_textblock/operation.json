@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "TextBlock_72",
+		"property": "text-shadow-offset",
+		"value": "3,4"
+	},
+	"ue_procedure": "Set ShadowOffset to 3x4 on the root TextBlock on WBP_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root TextBlock shadow-offset rewrite inside the text style payload.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

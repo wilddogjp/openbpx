@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "HorizontalBox_1/Image_1"
+	},
+	"ue_procedure": "Remove the bare Image child under the root HorizontalBox on WBP_HorizontalBox_Image",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root Image leaf under HorizontalBox, including slot-array cleanup and variable compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

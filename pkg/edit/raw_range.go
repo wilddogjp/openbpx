@@ -17,6 +17,14 @@ type rawRangePatch struct {
 // RewriteRawRange replaces one non-export byte range and updates summary/export offsets.
 // The range must not overlap export serial payloads.
 func RewriteRawRange(asset *uasset.Asset, start, end int64, replacement []byte) ([]byte, error) {
+	return rewriteRawRange(asset, start, end, replacement, false)
+}
+
+func rewriteRawRangeAllowExportOverlap(asset *uasset.Asset, start, end int64, replacement []byte) ([]byte, error) {
+	return rewriteRawRange(asset, start, end, replacement, true)
+}
+
+func rewriteRawRange(asset *uasset.Asset, start, end int64, replacement []byte, allowExportOverlap bool) ([]byte, error) {
 	if asset == nil {
 		return nil, fmt.Errorf("asset is nil")
 	}
@@ -36,6 +44,9 @@ func RewriteRawRange(asset *uasset.Asset, start, end int64, replacement []byte) 
 		expEnd := exp.SerialOffset + exp.SerialSize
 		if expStart < 0 || expEnd < expStart || expEnd > int64(len(raw)) {
 			return nil, fmt.Errorf("export[%d] serial range out of bounds (%d..%d)", i+1, expStart, expEnd)
+		}
+		if allowExportOverlap {
+			continue
 		}
 		if start < expEnd && end > expStart {
 			return nil, fmt.Errorf("rewrite range overlaps export[%d] payload (%d..%d)", i+1, expStart, expEnd)
@@ -134,6 +145,11 @@ func RewriteRawRange(asset *uasset.Asset, start, end int64, replacement []byte) 
 	if err := patchAssetRegistryDependencyOffset(raw, out, asset, func(oldPos int64) int64 {
 		return translateRawRangeOffset(oldPos, patch)
 	}, fieldOverwritten); err != nil {
+		return nil, err
+	}
+	if err := patchThumbnailTableFileOffsets(raw, out, asset, func(oldPos int64) int64 {
+		return translateRawRangeOffset(oldPos, patch)
+	}); err != nil {
 		return nil, err
 	}
 

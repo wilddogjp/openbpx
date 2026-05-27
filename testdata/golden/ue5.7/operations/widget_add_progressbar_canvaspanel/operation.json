@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "CanvasPanel_22",
+		"type": "progressbar",
+		"name": "ProgressBar_23"
+	},
+	"ue_procedure": "Add one bare ProgressBar child under the root CanvasPanel on WBP_CanvasPanel",
+	"expect": "byte_equal",
+	"notes": "Validated on ue5.7 ProgressBar widget-add fixture pair.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-variable-guid-map-values",
+		"saved-hash"
+	]
+}

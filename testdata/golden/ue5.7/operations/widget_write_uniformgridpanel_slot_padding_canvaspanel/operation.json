@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/UniformGridPanel_1",
+		"property": "uniformgridpanel-slot-padding",
+		"value": "4,6,8,10"
+	},
+	"ue_procedure": "Set SlotPadding to 4,6,8,10 on the UniformGridPanel child under the root CanvasPanel on WBP_CanvasPanel_UniformGridPanel",
+	"expect": "byte_equal",
+	"notes": "Covers UniformGridPanel slot-padding rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

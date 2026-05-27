@@ -1,0 +1,18 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "CanvasPanel_22",
+		"type": "userwidget",
+		"class": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+		"name": "WBP_TextBlock_1"
+	},
+	"ue_procedure": "Add one WBP_TextBlock child widget under the root CanvasPanel on WBP_CanvasPanel",
+	"expect": "byte_equal",
+	"notes": "Covers widget-add for a child WidgetBlueprint instance under CanvasPanel, including BlueprintGeneratedClass import wiring.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-variable-guid-map-values",
+		"saved-hash"
+	]
+}

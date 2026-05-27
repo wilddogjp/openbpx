@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "CanvasPanel_1/SafeZone_1"
+	},
+	"ue_procedure": "Remove the bare SafeZone child under the root CanvasPanel on WBP_CanvasPanel_SafeZone",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root SafeZone leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

@@ -70,6 +70,11 @@ var packageFlagNameToValue = map[string]uint32{
 }
 
 type exportHeaderPositions struct {
+	classIndex                            int
+	superIndex                            int
+	templateIndex                         int
+	outerIndex                            int
+	objectName                            int
 	objectFlags                           int
 	forcedExport                          int
 	notForClient                          int
@@ -547,9 +552,23 @@ func scanExportHeaderPositions(asset *uasset.Asset) ([]exportHeaderPositions, er
 			isInheritedInstance: -1,
 			generatePublicHash:  -1,
 		}
-		if err := r.Skip(4 * 4); err != nil {
-			return nil, fmt.Errorf("export[%d] read class/super/template/outer: %w", i+1, err)
+		pos.classIndex = r.Offset()
+		if _, err := r.ReadInt32(); err != nil {
+			return nil, fmt.Errorf("export[%d] read class index: %w", i+1, err)
 		}
+		pos.superIndex = r.Offset()
+		if _, err := r.ReadInt32(); err != nil {
+			return nil, fmt.Errorf("export[%d] read super index: %w", i+1, err)
+		}
+		pos.templateIndex = r.Offset()
+		if _, err := r.ReadInt32(); err != nil {
+			return nil, fmt.Errorf("export[%d] read template index: %w", i+1, err)
+		}
+		pos.outerIndex = r.Offset()
+		if _, err := r.ReadInt32(); err != nil {
+			return nil, fmt.Errorf("export[%d] read outer index: %w", i+1, err)
+		}
+		pos.objectName = r.Offset()
 		if err := r.Skip(8); err != nil {
 			return nil, fmt.Errorf("export[%d] read object name: %w", i+1, err)
 		}

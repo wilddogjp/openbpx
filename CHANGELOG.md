@@ -6,12 +6,32 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ## [Unreleased]
 
+## [0.2.0]
+
+### Added
+
+- WidgetBlueprint workflows for template initialization, rootless parent-class rewrites, widget tree reads, safe add/remove operations, and supported widget/slot/property writes.
+- Expanded WidgetBlueprint coverage for UMG containers, editable text widgets, list/tile/tree views, focusable controls, RichTextBlock helpers, brush-image imports, and UE 5.6/5.7 operation-equivalence fixtures.
+- Codex app Marketplace, Codex plugin, and Claude Code plugin manifest support that reuses the existing BPX command skills while keeping the legacy Agent Skill layout intact.
+- OpenBPX logo assets and README branding for the public repository.
+
+### Changed
+
+- BPX CLI, plugin manifests, issue-template version examples, and release workflow examples now target `0.2.0`.
+- Command help, `docs/commands.md`, widget skills, and test-fixture documentation now reflect the current WidgetBlueprint command surface.
+- Public export scope now includes agent plugin metadata, package-manager packaging files, and the package-manager publish guide.
+
+### Fixed
+
+- WidgetBlueprint rewrites now preserve generated-class tail references, widget layout anchors/alignment, NameMap remap finalization, and leaf-removal metadata under fixture-backed safety checks.
+- UE 5.6 and UE 5.7 golden operation fixtures were realigned with plugin-generated expectations while retaining the supported UE window `FileVersionUE5=1000..1018` (UE 5.0 to 5.7).
+
 ## [0.1.8]
 
 ### Added
 
-- `bpx read level actor-search` command for filtering `PersistentLevel` exports by actor attributes.
-- `bpx read material` command with material inspection output and aggregated HLSL extraction support.
+- `bpx level actor-search` command for filtering `PersistentLevel` exports by actor attributes.
+- `bpx material read` command with material inspection output and aggregated HLSL extraction support.
 - BPX command-skill coverage for asset inspection and edit workflows, including new material- and version-focused skill generation.
 - Public-release auto-tagging and stronger release guards so tags and changelog entries stay aligned with `bpx version`.
 

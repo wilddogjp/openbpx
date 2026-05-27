@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/EditableTextBox_1",
+		"property": "editabletextbox-hint-text",
+		"value": "Enter name"
+	},
+	"ue_procedure": "Set HintText to Enter name on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox",
+	"expect": "byte_equal",
+	"notes": "Covers EditableTextBox hint-text rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-text-localization-keys",
+		"saved-hash"
+	]
+}

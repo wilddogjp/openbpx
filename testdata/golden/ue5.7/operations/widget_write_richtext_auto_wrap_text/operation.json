@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "RichTextBlock_72",
+		"property": "richtext-auto-wrap-text",
+		"value": "true"
+	},
+	"ue_procedure": "Enable AutoWrapText on the root RichTextBlock on WBP_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root RichTextBlock AutoWrapText bool insertion across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

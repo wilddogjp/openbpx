@@ -367,6 +367,12 @@ func decodedBlueprintVariableArrayContains(decoded any, propertyName string) boo
 	return false
 }
 
+// ExportPropertyBounds returns the byte range of the tagged property region
+// within an export's serial data.
+func ExportPropertyBounds(asset *uasset.Asset, exp uasset.ExportEntry) (start int, end int, withClassControl bool) {
+	return exportPropertyBounds(asset, exp)
+}
+
 func exportPropertyBounds(asset *uasset.Asset, exp uasset.ExportEntry) (start int, end int, withClassControl bool) {
 	start = int(exp.SerialOffset)
 	end = int(exp.SerialOffset + exp.SerialSize)
@@ -716,14 +722,24 @@ func coerceForType(asset *uasset.Asset, nodeType string, current any, input any)
 			}, nil
 		}
 	case "StructProperty":
-		currentMap, ok := current.(map[string]any)
-		if !ok {
-			return nil, fmt.Errorf("invalid current struct shape")
-		}
-		structType, _ := currentMap["structType"].(string)
 		inMap, ok := input.(map[string]any)
 		if !ok {
-			return nil, fmt.Errorf("expected object for struct %s", structType)
+			return nil, fmt.Errorf("expected object for struct")
+		}
+		currentMap, ok := current.(map[string]any)
+		if !ok {
+			currentMap = map[string]any{}
+		}
+		structType, _ := currentMap["structType"].(string)
+		if structType == "" {
+			structType, _ = inMap["structType"].(string)
+			if structType != "" {
+				currentMap = cloneAnyMap(currentMap)
+				currentMap["structType"] = structType
+			}
+		}
+		if structType == "" {
+			return nil, fmt.Errorf("invalid current struct shape")
 		}
 
 		switch strings.ToLower(structType) {
@@ -865,6 +881,59 @@ func coerceForType(asset *uasset.Asset, nodeType string, current any, input any)
 		}
 		out["value"] = wrapped
 		return out, nil
+	case "MapProperty":
+		inMap, ok := input.(map[string]any)
+		if !ok {
+			return nil, fmt.Errorf("map replacement requires JSON object")
+		}
+		currentMap, ok := current.(map[string]any)
+		if !ok {
+			return nil, fmt.Errorf("invalid current map shape")
+		}
+		keyType, _ := currentMap["keyType"].(string)
+		valueType, _ := currentMap["valueType"].(string)
+		if keyType == "" || valueType == "" {
+			return nil, fmt.Errorf("map has no key/value type metadata")
+		}
+		entries, err := toMapEntrySlice(inMap["value"])
+		if err != nil {
+			return nil, err
+		}
+		wrappedEntries := make([]map[string]any, 0, len(entries))
+		for _, entry := range entries {
+			keyVal := extractWrappedValue(entry["key"])
+			valVal := extractWrappedValue(entry["value"])
+			coercedKey, err := coerceForType(asset, keyType, nil, keyVal)
+			if err != nil {
+				return nil, err
+			}
+			coercedValue, err := coerceForType(asset, valueType, nil, valVal)
+			if err != nil {
+				return nil, err
+			}
+			wrappedEntries = append(wrappedEntries, map[string]any{
+				"key": map[string]any{
+					"type":  keyType,
+					"value": coercedKey,
+				},
+				"value": map[string]any{
+					"type":  valueType,
+					"value": coercedValue,
+				},
+			})
+		}
+		out := map[string]any{}
+		for k, v := range currentMap {
+			out[k] = v
+		}
+		if replaceMap, ok := inMap["replaceMap"].(bool); ok {
+			out["replaceMap"] = replaceMap
+		}
+		if removed, ok := inMap["removed"]; ok {
+			out["removed"] = removed
+		}
+		out["value"] = wrappedEntries
+		return out, nil
 	default:
 		return nil, fmt.Errorf("type %s is not editable in current update scope", nodeType)
 	}
@@ -902,33 +971,16 @@ func coerceNameProperty(asset *uasset.Asset, input any) (map[string]any, error) 
 	}
 	switch v := input.(type) {
 	case string:
-		idx := findNameIndex(asset.Names, v)
-		if idx < 0 {
-			return nil, fmt.Errorf("name %q is not present in NameMap (current update scope does not add names)", v)
-		}
-		return map[string]any{"index": int32(idx), "number": int32(0), "name": v}, nil
-	case map[string]any:
-		if nameRaw, ok := v["name"]; ok {
-			if name, ok := nameRaw.(string); ok && name != "" {
-				idx := findNameIndex(asset.Names, name)
-				if idx < 0 {
-					return nil, fmt.Errorf("name %q is not present in NameMap (current update scope does not add names)", name)
-				}
-				num := int64(0)
-				if numberRaw, ok := v["number"]; ok {
-					parsed, err := asInt64(numberRaw)
-					if err != nil {
-						return nil, fmt.Errorf("invalid NameProperty.number: %w", err)
-					}
-					num = parsed
-				}
-				return map[string]any{"index": int32(idx), "number": int32(num), "name": name}, nil
-			}
-		}
-		idx, err := asInt64(v["index"])
+		ref, err := resolveDisplayOrBaseNameRef(asset.Names, v)
 		if err != nil {
-			return nil, fmt.Errorf("invalid NameProperty.index: %w", err)
+			return nil, err
 		}
+		return map[string]any{
+			"index":  ref.Index,
+			"number": ref.Number,
+			"name":   ref.Display(asset.Names),
+		}, nil
+	case map[string]any:
 		num := int64(0)
 		if numberRaw, ok := v["number"]; ok {
 			parsed, err := asInt64(numberRaw)
@@ -937,17 +989,66 @@ func coerceNameProperty(asset *uasset.Asset, input any) (map[string]any, error) 
 			}
 			num = parsed
 		}
-		if idx < 0 || int(idx) >= len(asset.Names) {
-			return nil, fmt.Errorf("name index out of range: %d", idx)
+		if idxRaw, ok := v["index"]; ok {
+			idx, err := asInt64(idxRaw)
+			if err != nil {
+				return nil, fmt.Errorf("invalid NameProperty.index: %w", err)
+			}
+			if idx < 0 || int(idx) >= len(asset.Names) {
+				return nil, fmt.Errorf("name index out of range: %d", idx)
+			}
+			ref := uasset.NameRef{Index: int32(idx), Number: int32(num)}
+			return map[string]any{
+				"index":  ref.Index,
+				"number": ref.Number,
+				"name":   ref.Display(asset.Names),
+			}, nil
 		}
-		return map[string]any{
-			"index":  int32(idx),
-			"number": int32(num),
-			"name":   asset.Names[idx].Value,
-		}, nil
+		if nameRaw, ok := v["name"]; ok {
+			if name, ok := nameRaw.(string); ok && name != "" {
+				ref, err := resolveDisplayOrBaseNameRef(asset.Names, name)
+				if err != nil {
+					return nil, err
+				}
+				if num != 0 {
+					ref.Number = int32(num)
+				}
+				return map[string]any{
+					"index":  ref.Index,
+					"number": ref.Number,
+					"name":   ref.Display(asset.Names),
+				}, nil
+			}
+		}
+		return nil, fmt.Errorf("expected NameProperty object to include index or name")
 	default:
 		return nil, fmt.Errorf("expected string or object for NameProperty")
 	}
+}
+
+func resolveDisplayOrBaseNameRef(names []uasset.NameEntry, raw string) (uasset.NameRef, error) {
+	trimmed := strings.TrimSpace(raw)
+	if trimmed == "" {
+		return uasset.NameRef{}, fmt.Errorf("name must not be empty")
+	}
+	if idx := findNameIndex(names, trimmed); idx >= 0 {
+		return uasset.NameRef{Index: int32(idx), Number: 0}, nil
+	}
+	sep := strings.LastIndex(trimmed, "_")
+	if sep <= 0 || sep >= len(trimmed)-1 {
+		return uasset.NameRef{}, fmt.Errorf("name %q is not present in NameMap (current update scope does not add names)", trimmed)
+	}
+	base := trimmed[:sep]
+	suffix := trimmed[sep+1:]
+	n, err := strconv.ParseInt(suffix, 10, 32)
+	if err != nil || n < 0 {
+		return uasset.NameRef{}, fmt.Errorf("name %q is not present in NameMap (current update scope does not add names)", trimmed)
+	}
+	idx := findNameIndex(names, base)
+	if idx < 0 {
+		return uasset.NameRef{}, fmt.Errorf("name %q is not present in NameMap (current update scope does not add names)", trimmed)
+	}
+	return uasset.NameRef{Index: int32(idx), Number: int32(n + 1)}, nil
 }
 
 func coerceTextProperty(asset *uasset.Asset, current any, input any) (map[string]any, error) {
@@ -955,6 +1056,10 @@ func coerceTextProperty(asset *uasset.Asset, current any, input any) (map[string
 		return nil, fmt.Errorf("asset is nil")
 	}
 	currentMap, ok := current.(map[string]any)
+	if current == nil {
+		currentMap = map[string]any{}
+		ok = true
+	}
 	if !ok {
 		return nil, fmt.Errorf("invalid current TextProperty shape")
 	}
@@ -962,7 +1067,11 @@ func coerceTextProperty(asset *uasset.Asset, current any, input any) (map[string
 
 	historyType, err := textHistoryTypeCodeFromMap(out)
 	if err != nil {
-		return nil, err
+		if current == nil {
+			historyType = 0
+		} else {
+			return nil, err
+		}
 	}
 	out["historyTypeCode"] = historyType
 	out["historyType"] = textHistoryTypeNameByCode(historyType)
@@ -2136,8 +2245,8 @@ func writeTextProperty(asset *uasset.Asset, w *byteWriter, value any) error {
 				source = raw
 			}
 		}
-		w.writeFString(namespace)
-		w.writeFString(key)
+		writeTextFString(w, namespace)
+		writeTextFString(w, key)
 		w.writeFString(source)
 		return nil
 	case 11: // StringTableEntry
@@ -2165,6 +2274,18 @@ func writeTextProperty(asset *uasset.Asset, w *byteWriter, value any) error {
 	default:
 		return fmt.Errorf("TextProperty historyType %s is not editable in current update scope", textHistoryTypeNameByCode(historyType))
 	}
+}
+
+// writeTextFString writes an FString matching UE's FText serialization behavior.
+// UE serializes empty FText namespace/key as len=1 + '\0' (not len=0),
+// unlike the general FString convention used elsewhere.
+func writeTextFString(w *byteWriter, v string) {
+	if v == "" {
+		w.writeInt32(1)
+		w.writeUint8(0)
+		return
+	}
+	w.writeFString(v)
 }
 
 func writeMapEntryList(asset *uasset.Asset, w *byteWriter, keyNode, valueNode *typeTreeNode, raw any) error {

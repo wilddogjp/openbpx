@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "CanvasPanel_1/InvalidationBox_1"
+	},
+	"ue_procedure": "Remove the bare InvalidationBox child under the root CanvasPanel on WBP_CanvasPanel_InvalidationBox",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root InvalidationBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

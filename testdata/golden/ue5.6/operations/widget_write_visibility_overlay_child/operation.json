@@ -1,0 +1,18 @@
+{
+  "command": "blueprint widget-write",
+  "args": {
+    "property": "visibility",
+    "value": "Collapsed",
+    "widget": "Overlay_116/TextBlock_36"
+  },
+  "ue_procedure": "Set Visibility to Collapsed on the child TextBlock under the root Overlay on WBP_Overlay_TextBlock",
+  "expect": "byte_equal",
+  "notes": "Covers child widget Visibility write under Overlay across designer/generated WidgetTree exports.",
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
+}

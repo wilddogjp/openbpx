@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
-	"sort"
 	"strings"
 	"testing"
 )
@@ -40,13 +39,7 @@ func TestOperationFixtureDiversity(t *testing.T) {
 			}
 
 			present := map[string]bool{}
-			dirs := make([]string, 0, len(entries))
-			for _, entry := range entries {
-				if entry.IsDir() {
-					dirs = append(dirs, filepath.Join(operationsDir, entry.Name()))
-				}
-			}
-			sort.Strings(dirs)
+			dirs := listOperationSpecDirs(entries, operationsDir)
 
 			type runResult struct {
 				ByteDelta int `json:"byteDelta"`

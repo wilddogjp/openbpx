@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "RichTextBlock_72",
+		"property": "richtext-line-height-percentage",
+		"value": "1.25"
+	},
+	"ue_procedure": "Set LineHeightPercentage to 1.25 on the root RichTextBlock on WBP_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root RichTextBlock LineHeightPercentage float insertion across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

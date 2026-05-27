@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "RichTextBlock_72",
+		"property": "text",
+		"value": "Updated root rich text"
+	},
+	"ue_procedure": "Update the root RichTextBlock text on WBP_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root RichTextBlock text rewrite across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-text-localization-keys",
+		"saved-hash"
+	]
+}

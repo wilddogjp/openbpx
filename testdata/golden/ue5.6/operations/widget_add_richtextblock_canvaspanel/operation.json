@@ -1,0 +1,18 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "CanvasPanel_22",
+		"type": "richtextblock",
+		"name": "RichTextBlock_23"
+	},
+	"ue_procedure": "Add one bare RichTextBlock child under the root CanvasPanel on WBP_CanvasPanel",
+	"expect": "byte_equal",
+	"notes": "Covers widget-add for a bare RichTextBlock child under CanvasPanel, including generated-pair insertion for follow-up text writes.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-text-key-only",
+		"widget-variable-guid-map-values",
+		"saved-hash"
+	]
+}

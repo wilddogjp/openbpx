@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/Slider_1",
+		"property": "slider-is-focusable",
+		"value": "false"
+	},
+	"ue_procedure": "Disable focus on the Slider child under the root CanvasPanel on WBP_CanvasPanel_Slider",
+	"expect": "byte_equal",
+	"notes": "Covers Slider IsFocusable bool rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

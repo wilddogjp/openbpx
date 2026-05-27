@@ -16,7 +16,7 @@
         "outerIndex": 0,
         "properties": [],
         "serial": {
-          "offset": 1832,
+          "offset": 1868,
           "scriptSerializationEnd": 9,
           "scriptSerializationStart": 0,
           "size": 278
@@ -26,8 +26,6 @@
       }
     ]
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "stringtable_read_ST_UI",
   "oracle": "ue-fixture"
 }

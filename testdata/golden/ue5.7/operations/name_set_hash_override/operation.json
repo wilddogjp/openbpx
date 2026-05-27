@@ -1,12 +1,19 @@
 {
   "command": "name set",
   "args": {
+    "case-preserving-hash": "6789",
     "index": "1",
-    "value": "BP_Empty_ManualHash",
     "non-case-hash": "2345",
-    "case-preserving-hash": "6789"
+    "value": "BP_Empty_ManualHash"
   },
   "ue_procedure": "Update one NameMap entry with explicit stored hashes",
   "expect": "byte_equal",
-  "notes": "Low-level NameMap set fixture with hash override."
+  "notes": "Low-level NameMap set fixture with hash override.",
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
 }

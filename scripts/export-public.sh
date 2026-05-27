@@ -79,6 +79,7 @@ esac
 INCLUDE_PATHS=(
   ".agents"
   ".claude-plugin"
+  ".codex-plugin"
   "CHANGELOG.md"
   "CONTRIBUTING.md"
   ".github/workflows/auto-tag-release.yml"

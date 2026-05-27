@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "Overlay_1/Image_1"
+	},
+	"ue_procedure": "Remove the bare Image child under the root Overlay on WBP_Overlay_Image",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root Image leaf under Overlay, including orphan slot and variable cleanup.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

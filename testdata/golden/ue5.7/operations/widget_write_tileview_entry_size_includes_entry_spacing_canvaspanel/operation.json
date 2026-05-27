@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/TileView_1",
+		"property": "tileview-entry-size-includes-entry-spacing",
+		"value": "false"
+	},
+	"ue_procedure": "Disable bEntrySizeIncludesEntrySpacing on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView",
+	"expect": "byte_equal",
+	"notes": "Covers TileView entry-size-includes-entry-spacing rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

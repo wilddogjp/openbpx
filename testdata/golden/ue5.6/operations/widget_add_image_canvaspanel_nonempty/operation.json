@@ -1,0 +1,16 @@
+{
+  "command": "blueprint widget-add",
+  "args": {
+    "parent": "CanvasPanel_22",
+    "type": "image",
+    "name": "Image_59"
+  },
+  "ue_procedure": "Open WBP_CanvasPanel_TextBlock, add one bare Image child named Image_59 under the root CanvasPanel, save, and let UE compile the WidgetBlueprint.",
+  "expect": "byte_equal",
+  "notes": "Covers widget-add on a non-empty root CanvasPanel: inserts a second child and preserves the existing TextBlock child/slot ordering across designer/generated trees.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "saved-hash",
+    "widget-variable-guid-map-values"
+  ]
+}

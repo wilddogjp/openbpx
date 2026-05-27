@@ -37,7 +37,7 @@ HOMEBREW_DEVELOPER=1 brew install --formula https://raw.githubusercontent.com/wi
 - [Quick Start](#quick-start)
 - [Why OpenBPX?](#why-openbpx)
 - [Install](#install)
-- [AI Agent Skills](#ai-agent-skills)
+- [AI Agent Skills and Plugins](#ai-agent-skills-and-plugins)
 - [Safety and Security Model](#safety-and-security-model)
 - [Supported Scope](#supported-scope)
 - [How It Works](#how-it-works)
@@ -107,24 +107,29 @@ go build ./cmd/bpx
 
 Official release artifacts are published on [GitHub Releases](https://github.com/wilddogjp/openbpx/releases).
 
-## AI Agent Skills
+## AI Agent Skills and Plugins
 
-### Generate SKILL.md files from installed `bpx` (recommended)
+BPX ships one shared `skills/` directory plus plugin manifests for Codex and Claude Code:
+
+- Codex app: add a marketplace with **Source** `wilddogjp/openbpx`, **Git ref** `main`, and an empty **Sparse path**, then install `openbpx`.
+- Claude Code local use: `claude --plugin-dir .`
+- Claude Code marketplace install:
 
 ```bash
-# Generate all command Codex skills to .codex/skills
-bpx generate-skills --output-dir .codex/skills
+claude plugin marketplace add .
+claude plugin install openbpx@openbpx
+```
 
-# Generate all command Claude skills to .claude/skills
+If Codex says no plugin was found, leave **Sparse path** empty. This repository is not laid out under `plugins/codex`.
+
+### Legacy: Generate SKILL.md Files
+
+```bash
+bpx generate-skills --output-dir .codex/skills
 bpx generate-skills --output-dir .claude/skills
 ```
 
-Generated layout:
-
-- `skills/bpx-shared/SKILL.md`
-- `skills/bpx-<command>/SKILL.md`
-
-`bpx generate-skills` uses built-in command help metadata and built-in command-profile supplements baked into the binary, so generation works from a single binary without reading repository files.
+Use this older direct `SKILL.md` workflow only when plugin installation is unavailable.
 
 ## Safety and Security Model
 
@@ -144,6 +149,7 @@ See [SECURITY.md](SECURITY.md) for vulnerability reporting and response policy.
 | Asset files | `.uasset`, `.umap` |
 | Read/inspect commands | Implemented (see [docs/commands.md](docs/commands.md)) |
 | Scoped update commands | Implemented (safety-constrained) |
+| WidgetBlueprint workflow | Template init, rootless parent-class rewrites, read/add/remove/write for the current supported widget class/property set; broader move/clone and richer styling remain out of scope |
 | High-risk structural rewrites | Partially blocked by design |
 
 ## How It Works
@@ -158,6 +164,8 @@ See [SECURITY.md](SECURITY.md) for vulnerability reporting and response policy.
 - [Command Specification](docs/commands.md)
 - [Test Plan and Fixture Specification](docs/test-fixtures.md)
 - [Distribution Build Guide](docs/build-distribution.md)
+- [Widget Init Template Proposal](docs/dev/widget-init-template-proposal.md)
+- [Widget Init Template Proposal (Japanese)](docs/dev/widget-init-template-proposal.ja.md)
 - [Disassembly Script Extraction Notes](docs/disasm-script-extraction.md)
 - [Package Manager Publish Guide](docs/dev/package-manager-publish.md)
 

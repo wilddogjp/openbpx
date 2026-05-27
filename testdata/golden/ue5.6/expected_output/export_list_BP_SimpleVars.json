@@ -14,7 +14,7 @@
         "index": 1,
         "objectName": "BP_SimpleVars",
         "outerIndex": 0,
-        "serialOffset": 21393,
+        "serialOffset": 21395,
         "serialSize": 4805,
         "superIndex": 0
       },
@@ -24,8 +24,8 @@
         "index": 2,
         "objectName": "BP_SimpleVars_C",
         "outerIndex": 0,
-        "serialOffset": 26198,
-        "serialSize": 1173,
+        "serialOffset": 26200,
+        "serialSize": 1141,
         "superIndex": -6
       },
       {
@@ -34,7 +34,7 @@
         "index": 3,
         "objectName": "Default__BP_SimpleVars_C",
         "outerIndex": 0,
-        "serialOffset": 27371,
+        "serialOffset": 27341,
         "serialSize": 422,
         "superIndex": 0
       },
@@ -44,7 +44,7 @@
         "index": 4,
         "objectName": "EventGraph",
         "outerIndex": 1,
-        "serialOffset": 27793,
+        "serialOffset": 27763,
         "serialSize": 185,
         "superIndex": 0
       },
@@ -54,7 +54,7 @@
         "index": 5,
         "objectName": "UserConstructionScript",
         "outerIndex": 1,
-        "serialOffset": 27978,
+        "serialOffset": 27948,
         "serialSize": 177,
         "superIndex": 0
       },
@@ -64,8 +64,8 @@
         "index": 6,
         "objectName": "K2Node_Event_0",
         "outerIndex": 4,
-        "serialOffset": 28155,
-        "serialSize": 870,
+        "serialOffset": 28125,
+        "serialSize": 854,
         "superIndex": 0
       },
       {
@@ -74,8 +74,8 @@
         "index": 7,
         "objectName": "K2Node_Event_1",
         "outerIndex": 4,
-        "serialOffset": 29025,
-        "serialSize": 1145,
+        "serialOffset": 28979,
+        "serialSize": 1114,
         "superIndex": 0
       },
       {
@@ -84,8 +84,8 @@
         "index": 8,
         "objectName": "K2Node_Event_2",
         "outerIndex": 4,
-        "serialOffset": 30170,
-        "serialSize": 1155,
+        "serialOffset": 30093,
+        "serialSize": 1126,
         "superIndex": 0
       },
       {
@@ -94,7 +94,7 @@
         "index": 9,
         "objectName": "K2Node_FunctionEntry_0",
         "outerIndex": 5,
-        "serialOffset": 31325,
+        "serialOffset": 31219,
         "serialSize": 401,
         "superIndex": 0
       },
@@ -104,7 +104,7 @@
         "index": 10,
         "objectName": "DefaultSceneRoot_GEN_VARIABLE",
         "outerIndex": 2,
-        "serialOffset": 31726,
+        "serialOffset": 31620,
         "serialSize": 42,
         "superIndex": 0
       },
@@ -114,7 +114,7 @@
         "index": 11,
         "objectName": "SCS_Node_0",
         "outerIndex": 12,
-        "serialOffset": 31768,
+        "serialOffset": 31662,
         "serialSize": 231,
         "superIndex": 0
       },
@@ -124,15 +124,13 @@
         "index": 12,
         "objectName": "SimpleConstructionScript_0",
         "outerIndex": 2,
-        "serialOffset": 31999,
+        "serialOffset": 31893,
         "serialSize": 132,
         "superIndex": 0
       }
     ],
     "file": "testdata/golden/parse/BP_SimpleVars.uasset"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "export_list_BP_SimpleVars",
   "oracle": "ue-fixture"
 }

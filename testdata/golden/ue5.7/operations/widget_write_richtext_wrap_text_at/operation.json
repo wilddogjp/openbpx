@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "RichTextBlock_72",
+		"property": "richtext-wrap-text-at",
+		"value": "320"
+	},
+	"ue_procedure": "Set WrapTextAt to 320 on the root RichTextBlock on WBP_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root RichTextBlock WrapTextAt float insertion across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

@@ -31,8 +31,6 @@
     "nameFilter": "",
     "scannedCount": 6
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "level_actor_search_L_Minimal_actor_class_LyraWorldSettings",
   "oracle": "ue-fixture"
 }

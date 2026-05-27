@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/EditableTextBox_1",
+		"property": "editabletextbox-justification",
+		"value": "Center"
+	},
+	"ue_procedure": "Set Justification to Center on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox",
+	"expect": "byte_equal",
+	"notes": "Covers EditableTextBox justification enum rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

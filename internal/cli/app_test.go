@@ -176,7 +176,7 @@ func TestRunVersionPrintsSemanticVersion(t *testing.T) {
 	if stderr.Len() != 0 {
 		t.Fatalf("unexpected stderr: %s", stderr.String())
 	}
-	if got, want := strings.TrimSpace(stdout.String()), "0.1.8"; got != want {
+	if got, want := strings.TrimSpace(stdout.String()), "0.2.0"; got != want {
 		t.Fatalf("version: got %q want %q", got, want)
 	}
 }
@@ -191,7 +191,7 @@ func TestRunVersionAliasPrintsSemanticVersion(t *testing.T) {
 	if stderr.Len() != 0 {
 		t.Fatalf("unexpected stderr: %s", stderr.String())
 	}
-	if got, want := strings.TrimSpace(stdout.String()), "0.1.8"; got != want {
+	if got, want := strings.TrimSpace(stdout.String()), "0.2.0"; got != want {
 		t.Fatalf("version alias: got %q want %q", got, want)
 	}
 }
@@ -217,6 +217,24 @@ func TestRunHelpRootListsHelpAndWriteCommands(t *testing.T) {
 	}
 	if !strings.Contains(stdout.String(), "`bpx help <command>` shows usage plus command behavior details.") {
 		t.Fatalf("expected detailed help tip in root help, got: %s", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "bpx blueprint widget-read <file.uasset> [--export <n>]") {
+		t.Fatalf("expected widget-read usage in root help, got: %s", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "bpx blueprint widget-init <out.uasset> --template <minimum> [--engine <auto|ue5.6>] [--asset-name <Name>] [--package-path </Game/...>] [--parent-class </Script/Module.ClassName>] [--force] [--dry-run] [--backup]") {
+		t.Fatalf("expected widget-init usage in root help, got: %s", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "bpx blueprint widget-parent-class <file.uasset> --class </Script/Module.ClassName> [--export <n>] [--dry-run] [--backup]") {
+		t.Fatalf("expected widget-parent-class usage in root help, got: %s", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "bpx blueprint widget-remove <file.uasset> --widget <path|name> [--export <n>] [--dry-run] [--backup]") {
+		t.Fatalf("expected widget-remove usage in root help, got: %s", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "bpx blueprint widget-add <file.uasset> --parent <path|name|root> --type <image|textblock|richtextblock|progressbar|slider|spacer|scrollbar|editabletext|editabletextbox|multilineeditabletextbox|spinbox|comboboxstring|checkbox|userwidget|button|border") || !strings.Contains(stdout.String(), "|menuanchor|namedslot|sizebox|scalebox|backgroundblur|safezone|windowtitlebararea|canvaspanel|overlay|verticalbox|horizontalbox|stackbox|scrollbox|wrapbox|gridpanel|uniformgridpanel|widgetswitcher|listview|tileview|treeview>") {
+		t.Fatalf("expected widget-add usage in root help, got: %s", stdout.String())
+	}
+	if !strings.Contains(stdout.String(), "bpx blueprint widget-write <file.uasset> --widget <path|name> --property <text|visibility|render-opacity|brush-image|progressbar-percent|progressbar-fill-color|slider-value") || !strings.Contains(stdout.String(), "editabletext-hint-text|editabletext-is-read-only|editabletext-is-password|editabletext-minimum-desired-width|editabletext-justification|editabletextbox-hint-text|editabletextbox-is-read-only|editabletextbox-is-password|editabletextbox-minimum-desired-width|editabletextbox-justification|multilineeditabletextbox-hint-text|multilineeditabletextbox-is-read-only|multilineeditabletextbox-justification|spinbox-value|spinbox-min-value|spinbox-max-value|spinbox-delta|comboboxstring-selected-option|comboboxstring-options|is-focusable") {
+		t.Fatalf("expected widget-write usage in root help, got: %s", stdout.String())
 	}
 }
 
@@ -277,6 +295,9 @@ func TestRunHelpImportShowsPatternOnGraph(t *testing.T) {
 	out := stdout.String()
 	if !strings.Contains(out, "bpx import graph <directory> [--pattern \"*.uasset\"]") {
 		t.Fatalf("expected import graph pattern usage, got: %s", out)
+	}
+	if !strings.Contains(out, "Use `blueprint widget-write --property brush-image` as the normal image-texture workflow; use `import add` when you need manual import management before lower-level edits.") {
+		t.Fatalf("expected import help image workflow guidance, got: %s", out)
 	}
 }
 
@@ -340,6 +361,97 @@ func TestRunHelpValidateShowsExitCodeDetails(t *testing.T) {
 	}
 	if !strings.Contains(out, "Validation details are emitted in `result` payload.") {
 		t.Fatalf("expected validate payload behavior detail, got: %s", out)
+	}
+}
+
+func TestRunHelpBlueprintShowsWidgetCommands(t *testing.T) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	code := Run([]string{"help", "blueprint"}, &stdout, &stderr)
+	if code != 0 {
+		t.Fatalf("exit code: got %d want 0", code)
+	}
+	if stderr.Len() != 0 {
+		t.Fatalf("unexpected stderr: %s", stderr.String())
+	}
+	out := stdout.String()
+	if !strings.Contains(out, "bpx blueprint widget-read <file.uasset> [--export <n>]") {
+		t.Fatalf("expected widget-read usage in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "bpx blueprint widget-init <out.uasset> --template <minimum> [--engine <auto|ue5.6>] [--asset-name <Name>] [--package-path </Game/...>] [--parent-class </Script/Module.ClassName>] [--force] [--dry-run] [--backup]") {
+		t.Fatalf("expected widget-init usage in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "bpx blueprint widget-parent-class <file.uasset> --class </Script/Module.ClassName> [--export <n>] [--dry-run] [--backup]") {
+		t.Fatalf("expected widget-parent-class usage in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "bpx blueprint widget-remove <file.uasset> --widget <path|name> [--export <n>] [--dry-run] [--backup]") {
+		t.Fatalf("expected widget-remove usage in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "bpx blueprint widget-add <file.uasset> --parent <path|name|root> --type <image|textblock|richtextblock|progressbar|slider|spacer|scrollbar|editabletext|editabletextbox|multilineeditabletextbox|spinbox|comboboxstring|checkbox|userwidget|button|border") || !strings.Contains(out, "|menuanchor|namedslot|sizebox|scalebox|backgroundblur|safezone|windowtitlebararea|canvaspanel|overlay|verticalbox|horizontalbox|stackbox|scrollbox|wrapbox|gridpanel|uniformgridpanel|widgetswitcher|listview|tileview|treeview>") {
+		t.Fatalf("expected widget-add usage in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "bpx blueprint widget-write <file.uasset> --widget <path|name> --property <text|visibility|render-opacity|brush-image|progressbar-percent|progressbar-fill-color|slider-value") || !strings.Contains(out, "editabletext-hint-text|editabletext-is-read-only|editabletext-is-password|editabletext-minimum-desired-width|editabletext-justification|editabletextbox-hint-text|editabletextbox-is-read-only|editabletextbox-is-password|editabletextbox-minimum-desired-width|editabletextbox-justification|multilineeditabletextbox-hint-text|multilineeditabletextbox-is-read-only|multilineeditabletextbox-justification|spinbox-value|spinbox-min-value|spinbox-max-value|spinbox-delta|comboboxstring-selected-option|comboboxstring-options|is-focusable") {
+		t.Fatalf("expected widget-write usage in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-read`: reads WidgetBlueprint / WidgetTree hierarchy as normalized JSON, plus logical widget aggregation and high-level widget/slot summaries.") {
+		t.Fatalf("expected widget-read behavior detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-init`: clones a validated empty WidgetBlueprint template into a new output asset and rewrites package/object identity.") {
+		t.Fatalf("expected widget-init behavior detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-parent-class`: rewrites the WidgetBlueprint parent class on an otherwise rootless WidgetBlueprint.") {
+		t.Fatalf("expected widget-parent-class behavior detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-add`: creates a root container/content widget or inserts a bare child widget under supported panel/content parents.") {
+		t.Fatalf("expected widget-add behavior detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-remove`: removes one non-root leaf widget from the logical WidgetTree plus related WidgetBlueprint metadata.") {
+		t.Fatalf("expected widget-remove behavior detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-write`: updates one logical widget across designer/generated trees.") {
+		t.Fatalf("expected widget-write behavior detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-init` expects `--package-path` to be a directory like `/Game/UI`; BPX appends the asset name automatically. `--parent-class` currently accepts compiled `/Script/...` classes, including project/plugin module classes such as `/Script/LyraGame.LyraActivatableWidget`.") {
+		t.Fatalf("expected widget-init parent-class guidance in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-parent-class` currently supports only rootless WidgetBlueprints and compiled `/Script/...` parent classes, including project/plugin module classes.") {
+		t.Fatalf("expected widget-parent-class constraint detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-add` supports non-empty `CanvasPanel` / `Overlay` / `VerticalBox` / `HorizontalBox` / `StackBox` / `ScrollBox` / `WrapBox` / `GridPanel` / `UniformGridPanel` / `WidgetSwitcher` parents plus single-child `Button` / `CheckBox` / `Border` / `RetainerBox` / `InvalidationBox` / `MenuAnchor` / `NamedSlot` / `SizeBox` / `ScaleBox` / `BackgroundBlur` / `SafeZone` / `WindowTitleBarArea` parents;") || !strings.Contains(out, "`ScrollBar` / `EditableText` / `EditableTextBox` / `MultiLineEditableTextBox` / `SpinBox` / `ComboBoxString` / `UserWidget`.") {
+		t.Fatalf("expected widget-add constraint detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-remove` currently supports non-root leaf widgets only and rewrites WidgetTree/Blueprint metadata plus removable orphan export/import/name entries when the remaining package references validate cleanly.") {
+		t.Fatalf("expected widget-remove constraint detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "Widget-building commands (`widget-init`, `widget-parent-class`, `widget-add`, `widget-remove`, `widget-write`) are order-sensitive and must be run sequentially against the same asset.") {
+		t.Fatalf("expected blueprint sequential workflow guidance in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "Do not parallelize repeated widget mutations on one asset; later steps depend on the exact bytes/layout produced by earlier steps.") {
+		t.Fatalf("expected blueprint no-parallel guidance in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-init` currently supports the `minimum` template and rewrites identity only within validated template layouts.") {
+		t.Fatalf("expected widget-init constraint detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-write` supports `text`, `visibility`, `render-opacity`, `brush-image`, basic widget helpers such as `progressbar-percent`") || !strings.Contains(out, "`editabletextbox-hint-text`, `editabletextbox-is-read-only`, `editabletextbox-is-password`, `editabletextbox-minimum-desired-width`, `editabletextbox-justification`") {
+		t.Fatalf("expected widget-write property detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-read` summaries currently cover widget-level text/brush/button/border/grid/basic-widget data and slot-level layout/grid helpers for the supported classes.") {
+		t.Fatalf("expected widget-read summary detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-move` / `widget-clone`, broader RichTextBlock styling such as transform policy, strike brushes, and material-backed font overrides, and CommonUI-specific writes are not implemented yet.") {
+		t.Fatalf("expected widget unsupported-scope detail in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "For image widgets, prefer `widget-write --property brush-image`; it adds missing texture imports automatically.") {
+		t.Fatalf("expected widget-write image workflow guidance in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "`widget-write --property brush-image` expects a full Unreal texture path like `/Game/UI/T_Icon`, not a filesystem path.") {
+		t.Fatalf("expected widget-write texture path guidance in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "If your shell rewrites `/Game/...` arguments (for example Git Bash/MSYS path conversion), disable that rewriting before running widget commands.") {
+		t.Fatalf("expected shell path conversion guidance in blueprint help, got: %s", out)
+	}
+	if !strings.Contains(out, "Write safety flags:") || !strings.Contains(out, "--dry-run --backup") {
+		t.Fatalf("expected blueprint help write safety flags, got: %s", out)
 	}
 }
 

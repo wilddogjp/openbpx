@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "Button_1",
+		"property": "button-normal-image",
+		"value": "/Game/UI/Menu/Art/T_UI_Icon_SimpleArrow"
+	},
+	"ue_procedure": "Assign /Game/UI/Menu/Art/T_UI_Icon_SimpleArrow to Button_1 normal state brush on WBP_ButtonVisualSmoke",
+	"expect": "byte_equal",
+	"notes": "Covers Button.WidgetStyle.Normal brush ResourceObject write via the UMG details panel, including Texture2D import/reference persistence.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}

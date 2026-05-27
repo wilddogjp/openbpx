@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "root",
+		"type": "verticalbox",
+		"name": "VerticalBox_21"
+	},
+	"ue_procedure": "Create a root VerticalBox on WBP_Minimum",
+	"expect": "byte_equal",
+	"notes": "Covers widget-add root creation for VerticalBox on an empty WidgetBlueprint.",
+	"ignore_package_sections": [
+		"saved-hash",
+		"editor-thumbnails",
+		"widget-variable-guid-map-values"
+	]
+}

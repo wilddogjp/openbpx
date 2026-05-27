@@ -17,29 +17,27 @@
           "arrayIndex": 0,
           "flags": 0,
           "name": "SimpleConstructionScript",
-          "offset": 19092,
+          "offset": 19096,
           "size": 4,
           "type": "ObjectProperty",
           "value": {
             "index": 12,
             "resolved": "export:12:SimpleConstructionScript_0"
           },
-          "valueOffset": 19117
+          "valueOffset": 19121
         }
       ],
       "serial": {
-        "offset": 19091,
+        "offset": 19095,
         "scriptSerializationEnd": 38,
         "scriptSerializationStart": 0,
-        "size": 193
+        "size": 189
       },
       "superIndex": -6,
       "warnings": null
     },
     "file": "testdata/golden/parse/BP_Empty.uasset"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "class_BP_Empty_export2",
   "oracle": "ue-fixture"
 }

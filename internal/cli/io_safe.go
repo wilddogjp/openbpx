@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 func ensureOutputPathDistinctFromInput(inputPath, outPath string) error {
@@ -85,6 +86,10 @@ func writeFileAtomically(path string, body []byte, mode os.FileMode) error {
 		return fmt.Errorf("replace output file: %w", err)
 	}
 	committed = true
+	now := time.Now()
+	if err := os.Chtimes(path, now, now); err != nil {
+		return fmt.Errorf("refresh output file timestamps: %w", err)
+	}
 
 	if d, err := os.Open(dir); err == nil {
 		_ = d.Sync()

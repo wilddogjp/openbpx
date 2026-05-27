@@ -24,10 +24,8 @@
       "nonCaseHash": 18936,
       "value": "/Script/CoreUObject"
     },
-    "outputBytes": 23695
+    "outputBytes": 23619
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "name_set_BP_Empty_dry_run",
   "oracle": "ue-fixture"
 }

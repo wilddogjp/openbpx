@@ -16,11 +16,9 @@
     "newCount": 104,
     "nonCaseHash": 60458,
     "oldCount": 103,
-    "outputBytes": 23710,
+    "outputBytes": 23634,
     "value": "BPX_Golden_Add"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "name_add_BP_Empty_dry_run",
   "oracle": "ue-fixture"
 }

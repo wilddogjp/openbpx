@@ -1,12 +1,19 @@
 {
   "command": "name set",
   "args": {
+    "case-preserving-hash": "2222",
     "index": "1",
-    "value": "/Script/CoreUObject",
     "non-case-hash": "1111",
-    "case-preserving-hash": "2222"
+    "value": "/Script/CoreUObject"
   },
   "ue_procedure": "Update one NameMap entry hash fields without changing stored text",
   "expect": "byte_equal",
-  "notes": "Low-level NameMap hash-only rewrite fixture."
+  "notes": "Low-level NameMap hash-only rewrite fixture.",
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
 }

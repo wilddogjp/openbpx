@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ProgressBar_1",
+		"property": "progressbar-fill-color",
+		"value": "0.2,0.4,0.6,0.8"
+	},
+	"ue_procedure": "Set FillColorAndOpacity on the ProgressBar child under the root CanvasPanel on WBP_CanvasPanel_ProgressBar",
+	"expect": "byte_equal",
+	"notes": "Generator after-state is implemented; operation remains deferred until UE-generated golden fixtures and source widget fixtures are checked in.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}

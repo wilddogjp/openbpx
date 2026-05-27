@@ -1,0 +1,17 @@
+{
+  "command": "blueprint widget-add",
+  "args": {
+    "parent": "Overlay_116",
+    "type": "image",
+    "name": "Image_71"
+  },
+  "ue_procedure": "Open WBP_Overlay_TextBlock, add one bare Image child named Image_71 under the root Overlay, save, and let UE compile the WidgetBlueprint.",
+  "expect": "byte_equal",
+  "notes": "Covers widget-add on a non-empty root Overlay: inserts a second child and preserves the existing TextBlock child/slot ordering across designer/generated trees.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "saved-hash",
+    "widget-text-key-only",
+    "widget-variable-guid-map-values"
+  ]
+}

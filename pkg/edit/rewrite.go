@@ -217,6 +217,11 @@ func RewriteAsset(asset *uasset.Asset, mutations []ExportMutation) ([]byte, erro
 	}, false); err != nil {
 		return nil, err
 	}
+	if err := patchThumbnailTableFileOffsets(raw, out, asset, func(oldPos int64) int64 {
+		return translateOffset(oldPos, patches)
+	}); err != nil {
+		return nil, err
+	}
 
 	if bytes.Equal(out, raw) {
 		return out, nil

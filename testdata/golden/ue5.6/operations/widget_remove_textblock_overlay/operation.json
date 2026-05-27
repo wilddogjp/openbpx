@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "Overlay_116/TextBlock_36"
+	},
+	"ue_procedure": "Remove the bare TextBlock child under the root Overlay on WBP_Overlay_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root TextBlock leaf under Overlay, including orphan export/import compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

@@ -20,12 +20,8 @@
       "namespace": "",
       "text": ""
     },
-    "warnings": [
-      "gatherable text data is package-level (count=1) and is omitted when --export is specified"
-    ]
+    "warnings": []
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "localization_query_BP_Empty_StringTableRef_export11_key_UI_Start",
   "oracle": "ue-fixture"
 }

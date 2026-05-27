@@ -17,43 +17,43 @@
         "arrayIndex": 0,
         "flags": 0,
         "name": "ParentClass",
-        "offset": 18415,
+        "offset": 18419,
         "size": 4,
         "type": "ObjectProperty",
         "value": {
           "index": -6,
           "resolved": "import:6:Actor"
         },
-        "valueOffset": 18440
+        "valueOffset": 18444
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "BlueprintSystemVersion",
-        "offset": 18444,
+        "offset": 18448,
         "size": 4,
         "type": "IntProperty",
         "value": 2,
-        "valueOffset": 18469
+        "valueOffset": 18473
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "SimpleConstructionScript",
-        "offset": 18473,
+        "offset": 18477,
         "size": 4,
         "type": "ObjectProperty",
         "value": {
           "index": 12,
           "resolved": "export:12:SimpleConstructionScript_0"
         },
-        "valueOffset": 18498
+        "valueOffset": 18502
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "UbergraphPages",
-        "offset": 18502,
+        "offset": 18506,
         "size": 8,
         "type": "ArrayProperty(ObjectProperty)",
         "value": {
@@ -68,13 +68,13 @@
             }
           ]
         },
-        "valueOffset": 18539
+        "valueOffset": 18543
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "FunctionGraphs",
-        "offset": 18547,
+        "offset": 18551,
         "size": 8,
         "type": "ArrayProperty(ObjectProperty)",
         "value": {
@@ -89,13 +89,13 @@
             }
           ]
         },
-        "valueOffset": 18584
+        "valueOffset": 18588
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "LastEditedDocuments",
-        "offset": 18592,
+        "offset": 18596,
         "size": 445,
         "type": "ArrayProperty(StructProperty(EditedDocumentInfo(/Script/Engine)))",
         "value": {
@@ -319,49 +319,47 @@
             }
           ]
         },
-        "valueOffset": 18653
+        "valueOffset": 18657
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "GeneratedClass",
-        "offset": 19098,
+        "offset": 19102,
         "size": 4,
         "type": "ObjectProperty",
         "value": {
           "index": 2,
           "resolved": "export:2:BP_GameplayTags_C"
         },
-        "valueOffset": 19123
+        "valueOffset": 19127
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "bLegacyNeedToPurgeSkelRefs",
-        "offset": 19127,
+        "offset": 19131,
         "size": 0,
         "type": "BoolProperty",
         "value": false,
-        "valueOffset": 19152
+        "valueOffset": 19156
       },
       {
         "arrayIndex": 0,
         "flags": 8,
         "name": "BlueprintGuid",
-        "offset": 19152,
+        "offset": 19156,
         "size": 16,
         "type": "StructProperty(Guid(/Script/CoreUObject))",
         "value": {
           "structType": "Guid",
-          "value": "8f0a57ea-9028-4e56-8596-0d118bc014c4"
+          "value": "ea529ed0-f1ae-4952-9ad9-07b5eaebcd59"
         },
-        "valueOffset": 19201
+        "valueOffset": 19205
       }
     ],
     "warnings": null
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "prop_list_BP_GameplayTags_export1",
   "oracle": "ue-fixture"
 }

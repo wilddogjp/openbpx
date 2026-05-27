@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "VerticalBox_1/Image_1"
+	},
+	"ue_procedure": "Remove the bare Image child under the root VerticalBox on WBP_VerticalBox_Image",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root Image leaf under VerticalBox, including slot-array cleanup and variable compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}
