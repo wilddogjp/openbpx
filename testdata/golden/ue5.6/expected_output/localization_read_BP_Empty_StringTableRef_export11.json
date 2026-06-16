@@ -13,7 +13,7 @@
         "className": "SCS_Node",
         "export": 11,
         "history": {
-          "flags": 8,
+          "flags": 0,
           "historyType": "StringTableEntry",
           "historyTypeCode": 11,
           "key": "ST_ENTRY_KEY_000001",
@@ -37,14 +37,10 @@
     "entryCount": 1,
     "exportFilter": 11,
     "file": "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
-    "gatherableTextDataCount": 1,
+    "gatherableTextDataCount": 0,
     "includeHistory": true,
-    "warnings": [
-      "gatherable text data is package-level (count=1) and is omitted when --export is specified"
-    ]
+    "warnings": []
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "localization_read_BP_Empty_StringTableRef_export11",
   "oracle": "ue-fixture"
 }

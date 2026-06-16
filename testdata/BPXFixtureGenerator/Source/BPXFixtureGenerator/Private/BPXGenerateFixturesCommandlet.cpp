@@ -11,6 +11,7 @@
 #include "Engine/DataTable.h"
 #include "Engine/SCS_Node.h"
 #include "Engine/SimpleConstructionScript.h"
+#include "Blueprint/WidgetTree.h"
 #include "Internationalization/StringTable.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
@@ -35,6 +36,46 @@
 #include "UObject/MetaData.h"
 #include "UObject/SavePackage.h"
 #include "UObject/UnrealType.h"
+#include "WidgetBlueprint.h"
+#include "WidgetBlueprintEditorUtils.h"
+#include "Components/Border.h"
+#include "Components/BackgroundBlur.h"
+#include "Components/Button.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/CheckBox.h"
+#include "Components/ComboBoxString.h"
+#include "Components/EditableText.h"
+#include "Components/EditableTextBox.h"
+#include "Components/HorizontalBox.h"
+#include "Components/InvalidationBox.h"
+#include "Components/ContentWidget.h"
+#include "Components/Image.h"
+#include "Components/ListView.h"
+#include "Components/NamedSlot.h"
+#include "Components/Overlay.h"
+#include "Components/PanelWidget.h"
+#include "Components/ProgressBar.h"
+#include "Components/RetainerBox.h"
+#include "Components/RichTextBlock.h"
+#include "Components/SafeZone.h"
+#include "Components/ScrollBar.h"
+#include "Components/ScrollBox.h"
+#include "Components/SizeBox.h"
+#include "Components/ScaleBox.h"
+#include "Components/Slider.h"
+#include "Components/SpinBox.h"
+#include "Components/Spacer.h"
+#include "Components/TextBlock.h"
+#include "Components/TileView.h"
+#include "Components/TreeView.h"
+#include "Components/MultiLineEditableTextBox.h"
+#include "Components/UniformGridPanel.h"
+#include "Components/VerticalBox.h"
+#include "Components/WidgetSwitcher.h"
+#include "Components/WrapBox.h"
+#include "Blueprint/UserWidget.h"
+#include "Engine/Texture2D.h"
 #include "StructUtils/UserDefinedStruct.h"
 #include "Factories/WorldFactory.h"
 
@@ -45,6 +86,7 @@ namespace
 enum class EParseFixtureKind
 {
     Blueprint,
+    WidgetBlueprint,
     DataTable,
     UserEnum,
     UserStruct,
@@ -70,6 +112,7 @@ struct FOperationFixtureSpec
     FString Expect;
     FString ErrorContains;
     FString Notes;
+    FString IgnorePackageSectionsJson;
 };
 
 struct FOperationBlueprintDefaults
@@ -218,6 +261,14 @@ TArray<FParseFixtureSpec> BuildParseSpecs()
         {TEXT("BP_Unicode"), TEXT("BP_Unicode.uasset"), EParseFixtureKind::Blueprint, TEXT("")},
         {TEXT("BP_LargeArray"), TEXT("BP_LargeArray.uasset"), EParseFixtureKind::Blueprint, TEXT("")},
         {TEXT("BP_Empty_StringTableRef"), TEXT("BP_Empty_StringTableRef.uasset"), EParseFixtureKind::Blueprint, TEXT("")},
+        {TEXT("WBP_Minimum"), TEXT("WBP_Minimum.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_TextBlock"), TEXT("WBP_TextBlock.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_RichTextBlock"), TEXT("WBP_RichTextBlock.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_CanvasPanel"), TEXT("WBP_CanvasPanel.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_CanvasPanel_TextBlock"), TEXT("WBP_CanvasPanel_TextBlock.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_CanvasPanel_RichTextBlock"), TEXT("WBP_CanvasPanel_RichTextBlock.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_Overlay"), TEXT("WBP_Overlay.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
+        {TEXT("WBP_Overlay_TextBlock"), TEXT("WBP_Overlay_TextBlock.uasset"), EParseFixtureKind::WidgetBlueprint, TEXT("")},
         {TEXT("DT_Simple"), TEXT("DT_Simple.uasset"), EParseFixtureKind::DataTable, TEXT("")},
         {TEXT("DT_Complex"), TEXT("DT_Complex.uasset"), EParseFixtureKind::DataTable, TEXT("")},
         {TEXT("E_Direction"), TEXT("E_Direction.uasset"), EParseFixtureKind::UserEnum, TEXT("")},
@@ -239,7 +290,8 @@ TArray<FOperationFixtureSpec> BuildOperationSpecs()
         const TCHAR* ArgsJson,
         const TCHAR* UEProcedure,
         const TCHAR* Expect,
-        const TCHAR* Notes
+        const TCHAR* Notes,
+        const TCHAR* IgnorePackageSectionsJson = TEXT("")
     ) {
         return FOperationFixtureSpec{
             FString(Name),
@@ -248,7 +300,8 @@ TArray<FOperationFixtureSpec> BuildOperationSpecs()
             FString(UEProcedure),
             FString(Expect),
             FString(),
-            FString(Notes)
+            FString(Notes),
+            FString(IgnorePackageSectionsJson)
         };
     };
 
@@ -294,6 +347,186 @@ TArray<FOperationFixtureSpec> BuildOperationSpecs()
         MakeOperation(TEXT("prop_set_string_shrink"), TEXT("prop set"), TEXT("{\"export\":5,\"path\":\"MyStr\",\"value\":\"\\\"x\\\"\"}"), TEXT("Set string variable to shorter ASCII text"), TEXT("byte_equal"), TEXT("Validated by operation-equivalence test.")),
         MakeOperation(TEXT("prop_set_name"), TEXT("prop set"), TEXT("{\"export\":5,\"path\":\"FixtureName\",\"value\":\"\\\"BoolProperty\\\"\"}"), TEXT("Set Name variable"), TEXT("byte_equal"), TEXT("Validated by operation-equivalence test.")),
         MakeOperation(TEXT("prop_set_text"), TEXT("prop set"), TEXT("{\"export\":11,\"path\":\"CategoryName\",\"value\":\"\\\"Gameplay\\\"\"}"), TEXT("Update TextProperty CategoryName on SCS node"), TEXT("byte_equal"), TEXT("Validated on ue5.6/ue5.7 scalar fixture roots.")),
+        MakeOperation(TEXT("widget_write_text_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text\",\"value\":\"Updated root text\"}"), TEXT("Update the root TextBlock text on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock text rewrite across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\"]")),
+        MakeOperation(TEXT("widget_write_text_color_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-color\",\"value\":\"0.15,0.45,0.75,0.9\"}"), TEXT("Set ColorAndOpacity on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock SlateColor rewrite across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_font_size_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-font-size\",\"value\":\"28\"}"), TEXT("Set Font.Size on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock font-size rewrite inside SlateFontInfo."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_justification_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-justification\",\"value\":\"Center\"}"), TEXT("Set Justification to Center on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock justification rewrite across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_font_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-font\",\"value\":\"/Game/UI/Foundation/Fonts/NotoSans\"}"), TEXT("Set Font.FontObject on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock font-object rewrite inside SlateFontInfo."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"soft-package-references\",\"soft-package-searchable-summary-offsets\"]")),
+        MakeOperation(TEXT("widget_write_text_typeface_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-typeface\",\"value\":\"Bold\"}"), TEXT("Set Font.TypefaceFontName to Bold on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock typeface rewrite inside SlateFontInfo."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_auto_wrap_text_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-auto-wrap-text\",\"value\":\"true\"}"), TEXT("Enable AutoWrapText on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock AutoWrapText bool insertion across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_wrap_text_at_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-wrap-text-at\",\"value\":\"320\"}"), TEXT("Set WrapTextAt to 320 on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock WrapTextAt float insertion across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_line_height_percentage_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-line-height-percentage\",\"value\":\"1.25\"}"), TEXT("Set LineHeightPercentage to 1.25 on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock LineHeightPercentage float insertion across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_text_shadow_offset_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-shadow-offset\",\"value\":\"3,4\"}"), TEXT("Set ShadowOffset to 3x4 on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock shadow-offset rewrite inside the text style payload."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_shadow_color_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-shadow-color-and-opacity\",\"value\":\"0.05,0.1,0.15,0.8\"}"), TEXT("Set ShadowColorAndOpacity on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock shadow-color rewrite inside the text style payload."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_outline_size_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-outline-size\",\"value\":\"2\"}"), TEXT("Set Font.OutlineSettings.OutlineSize on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock outline-size rewrite inside FontOutlineSettings."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_outline_color_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"text-outline-color\",\"value\":\"0.2,0.3,0.9,1\"}"), TEXT("Set Font.OutlineSettings.OutlineColor on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root TextBlock outline-color rewrite inside FontOutlineSettings."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_canvaspanel_child"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_22/TextBlock_31\",\"property\":\"text\",\"value\":\"Updated canvas child text\"}"), TEXT("Update the child TextBlock text under the root CanvasPanel on WBP_CanvasPanel_TextBlock"), TEXT("byte_equal"), TEXT("Covers child TextBlock text rewrite under CanvasPanel across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\"]")),
+        MakeOperation(TEXT("widget_write_text_overlay_child"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Overlay_116/TextBlock_36\",\"property\":\"text\",\"value\":\"Updated overlay child text\"}"), TEXT("Update the child TextBlock text under the root Overlay on WBP_Overlay_TextBlock"), TEXT("byte_equal"), TEXT("Covers child TextBlock text rewrite under Overlay across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\"]")),
+        MakeOperation(TEXT("widget_write_text_root_richtextblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"text\",\"value\":\"Updated root rich text\"}"), TEXT("Update the root RichTextBlock text on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers root RichTextBlock text rewrite across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_canvaspanel_child_richtextblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_22/RichTextBlock_31\",\"property\":\"text\",\"value\":\"Updated rich canvas child text\"}"), TEXT("Update the child RichTextBlock text under the root CanvasPanel on WBP_CanvasPanel_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers child RichTextBlock text rewrite under CanvasPanel across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_image_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"image\",\"name\":\"Image_23\"}"), TEXT("Add one bare Image child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add v1 for an empty root CanvasPanel: inserts designer/generated Image + CanvasPanelSlot exports and updates WidgetTree/widget-variable references."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_richtextblock_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"richtextblock\",\"name\":\"RichTextBlock_23\"}"), TEXT("Add one bare RichTextBlock child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for a bare RichTextBlock child under CanvasPanel, including generated-pair insertion for follow-up text writes."), TEXT("[\"editor-thumbnails\",\"widget-text-key-only\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_progressbar_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"progressbar\",\"name\":\"ProgressBar_23\"}"), TEXT("Add one bare ProgressBar child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Validated on ue5.7 ProgressBar widget-add fixture pair."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_slider_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"slider\",\"name\":\"Slider_23\"}"), TEXT("Add one bare Slider child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Validated on ue5.7 Slider widget-add fixture pair."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_spacer_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"spacer\",\"name\":\"Spacer_23\"}"), TEXT("Add one bare Spacer child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Validated on ue5.7 Spacer widget-add fixture pair."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_scrollbar_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"scrollbar\",\"name\":\"ScrollBar_23\"}"), TEXT("Add one bare ScrollBar child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Validated on ue5.7 ScrollBar widget-add fixture pair."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_editabletext_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"editabletext\",\"name\":\"EditableText_23\"}"), TEXT("Add one bare EditableText child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for EditableText under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_editabletextbox_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"editabletextbox\",\"name\":\"EditableTextBox_23\"}"), TEXT("Add one bare EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for EditableTextBox under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_multilineeditabletextbox_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"multilineeditabletextbox\",\"name\":\"MultiLineEditableTextBox_23\"}"), TEXT("Add one bare MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for MultiLineEditableTextBox under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_spinbox_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"spinbox\",\"name\":\"SpinBox_23\"}"), TEXT("Add one bare SpinBox child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for SpinBox under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_comboboxstring_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"comboboxstring\",\"name\":\"ComboBoxString_23\"}"), TEXT("Add one bare ComboBoxString child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for ComboBoxString under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_listview_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"listview\",\"name\":\"ListView_23\"}"), TEXT("Add one bare ListView child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for ListView under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_tileview_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"tileview\",\"name\":\"TileView_23\"}"), TEXT("Add one bare TileView child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for TileView under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_treeview_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"treeview\",\"name\":\"TreeView_23\"}"), TEXT("Add one bare TreeView child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for TreeView under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_namedslot_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"namedslot\",\"name\":\"NamedSlot_23\"}"), TEXT("Add one bare NamedSlot child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for NamedSlot under CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_textblock_namedslot_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22/NamedSlot_1\",\"type\":\"textblock\",\"name\":\"TextBlock_1\"}"), TEXT("Add one TextBlock child under the NamedSlot child on WBP_CanvasPanel_NamedSlot"), TEXT("byte_equal"), TEXT("Covers widget-add for a single content child under NamedSlot."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_userwidget_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"userwidget\",\"class\":\"/Game/BPXFixtures/Parse/WBP_TextBlock\",\"name\":\"WBP_TextBlock_1\"}"), TEXT("Add one WBP_TextBlock child widget under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for a child WidgetBlueprint instance under CanvasPanel, including BlueprintGeneratedClass import wiring."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_parent_class_commonactivatablewidget_rootless"), TEXT("blueprint widget-parent-class"), TEXT("{\"class\":\"/Script/CommonUI.CommonActivatableWidget\"}"), TEXT("Replace the rootless WBP_Minimum parent class with CommonActivatableWidget"), TEXT("byte_equal"), TEXT("Covers native WidgetBlueprint parent-class rewrites while the blueprint is still rootless."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_textblock_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_22/TextBlock_31\"}"), TEXT("Remove the bare TextBlock child under the root CanvasPanel on WBP_CanvasPanel_TextBlock"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root TextBlock leaf under CanvasPanel, including orphan export/import compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_richtextblock_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_22/RichTextBlock_31\"}"), TEXT("Remove the bare RichTextBlock child under the root CanvasPanel on WBP_CanvasPanel_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root RichTextBlock leaf under CanvasPanel, including orphan export/import compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_textblock_overlay"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"Overlay_116/TextBlock_36\"}"), TEXT("Remove the bare TextBlock child under the root Overlay on WBP_Overlay_TextBlock"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root TextBlock leaf under Overlay, including orphan export/import compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_image_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/Image_1\"}"), TEXT("Remove the bare Image child under the root CanvasPanel on WBP_CanvasPanel_Image"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root Image leaf under CanvasPanel, including the designer-only Image export plus orphan slot compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_image_overlay"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"Overlay_1/Image_1\"}"), TEXT("Remove the bare Image child under the root Overlay on WBP_Overlay_Image"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root Image leaf under Overlay, including orphan slot and variable cleanup."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_image_verticalbox"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"VerticalBox_1/Image_1\"}"), TEXT("Remove the bare Image child under the root VerticalBox on WBP_VerticalBox_Image"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root Image leaf under VerticalBox, including slot-array cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_image_horizontalbox"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"HorizontalBox_1/Image_1\"}"), TEXT("Remove the bare Image child under the root HorizontalBox on WBP_HorizontalBox_Image"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root Image leaf under HorizontalBox, including slot-array cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_button_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/Button_1\"}"), TEXT("Remove the bare Button child under the root CanvasPanel on WBP_CanvasPanel_Button"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root Button leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_border_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/Border_1\"}"), TEXT("Remove the bare Border child under the root CanvasPanel on WBP_CanvasPanel_Border"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root Border leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_sizebox_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\"}"), TEXT("Remove the bare SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root SizeBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_gridpanel_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/GridPanel_1\"}"), TEXT("Remove the bare GridPanel child under the root CanvasPanel on WBP_CanvasPanel_GridPanel"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root GridPanel leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_backgroundblur_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/BackgroundBlur_1\"}"), TEXT("Remove the bare BackgroundBlur child under the root CanvasPanel on WBP_CanvasPanel_BackgroundBlur"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root BackgroundBlur leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_invalidationbox_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/InvalidationBox_1\"}"), TEXT("Remove the bare InvalidationBox child under the root CanvasPanel on WBP_CanvasPanel_InvalidationBox"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root InvalidationBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_retainerbox_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/RetainerBox_1\"}"), TEXT("Remove the bare RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root RetainerBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_safezone_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/SafeZone_1\"}"), TEXT("Remove the bare SafeZone child under the root CanvasPanel on WBP_CanvasPanel_SafeZone"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root SafeZone leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_scalebox_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/ScaleBox_1\"}"), TEXT("Remove the bare ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root ScaleBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_scrollbox_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBox_1\"}"), TEXT("Remove the bare ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root ScrollBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_widgetswitcher_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/WidgetSwitcher_1\"}"), TEXT("Remove the bare WidgetSwitcher child under the root CanvasPanel on WBP_CanvasPanel_WidgetSwitcher"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root WidgetSwitcher leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_remove_wrapbox_canvaspanel"), TEXT("blueprint widget-remove"), TEXT("{\"widget\":\"CanvasPanel_1/WrapBox_1\"}"), TEXT("Remove the bare WrapBox child under the root CanvasPanel on WBP_CanvasPanel_WrapBox"), TEXT("byte_equal"), TEXT("Covers widget-remove for a non-root WrapBox leaf under CanvasPanel, including CanvasPanelSlot cleanup and variable compaction."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_image_canvaspanel_nonempty"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"image\",\"name\":\"Image_59\"}"), TEXT("Add one bare Image child under the non-empty root CanvasPanel on WBP_CanvasPanel_TextBlock"), TEXT("byte_equal"), TEXT("Covers widget-add on a non-empty root CanvasPanel while preserving the existing TextBlock child and slot ordering."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_image_overlay"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"Overlay_116\",\"type\":\"image\",\"name\":\"Image_23\"}"), TEXT("Add one bare Image child under the root Overlay on WBP_Overlay"), TEXT("byte_equal"), TEXT("Covers widget-add v1 for an empty root Overlay: inserts designer/generated Image + OverlaySlot exports and updates WidgetTree/widget-variable references."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_image_overlay_nonempty"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"Overlay_116\",\"type\":\"image\",\"name\":\"Image_71\"}"), TEXT("Add one bare Image child under the non-empty root Overlay on WBP_Overlay_TextBlock"), TEXT("byte_equal"), TEXT("Covers widget-add on a non-empty root Overlay while preserving the existing TextBlock child and slot ordering."), TEXT("[\"editor-thumbnails\",\"widget-text-key-only\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_image_nested_overlay"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_1/Overlay_1\",\"type\":\"image\",\"name\":\"Image_3\"}"), TEXT("Add one bare Image child under the nested Overlay_1 on WBP_MultiLevelSmoke"), TEXT("byte_equal"), TEXT("Covers widget-add on a nested top-level Overlay child under a root CanvasPanel, including generated-tree rootless companion rewrites for the nested branch."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_root_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"root\",\"type\":\"canvaspanel\",\"name\":\"CanvasPanel_21\"}"), TEXT("Create a root CanvasPanel on WBP_Minimum"), TEXT("byte_equal"), TEXT("Covers widget-add root creation on an empty WidgetBlueprint by wiring WidgetTree RootWidget/AllWidgets for a new CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_root_verticalbox"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"root\",\"type\":\"verticalbox\",\"name\":\"VerticalBox_21\"}"), TEXT("Create a root VerticalBox on WBP_Minimum"), TEXT("byte_equal"), TEXT("Covers widget-add root creation for VerticalBox on an empty WidgetBlueprint."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_root_horizontalbox"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"root\",\"type\":\"horizontalbox\",\"name\":\"HorizontalBox_21\"}"), TEXT("Create a root HorizontalBox on WBP_Minimum"), TEXT("byte_equal"), TEXT("Covers widget-add root creation for HorizontalBox on an empty WidgetBlueprint."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_add_button_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_22\",\"type\":\"button\",\"name\":\"Button_1\"}"), TEXT("Add one bare Button child under the root CanvasPanel on WBP_CanvasPanel"), TEXT("byte_equal"), TEXT("Covers widget-add for a container child under CanvasPanel, including generated-pair insertion for follow-up child edits."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\"]")),
+        MakeOperation(TEXT("widget_add_image_border_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_1/Border_1\",\"type\":\"image\",\"name\":\"Image_1\"}"), TEXT("Add one bare Image child under the existing Border_1 child on WBP_CanvasPanel_Border"), TEXT("byte_equal"), TEXT("Covers widget-add follow-up under a single-child Border wrapper nested below a root CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_add_image_sizebox_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_1/SizeBox_1\",\"type\":\"image\",\"name\":\"Image_1\"}"), TEXT("Add one bare Image child under the existing SizeBox_1 child on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers widget-add follow-up under a single-child SizeBox wrapper nested below a root CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_add_image_horizontalbox_canvaspanel"), TEXT("blueprint widget-add"), TEXT("{\"parent\":\"CanvasPanel_1/HorizontalBox_1\",\"type\":\"image\",\"name\":\"Image_1\"}"), TEXT("Add one bare Image child under the existing HorizontalBox_1 child on WBP_CanvasPanel_HorizontalBox"), TEXT("byte_equal"), TEXT("Covers widget-add follow-up under a nested HorizontalBox panel below a root CanvasPanel."), TEXT("[\"editor-thumbnails\",\"widget-variable-guid-map-values\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_opacity_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"render-opacity\",\"value\":\"0.8\"}"), TEXT("Set RenderOpacity to 0.8 on the root TextBlock on WBP_TextBlock_Opacity"), TEXT("byte_equal"), TEXT("Covers root widget RenderOpacity write across designer/generated WidgetTree exports. Source WBP has RenderOpacity=0.5 pre-set.")),
+        MakeOperation(TEXT("widget_write_opacity_root_richtextblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"render-opacity\",\"value\":\"0.8\"}"), TEXT("Set RenderOpacity to 0.8 on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers root RichTextBlock RenderOpacity write across designer/generated WidgetTree exports.")),
+        MakeOperation(TEXT("widget_write_opacity_canvaspanel_child"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_22/TextBlock_31\",\"property\":\"render-opacity\",\"value\":\"0.5\"}"), TEXT("Set RenderOpacity to 0.5 on the child TextBlock under the root CanvasPanel on WBP_CanvasPanel_TextBlock"), TEXT("byte_equal"), TEXT("Covers child widget RenderOpacity write under CanvasPanel across designer/generated WidgetTree exports.")),
+        MakeOperation(TEXT("widget_write_visibility_root_textblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"TextBlock_72\",\"property\":\"visibility\",\"value\":\"Collapsed\"}"), TEXT("Set Visibility to Collapsed on the root TextBlock on WBP_TextBlock"), TEXT("byte_equal"), TEXT("Covers root widget Visibility write across designer/generated WidgetTree exports.")),
+        MakeOperation(TEXT("widget_write_visibility_root_richtextblock"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"visibility\",\"value\":\"Collapsed\"}"), TEXT("Set Visibility to Collapsed on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers root RichTextBlock Visibility write across designer/generated WidgetTree exports.")),
+        MakeOperation(TEXT("widget_write_richtext_default_shadow_offset"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-default-shadow-offset\",\"value\":\"3,4\"}"), TEXT("Set DefaultTextStyleOverride.ShadowOffset on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers RichTextBlock default-style shadow offset insertion with bOverrideDefaultStyle enablement."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_richtext_default_shadow_color"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-default-shadow-color-and-opacity\",\"value\":\"0.05,0.1,0.15,0.8\"}"), TEXT("Set DefaultTextStyleOverride.ShadowColorAndOpacity on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers RichTextBlock default-style shadow color insertion with bOverrideDefaultStyle enablement."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_richtext_default_outline_size"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-default-outline-size\",\"value\":\"2\"}"), TEXT("Set DefaultTextStyleOverride.Font.OutlineSettings.OutlineSize on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers RichTextBlock outline-size insertion inside FontOutlineSettings."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_richtext_default_outline_color"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-default-outline-color\",\"value\":\"0.2,0.3,0.9,1\"}"), TEXT("Set DefaultTextStyleOverride.Font.OutlineSettings.OutlineColor on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers RichTextBlock outline-color insertion inside FontOutlineSettings."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_richtext_auto_wrap_text"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-auto-wrap-text\",\"value\":\"true\"}"), TEXT("Enable AutoWrapText on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers root RichTextBlock AutoWrapText bool insertion across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_richtext_wrap_text_at"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-wrap-text-at\",\"value\":\"320\"}"), TEXT("Set WrapTextAt to 320 on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers root RichTextBlock WrapTextAt float insertion across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_richtext_line_height_percentage"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"RichTextBlock_72\",\"property\":\"richtext-line-height-percentage\",\"value\":\"1.25\"}"), TEXT("Set LineHeightPercentage to 1.25 on the root RichTextBlock on WBP_RichTextBlock"), TEXT("byte_equal"), TEXT("Covers root RichTextBlock LineHeightPercentage float insertion across designer/generated WidgetTree exports."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_progressbar_percent"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ProgressBar_1\",\"property\":\"progressbar-percent\",\"value\":\"0.75\"}"), TEXT("Set Percent to 0.75 on the ProgressBar child under the root CanvasPanel on WBP_CanvasPanel_ProgressBar"), TEXT("byte_equal"), TEXT("Validated on ue5.7 ProgressBar widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_progressbar_fill_color"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ProgressBar_1\",\"property\":\"progressbar-fill-color\",\"value\":\"0.2,0.4,0.6,0.8\"}"), TEXT("Set FillColorAndOpacity on the ProgressBar child under the root CanvasPanel on WBP_CanvasPanel_ProgressBar"), TEXT("byte_equal"), TEXT("Validated on ue5.7 ProgressBar widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_slider_value"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/Slider_1\",\"property\":\"slider-value\",\"value\":\"0.5\"}"), TEXT("Set Value to 0.5 on the Slider child under the root CanvasPanel on WBP_CanvasPanel_Slider"), TEXT("byte_equal"), TEXT("Validated on ue5.7 Slider widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_slider_orientation"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/Slider_1\",\"property\":\"slider-orientation\",\"value\":\"Vertical\"}"), TEXT("Set Orientation to Vertical on the Slider child under the root CanvasPanel on WBP_CanvasPanel_Slider"), TEXT("byte_equal"), TEXT("Validated on ue5.7 Slider widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_slider_is_focusable"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/Slider_1\",\"property\":\"slider-is-focusable\",\"value\":\"false\"}"), TEXT("Disable focus on the Slider child under the root CanvasPanel on WBP_CanvasPanel_Slider"), TEXT("byte_equal"), TEXT("Covers Slider IsFocusable bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_spacer_size"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/Spacer_1\",\"property\":\"spacer-size\",\"value\":\"24,48\"}"), TEXT("Set Size to 24x48 on the Spacer child under the root CanvasPanel on WBP_CanvasPanel_Spacer"), TEXT("byte_equal"), TEXT("Validated on ue5.7 Spacer widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_scrollbar_thickness"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBar_1\",\"property\":\"scrollbar-thickness\",\"value\":\"5,12\"}"), TEXT("Set Thickness to 5x12 on the ScrollBar child under the root CanvasPanel on WBP_CanvasPanel_ScrollBar"), TEXT("byte_equal"), TEXT("Validated on ue5.7 ScrollBar widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_scrollbar_orientation"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBar_1\",\"property\":\"scrollbar-orientation\",\"value\":\"Vertical\"}"), TEXT("Set Orientation to Vertical on the ScrollBar child under the root CanvasPanel on WBP_CanvasPanel_ScrollBar"), TEXT("byte_equal"), TEXT("Validated on ue5.7 ScrollBar widget-write fixture pair."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_checkbox_is_checked_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/CheckBox_1\",\"property\":\"checkbox-is-checked\",\"value\":\"true\"}"), TEXT("Set CheckedState to Checked on the CheckBox child under the root CanvasPanel on WBP_CanvasPanel_CheckBox"), TEXT("byte_equal"), TEXT("Covers CheckBox bool-to-state rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_checkbox_checked_state_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/CheckBox_1\",\"property\":\"checkbox-checked-state\",\"value\":\"Undetermined\"}"), TEXT("Set CheckedState to Undetermined on the CheckBox child under the root CanvasPanel on WBP_CanvasPanel_CheckBox"), TEXT("byte_equal"), TEXT("Covers explicit CheckBox CheckedState enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_checkbox_is_focusable_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/CheckBox_1\",\"property\":\"checkbox-is-focusable\",\"value\":\"false\"}"), TEXT("Disable focus on the CheckBox child under the root CanvasPanel on WBP_CanvasPanel_CheckBox"), TEXT("byte_equal"), TEXT("Covers CheckBox IsFocusable bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_text_canvaspanel_child_editabletextbox"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableTextBox_1\",\"property\":\"text\",\"value\":\"Player Name\"}"), TEXT("Set Text to Player Name on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox"), TEXT("byte_equal"), TEXT("Covers EditableTextBox text rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_canvaspanel_child_editabletext"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableText_1\",\"property\":\"text\",\"value\":\"Display Name\"}"), TEXT("Set Text to Display Name on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText"), TEXT("byte_equal"), TEXT("Covers EditableText text rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletext_hint_text_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableText_1\",\"property\":\"editabletext-hint-text\",\"value\":\"Enter display name\"}"), TEXT("Set HintText to Enter display name on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText"), TEXT("byte_equal"), TEXT("Covers EditableText hint-text rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletext_is_read_only_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableText_1\",\"property\":\"editabletext-is-read-only\",\"value\":\"true\"}"), TEXT("Enable IsReadOnly on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText"), TEXT("byte_equal"), TEXT("Covers EditableText is-read-only bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletext_is_password_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableText_1\",\"property\":\"editabletext-is-password\",\"value\":\"true\"}"), TEXT("Enable IsPassword on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText"), TEXT("byte_equal"), TEXT("Covers EditableText is-password bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletext_minimum_desired_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableText_1\",\"property\":\"editabletext-minimum-desired-width\",\"value\":\"260\"}"), TEXT("Set MinimumDesiredWidth to 260 on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText"), TEXT("byte_equal"), TEXT("Covers EditableText minimum-desired-width rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_editabletext_justification_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableText_1\",\"property\":\"editabletext-justification\",\"value\":\"Right\"}"), TEXT("Set Justification to Right on the EditableText child under the root CanvasPanel on WBP_CanvasPanel_EditableText"), TEXT("byte_equal"), TEXT("Covers EditableText justification enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_editabletextbox_hint_text_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableTextBox_1\",\"property\":\"editabletextbox-hint-text\",\"value\":\"Enter name\"}"), TEXT("Set HintText to Enter name on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox"), TEXT("byte_equal"), TEXT("Covers EditableTextBox hint-text rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletextbox_is_read_only_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableTextBox_1\",\"property\":\"editabletextbox-is-read-only\",\"value\":\"true\"}"), TEXT("Enable IsReadOnly on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox"), TEXT("byte_equal"), TEXT("Covers EditableTextBox is-read-only bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletextbox_is_password_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableTextBox_1\",\"property\":\"editabletextbox-is-password\",\"value\":\"true\"}"), TEXT("Enable IsPassword on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox"), TEXT("byte_equal"), TEXT("Covers EditableTextBox is-password bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletextbox_minimum_desired_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableTextBox_1\",\"property\":\"editabletextbox-minimum-desired-width\",\"value\":\"240\"}"), TEXT("Set MinimumDesiredWidth to 240 on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox"), TEXT("byte_equal"), TEXT("Covers EditableTextBox minimum-desired-width rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_editabletextbox_justification_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/EditableTextBox_1\",\"property\":\"editabletextbox-justification\",\"value\":\"Center\"}"), TEXT("Set Justification to Center on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox"), TEXT("byte_equal"), TEXT("Covers EditableTextBox justification enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_text_canvaspanel_child_multilineeditabletextbox"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/MultiLineEditableTextBox_1\",\"property\":\"text\",\"value\":\"Line 1\\nLine 2\"}"), TEXT("Set Text to two lines on the MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_MultiLineEditableTextBox"), TEXT("byte_equal"), TEXT("Covers MultiLineEditableTextBox text rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_multilineeditabletextbox_hint_text_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/MultiLineEditableTextBox_1\",\"property\":\"multilineeditabletextbox-hint-text\",\"value\":\"Enter description\"}"), TEXT("Set HintText to Enter description on the MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_MultiLineEditableTextBox"), TEXT("byte_equal"), TEXT("Covers MultiLineEditableTextBox hint-text rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"widget-text-localization-keys\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_multilineeditabletextbox_is_read_only_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/MultiLineEditableTextBox_1\",\"property\":\"multilineeditabletextbox-is-read-only\",\"value\":\"true\"}"), TEXT("Enable IsReadOnly on the MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_MultiLineEditableTextBox"), TEXT("byte_equal"), TEXT("Covers MultiLineEditableTextBox is-read-only bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_multilineeditabletextbox_justification_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/MultiLineEditableTextBox_1\",\"property\":\"multilineeditabletextbox-justification\",\"value\":\"Center\"}"), TEXT("Set Justification to Center on the MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_MultiLineEditableTextBox"), TEXT("byte_equal"), TEXT("Covers MultiLineEditableTextBox justification enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_spinbox_value_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SpinBox_1\",\"property\":\"spinbox-value\",\"value\":\"42\"}"), TEXT("Set Value to 42 on the SpinBox child under the root CanvasPanel on WBP_CanvasPanel_SpinBox"), TEXT("byte_equal"), TEXT("Covers SpinBox value rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_spinbox_min_value_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SpinBox_1\",\"property\":\"spinbox-min-value\",\"value\":\"10\"}"), TEXT("Set MinValue to 10 on the SpinBox child under the root CanvasPanel on WBP_CanvasPanel_SpinBox"), TEXT("byte_equal"), TEXT("Covers SpinBox minimum value rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_spinbox_max_value_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SpinBox_1\",\"property\":\"spinbox-max-value\",\"value\":\"100\"}"), TEXT("Set MaxValue to 100 on the SpinBox child under the root CanvasPanel on WBP_CanvasPanel_SpinBox"), TEXT("byte_equal"), TEXT("Covers SpinBox maximum value rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_spinbox_delta_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SpinBox_1\",\"property\":\"spinbox-delta\",\"value\":\"5\"}"), TEXT("Set Delta to 5 on the SpinBox child under the root CanvasPanel on WBP_CanvasPanel_SpinBox"), TEXT("byte_equal"), TEXT("Covers SpinBox delta rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_comboboxstring_options_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ComboBoxString_1\",\"property\":\"comboboxstring-options\",\"value\":\"[\\\"Easy\\\",\\\"Normal\\\",\\\"Hard\\\"]\"}"), TEXT("Set DefaultOptions to Easy, Normal, Hard on the ComboBoxString child under the root CanvasPanel on WBP_CanvasPanel_ComboBoxString"), TEXT("byte_equal"), TEXT("Covers ComboBoxString default-options rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_comboboxstring_selected_option_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ComboBoxString_1\",\"property\":\"comboboxstring-selected-option\",\"value\":\"Normal\"}"), TEXT("Set SelectedOption to Normal on the ComboBoxString child under the root CanvasPanel on WBP_CanvasPanel_ComboBoxString"), TEXT("byte_equal"), TEXT("Covers ComboBoxString selected-option rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_comboboxstring_is_focusable_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ComboBoxString_1\",\"property\":\"comboboxstring-is-focusable\",\"value\":\"false\"}"), TEXT("Disable focus on the ComboBoxString child under the root CanvasPanel on WBP_CanvasPanel_ComboBoxString"), TEXT("byte_equal"), TEXT("Covers ComboBoxString bIsFocusable bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_entry_widget_class_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-entry-widget-class\",\"value\":\"/Game/WBP/WBP_ListEntry_Text\"}"), TEXT("Set EntryWidgetClass to WBP_ListEntry_Text on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView_NoEntry"), TEXT("byte_equal"), TEXT("Covers ListView EntryWidgetClass rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_listview_orientation_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-orientation\",\"value\":\"Horizontal\"}"), TEXT("Set Orientation to Horizontal on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView orientation rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_listview_selection_mode_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-selection-mode\",\"value\":\"Multi\"}"), TEXT("Set SelectionMode to Multi on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView selection-mode rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_consume_mouse_wheel_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-consume-mouse-wheel\",\"value\":\"Never\"}"), TEXT("Set ConsumeMouseWheel to Never on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView consume-mouse-wheel rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_is_focusable_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-is-focusable\",\"value\":\"false\"}"), TEXT("Disable focus on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView bIsFocusable rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_return_focus_to_selection_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-return-focus-to-selection\",\"value\":\"true\"}"), TEXT("Enable ReturnFocusToSelection on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView bReturnFocusToSelection rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_clear_scroll_velocity_on_selection_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-clear-scroll-velocity-on-selection\",\"value\":\"false\"}"), TEXT("Disable ClearScrollVelocityOnSelection on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView bClearScrollVelocityOnSelection rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_scroll_into_view_alignment_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-scroll-into-view-alignment\",\"value\":\"BottomOrRight\"}"), TEXT("Set ScrollIntoViewAlignment to BottomOrRight on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView ScrollIntoViewAlignment rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_wheel_scroll_multiplier_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-wheel-scroll-multiplier\",\"value\":\"2.5\"}"), TEXT("Set WheelScrollMultiplier to 2.5 on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView wheel-scroll-multiplier rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_listview_enable_scroll_animation_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-enable-scroll-animation\",\"value\":\"true\"}"), TEXT("Enable ScrollAnimation on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView enable-scroll-animation rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_allow_overscroll_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-allow-overscroll\",\"value\":\"false\"}"), TEXT("Disable AllowOverscroll on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView AllowOverscroll rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_enable_right_click_scrolling_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-enable-right-click-scrolling\",\"value\":\"false\"}"), TEXT("Disable bEnableRightClickScrolling on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView right-click scrolling rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_enable_touch_scrolling_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-enable-touch-scrolling\",\"value\":\"false\"}"), TEXT("Disable bEnableTouchScrolling on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView touch scrolling rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_is_pointer_scrolling_enabled_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-is-pointer-scrolling-enabled\",\"value\":\"false\"}"), TEXT("Disable pointer scrolling on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView pointer scrolling rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_is_gamepad_scrolling_enabled_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-is-gamepad-scrolling-enabled\",\"value\":\"false\"}"), TEXT("Disable gamepad scrolling on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView gamepad scrolling rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_horizontal_entry_spacing_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-horizontal-entry-spacing\",\"value\":\"12\"}"), TEXT("Set HorizontalEntrySpacing to 12 on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView horizontal-entry-spacing rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_listview_vertical_entry_spacing_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-vertical-entry-spacing\",\"value\":\"6\"}"), TEXT("Set VerticalEntrySpacing to 6 on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView vertical-entry-spacing rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_listview_scrollbar_padding_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ListView_1\",\"property\":\"listview-scrollbar-padding\",\"value\":\"1,2,3,4\"}"), TEXT("Set ScrollBarPadding to 1,2,3,4 on the ListView child under the root CanvasPanel on WBP_CanvasPanel_ListView"), TEXT("byte_equal"), TEXT("Covers ListView scrollbar-padding rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_tileview_entry_widget_class_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TileView_1\",\"property\":\"listview-entry-widget-class\",\"value\":\"/Game/WBP/WBP_ListEntry_Text\"}"), TEXT("Set EntryWidgetClass to WBP_ListEntry_Text on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView_NoEntry"), TEXT("byte_equal"), TEXT("Covers TileView EntryWidgetClass rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_tileview_entry_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TileView_1\",\"property\":\"tileview-entry-width\",\"value\":\"180\"}"), TEXT("Set EntryWidth to 180 on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView"), TEXT("byte_equal"), TEXT("Covers TileView entry-width rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_tileview_entry_height_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TileView_1\",\"property\":\"tileview-entry-height\",\"value\":\"96\"}"), TEXT("Set EntryHeight to 96 on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView"), TEXT("byte_equal"), TEXT("Covers TileView entry-height rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_tileview_scrollbar_disabled_visibility_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TileView_1\",\"property\":\"tileview-scrollbar-disabled-visibility\",\"value\":\"Hidden\"}"), TEXT("Set ScrollbarDisabledVisibility to Hidden on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView"), TEXT("byte_equal"), TEXT("Covers TileView scrollbar-disabled-visibility rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_tileview_entry_size_includes_entry_spacing_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TileView_1\",\"property\":\"tileview-entry-size-includes-entry-spacing\",\"value\":\"false\"}"), TEXT("Disable bEntrySizeIncludesEntrySpacing on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView"), TEXT("byte_equal"), TEXT("Covers TileView entry-size-includes-entry-spacing rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_treeview_entry_widget_class_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TreeView_1\",\"property\":\"listview-entry-widget-class\",\"value\":\"/Game/WBP/WBP_ListEntry_Text\"}"), TEXT("Set EntryWidgetClass to WBP_ListEntry_Text on the TreeView child under the root CanvasPanel on WBP_CanvasPanel_TreeView_NoEntry"), TEXT("byte_equal"), TEXT("Covers TreeView EntryWidgetClass rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_treeview_selection_mode_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/TreeView_1\",\"property\":\"listview-selection-mode\",\"value\":\"Multi\"}"), TEXT("Set SelectionMode to Multi on the TreeView child under the root CanvasPanel on WBP_CanvasPanel_TreeView"), TEXT("byte_equal"), TEXT("Covers TreeView selection-mode rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-width-override\",\"value\":\"320\"}"), TEXT("Set WidthOverride to 320 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox width-override rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_height_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-height-override\",\"value\":\"72\"}"), TEXT("Set HeightOverride to 72 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox height-override rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_min_desired_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-min-desired-width\",\"value\":\"160\"}"), TEXT("Set MinDesiredWidth to 160 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox min-desired-width rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_min_desired_height_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-min-desired-height\",\"value\":\"48\"}"), TEXT("Set MinDesiredHeight to 48 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox min-desired-height rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_max_desired_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-max-desired-width\",\"value\":\"640\"}"), TEXT("Set MaxDesiredWidth to 640 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox max-desired-width rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_max_desired_height_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-max-desired-height\",\"value\":\"240\"}"), TEXT("Set MaxDesiredHeight to 240 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox max-desired-height rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_min_aspect_ratio_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-min-aspect-ratio\",\"value\":\"1.25\"}"), TEXT("Set MinAspectRatio to 1.25 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox min-aspect-ratio rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_sizebox_max_aspect_ratio_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SizeBox_1\",\"property\":\"sizebox-max-aspect-ratio\",\"value\":\"2.0\"}"), TEXT("Set MaxAspectRatio to 2.0 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox"), TEXT("byte_equal"), TEXT("Covers SizeBox max-aspect-ratio rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_scrollbox_orientation_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBox_1\",\"property\":\"scrollbox-orientation\",\"value\":\"Horizontal\"}"), TEXT("Set Orientation to Horizontal on the ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox"), TEXT("byte_equal"), TEXT("Covers ScrollBox orientation rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_scrollbox_scrollbar_visibility_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBox_1\",\"property\":\"scrollbox-scrollbar-visibility\",\"value\":\"Collapsed\"}"), TEXT("Set ScrollBarVisibility to Collapsed on the ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox"), TEXT("byte_equal"), TEXT("Covers ScrollBox scrollbar-visibility rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_scrollbox_consume_mouse_wheel_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBox_1\",\"property\":\"scrollbox-consume-mouse-wheel\",\"value\":\"Always\"}"), TEXT("Set ConsumeMouseWheel to Always on the ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox"), TEXT("byte_equal"), TEXT("Covers ScrollBox consume-mouse-wheel enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_scrollbox_is_focusable_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScrollBox_1\",\"property\":\"scrollbox-is-focusable\",\"value\":\"true\"}"), TEXT("Enable focus on the ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox"), TEXT("byte_equal"), TEXT("Covers ScrollBox bIsFocusable bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_scalebox_stretch_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScaleBox_1\",\"property\":\"scalebox-stretch\",\"value\":\"ScaleToFit\"}"), TEXT("Set Stretch to ScaleToFit on the ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox"), TEXT("byte_equal"), TEXT("Covers ScaleBox stretch enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_scalebox_stretch_direction_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScaleBox_1\",\"property\":\"scalebox-stretch-direction\",\"value\":\"DownOnly\"}"), TEXT("Set StretchDirection to DownOnly on the ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox"), TEXT("byte_equal"), TEXT("Covers ScaleBox stretch-direction enum rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_scalebox_user_specified_scale_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScaleBox_1\",\"property\":\"scalebox-user-specified-scale\",\"value\":\"1.25\"}"), TEXT("Set UserSpecifiedScale to 1.25 on the ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox"), TEXT("byte_equal"), TEXT("Covers ScaleBox user-specified scale rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_scalebox_ignore_inherited_scale_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/ScaleBox_1\",\"property\":\"scalebox-ignore-inherited-scale\",\"value\":\"true\"}"), TEXT("Enable IgnoreInheritedScale on the ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox"), TEXT("byte_equal"), TEXT("Covers ScaleBox ignore-inherited-scale bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_wrapbox_wrap_size_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/WrapBox_1\",\"property\":\"wrapbox-wrap-size\",\"value\":\"480\"}"), TEXT("Set WrapSize to 480 on the WrapBox child under the root CanvasPanel on WBP_CanvasPanel_WrapBox"), TEXT("byte_equal"), TEXT("Covers WrapBox wrap-size rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_wrapbox_explicit_wrap_size_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/WrapBox_1\",\"property\":\"wrapbox-explicit-wrap-size\",\"value\":\"true\"}"), TEXT("Enable ExplicitWrapSize on the WrapBox child under the root CanvasPanel on WBP_CanvasPanel_WrapBox"), TEXT("byte_equal"), TEXT("Covers WrapBox explicit-wrap-size bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_wrapbox_inner_slot_padding_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/WrapBox_1\",\"property\":\"wrapbox-inner-slot-padding\",\"value\":\"8,12\"}"), TEXT("Set InnerSlotPadding to 8x12 on the WrapBox child under the root CanvasPanel on WBP_CanvasPanel_WrapBox"), TEXT("byte_equal"), TEXT("Covers WrapBox inner-slot-padding rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_wrapbox_orientation_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/WrapBox_1\",\"property\":\"wrapbox-orientation\",\"value\":\"Vertical\"}"), TEXT("Set Orientation to Vertical on the WrapBox child under the root CanvasPanel on WBP_CanvasPanel_WrapBox"), TEXT("byte_equal"), TEXT("Covers WrapBox orientation rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_widgetswitcher_active_widget_index_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/WidgetSwitcher_1\",\"property\":\"widgetswitcher-active-widget-index\",\"value\":\"2\"}"), TEXT("Set ActiveWidgetIndex to 2 on the WidgetSwitcher child under the root CanvasPanel on WBP_CanvasPanel_WidgetSwitcherChildren"), TEXT("byte_equal"), TEXT("Covers WidgetSwitcher active-widget-index rewrite with multiple child slots present."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_retainerbox_retain_render_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/RetainerBox_1\",\"property\":\"retainerbox-retain-render\",\"value\":\"true\"}"), TEXT("Enable RetainRender on the RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox"), TEXT("byte_equal"), TEXT("Covers RetainerBox retain-render bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_retainerbox_render_on_invalidation_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/RetainerBox_1\",\"property\":\"retainerbox-render-on-invalidation\",\"value\":\"false\"}"), TEXT("Disable RenderOnInvalidation on the RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox"), TEXT("byte_equal"), TEXT("Covers RetainerBox render-on-invalidation bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_retainerbox_render_on_phase_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/RetainerBox_1\",\"property\":\"retainerbox-render-on-phase\",\"value\":\"true\"}"), TEXT("Enable RenderOnPhase on the RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox"), TEXT("byte_equal"), TEXT("Covers RetainerBox render-on-phase bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_retainerbox_phase_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/RetainerBox_1\",\"property\":\"retainerbox-phase\",\"value\":\"1\"}"), TEXT("Set Phase to 1 on the RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox"), TEXT("byte_equal"), TEXT("Covers RetainerBox phase int rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_retainerbox_phase_count_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/RetainerBox_1\",\"property\":\"retainerbox-phase-count\",\"value\":\"3\"}"), TEXT("Set PhaseCount to 3 on the RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox"), TEXT("byte_equal"), TEXT("Covers RetainerBox phase-count int rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_backgroundblur_strength_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/BackgroundBlur_1\",\"property\":\"backgroundblur-strength\",\"value\":\"16\"}"), TEXT("Set BlurStrength to 16 on the BackgroundBlur child under the root CanvasPanel on WBP_CanvasPanel_BackgroundBlur"), TEXT("byte_equal"), TEXT("Covers BackgroundBlur blur-strength rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_backgroundblur_apply_alpha_to_blur_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/BackgroundBlur_1\",\"property\":\"backgroundblur-apply-alpha-to-blur\",\"value\":\"true\"}"), TEXT("Enable ApplyAlphaToBlur on the BackgroundBlur child under the root CanvasPanel on WBP_CanvasPanel_BackgroundBlur"), TEXT("byte_equal"), TEXT("Covers BackgroundBlur apply-alpha-to-blur bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_safezone_pad_left_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SafeZone_1\",\"property\":\"safezone-pad-left\",\"value\":\"false\"}"), TEXT("Disable PadLeft on the SafeZone child under the root CanvasPanel on WBP_CanvasPanel_SafeZone"), TEXT("byte_equal"), TEXT("Covers SafeZone pad-left bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_safezone_pad_right_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SafeZone_1\",\"property\":\"safezone-pad-right\",\"value\":\"true\"}"), TEXT("Enable PadRight on the SafeZone child under the root CanvasPanel on WBP_CanvasPanel_SafeZone"), TEXT("byte_equal"), TEXT("Covers SafeZone pad-right bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_safezone_pad_top_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SafeZone_1\",\"property\":\"safezone-pad-top\",\"value\":\"false\"}"), TEXT("Disable PadTop on the SafeZone child under the root CanvasPanel on WBP_CanvasPanel_SafeZone"), TEXT("byte_equal"), TEXT("Covers SafeZone pad-top bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_safezone_pad_bottom_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/SafeZone_1\",\"property\":\"safezone-pad-bottom\",\"value\":\"true\"}"), TEXT("Enable PadBottom on the SafeZone child under the root CanvasPanel on WBP_CanvasPanel_SafeZone"), TEXT("byte_equal"), TEXT("Covers SafeZone pad-bottom bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_invalidationbox_can_cache_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/InvalidationBox_1\",\"property\":\"invalidationbox-can-cache\",\"value\":\"true\"}"), TEXT("Enable CanCache on the InvalidationBox child under the root CanvasPanel on WBP_CanvasPanel_InvalidationBox"), TEXT("byte_equal"), TEXT("Covers InvalidationBox can-cache bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
+        MakeOperation(TEXT("widget_write_uniformgridpanel_min_desired_slot_width_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/UniformGridPanel_1\",\"property\":\"uniformgridpanel-min-desired-slot-width\",\"value\":\"160\"}"), TEXT("Set MinDesiredSlotWidth to 160 on the UniformGridPanel child under the root CanvasPanel on WBP_CanvasPanel_UniformGridPanel"), TEXT("byte_equal"), TEXT("Covers UniformGridPanel min-desired-slot-width rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_uniformgridpanel_min_desired_slot_height_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/UniformGridPanel_1\",\"property\":\"uniformgridpanel-min-desired-slot-height\",\"value\":\"48\"}"), TEXT("Set MinDesiredSlotHeight to 48 on the UniformGridPanel child under the root CanvasPanel on WBP_CanvasPanel_UniformGridPanel"), TEXT("byte_equal"), TEXT("Covers UniformGridPanel min-desired-slot-height rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_uniformgridpanel_slot_padding_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/UniformGridPanel_1\",\"property\":\"uniformgridpanel-slot-padding\",\"value\":\"4,6,8,10\"}"), TEXT("Set SlotPadding to 4,6,8,10 on the UniformGridPanel child under the root CanvasPanel on WBP_CanvasPanel_UniformGridPanel"), TEXT("byte_equal"), TEXT("Covers UniformGridPanel slot-padding rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\",\"blueprint-search-tail\"]")),
+        MakeOperation(TEXT("widget_write_visibility_overlay_child"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Overlay_116/TextBlock_36\",\"property\":\"visibility\",\"value\":\"Collapsed\"}"), TEXT("Set Visibility to Collapsed on the child TextBlock under the root Overlay on WBP_Overlay_TextBlock"), TEXT("byte_equal"), TEXT("Covers child widget Visibility write under Overlay across designer/generated WidgetTree exports.")),
+        MakeOperation(TEXT("widget_write_layout_canvaspanelslot"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_22/Image_29\",\"property\":\"layout-data\",\"value\":\"{\\\"position\\\":[0,0],\\\"size\\\":[200,60],\\\"anchors\\\":[0.5,0.5,0.5,0.5],\\\"alignment\\\":[0.5,0.5]}\"}"), TEXT("Set CanvasPanelSlot layout data on Image_29 under WBP_CanvasPanel_Image"), TEXT("byte_equal"), TEXT("Covers full CanvasPanelSlot LayoutData rewrite including position, size, anchors, and alignment."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_brush_image"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Image_22\",\"property\":\"brush-image\",\"value\":\"/Game/Effects/Textures/Decals/chippedcracks\"}"), TEXT("Set the Brush ResourceObject on root Image widget to Texture2D chippedcracks via UE Editor property panel"), TEXT("byte_equal"), TEXT("Covers brush-image assignment on root Image widget: adds Texture2D import, inserts NameMap entries in alphabetical order, sets SlateBrush struct with ImageType/ImageSize/ResourceObject, and syncs DependsMap."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_button_brush_normal"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Button_1\",\"property\":\"button-normal-image\",\"value\":\"/Game/UI/Menu/Art/T_UI_Icon_SimpleArrow\"}"), TEXT("Assign /Game/UI/Menu/Art/T_UI_Icon_SimpleArrow to Button_1 normal state brush on WBP_ButtonVisualSmoke"), TEXT("byte_equal"), TEXT("Covers Button.WidgetStyle.Normal brush ResourceObject write via the UMG details panel, including Texture2D import/reference persistence."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_button_brush_tint"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Button_1\",\"property\":\"button-normal-tint\",\"value\":\"0.25,0.4,0.9,0.8\"}"), TEXT("Set Button_1 normal state brush tint on WBP_ButtonVisualSmoke"), TEXT("byte_equal"), TEXT("Covers Button.WidgetStyle.Normal.TintColor write using a specified SlateColor value."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_button_brush_image_size"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Button_1\",\"property\":\"button-normal-image-size\",\"value\":\"96,48\"}"), TEXT("Set Button_1 normal state brush image size on WBP_ButtonVisualSmoke"), TEXT("byte_equal"), TEXT("Covers Button.WidgetStyle.Normal.ImageSize write using DeprecateSlateVector2D payload semantics."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_button_brush_draw_as"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"Button_1\",\"property\":\"button-normal-draw-as\",\"value\":\"RoundedBox\"}"), TEXT("Set Button_1 normal state brush draw type on WBP_ButtonVisualSmoke"), TEXT("byte_equal"), TEXT("Covers Button.WidgetStyle.Normal.DrawAs enum write on a state brush."), TEXT("[\"editor-thumbnails\"]")),
+        MakeOperation(TEXT("widget_write_button_is_focusable_canvaspanel"), TEXT("blueprint widget-write"), TEXT("{\"widget\":\"CanvasPanel_1/Button_1\",\"property\":\"button-is-focusable\",\"value\":\"false\"}"), TEXT("Disable focus on the Button child under the root CanvasPanel on WBP_CanvasPanel_Button"), TEXT("byte_equal"), TEXT("Covers Button IsFocusable bool rewrite on a bare CanvasPanel child."), TEXT("[\"editor-thumbnails\",\"saved-hash\"]")),
         MakeOperation(TEXT("prop_set_enum"), TEXT("prop set"), TEXT("{\"export\":5,\"path\":\"FixtureEnum\",\"value\":\"\\\"BPXEnum_ValueA\\\"\"}"), TEXT("Set enum variable"), TEXT("byte_equal"), TEXT("Validated by operation-equivalence test.")),
         MakeOperation(TEXT("prop_set_enum_numeric"), TEXT("prop set"), TEXT("{\"export\":5,\"path\":\"FixtureEnum\",\"value\":\"1\"}"), TEXT("Set enum variable by numeric literal"), TEXT("byte_equal"), TEXT("Enum numeric literal coercion to underlying enum value is implemented.")),
         MakeOperation(TEXT("prop_set_enum_anchor"), TEXT("prop set"), TEXT("{\"export\":5,\"path\":\"FixtureEnumAnchor\",\"value\":\"\\\"BPXEnum_ValueA\\\"\"}"), TEXT("Set secondary enum variable"), TEXT("byte_equal"), TEXT("Validated by operation-equivalence test.")),
@@ -591,9 +824,447 @@ FString ParseBlueprintFixtureKeyForOperation(const FOperationFixtureSpec& Spec)
     return FString();
 }
 
+FString ParseWidgetFixtureKeyForOperation(const FOperationFixtureSpec& Spec)
+{
+    if (Spec.Name == TEXT("widget_write_text_root_textblock"))
+    {
+        return TEXT("WBP_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_parent_class_commonactivatablewidget_rootless"))
+    {
+        return TEXT("WBP_RootlessParentClass");
+    }
+    if (Spec.Name == TEXT("widget_write_text_color_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_font_size_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_justification_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_font_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_typeface_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_auto_wrap_text_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_wrap_text_at_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_line_height_percentage_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_shadow_offset_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_shadow_color_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_outline_size_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_outline_color_root_textblock"))
+    {
+        return TEXT("WBP_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_write_text_root_richtextblock")
+        || Spec.Name == TEXT("widget_write_opacity_root_richtextblock")
+        || Spec.Name == TEXT("widget_write_visibility_root_richtextblock")
+        || Spec.Name == TEXT("widget_write_richtext_default_shadow_offset")
+        || Spec.Name == TEXT("widget_write_richtext_default_shadow_color")
+        || Spec.Name == TEXT("widget_write_richtext_default_outline_size")
+        || Spec.Name == TEXT("widget_write_richtext_default_outline_color")
+        || Spec.Name == TEXT("widget_write_richtext_auto_wrap_text")
+        || Spec.Name == TEXT("widget_write_richtext_wrap_text_at")
+        || Spec.Name == TEXT("widget_write_richtext_line_height_percentage"))
+    {
+        return TEXT("WBP_RichTextBlock");
+    }
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child"))
+    {
+        return TEXT("WBP_CanvasPanel_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_write_progressbar_percent")
+        || Spec.Name == TEXT("widget_write_progressbar_fill_color"))
+    {
+        return TEXT("WBP_CanvasPanel_ProgressBar");
+    }
+    if (Spec.Name == TEXT("widget_write_slider_value")
+        || Spec.Name == TEXT("widget_write_slider_orientation")
+        || Spec.Name == TEXT("widget_write_slider_is_focusable"))
+    {
+        return TEXT("WBP_CanvasPanel_Slider");
+    }
+    if (Spec.Name == TEXT("widget_write_spacer_size"))
+    {
+        return TEXT("WBP_CanvasPanel_Spacer");
+    }
+    if (Spec.Name == TEXT("widget_write_scrollbar_thickness")
+        || Spec.Name == TEXT("widget_write_scrollbar_orientation"))
+    {
+        return TEXT("WBP_CanvasPanel_ScrollBar");
+    }
+    if (Spec.Name == TEXT("widget_write_checkbox_is_checked_canvaspanel")
+        || Spec.Name == TEXT("widget_write_checkbox_checked_state_canvaspanel")
+        || Spec.Name == TEXT("widget_write_checkbox_is_focusable_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_CheckBox");
+    }
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_editabletextbox")
+        || Spec.Name == TEXT("widget_write_editabletextbox_hint_text_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_is_read_only_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_is_password_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_minimum_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_justification_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_EditableTextBox");
+    }
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_editabletext")
+        || Spec.Name == TEXT("widget_write_editabletext_hint_text_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_is_read_only_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_is_password_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_minimum_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_justification_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_EditableText");
+    }
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_multilineeditabletextbox")
+        || Spec.Name == TEXT("widget_write_multilineeditabletextbox_hint_text_canvaspanel")
+        || Spec.Name == TEXT("widget_write_multilineeditabletextbox_is_read_only_canvaspanel")
+        || Spec.Name == TEXT("widget_write_multilineeditabletextbox_justification_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_MultiLineEditableTextBox");
+    }
+    if (Spec.Name == TEXT("widget_write_spinbox_value_canvaspanel")
+        || Spec.Name == TEXT("widget_write_spinbox_min_value_canvaspanel")
+        || Spec.Name == TEXT("widget_write_spinbox_max_value_canvaspanel")
+        || Spec.Name == TEXT("widget_write_spinbox_delta_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_SpinBox");
+    }
+    if (Spec.Name == TEXT("widget_write_comboboxstring_options_canvaspanel")
+        || Spec.Name == TEXT("widget_write_comboboxstring_selected_option_canvaspanel")
+        || Spec.Name == TEXT("widget_write_comboboxstring_is_focusable_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ComboBoxString");
+    }
+    if (Spec.Name == TEXT("widget_write_sizebox_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_min_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_min_desired_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_max_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_max_desired_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_min_aspect_ratio_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_max_aspect_ratio_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_SizeBox");
+    }
+    if (Spec.Name == TEXT("widget_write_scrollbox_orientation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scrollbox_scrollbar_visibility_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scrollbox_consume_mouse_wheel_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scrollbox_is_focusable_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ScrollBox");
+    }
+    if (Spec.Name == TEXT("widget_write_button_is_focusable_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_Button");
+    }
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_richtextblock"))
+    {
+        return TEXT("WBP_CanvasPanel_RichTextBlock");
+    }
+    if (Spec.Name == TEXT("widget_remove_textblock_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_remove_richtextblock_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_RichTextBlock");
+    }
+    if (Spec.Name == TEXT("widget_remove_textblock_overlay"))
+    {
+        return TEXT("WBP_Overlay_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_remove_image_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_Image");
+    }
+    if (Spec.Name == TEXT("widget_remove_image_overlay"))
+    {
+        return TEXT("WBP_Overlay_Image");
+    }
+    if (Spec.Name == TEXT("widget_remove_image_verticalbox"))
+    {
+        return TEXT("WBP_VerticalBox_Image");
+    }
+    if (Spec.Name == TEXT("widget_remove_image_horizontalbox"))
+    {
+        return TEXT("WBP_HorizontalBox_Image");
+    }
+    if (Spec.Name == TEXT("widget_remove_button_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_Button");
+    }
+    if (Spec.Name == TEXT("widget_remove_border_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_Border");
+    }
+    if (Spec.Name == TEXT("widget_remove_sizebox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_SizeBox");
+    }
+    if (Spec.Name == TEXT("widget_remove_gridpanel_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_GridPanel");
+    }
+    if (Spec.Name == TEXT("widget_remove_backgroundblur_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_BackgroundBlur");
+    }
+    if (Spec.Name == TEXT("widget_remove_invalidationbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_InvalidationBox");
+    }
+    if (Spec.Name == TEXT("widget_remove_retainerbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_RetainerBox");
+    }
+    if (Spec.Name == TEXT("widget_remove_safezone_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_SafeZone");
+    }
+    if (Spec.Name == TEXT("widget_remove_scalebox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ScaleBox");
+    }
+    if (Spec.Name == TEXT("widget_remove_scrollbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ScrollBox");
+    }
+    if (Spec.Name == TEXT("widget_remove_widgetswitcher_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_WidgetSwitcher");
+    }
+    if (Spec.Name == TEXT("widget_remove_wrapbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_WrapBox");
+    }
+    if (Spec.Name == TEXT("widget_write_text_overlay_child"))
+    {
+        return TEXT("WBP_Overlay_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_add_image_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_richtextblock_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_progressbar_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_slider_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_spacer_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_scrollbar_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_editabletext_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_editabletextbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_multilineeditabletextbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_spinbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_comboboxstring_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_listview_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_tileview_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_treeview_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_namedslot_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_textblock_namedslot_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_NamedSlot");
+    }
+    if (Spec.Name == TEXT("widget_add_userwidget_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_image_overlay"))
+    {
+        return TEXT("WBP_Overlay");
+    }
+    if (Spec.Name == TEXT("widget_add_image_nested_overlay"))
+    {
+        return TEXT("WBP_MultiLevelSmoke");
+    }
+    if (Spec.Name == TEXT("widget_add_root_verticalbox"))
+    {
+        return TEXT("WBP_Minimum");
+    }
+    if (Spec.Name == TEXT("widget_add_root_horizontalbox"))
+    {
+        return TEXT("WBP_Minimum");
+    }
+    if (Spec.Name == TEXT("widget_add_button_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel");
+    }
+    if (Spec.Name == TEXT("widget_add_image_border_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_Border");
+    }
+    if (Spec.Name == TEXT("widget_add_image_sizebox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_SizeBox");
+    }
+    if (Spec.Name == TEXT("widget_add_image_horizontalbox_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_HorizontalBox");
+    }
+    if (Spec.Name == TEXT("widget_write_opacity_root_textblock"))
+    {
+        return TEXT("WBP_TextBlock_Opacity");
+    }
+    if (Spec.Name == TEXT("widget_write_opacity_canvaspanel_child"))
+    {
+        return TEXT("WBP_CanvasPanel_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_write_visibility_root_textblock"))
+    {
+        return TEXT("WBP_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_write_visibility_overlay_child"))
+    {
+        return TEXT("WBP_Overlay_TextBlock");
+    }
+    if (Spec.Name == TEXT("widget_write_brush_image"))
+    {
+        return TEXT("WBP_Image");
+    }
+    if (Spec.Name == TEXT("widget_write_button_brush_normal")
+        || Spec.Name == TEXT("widget_write_button_brush_tint")
+        || Spec.Name == TEXT("widget_write_button_brush_image_size")
+        || Spec.Name == TEXT("widget_write_button_brush_draw_as"))
+    {
+        return TEXT("WBP_ButtonVisualSmoke");
+    }
+    if (Spec.Name == TEXT("widget_write_scalebox_stretch_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scalebox_stretch_direction_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scalebox_user_specified_scale_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scalebox_ignore_inherited_scale_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ScaleBox");
+    }
+    if (Spec.Name == TEXT("widget_write_wrapbox_wrap_size_canvaspanel")
+        || Spec.Name == TEXT("widget_write_wrapbox_explicit_wrap_size_canvaspanel")
+        || Spec.Name == TEXT("widget_write_wrapbox_inner_slot_padding_canvaspanel")
+        || Spec.Name == TEXT("widget_write_wrapbox_orientation_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_WrapBox");
+    }
+    if (Spec.Name == TEXT("widget_write_widgetswitcher_active_widget_index_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_WidgetSwitcherChildren");
+    }
+    if (Spec.Name == TEXT("widget_write_listview_entry_widget_class_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ListView_NoEntry");
+    }
+    if (Spec.Name == TEXT("widget_write_listview_orientation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_selection_mode_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_consume_mouse_wheel_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_is_focusable_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_return_focus_to_selection_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_clear_scroll_velocity_on_selection_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_scroll_into_view_alignment_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_wheel_scroll_multiplier_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_enable_scroll_animation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_allow_overscroll_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_enable_right_click_scrolling_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_enable_touch_scrolling_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_is_pointer_scrolling_enabled_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_is_gamepad_scrolling_enabled_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_horizontal_entry_spacing_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_vertical_entry_spacing_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_scrollbar_padding_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_ListView");
+    }
+    if (Spec.Name == TEXT("widget_write_tileview_entry_widget_class_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_TileView_NoEntry");
+    }
+    if (Spec.Name == TEXT("widget_write_tileview_entry_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_tileview_entry_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_tileview_scrollbar_disabled_visibility_canvaspanel")
+        || Spec.Name == TEXT("widget_write_tileview_entry_size_includes_entry_spacing_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_TileView");
+    }
+    if (Spec.Name == TEXT("widget_write_treeview_entry_widget_class_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_TreeView_NoEntry");
+    }
+    if (Spec.Name == TEXT("widget_write_treeview_selection_mode_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_TreeView");
+    }
+    if (Spec.Name == TEXT("widget_write_retainerbox_retain_render_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_render_on_invalidation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_render_on_phase_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_phase_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_phase_count_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_RetainerBox");
+    }
+    if (Spec.Name == TEXT("widget_write_backgroundblur_strength_canvaspanel")
+        || Spec.Name == TEXT("widget_write_backgroundblur_apply_alpha_to_blur_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_BackgroundBlur");
+    }
+    if (Spec.Name == TEXT("widget_write_safezone_pad_left_canvaspanel")
+        || Spec.Name == TEXT("widget_write_safezone_pad_right_canvaspanel")
+        || Spec.Name == TEXT("widget_write_safezone_pad_top_canvaspanel")
+        || Spec.Name == TEXT("widget_write_safezone_pad_bottom_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_SafeZone");
+    }
+    if (Spec.Name == TEXT("widget_write_invalidationbox_can_cache_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_InvalidationBox");
+    }
+    if (Spec.Name == TEXT("widget_write_uniformgridpanel_min_desired_slot_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_uniformgridpanel_min_desired_slot_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_uniformgridpanel_slot_padding_canvaspanel"))
+    {
+        return TEXT("WBP_CanvasPanel_UniformGridPanel");
+    }
+    return FString();
+}
+
 bool IsParseBlueprintOperation(const FOperationFixtureSpec& Spec)
 {
     return !ParseBlueprintFixtureKeyForOperation(Spec).IsEmpty();
+}
+
+bool IsWidgetBlueprintOperation(const FOperationFixtureSpec& Spec)
+{
+    return !ParseWidgetFixtureKeyForOperation(Spec).IsEmpty();
 }
 
 bool IsDataTableOperation(const FOperationFixtureSpec& Spec)
@@ -3402,6 +4073,2847 @@ bool CopyFileToOutput(const FString& SourceFile, const FString& DestinationFile,
     return true;
 }
 
+FString WidgetBlueprintSourceObjectPath(const FString& FixtureKey)
+{
+    FParseFixtureSpec ParseSpec;
+    if (FindParseFixtureSpecByKey(FixtureKey, ParseSpec) && ParseSpec.Kind == EParseFixtureKind::WidgetBlueprint)
+    {
+        return FString::Printf(TEXT("/Game/BPXFixtures/Parse/%s.%s"), *FixtureKey, *FixtureKey);
+    }
+    if (FixtureKey.StartsWith(TEXT("WBP_CanvasPanel_")))
+    {
+        return FString::Printf(TEXT("/Game/WBP/Panel/CanvasPanel/%s.%s"), *FixtureKey, *FixtureKey);
+    }
+    if (FixtureKey.StartsWith(TEXT("WBP_Overlay_")))
+    {
+        return FString::Printf(TEXT("/Game/WBP/Panel/Overlay/%s.%s"), *FixtureKey, *FixtureKey);
+    }
+    if (FixtureKey.StartsWith(TEXT("WBP_VerticalBox_")))
+    {
+        return FString::Printf(TEXT("/Game/WBP/Panel/VerticalBox/%s.%s"), *FixtureKey, *FixtureKey);
+    }
+    if (FixtureKey.StartsWith(TEXT("WBP_HorizontalBox_")))
+    {
+        return FString::Printf(TEXT("/Game/WBP/Panel/HorizontalBox/%s.%s"), *FixtureKey, *FixtureKey);
+    }
+    return FString::Printf(TEXT("/Game/WBP/%s.%s"), *FixtureKey, *FixtureKey);
+}
+
+UWidgetBlueprint* DuplicateWidgetBlueprintAsset(const FString& SourceFixtureKey, const FString& DestinationPackageName, const FString& DestinationAssetName, FString& OutError)
+{
+    const FString PrimarySourceObjectPath = WidgetBlueprintSourceObjectPath(SourceFixtureKey);
+    const FString TopLevelWBPObjectPath = FString::Printf(TEXT("/Game/WBP/%s.%s"), *SourceFixtureKey, *SourceFixtureKey);
+
+    TArray<FString> CandidateSourceObjectPaths;
+    CandidateSourceObjectPaths.Add(PrimarySourceObjectPath);
+    if (SourceFixtureKey.StartsWith(TEXT("WBP_")) && PrimarySourceObjectPath != TopLevelWBPObjectPath)
+    {
+        CandidateSourceObjectPaths.Add(TopLevelWBPObjectPath);
+    }
+
+    UWidgetBlueprint* SourceBlueprint = nullptr;
+    for (const FString& CandidatePath : CandidateSourceObjectPaths)
+    {
+        SourceBlueprint = LoadObject<UWidgetBlueprint>(nullptr, *CandidatePath);
+        if (SourceBlueprint)
+        {
+            break;
+        }
+    }
+    if (!SourceBlueprint)
+    {
+        OutError = FString::Printf(TEXT("Failed to load source WidgetBlueprint from any candidate path: %s"), *FString::Join(CandidateSourceObjectPaths, TEXT(", ")));
+        return nullptr;
+    }
+
+    UPackage* DestinationPackage = CreatePackage(*DestinationPackageName);
+    if (!DestinationPackage)
+    {
+        OutError = FString::Printf(TEXT("Failed to create destination package for WidgetBlueprint: %s"), *DestinationPackageName);
+        return nullptr;
+    }
+
+    UWidgetBlueprint* DuplicatedBlueprint = Cast<UWidgetBlueprint>(
+        StaticDuplicateObject(SourceBlueprint, DestinationPackage, FName(*DestinationAssetName))
+    );
+    if (!DuplicatedBlueprint)
+    {
+        OutError = FString::Printf(TEXT("Failed to duplicate WidgetBlueprint %s into %s"), *SourceFixtureKey, *DestinationPackageName);
+        return nullptr;
+    }
+
+    FAssetRegistryModule::AssetCreated(DuplicatedBlueprint);
+    DuplicatedBlueprint->MarkPackageDirty();
+    FKismetEditorUtilities::CompileBlueprint(DuplicatedBlueprint);
+    return DuplicatedBlueprint;
+}
+
+UWidget* FindChildWidgetByName(UWidget* ParentWidget, const FString& ChildName)
+{
+    if (!ParentWidget)
+    {
+        return nullptr;
+    }
+
+    if (UPanelWidget* PanelWidget = Cast<UPanelWidget>(ParentWidget))
+    {
+        for (int32 Index = 0; Index < PanelWidget->GetChildrenCount(); ++Index)
+        {
+            UWidget* Child = PanelWidget->GetChildAt(Index);
+            if (Child && Child->GetName() == ChildName)
+            {
+                return Child;
+            }
+        }
+    }
+
+    if (UContentWidget* ContentWidget = Cast<UContentWidget>(ParentWidget))
+    {
+        UWidget* Child = ContentWidget->GetContent();
+        if (Child && Child->GetName() == ChildName)
+        {
+            return Child;
+        }
+    }
+
+    return nullptr;
+}
+
+int32 GetDirectWidgetChildCount(UWidget* Widget)
+{
+    if (!Widget)
+    {
+        return 0;
+    }
+
+    if (UPanelWidget* PanelWidget = Cast<UPanelWidget>(Widget))
+    {
+        return PanelWidget->GetChildrenCount();
+    }
+
+    if (UContentWidget* ContentWidget = Cast<UContentWidget>(Widget))
+    {
+        return ContentWidget->GetContent() ? 1 : 0;
+    }
+
+    return 0;
+}
+
+UWidget* ResolveWidgetByPath(UWidgetTree* WidgetTree, const FString& WidgetPath, FString& OutError)
+{
+    if (!WidgetTree)
+    {
+        OutError = TEXT("WidgetTree is null.");
+        return nullptr;
+    }
+    if (!WidgetTree->RootWidget)
+    {
+        OutError = TEXT("WidgetTree root widget is null.");
+        return nullptr;
+    }
+
+    TArray<FString> Segments;
+    WidgetPath.ParseIntoArray(Segments, TEXT("/"), true);
+    if (Segments.Num() == 0)
+    {
+        OutError = TEXT("Widget path is empty.");
+        return nullptr;
+    }
+
+    UWidget* Current = WidgetTree->RootWidget;
+    if (Current->GetName() != Segments[0])
+    {
+        Current = WidgetTree->FindWidget(FName(*Segments[0]));
+        if (!Current)
+        {
+            OutError = FString::Printf(TEXT("Widget path root not found: %s"), *Segments[0]);
+            return nullptr;
+        }
+    }
+
+    for (int32 SegmentIndex = 1; SegmentIndex < Segments.Num(); ++SegmentIndex)
+    {
+        Current = FindChildWidgetByName(Current, Segments[SegmentIndex]);
+        if (!Current)
+        {
+            OutError = FString::Printf(TEXT("Widget path segment not found: %s"), *Segments[SegmentIndex]);
+            return nullptr;
+        }
+    }
+
+    return Current;
+}
+
+bool RemoveWidgetBlueprintLeaf(UWidgetBlueprint* WidgetBlueprint, const FString& WidgetPath, FString& OutError)
+{
+    if (!WidgetBlueprint)
+    {
+        OutError = TEXT("WidgetBlueprint is null.");
+        return false;
+    }
+    if (!WidgetBlueprint->WidgetTree)
+    {
+        OutError = TEXT("WidgetTree is null.");
+        return false;
+    }
+
+    UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, WidgetPath, OutError);
+    if (!TargetWidget)
+    {
+        return false;
+    }
+    if (WidgetBlueprint->WidgetTree->RootWidget == TargetWidget)
+    {
+        OutError = FString::Printf(TEXT("Refusing to remove root widget: %s"), *WidgetPath);
+        return false;
+    }
+    if (GetDirectWidgetChildCount(TargetWidget) != 0)
+    {
+        OutError = FString::Printf(TEXT("Refusing to remove non-leaf widget: %s"), *WidgetPath);
+        return false;
+    }
+
+    int32 ChildIndex = INDEX_NONE;
+    UPanelWidget* ParentPanel = UWidgetTree::FindWidgetParent(TargetWidget, ChildIndex);
+    if (!ParentPanel)
+    {
+        OutError = FString::Printf(TEXT("Widget parent not found for %s"), *WidgetPath);
+        return false;
+    }
+    const FName TargetName = TargetWidget->GetFName();
+
+    FWidgetBlueprintEditorUtils::DeleteWidgets(
+        WidgetBlueprint,
+        TSet<UWidget*>{TargetWidget},
+        FWidgetBlueprintEditorUtils::EDeleteWidgetWarningType::DeleteSilently
+    );
+    if (WidgetBlueprint->WidgetTree->FindWidget(TargetName))
+    {
+        OutError = FString::Printf(TEXT("WidgetTree still resolves removed widget: %s"), *WidgetPath);
+        return false;
+    }
+    if (WidgetBlueprint->GetAllSourceWidgets().ContainsByPredicate([TargetName](const UWidget* Widget)
+    {
+        return Widget && Widget->GetFName() == TargetName;
+    }))
+    {
+        OutError = FString::Printf(TEXT("Removed widget still present in source widget list: %s"), *WidgetPath);
+        return false;
+    }
+
+    ParentPanel->MarkPackageDirty();
+    WidgetBlueprint->WidgetTree->MarkPackageDirty();
+    WidgetBlueprint->MarkPackageDirty();
+    FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+    if (!WidgetBlueprint->GeneratedClass)
+    {
+        OutError = FString::Printf(TEXT("GeneratedClass is null after compiling remove op for %s"), *WidgetPath);
+        return false;
+    }
+
+    return true;
+}
+
+template <typename TWidget>
+bool AddBareCanvasPanelLeafWidget(
+    UWidgetBlueprint* WidgetBlueprint,
+    const TCHAR* ParentPath,
+    const TCHAR* WidgetName,
+    const TCHAR* SpecName,
+    FString& OutError)
+{
+    if (!WidgetBlueprint || !WidgetBlueprint->WidgetTree)
+    {
+        OutError = FString::Printf(TEXT("WidgetTree is null for %s"), SpecName);
+        return false;
+    }
+
+    UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, ParentPath, OutError);
+    UCanvasPanel* CanvasPanel = Cast<UCanvasPanel>(ParentWidget);
+    if (!CanvasPanel)
+    {
+        OutError = FString::Printf(TEXT("Resolved widget is not a CanvasPanel for %s"), ParentPath);
+        return false;
+    }
+
+    WidgetBlueprint->Modify();
+    CanvasPanel->Modify();
+    TWidget* ChildWidget = WidgetBlueprint->WidgetTree->ConstructWidget<TWidget>(TWidget::StaticClass(), WidgetName);
+    if (!ChildWidget)
+    {
+        OutError = FString::Printf(TEXT("ConstructWidget returned null for %s"), SpecName);
+        return false;
+    }
+    if (!CanvasPanel->AddChildToCanvas(ChildWidget))
+    {
+        OutError = FString::Printf(TEXT("AddChildToCanvas returned null for %s"), SpecName);
+        return false;
+    }
+    if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ChildWidget->GetFName()))
+    {
+        WidgetBlueprint->OnVariableAdded(ChildWidget->GetFName());
+    }
+    ChildWidget->Modify();
+    ChildWidget->MarkPackageDirty();
+    CanvasPanel->MarkPackageDirty();
+    WidgetBlueprint->MarkPackageDirty();
+    FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+    if (!WidgetBlueprint->GeneratedClass)
+    {
+        OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), SpecName);
+        return false;
+    }
+    return true;
+}
+
+bool ApplyWidgetBlueprintOperationAfterState(UWidgetBlueprint* WidgetBlueprint, const FOperationFixtureSpec& Spec, FString& OutError)
+{
+    if (!WidgetBlueprint)
+    {
+        OutError = TEXT("WidgetBlueprint is null.");
+        return false;
+    }
+
+    // --- Text write operations ---
+    if (Spec.Name == TEXT("widget_parent_class_commonactivatablewidget_rootless"))
+    {
+        if (!WidgetBlueprint->WidgetTree)
+        {
+            OutError = TEXT("WidgetTree is null for widget_parent_class_commonactivatablewidget_rootless");
+            return false;
+        }
+        if (WidgetBlueprint->WidgetTree->RootWidget != nullptr)
+        {
+            OutError = TEXT("RootWidget must be null for widget_parent_class_commonactivatablewidget_rootless");
+            return false;
+        }
+
+        UClass* ParentClass = LoadClass<UUserWidget>(nullptr, TEXT("/Script/CommonUI.CommonActivatableWidget"));
+        if (!ParentClass)
+        {
+            OutError = TEXT("LoadClass failed for /Script/CommonUI.CommonActivatableWidget");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->ParentClass = ParentClass;
+        FBlueprintEditorUtils::MarkBlueprintAsStructurallyModified(WidgetBlueprint);
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    // --- Text write operations ---
+    if (Spec.Name == TEXT("widget_write_text_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_canvaspanel_child")
+        || Spec.Name == TEXT("widget_write_text_overlay_child")
+        || Spec.Name == TEXT("widget_write_text_root_richtextblock")
+        || Spec.Name == TEXT("widget_write_text_canvaspanel_child_richtextblock"))
+    {
+        FString WidgetPath;
+        FString NewTextValue;
+        const bool bRichTextBlock =
+            Spec.Name == TEXT("widget_write_text_root_richtextblock")
+            || Spec.Name == TEXT("widget_write_text_canvaspanel_child_richtextblock");
+        if (Spec.Name == TEXT("widget_write_text_root_textblock"))
+        {
+            WidgetPath = TEXT("TextBlock_72");
+            NewTextValue = TEXT("Updated root text");
+        }
+        else if (Spec.Name == TEXT("widget_write_text_root_richtextblock"))
+        {
+            WidgetPath = TEXT("RichTextBlock_72");
+            NewTextValue = TEXT("Updated root rich text");
+        }
+        else if (Spec.Name == TEXT("widget_write_text_canvaspanel_child"))
+        {
+            WidgetPath = TEXT("CanvasPanel_22/TextBlock_31");
+            NewTextValue = TEXT("Updated canvas child text");
+        }
+        else if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_richtextblock"))
+        {
+            WidgetPath = TEXT("CanvasPanel_22/RichTextBlock_31");
+            NewTextValue = TEXT("Updated rich canvas child text");
+        }
+        else
+        {
+            WidgetPath = TEXT("Overlay_116/TextBlock_36");
+            NewTextValue = TEXT("Updated overlay child text");
+        }
+
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, WidgetPath, OutError);
+        if (bRichTextBlock)
+        {
+            URichTextBlock* RichTextBlock = Cast<URichTextBlock>(TargetWidget);
+            if (!RichTextBlock)
+            {
+                OutError = FString::Printf(TEXT("Resolved widget is not a RichTextBlock for %s"), *WidgetPath);
+                return false;
+            }
+
+            RichTextBlock->Modify();
+            RichTextBlock->SetText(FText::FromString(NewTextValue));
+            RichTextBlock->MarkPackageDirty();
+        }
+        else
+        {
+            UTextBlock* TextBlock = Cast<UTextBlock>(TargetWidget);
+            if (!TextBlock)
+            {
+                OutError = FString::Printf(TEXT("Resolved widget is not a TextBlock for %s"), *WidgetPath);
+                return false;
+            }
+
+            TextBlock->Modify();
+            TextBlock->SetText(FText::FromString(NewTextValue));
+            TextBlock->MarkPackageDirty();
+        }
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    // --- RenderOpacity write operations ---
+    if (Spec.Name == TEXT("widget_write_opacity_root_textblock"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("TextBlock_72"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        TargetWidget->Modify();
+        TargetWidget->SetRenderOpacity(0.8f);
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_text_color_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_font_size_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_justification_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_font_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_typeface_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_auto_wrap_text_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_wrap_text_at_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_line_height_percentage_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_shadow_offset_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_shadow_color_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_outline_size_root_textblock")
+        || Spec.Name == TEXT("widget_write_text_outline_color_root_textblock"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("TextBlock_72"), OutError);
+        UTextBlock* TextBlock = Cast<UTextBlock>(TargetWidget);
+        if (!TextBlock)
+        {
+            OutError = TEXT("Resolved widget is not a TextBlock for root TextBlock style operation");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        TextBlock->Modify();
+        if (Spec.Name == TEXT("widget_write_text_color_root_textblock"))
+        {
+            TextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(0.15f, 0.45f, 0.75f, 0.9f)));
+        }
+        else if (Spec.Name == TEXT("widget_write_text_font_size_root_textblock"))
+        {
+            FSlateFontInfo FontInfo = TextBlock->GetFont();
+            FontInfo.Size = 28;
+            TextBlock->SetFont(FontInfo);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_font_root_textblock"))
+        {
+            UObject* FontObject = LoadObject<UObject>(nullptr, TEXT("/Game/UI/Foundation/Fonts/NotoSans.NotoSans"));
+            if (!FontObject)
+            {
+                OutError = TEXT("LoadObject failed for /Game/UI/Foundation/Fonts/NotoSans.NotoSans");
+                return false;
+            }
+            FSlateFontInfo FontInfo = TextBlock->GetFont();
+            FontInfo.FontObject = FontObject;
+            TextBlock->SetFont(FontInfo);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_typeface_root_textblock"))
+        {
+            FSlateFontInfo FontInfo = TextBlock->GetFont();
+            FontInfo.TypefaceFontName = TEXT("Bold");
+            TextBlock->SetFont(FontInfo);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_auto_wrap_text_root_textblock"))
+        {
+            TextBlock->SetAutoWrapText(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_wrap_text_at_root_textblock"))
+        {
+            TextBlock->SetWrapTextAt(320.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_line_height_percentage_root_textblock"))
+        {
+            TextBlock->SetLineHeightPercentage(1.25f);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_shadow_offset_root_textblock"))
+        {
+            TextBlock->SetShadowOffset(FVector2D(3.0f, 4.0f));
+        }
+        else if (Spec.Name == TEXT("widget_write_text_shadow_color_root_textblock"))
+        {
+            TextBlock->SetShadowColorAndOpacity(FLinearColor(0.05f, 0.1f, 0.15f, 0.8f));
+        }
+        else if (Spec.Name == TEXT("widget_write_text_outline_size_root_textblock"))
+        {
+            FSlateFontInfo FontInfo = TextBlock->GetFont();
+            FontInfo.OutlineSettings.OutlineSize = 2;
+            TextBlock->SetFont(FontInfo);
+        }
+        else if (Spec.Name == TEXT("widget_write_text_outline_color_root_textblock"))
+        {
+            FSlateFontInfo FontInfo = TextBlock->GetFont();
+            FontInfo.OutlineSettings.OutlineColor = FLinearColor(0.2f, 0.3f, 0.9f, 1.0f);
+            TextBlock->SetFont(FontInfo);
+        }
+        else
+        {
+            TextBlock->SetJustification(ETextJustify::Center);
+        }
+        TextBlock->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_opacity_root_richtextblock"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("RichTextBlock_72"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        TargetWidget->Modify();
+        TargetWidget->SetRenderOpacity(0.8f);
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_opacity_canvaspanel_child"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22/TextBlock_31"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        TargetWidget->Modify();
+        TargetWidget->SetRenderOpacity(0.5f);
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_visibility_root_textblock"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("TextBlock_72"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        TargetWidget->Modify();
+        TargetWidget->SetVisibility(ESlateVisibility::Collapsed);
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_visibility_root_richtextblock"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("RichTextBlock_72"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        TargetWidget->Modify();
+        TargetWidget->SetVisibility(ESlateVisibility::Collapsed);
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_richtext_default_shadow_offset")
+        || Spec.Name == TEXT("widget_write_richtext_default_shadow_color")
+        || Spec.Name == TEXT("widget_write_richtext_default_outline_size")
+        || Spec.Name == TEXT("widget_write_richtext_default_outline_color")
+        || Spec.Name == TEXT("widget_write_richtext_auto_wrap_text")
+        || Spec.Name == TEXT("widget_write_richtext_wrap_text_at")
+        || Spec.Name == TEXT("widget_write_richtext_line_height_percentage"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("RichTextBlock_72"), OutError);
+        URichTextBlock* RichTextBlock = Cast<URichTextBlock>(TargetWidget);
+        if (!RichTextBlock)
+        {
+            OutError = TEXT("Resolved widget is not a RichTextBlock for default-style RichText operation");
+            return false;
+        }
+
+        RichTextBlock->Modify();
+        if (Spec.Name == TEXT("widget_write_richtext_auto_wrap_text"))
+        {
+            RichTextBlock->SetAutoWrapText(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_richtext_wrap_text_at"))
+        {
+            RichTextBlock->SetWrapTextAt(320.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_richtext_line_height_percentage"))
+        {
+            RichTextBlock->SetLineHeightPercentage(1.25f);
+        }
+        else if (Spec.Name == TEXT("widget_write_richtext_default_shadow_offset"))
+        {
+            RichTextBlock->SetDefaultShadowOffset(FVector2D(3.0f, 4.0f));
+        }
+        else if (Spec.Name == TEXT("widget_write_richtext_default_shadow_color"))
+        {
+            RichTextBlock->SetDefaultShadowColorAndOpacity(FLinearColor(0.05f, 0.1f, 0.15f, 0.8f));
+        }
+        else
+        {
+            FTextBlockStyle Style = RichTextBlock->GetCurrentDefaultTextStyle();
+            if (Spec.Name == TEXT("widget_write_richtext_default_outline_size"))
+            {
+                Style.Font.OutlineSettings.OutlineSize = 2;
+            }
+            else
+            {
+                Style.Font.OutlineSettings.OutlineColor = FLinearColor(0.2f, 0.3f, 0.9f, 1.0f);
+            }
+            RichTextBlock->SetDefaultTextStyle(Style);
+        }
+        RichTextBlock->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_progressbar_percent")
+        || Spec.Name == TEXT("widget_write_progressbar_fill_color"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ProgressBar_1"), OutError);
+        UProgressBar* ProgressBar = Cast<UProgressBar>(TargetWidget);
+        if (!ProgressBar)
+        {
+            OutError = TEXT("Resolved widget is not a ProgressBar for CanvasPanel_1/ProgressBar_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ProgressBar->Modify();
+        if (Spec.Name == TEXT("widget_write_progressbar_percent"))
+        {
+            ProgressBar->Percent = 0.75f;
+        }
+        else
+        {
+            ProgressBar->FillColorAndOpacity = FLinearColor(0.2f, 0.4f, 0.6f, 0.8f);
+        }
+        ProgressBar->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_slider_value")
+        || Spec.Name == TEXT("widget_write_slider_orientation")
+        || Spec.Name == TEXT("widget_write_slider_is_focusable"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/Slider_1"), OutError);
+        USlider* Slider = Cast<USlider>(TargetWidget);
+        if (!Slider)
+        {
+            OutError = TEXT("Resolved widget is not a Slider for CanvasPanel_1/Slider_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        Slider->Modify();
+        if (Spec.Name == TEXT("widget_write_slider_value"))
+        {
+            Slider->Value = 0.5f;
+        }
+        else if (Spec.Name == TEXT("widget_write_slider_orientation"))
+        {
+            Slider->Orientation = EOrientation::Orient_Vertical;
+        }
+        else
+        {
+            FBoolProperty* IsFocusableProperty = FindFProperty<FBoolProperty>(USlider::StaticClass(), TEXT("IsFocusable"));
+            if (!IsFocusableProperty)
+            {
+                OutError = TEXT("IsFocusable property not found on USlider");
+                return false;
+            }
+            IsFocusableProperty->SetPropertyValue_InContainer(Slider, false);
+        }
+        Slider->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_spacer_size"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/Spacer_1"), OutError);
+        USpacer* Spacer = Cast<USpacer>(TargetWidget);
+        if (!Spacer)
+        {
+            OutError = TEXT("Resolved widget is not a Spacer for CanvasPanel_1/Spacer_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        Spacer->Modify();
+        Spacer->Size = FVector2D(24.0f, 48.0f);
+        Spacer->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_scrollbar_thickness")
+        || Spec.Name == TEXT("widget_write_scrollbar_orientation"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ScrollBar_1"), OutError);
+        UScrollBar* ScrollBar = Cast<UScrollBar>(TargetWidget);
+        if (!ScrollBar)
+        {
+            OutError = TEXT("Resolved widget is not a ScrollBar for CanvasPanel_1/ScrollBar_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ScrollBar->Modify();
+        if (Spec.Name == TEXT("widget_write_scrollbar_thickness"))
+        {
+            ScrollBar->Thickness = FVector2D(5.0f, 12.0f);
+        }
+        else
+        {
+            ScrollBar->Orientation = EOrientation::Orient_Vertical;
+        }
+        ScrollBar->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_checkbox_is_checked_canvaspanel")
+        || Spec.Name == TEXT("widget_write_checkbox_checked_state_canvaspanel")
+        || Spec.Name == TEXT("widget_write_checkbox_is_focusable_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/CheckBox_1"), OutError);
+        UCheckBox* CheckBox = Cast<UCheckBox>(TargetWidget);
+        if (!CheckBox)
+        {
+            OutError = TEXT("Resolved widget is not a CheckBox for CanvasPanel_1/CheckBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        CheckBox->Modify();
+        if (Spec.Name == TEXT("widget_write_checkbox_is_checked_canvaspanel"))
+        {
+            CheckBox->SetIsChecked(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_checkbox_checked_state_canvaspanel"))
+        {
+            CheckBox->SetCheckedState(ECheckBoxState::Undetermined);
+        }
+        else
+        {
+            FBoolProperty* IsFocusableProperty = FindFProperty<FBoolProperty>(UCheckBox::StaticClass(), TEXT("IsFocusable"));
+            if (!IsFocusableProperty)
+            {
+                OutError = TEXT("IsFocusable property not found on UCheckBox");
+                return false;
+            }
+            IsFocusableProperty->SetPropertyValue_InContainer(CheckBox, false);
+        }
+        CheckBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_editabletextbox")
+        || Spec.Name == TEXT("widget_write_editabletextbox_hint_text_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_is_read_only_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_is_password_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_minimum_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletextbox_justification_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/EditableTextBox_1"), OutError);
+        UEditableTextBox* EditableTextBox = Cast<UEditableTextBox>(TargetWidget);
+        if (!EditableTextBox)
+        {
+            OutError = TEXT("Resolved widget is not an EditableTextBox for CanvasPanel_1/EditableTextBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        EditableTextBox->Modify();
+        if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_editabletextbox"))
+        {
+            EditableTextBox->SetText(FText::FromString(TEXT("Player Name")));
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletextbox_hint_text_canvaspanel"))
+        {
+            EditableTextBox->SetHintText(FText::FromString(TEXT("Enter name")));
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletextbox_is_read_only_canvaspanel"))
+        {
+            EditableTextBox->SetIsReadOnly(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletextbox_is_password_canvaspanel"))
+        {
+            EditableTextBox->SetIsPassword(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletextbox_minimum_desired_width_canvaspanel"))
+        {
+            EditableTextBox->MinimumDesiredWidth = 240.0f;
+        }
+        else
+        {
+            EditableTextBox->SetJustification(ETextJustify::Center);
+        }
+        EditableTextBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_editabletext")
+        || Spec.Name == TEXT("widget_write_editabletext_hint_text_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_is_read_only_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_is_password_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_minimum_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_editabletext_justification_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/EditableText_1"), OutError);
+        UEditableText* EditableText = Cast<UEditableText>(TargetWidget);
+        if (!EditableText)
+        {
+            OutError = TEXT("Resolved widget is not an EditableText for CanvasPanel_1/EditableText_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        EditableText->Modify();
+        if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_editabletext"))
+        {
+            EditableText->SetText(FText::FromString(TEXT("Display Name")));
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletext_hint_text_canvaspanel"))
+        {
+            EditableText->SetHintText(FText::FromString(TEXT("Enter display name")));
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletext_is_read_only_canvaspanel"))
+        {
+            EditableText->SetIsReadOnly(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletext_is_password_canvaspanel"))
+        {
+            EditableText->SetIsPassword(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_editabletext_minimum_desired_width_canvaspanel"))
+        {
+            EditableText->SetMinimumDesiredWidth(260.0f);
+        }
+        else
+        {
+            EditableText->SetJustification(ETextJustify::Right);
+        }
+        EditableText->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_multilineeditabletextbox")
+        || Spec.Name == TEXT("widget_write_multilineeditabletextbox_hint_text_canvaspanel")
+        || Spec.Name == TEXT("widget_write_multilineeditabletextbox_is_read_only_canvaspanel")
+        || Spec.Name == TEXT("widget_write_multilineeditabletextbox_justification_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/MultiLineEditableTextBox_1"), OutError);
+        UMultiLineEditableTextBox* MultiLineEditableTextBox = Cast<UMultiLineEditableTextBox>(TargetWidget);
+        if (!MultiLineEditableTextBox)
+        {
+            OutError = TEXT("Resolved widget is not a MultiLineEditableTextBox for CanvasPanel_1/MultiLineEditableTextBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        MultiLineEditableTextBox->Modify();
+        if (Spec.Name == TEXT("widget_write_text_canvaspanel_child_multilineeditabletextbox"))
+        {
+            MultiLineEditableTextBox->SetText(FText::FromString(TEXT("Line 1\nLine 2")));
+        }
+        else if (Spec.Name == TEXT("widget_write_multilineeditabletextbox_hint_text_canvaspanel"))
+        {
+            MultiLineEditableTextBox->SetHintText(FText::FromString(TEXT("Enter description")));
+        }
+        else if (Spec.Name == TEXT("widget_write_multilineeditabletextbox_is_read_only_canvaspanel"))
+        {
+            MultiLineEditableTextBox->SetIsReadOnly(true);
+        }
+        else
+        {
+            MultiLineEditableTextBox->SetJustification(ETextJustify::Center);
+        }
+        MultiLineEditableTextBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_spinbox_value_canvaspanel")
+        || Spec.Name == TEXT("widget_write_spinbox_min_value_canvaspanel")
+        || Spec.Name == TEXT("widget_write_spinbox_max_value_canvaspanel")
+        || Spec.Name == TEXT("widget_write_spinbox_delta_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/SpinBox_1"), OutError);
+        USpinBox* SpinBox = Cast<USpinBox>(TargetWidget);
+        if (!SpinBox)
+        {
+            OutError = TEXT("Resolved widget is not a SpinBox for CanvasPanel_1/SpinBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        SpinBox->Modify();
+        if (Spec.Name == TEXT("widget_write_spinbox_value_canvaspanel"))
+        {
+            SpinBox->SetValue(42.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_spinbox_min_value_canvaspanel"))
+        {
+            SpinBox->SetMinValue(10.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_spinbox_max_value_canvaspanel"))
+        {
+            SpinBox->SetMaxValue(100.0f);
+        }
+        else
+        {
+            SpinBox->SetDelta(5.0f);
+        }
+        SpinBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_comboboxstring_options_canvaspanel")
+        || Spec.Name == TEXT("widget_write_comboboxstring_selected_option_canvaspanel")
+        || Spec.Name == TEXT("widget_write_comboboxstring_is_focusable_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ComboBoxString_1"), OutError);
+        UComboBoxString* ComboBoxString = Cast<UComboBoxString>(TargetWidget);
+        if (!ComboBoxString)
+        {
+            OutError = TEXT("Resolved widget is not a ComboBoxString for CanvasPanel_1/ComboBoxString_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ComboBoxString->Modify();
+        if (Spec.Name == TEXT("widget_write_comboboxstring_options_canvaspanel"))
+        {
+            ComboBoxString->ClearOptions();
+            ComboBoxString->AddOption(TEXT("Easy"));
+            ComboBoxString->AddOption(TEXT("Normal"));
+            ComboBoxString->AddOption(TEXT("Hard"));
+        }
+        else if (Spec.Name == TEXT("widget_write_comboboxstring_selected_option_canvaspanel"))
+        {
+            FStrProperty* SelectedOptionProperty = FindFProperty<FStrProperty>(UComboBoxString::StaticClass(), TEXT("SelectedOption"));
+            if (!SelectedOptionProperty)
+            {
+                OutError = TEXT("SelectedOption property not found on UComboBoxString");
+                return false;
+            }
+            SelectedOptionProperty->SetPropertyValue_InContainer(ComboBoxString, TEXT("Normal"));
+        }
+        else
+        {
+            FBoolProperty* IsFocusableProperty = FindFProperty<FBoolProperty>(UComboBoxString::StaticClass(), TEXT("bIsFocusable"));
+            if (!IsFocusableProperty)
+            {
+                OutError = TEXT("bIsFocusable property not found on UComboBoxString");
+                return false;
+            }
+            IsFocusableProperty->SetPropertyValue_InContainer(ComboBoxString, false);
+        }
+        ComboBoxString->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_sizebox_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_min_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_min_desired_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_max_desired_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_max_desired_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_min_aspect_ratio_canvaspanel")
+        || Spec.Name == TEXT("widget_write_sizebox_max_aspect_ratio_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/SizeBox_1"), OutError);
+        USizeBox* SizeBox = Cast<USizeBox>(TargetWidget);
+        if (!SizeBox)
+        {
+            OutError = TEXT("Resolved widget is not a SizeBox for CanvasPanel_1/SizeBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        SizeBox->Modify();
+        if (Spec.Name == TEXT("widget_write_sizebox_width_canvaspanel"))
+        {
+            SizeBox->SetWidthOverride(320.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_sizebox_height_canvaspanel"))
+        {
+            SizeBox->SetHeightOverride(72.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_sizebox_min_desired_width_canvaspanel"))
+        {
+            SizeBox->SetMinDesiredWidth(160.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_sizebox_min_desired_height_canvaspanel"))
+        {
+            SizeBox->SetMinDesiredHeight(48.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_sizebox_max_desired_width_canvaspanel"))
+        {
+            SizeBox->SetMaxDesiredWidth(640.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_sizebox_max_desired_height_canvaspanel"))
+        {
+            SizeBox->SetMaxDesiredHeight(240.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_sizebox_min_aspect_ratio_canvaspanel"))
+        {
+            SizeBox->SetMinAspectRatio(1.25f);
+        }
+        else
+        {
+            SizeBox->SetMaxAspectRatio(2.0f);
+        }
+        SizeBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_scrollbox_orientation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scrollbox_scrollbar_visibility_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scrollbox_consume_mouse_wheel_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scrollbox_is_focusable_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ScrollBox_1"), OutError);
+        UScrollBox* ScrollBox = Cast<UScrollBox>(TargetWidget);
+        if (!ScrollBox)
+        {
+            OutError = TEXT("Resolved widget is not a ScrollBox for CanvasPanel_1/ScrollBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ScrollBox->Modify();
+        if (Spec.Name == TEXT("widget_write_scrollbox_orientation_canvaspanel"))
+        {
+            ScrollBox->SetOrientation(EOrientation::Orient_Horizontal);
+        }
+        else if (Spec.Name == TEXT("widget_write_scrollbox_scrollbar_visibility_canvaspanel"))
+        {
+            ScrollBox->SetScrollBarVisibility(ESlateVisibility::Collapsed);
+        }
+        else if (Spec.Name == TEXT("widget_write_scrollbox_consume_mouse_wheel_canvaspanel"))
+        {
+            ScrollBox->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
+        }
+        else
+        {
+            ScrollBox->SetIsFocusable(true);
+        }
+        ScrollBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_scalebox_stretch_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scalebox_stretch_direction_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scalebox_user_specified_scale_canvaspanel")
+        || Spec.Name == TEXT("widget_write_scalebox_ignore_inherited_scale_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ScaleBox_1"), OutError);
+        UScaleBox* ScaleBox = Cast<UScaleBox>(TargetWidget);
+        if (!ScaleBox)
+        {
+            OutError = TEXT("Resolved widget is not a ScaleBox for CanvasPanel_1/ScaleBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ScaleBox->Modify();
+        if (Spec.Name == TEXT("widget_write_scalebox_stretch_canvaspanel"))
+        {
+            ScaleBox->SetStretch(EStretch::ScaleToFit);
+        }
+        else if (Spec.Name == TEXT("widget_write_scalebox_stretch_direction_canvaspanel"))
+        {
+            ScaleBox->SetStretchDirection(EStretchDirection::DownOnly);
+        }
+        else if (Spec.Name == TEXT("widget_write_scalebox_user_specified_scale_canvaspanel"))
+        {
+            ScaleBox->SetUserSpecifiedScale(1.25f);
+        }
+        else
+        {
+            ScaleBox->SetIgnoreInheritedScale(true);
+        }
+        ScaleBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_wrapbox_wrap_size_canvaspanel")
+        || Spec.Name == TEXT("widget_write_wrapbox_explicit_wrap_size_canvaspanel")
+        || Spec.Name == TEXT("widget_write_wrapbox_inner_slot_padding_canvaspanel")
+        || Spec.Name == TEXT("widget_write_wrapbox_orientation_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/WrapBox_1"), OutError);
+        UWrapBox* WrapBox = Cast<UWrapBox>(TargetWidget);
+        if (!WrapBox)
+        {
+            OutError = TEXT("Resolved widget is not a WrapBox for CanvasPanel_1/WrapBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        WrapBox->Modify();
+        if (Spec.Name == TEXT("widget_write_wrapbox_wrap_size_canvaspanel"))
+        {
+            WrapBox->SetWrapSize(480.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_wrapbox_explicit_wrap_size_canvaspanel"))
+        {
+            WrapBox->SetExplicitWrapSize(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_wrapbox_inner_slot_padding_canvaspanel"))
+        {
+            WrapBox->SetInnerSlotPadding(FVector2D(8.0f, 12.0f));
+        }
+        else
+        {
+            WrapBox->SetOrientation(EOrientation::Orient_Vertical);
+        }
+        WrapBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_widgetswitcher_active_widget_index_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/WidgetSwitcher_1"), OutError);
+        UWidgetSwitcher* WidgetSwitcher = Cast<UWidgetSwitcher>(TargetWidget);
+        if (!WidgetSwitcher)
+        {
+            OutError = TEXT("Resolved widget is not a WidgetSwitcher for CanvasPanel_1/WidgetSwitcher_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        WidgetSwitcher->Modify();
+        WidgetSwitcher->SetActiveWidgetIndex(2);
+        WidgetSwitcher->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_listview_entry_widget_class_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ListView_1"), OutError);
+        UListView* ListView = Cast<UListView>(TargetWidget);
+        if (!ListView)
+        {
+            OutError = TEXT("Resolved widget is not a ListView for CanvasPanel_1/ListView_1");
+            return false;
+        }
+
+        UClass* EntryWidgetClass = LoadClass<UUserWidget>(nullptr, TEXT("/Game/WBP/WBP_ListEntry_Text.WBP_ListEntry_Text_C"));
+        if (!EntryWidgetClass)
+        {
+            OutError = TEXT("Failed to load /Game/WBP/WBP_ListEntry_Text.WBP_ListEntry_Text_C");
+            return false;
+        }
+        FClassProperty* EntryWidgetClassProp = FindFProperty<FClassProperty>(UListViewBase::StaticClass(), TEXT("EntryWidgetClass"));
+        if (!EntryWidgetClassProp)
+        {
+            OutError = TEXT("EntryWidgetClass property not found on UListViewBase");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ListView->Modify();
+        EntryWidgetClassProp->SetPropertyValue_InContainer(ListView, EntryWidgetClass);
+        ListView->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_listview_orientation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_selection_mode_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_consume_mouse_wheel_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_is_focusable_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_return_focus_to_selection_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_clear_scroll_velocity_on_selection_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_scroll_into_view_alignment_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_wheel_scroll_multiplier_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_enable_scroll_animation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_allow_overscroll_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_enable_right_click_scrolling_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_enable_touch_scrolling_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_is_pointer_scrolling_enabled_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_is_gamepad_scrolling_enabled_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_horizontal_entry_spacing_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_vertical_entry_spacing_canvaspanel")
+        || Spec.Name == TEXT("widget_write_listview_scrollbar_padding_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/ListView_1"), OutError);
+        UListView* ListView = Cast<UListView>(TargetWidget);
+        if (!ListView)
+        {
+            OutError = TEXT("Resolved widget is not a ListView for CanvasPanel_1/ListView_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ListView->Modify();
+        if (Spec.Name == TEXT("widget_write_listview_orientation_canvaspanel"))
+        {
+            FByteProperty* OrientationProp = FindFProperty<FByteProperty>(UListView::StaticClass(), TEXT("Orientation"));
+            if (!OrientationProp)
+            {
+                OutError = TEXT("Orientation property not found on UListView");
+                return false;
+            }
+            uint8* OrientationPtr = OrientationProp->ContainerPtrToValuePtr<uint8>(ListView);
+            *OrientationPtr = static_cast<uint8>(EOrientation::Orient_Horizontal);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_selection_mode_canvaspanel"))
+        {
+            ListView->SetSelectionMode(ESelectionMode::Multi);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_consume_mouse_wheel_canvaspanel"))
+        {
+            FProperty* ConsumeProp = FindFProperty<FProperty>(UListView::StaticClass(), TEXT("ConsumeMouseWheel"));
+            if (FEnumProperty* EnumProp = CastField<FEnumProperty>(ConsumeProp))
+            {
+                EnumProp->GetUnderlyingProperty()->SetIntPropertyValue(EnumProp->ContainerPtrToValuePtr<void>(ListView), static_cast<int64>(EConsumeMouseWheel::Never));
+            }
+            else if (FByteProperty* ByteProp = CastField<FByteProperty>(ConsumeProp))
+            {
+                ByteProp->SetPropertyValue(ByteProp->ContainerPtrToValuePtr<uint8>(ListView), static_cast<uint8>(EConsumeMouseWheel::Never));
+            }
+            else
+            {
+                OutError = TEXT("ConsumeMouseWheel property not found on UListView");
+                return false;
+            }
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_is_focusable_canvaspanel"))
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UListView::StaticClass(), TEXT("bIsFocusable"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("bIsFocusable property not found on UListView");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(ListView), false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_return_focus_to_selection_canvaspanel"))
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UListView::StaticClass(), TEXT("bReturnFocusToSelection"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("bReturnFocusToSelection property not found on UListView");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(ListView), true);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_clear_scroll_velocity_on_selection_canvaspanel"))
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UListView::StaticClass(), TEXT("bClearScrollVelocityOnSelection"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("bClearScrollVelocityOnSelection property not found on UListView");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(ListView), false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_scroll_into_view_alignment_canvaspanel"))
+        {
+            FProperty* AlignmentProp = FindFProperty<FProperty>(UListView::StaticClass(), TEXT("ScrollIntoViewAlignment"));
+            if (FEnumProperty* EnumProp = CastField<FEnumProperty>(AlignmentProp))
+            {
+                EnumProp->GetUnderlyingProperty()->SetIntPropertyValue(EnumProp->ContainerPtrToValuePtr<void>(ListView), static_cast<int64>(EScrollIntoViewAlignment::BottomOrRight));
+            }
+            else if (FByteProperty* ByteProp = CastField<FByteProperty>(AlignmentProp))
+            {
+                ByteProp->SetPropertyValue(ByteProp->ContainerPtrToValuePtr<uint8>(ListView), static_cast<uint8>(EScrollIntoViewAlignment::BottomOrRight));
+            }
+            else
+            {
+                OutError = TEXT("ScrollIntoViewAlignment property not found on UListView");
+                return false;
+            }
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_wheel_scroll_multiplier_canvaspanel"))
+        {
+            ListView->SetWheelScrollMultiplier(2.5f);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_enable_scroll_animation_canvaspanel"))
+        {
+            FBoolProperty* ScrollAnimationProp = FindFProperty<FBoolProperty>(UListViewBase::StaticClass(), TEXT("bEnableScrollAnimation"));
+            if (!ScrollAnimationProp)
+            {
+                OutError = TEXT("bEnableScrollAnimation property not found on UListViewBase");
+                return false;
+            }
+            ScrollAnimationProp->SetPropertyValue(ScrollAnimationProp->ContainerPtrToValuePtr<bool>(ListView), true);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_allow_overscroll_canvaspanel"))
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UListViewBase::StaticClass(), TEXT("AllowOverscroll"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("AllowOverscroll property not found on UListViewBase");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(ListView), false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_enable_right_click_scrolling_canvaspanel"))
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UListViewBase::StaticClass(), TEXT("bEnableRightClickScrolling"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("bEnableRightClickScrolling property not found on UListViewBase");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(ListView), false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_enable_touch_scrolling_canvaspanel"))
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UListViewBase::StaticClass(), TEXT("bEnableTouchScrolling"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("bEnableTouchScrolling property not found on UListViewBase");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(ListView), false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_is_pointer_scrolling_enabled_canvaspanel"))
+        {
+            ListView->SetIsPointerScrollingEnabled(false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_is_gamepad_scrolling_enabled_canvaspanel"))
+        {
+            ListView->SetIsGamepadScrollingEnabled(false);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_horizontal_entry_spacing_canvaspanel"))
+        {
+            ListView->SetHorizontalEntrySpacing(12.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_listview_vertical_entry_spacing_canvaspanel"))
+        {
+            ListView->SetVerticalEntrySpacing(6.0f);
+        }
+        else
+        {
+            ListView->SetScrollBarPadding(FMargin(1.0f, 2.0f, 3.0f, 4.0f));
+        }
+        ListView->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_tileview_entry_widget_class_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/TileView_1"), OutError);
+        UTileView* TileView = Cast<UTileView>(TargetWidget);
+        if (!TileView)
+        {
+            OutError = TEXT("Resolved widget is not a TileView for CanvasPanel_1/TileView_1");
+            return false;
+        }
+
+        UClass* EntryWidgetClass = LoadClass<UUserWidget>(nullptr, TEXT("/Game/WBP/WBP_ListEntry_Text.WBP_ListEntry_Text_C"));
+        if (!EntryWidgetClass)
+        {
+            OutError = TEXT("Failed to load /Game/WBP/WBP_ListEntry_Text.WBP_ListEntry_Text_C");
+            return false;
+        }
+        FClassProperty* EntryWidgetClassProp = FindFProperty<FClassProperty>(UListViewBase::StaticClass(), TEXT("EntryWidgetClass"));
+        if (!EntryWidgetClassProp)
+        {
+            OutError = TEXT("EntryWidgetClass property not found on UListViewBase");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        TileView->Modify();
+        EntryWidgetClassProp->SetPropertyValue_InContainer(TileView, EntryWidgetClass);
+        TileView->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_tileview_entry_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_tileview_entry_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_tileview_scrollbar_disabled_visibility_canvaspanel")
+        || Spec.Name == TEXT("widget_write_tileview_entry_size_includes_entry_spacing_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/TileView_1"), OutError);
+        UTileView* TileView = Cast<UTileView>(TargetWidget);
+        if (!TileView)
+        {
+            OutError = TEXT("Resolved widget is not a TileView for CanvasPanel_1/TileView_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        TileView->Modify();
+        if (Spec.Name == TEXT("widget_write_tileview_entry_width_canvaspanel"))
+        {
+            TileView->SetEntryWidth(180.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_tileview_entry_height_canvaspanel"))
+        {
+            TileView->SetEntryHeight(96.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_tileview_scrollbar_disabled_visibility_canvaspanel"))
+        {
+            FProperty* VisibilityProp = FindFProperty<FProperty>(UTileView::StaticClass(), TEXT("ScrollbarDisabledVisibility"));
+            if (FEnumProperty* EnumProp = CastField<FEnumProperty>(VisibilityProp))
+            {
+                EnumProp->GetUnderlyingProperty()->SetIntPropertyValue(EnumProp->ContainerPtrToValuePtr<void>(TileView), static_cast<int64>(ESlateVisibility::Hidden));
+            }
+            else if (FByteProperty* ByteProp = CastField<FByteProperty>(VisibilityProp))
+            {
+                ByteProp->SetPropertyValue(ByteProp->ContainerPtrToValuePtr<uint8>(TileView), static_cast<uint8>(ESlateVisibility::Hidden));
+            }
+            else
+            {
+                OutError = TEXT("ScrollbarDisabledVisibility property not found on UTileView");
+                return false;
+            }
+        }
+        else
+        {
+            FBoolProperty* BoolProp = FindFProperty<FBoolProperty>(UTileView::StaticClass(), TEXT("bEntrySizeIncludesEntrySpacing"));
+            if (!BoolProp)
+            {
+                OutError = TEXT("bEntrySizeIncludesEntrySpacing property not found on UTileView");
+                return false;
+            }
+            BoolProp->SetPropertyValue(BoolProp->ContainerPtrToValuePtr<bool>(TileView), false);
+        }
+        TileView->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_treeview_entry_widget_class_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/TreeView_1"), OutError);
+        UTreeView* TreeView = Cast<UTreeView>(TargetWidget);
+        if (!TreeView)
+        {
+            OutError = TEXT("Resolved widget is not a TreeView for CanvasPanel_1/TreeView_1");
+            return false;
+        }
+
+        UClass* EntryWidgetClass = LoadClass<UUserWidget>(nullptr, TEXT("/Game/WBP/WBP_ListEntry_Text.WBP_ListEntry_Text_C"));
+        if (!EntryWidgetClass)
+        {
+            OutError = TEXT("Failed to load /Game/WBP/WBP_ListEntry_Text.WBP_ListEntry_Text_C");
+            return false;
+        }
+        FClassProperty* EntryWidgetClassProp = FindFProperty<FClassProperty>(UListViewBase::StaticClass(), TEXT("EntryWidgetClass"));
+        if (!EntryWidgetClassProp)
+        {
+            OutError = TEXT("EntryWidgetClass property not found on UListViewBase");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        TreeView->Modify();
+        EntryWidgetClassProp->SetPropertyValue_InContainer(TreeView, EntryWidgetClass);
+        TreeView->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_treeview_selection_mode_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/TreeView_1"), OutError);
+        UTreeView* TreeView = Cast<UTreeView>(TargetWidget);
+        if (!TreeView)
+        {
+            OutError = TEXT("Resolved widget is not a TreeView for CanvasPanel_1/TreeView_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        TreeView->Modify();
+        TreeView->SetSelectionMode(ESelectionMode::Multi);
+        TreeView->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_retainerbox_retain_render_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_render_on_invalidation_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_render_on_phase_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_phase_canvaspanel")
+        || Spec.Name == TEXT("widget_write_retainerbox_phase_count_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/RetainerBox_1"), OutError);
+        URetainerBox* RetainerBox = Cast<URetainerBox>(TargetWidget);
+        if (!RetainerBox)
+        {
+            OutError = TEXT("Resolved widget is not a RetainerBox for CanvasPanel_1/RetainerBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        RetainerBox->Modify();
+        if (Spec.Name == TEXT("widget_write_retainerbox_retain_render_canvaspanel"))
+        {
+            RetainerBox->SetRetainRendering(true);
+        }
+        else if (Spec.Name == TEXT("widget_write_retainerbox_render_on_invalidation_canvaspanel"))
+        {
+            RetainerBox->RenderOnInvalidation = false;
+        }
+        else if (Spec.Name == TEXT("widget_write_retainerbox_render_on_phase_canvaspanel"))
+        {
+            RetainerBox->RenderOnPhase = true;
+        }
+        else if (Spec.Name == TEXT("widget_write_retainerbox_phase_canvaspanel"))
+        {
+            RetainerBox->Phase = 1;
+        }
+        else
+        {
+            RetainerBox->PhaseCount = 3;
+        }
+        RetainerBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_backgroundblur_strength_canvaspanel")
+        || Spec.Name == TEXT("widget_write_backgroundblur_apply_alpha_to_blur_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/BackgroundBlur_1"), OutError);
+        UBackgroundBlur* BackgroundBlur = Cast<UBackgroundBlur>(TargetWidget);
+        if (!BackgroundBlur)
+        {
+            OutError = TEXT("Resolved widget is not a BackgroundBlur for CanvasPanel_1/BackgroundBlur_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        BackgroundBlur->Modify();
+        if (Spec.Name == TEXT("widget_write_backgroundblur_strength_canvaspanel"))
+        {
+            BackgroundBlur->SetBlurStrength(16.0f);
+        }
+        else
+        {
+            BackgroundBlur->SetApplyAlphaToBlur(true);
+        }
+        BackgroundBlur->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_safezone_pad_left_canvaspanel")
+        || Spec.Name == TEXT("widget_write_safezone_pad_right_canvaspanel")
+        || Spec.Name == TEXT("widget_write_safezone_pad_top_canvaspanel")
+        || Spec.Name == TEXT("widget_write_safezone_pad_bottom_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/SafeZone_1"), OutError);
+        USafeZone* SafeZone = Cast<USafeZone>(TargetWidget);
+        if (!SafeZone)
+        {
+            OutError = TEXT("Resolved widget is not a SafeZone for CanvasPanel_1/SafeZone_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        SafeZone->Modify();
+        if (Spec.Name == TEXT("widget_write_safezone_pad_left_canvaspanel"))
+        {
+            SafeZone->PadLeft = false;
+        }
+        else if (Spec.Name == TEXT("widget_write_safezone_pad_right_canvaspanel"))
+        {
+            SafeZone->PadRight = true;
+        }
+        else if (Spec.Name == TEXT("widget_write_safezone_pad_top_canvaspanel"))
+        {
+            SafeZone->PadTop = false;
+        }
+        else
+        {
+            SafeZone->PadBottom = true;
+        }
+        SafeZone->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_invalidationbox_can_cache_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/InvalidationBox_1"), OutError);
+        UInvalidationBox* InvalidationBox = Cast<UInvalidationBox>(TargetWidget);
+        if (!InvalidationBox)
+        {
+            OutError = TEXT("Resolved widget is not an InvalidationBox for CanvasPanel_1/InvalidationBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        InvalidationBox->Modify();
+        InvalidationBox->SetCanCache(true);
+        InvalidationBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_uniformgridpanel_min_desired_slot_width_canvaspanel")
+        || Spec.Name == TEXT("widget_write_uniformgridpanel_min_desired_slot_height_canvaspanel")
+        || Spec.Name == TEXT("widget_write_uniformgridpanel_slot_padding_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/UniformGridPanel_1"), OutError);
+        UUniformGridPanel* UniformGridPanel = Cast<UUniformGridPanel>(TargetWidget);
+        if (!UniformGridPanel)
+        {
+            OutError = TEXT("Resolved widget is not a UniformGridPanel for CanvasPanel_1/UniformGridPanel_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        UniformGridPanel->Modify();
+        if (Spec.Name == TEXT("widget_write_uniformgridpanel_min_desired_slot_width_canvaspanel"))
+        {
+            UniformGridPanel->SetMinDesiredSlotWidth(160.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_uniformgridpanel_min_desired_slot_height_canvaspanel"))
+        {
+            UniformGridPanel->SetMinDesiredSlotHeight(48.0f);
+        }
+        else
+        {
+            UniformGridPanel->SetSlotPadding(FMargin(4.0f, 6.0f, 8.0f, 10.0f));
+        }
+        UniformGridPanel->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_visibility_overlay_child"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("Overlay_116/TextBlock_36"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        TargetWidget->Modify();
+        TargetWidget->SetVisibility(ESlateVisibility::Collapsed);
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_brush_image"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("Image_22"), OutError);
+        UImage* ImageWidget = Cast<UImage>(TargetWidget);
+        if (!ImageWidget)
+        {
+            OutError = TEXT("Resolved widget is not an Image for Image_22");
+            return false;
+        }
+
+        UTexture2D* Texture = LoadObject<UTexture2D>(nullptr, TEXT("/Game/Effects/Textures/Decals/chippedcracks.chippedcracks"));
+        if (!Texture)
+        {
+            OutError = TEXT("Failed to load texture /Game/Effects/Textures/Decals/chippedcracks.chippedcracks");
+            return false;
+        }
+
+        ImageWidget->Modify();
+        ImageWidget->SetBrushFromTexture(Texture, true);
+        if (ImageWidget->Brush.GetResourceObject() != Texture)
+        {
+            FSlateBrush Brush = ImageWidget->Brush;
+            Brush.SetResourceObject(Texture);
+            Brush.ImageType = ESlateBrushImageType::FullColor;
+            Brush.ImageSize = FVector2D(64.0f, 64.0f);
+            ImageWidget->SetBrush(Brush);
+        }
+        ImageWidget->MarkPackageDirty();
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_button_is_focusable_canvaspanel"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/Button_1"), OutError);
+        UButton* ButtonWidget = Cast<UButton>(TargetWidget);
+        if (!ButtonWidget)
+        {
+            OutError = TEXT("Resolved widget is not a Button for CanvasPanel_1/Button_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ButtonWidget->Modify();
+
+        FBoolProperty* IsFocusableProperty = FindFProperty<FBoolProperty>(UButton::StaticClass(), TEXT("IsFocusable"));
+        if (!IsFocusableProperty)
+        {
+            OutError = TEXT("IsFocusable property not found on UButton");
+            return false;
+        }
+        IsFocusableProperty->SetPropertyValue_InContainer(ButtonWidget, false);
+
+        ButtonWidget->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_write_button_brush_normal")
+        || Spec.Name == TEXT("widget_write_button_brush_tint")
+        || Spec.Name == TEXT("widget_write_button_brush_image_size")
+        || Spec.Name == TEXT("widget_write_button_brush_draw_as"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("Button_1"), OutError);
+        UButton* ButtonWidget = Cast<UButton>(TargetWidget);
+        if (!ButtonWidget)
+        {
+            OutError = TEXT("Resolved widget is not a Button for Button_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        ButtonWidget->Modify();
+
+        FButtonStyle Style = ButtonWidget->WidgetStyle;
+        FSlateBrush* NormalBrush = &Style.Normal;
+        if (!NormalBrush)
+        {
+            OutError = TEXT("Button WidgetStyle.Normal brush is unavailable.");
+            return false;
+        }
+
+        if (Spec.Name == TEXT("widget_write_button_brush_normal"))
+        {
+            UTexture2D* Texture = LoadObject<UTexture2D>(nullptr, TEXT("/Game/UI/Menu/Art/T_UI_Icon_SimpleArrow.T_UI_Icon_SimpleArrow"));
+            if (!Texture)
+            {
+                OutError = TEXT("Failed to load texture /Game/UI/Menu/Art/T_UI_Icon_SimpleArrow.T_UI_Icon_SimpleArrow");
+                return false;
+            }
+            NormalBrush->SetResourceObject(Texture);
+            NormalBrush->ImageType = ESlateBrushImageType::FullColor;
+            NormalBrush->ImageSize = FVector2D(512.0f, 512.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_button_brush_tint"))
+        {
+            NormalBrush->TintColor = FSlateColor(FLinearColor(0.25f, 0.4f, 0.9f, 0.8f));
+        }
+        else if (Spec.Name == TEXT("widget_write_button_brush_image_size"))
+        {
+            NormalBrush->ImageSize = FVector2D(96.0f, 48.0f);
+        }
+        else if (Spec.Name == TEXT("widget_write_button_brush_draw_as"))
+        {
+            NormalBrush->DrawAs = ESlateBrushDrawType::RoundedBox;
+        }
+
+        ButtonWidget->WidgetStyle = Style;
+        ButtonWidget->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22"), OutError);
+        UCanvasPanel* CanvasPanel = Cast<UCanvasPanel>(ParentWidget);
+        if (!CanvasPanel)
+        {
+            OutError = TEXT("Resolved widget is not a CanvasPanel for CanvasPanel_22");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        CanvasPanel->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_23"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_canvaspanel");
+            return false;
+        }
+        if (!CanvasPanel->AddChildToCanvas(ImageWidget))
+        {
+            OutError = TEXT("AddChildToCanvas returned null for widget_add_image_canvaspanel");
+            return false;
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        CanvasPanel->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_canvaspanel_nonempty"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22"), OutError);
+        UCanvasPanel* CanvasPanel = Cast<UCanvasPanel>(ParentWidget);
+        if (!CanvasPanel)
+        {
+            OutError = TEXT("Resolved widget is not a CanvasPanel for CanvasPanel_22");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        CanvasPanel->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_59"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_canvaspanel_nonempty");
+            return false;
+        }
+        if (!CanvasPanel->AddChildToCanvas(ImageWidget))
+        {
+            OutError = TEXT("AddChildToCanvas returned null for widget_add_image_canvaspanel_nonempty");
+            return false;
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        CanvasPanel->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_overlay"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("Overlay_116"), OutError);
+        UOverlay* Overlay = Cast<UOverlay>(ParentWidget);
+        if (!Overlay)
+        {
+            OutError = TEXT("Resolved widget is not an Overlay for Overlay_116");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        Overlay->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_23"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_overlay");
+            return false;
+        }
+        if (!Overlay->AddChildToOverlay(ImageWidget))
+        {
+            OutError = TEXT("AddChildToOverlay returned null for widget_add_image_overlay");
+            return false;
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        Overlay->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_overlay_nonempty"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("Overlay_116"), OutError);
+        UOverlay* Overlay = Cast<UOverlay>(ParentWidget);
+        if (!Overlay)
+        {
+            OutError = TEXT("Resolved widget is not an Overlay for Overlay_116");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        Overlay->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_71"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_overlay_nonempty");
+            return false;
+        }
+        if (!Overlay->AddChildToOverlay(ImageWidget))
+        {
+            OutError = TEXT("AddChildToOverlay returned null for widget_add_image_overlay_nonempty");
+            return false;
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        Overlay->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_nested_overlay"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/Overlay_1"), OutError);
+        UOverlay* Overlay = Cast<UOverlay>(ParentWidget);
+        if (!Overlay)
+        {
+            OutError = TEXT("Resolved widget is not an Overlay for CanvasPanel_1/Overlay_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        Overlay->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_3"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_nested_overlay");
+            return false;
+        }
+        if (!Overlay->AddChildToOverlay(ImageWidget))
+        {
+            OutError = TEXT("AddChildToOverlay returned null for widget_add_image_nested_overlay");
+            return false;
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        Overlay->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_root_canvaspanel"))
+    {
+        if (!WidgetBlueprint->WidgetTree)
+        {
+            OutError = TEXT("WidgetTree is null for widget_add_root_canvaspanel");
+            return false;
+        }
+        if (WidgetBlueprint->WidgetTree->RootWidget)
+        {
+            OutError = TEXT("WidgetTree already has a root widget for widget_add_root_canvaspanel");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->WidgetTree->Modify();
+        UCanvasPanel* RootCanvasPanel = WidgetBlueprint->WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("CanvasPanel_21"));
+        if (!RootCanvasPanel)
+        {
+            OutError = TEXT("ConstructWidget<UCanvasPanel> returned null for widget_add_root_canvaspanel");
+            return false;
+        }
+        WidgetBlueprint->WidgetTree->RootWidget = RootCanvasPanel;
+        RootCanvasPanel->Modify();
+        RootCanvasPanel->MarkPackageDirty();
+        WidgetBlueprint->WidgetTree->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_root_verticalbox"))
+    {
+        if (!WidgetBlueprint->WidgetTree)
+        {
+            OutError = TEXT("WidgetTree is null for widget_add_root_verticalbox");
+            return false;
+        }
+        if (WidgetBlueprint->WidgetTree->RootWidget)
+        {
+            OutError = TEXT("WidgetTree already has a root widget for widget_add_root_verticalbox");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->WidgetTree->Modify();
+        UVerticalBox* RootVerticalBox = WidgetBlueprint->WidgetTree->ConstructWidget<UVerticalBox>(UVerticalBox::StaticClass(), TEXT("VerticalBox_21"));
+        if (!RootVerticalBox)
+        {
+            OutError = TEXT("ConstructWidget<UVerticalBox> returned null for widget_add_root_verticalbox");
+            return false;
+        }
+        WidgetBlueprint->WidgetTree->RootWidget = RootVerticalBox;
+        RootVerticalBox->Modify();
+        RootVerticalBox->MarkPackageDirty();
+        WidgetBlueprint->WidgetTree->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_root_horizontalbox"))
+    {
+        if (!WidgetBlueprint->WidgetTree)
+        {
+            OutError = TEXT("WidgetTree is null for widget_add_root_horizontalbox");
+            return false;
+        }
+        if (WidgetBlueprint->WidgetTree->RootWidget)
+        {
+            OutError = TEXT("WidgetTree already has a root widget for widget_add_root_horizontalbox");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        WidgetBlueprint->WidgetTree->Modify();
+        UHorizontalBox* RootHorizontalBox = WidgetBlueprint->WidgetTree->ConstructWidget<UHorizontalBox>(UHorizontalBox::StaticClass(), TEXT("HorizontalBox_21"));
+        if (!RootHorizontalBox)
+        {
+            OutError = TEXT("ConstructWidget<UHorizontalBox> returned null for widget_add_root_horizontalbox");
+            return false;
+        }
+        WidgetBlueprint->WidgetTree->RootWidget = RootHorizontalBox;
+        RootHorizontalBox->Modify();
+        RootHorizontalBox->MarkPackageDirty();
+        WidgetBlueprint->WidgetTree->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_button_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22"), OutError);
+        UCanvasPanel* CanvasPanel = Cast<UCanvasPanel>(ParentWidget);
+        if (!CanvasPanel)
+        {
+            OutError = TEXT("Resolved widget is not a CanvasPanel for CanvasPanel_22");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        CanvasPanel->Modify();
+        UButton* ButtonWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), TEXT("Button_1"));
+        if (!ButtonWidget)
+        {
+            OutError = TEXT("ConstructWidget<UButton> returned null for widget_add_button_canvaspanel");
+            return false;
+        }
+        if (!CanvasPanel->AddChildToCanvas(ButtonWidget))
+        {
+            OutError = TEXT("AddChildToCanvas returned null for widget_add_button_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ButtonWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(ButtonWidget->GetFName());
+        }
+        ButtonWidget->Modify();
+        ButtonWidget->MarkPackageDirty();
+        CanvasPanel->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_richtextblock_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22"), OutError);
+        UCanvasPanel* CanvasPanel = Cast<UCanvasPanel>(ParentWidget);
+        if (!CanvasPanel)
+        {
+            OutError = TEXT("Resolved widget is not a CanvasPanel for CanvasPanel_22");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        CanvasPanel->Modify();
+        URichTextBlock* RichTextBlockWidget = WidgetBlueprint->WidgetTree->ConstructWidget<URichTextBlock>(URichTextBlock::StaticClass(), TEXT("RichTextBlock_23"));
+        if (!RichTextBlockWidget)
+        {
+            OutError = TEXT("ConstructWidget<URichTextBlock> returned null for widget_add_richtextblock_canvaspanel");
+            return false;
+        }
+        if (!CanvasPanel->AddChildToCanvas(RichTextBlockWidget))
+        {
+            OutError = TEXT("AddChildToCanvas returned null for widget_add_richtextblock_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(RichTextBlockWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(RichTextBlockWidget->GetFName());
+        }
+        RichTextBlockWidget->Modify();
+        RichTextBlockWidget->MarkPackageDirty();
+        CanvasPanel->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_progressbar_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UProgressBar>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("ProgressBar_23"),
+            TEXT("widget_add_progressbar_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_slider_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<USlider>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("Slider_23"),
+            TEXT("widget_add_slider_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_spacer_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<USpacer>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("Spacer_23"),
+            TEXT("widget_add_spacer_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_scrollbar_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UScrollBar>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("ScrollBar_23"),
+            TEXT("widget_add_scrollbar_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_editabletext_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UEditableText>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("EditableText_23"),
+            TEXT("widget_add_editabletext_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_editabletextbox_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UEditableTextBox>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("EditableTextBox_23"),
+            TEXT("widget_add_editabletextbox_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_multilineeditabletextbox_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UMultiLineEditableTextBox>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("MultiLineEditableTextBox_23"),
+            TEXT("widget_add_multilineeditabletextbox_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_spinbox_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<USpinBox>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("SpinBox_23"),
+            TEXT("widget_add_spinbox_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_comboboxstring_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UComboBoxString>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("ComboBoxString_23"),
+            TEXT("widget_add_comboboxstring_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_listview_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UListView>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("ListView_23"),
+            TEXT("widget_add_listview_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_tileview_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UTileView>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("TileView_23"),
+            TEXT("widget_add_tileview_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_treeview_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UTreeView>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("TreeView_23"),
+            TEXT("widget_add_treeview_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_namedslot_canvaspanel"))
+    {
+        return AddBareCanvasPanelLeafWidget<UNamedSlot>(
+            WidgetBlueprint,
+            TEXT("CanvasPanel_22"),
+            TEXT("NamedSlot_23"),
+            TEXT("widget_add_namedslot_canvaspanel"),
+            OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_add_textblock_namedslot_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22/NamedSlot_1"), OutError);
+        UNamedSlot* NamedSlot = Cast<UNamedSlot>(ParentWidget);
+        if (!NamedSlot)
+        {
+            OutError = TEXT("Resolved widget is not a NamedSlot for CanvasPanel_22/NamedSlot_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        NamedSlot->Modify();
+        UTextBlock* ChildWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("TextBlock_1"));
+        if (!ChildWidget)
+        {
+            OutError = TEXT("ConstructWidget<UTextBlock> returned null for widget_add_textblock_namedslot_canvaspanel");
+            return false;
+        }
+        if (!NamedSlot->SetContent(ChildWidget))
+        {
+            OutError = TEXT("NamedSlot->SetContent returned false for widget_add_textblock_namedslot_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ChildWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(ChildWidget->GetFName());
+        }
+        ChildWidget->Modify();
+        ChildWidget->MarkPackageDirty();
+        NamedSlot->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = TEXT("GeneratedClass is null after compiling widget_add_textblock_namedslot_canvaspanel");
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_userwidget_canvaspanel"))
+    {
+        UCanvasPanel* CanvasPanel = Cast<UCanvasPanel>(ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22"), OutError));
+        if (!CanvasPanel)
+        {
+            OutError = TEXT("CanvasPanel_22 is not a CanvasPanel for widget_add_userwidget_canvaspanel");
+            return false;
+        }
+
+        UClass* ChildClass = LoadClass<UUserWidget>(nullptr, TEXT("/Game/BPXFixtures/Parse/WBP_TextBlock.WBP_TextBlock_C"));
+        if (!ChildClass)
+        {
+            OutError = TEXT("LoadClass failed for /Game/BPXFixtures/Parse/WBP_TextBlock.WBP_TextBlock_C");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        CanvasPanel->Modify();
+        UUserWidget* ChildWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UUserWidget>(ChildClass, TEXT("WBP_TextBlock_1"));
+        if (!ChildWidget)
+        {
+            OutError = TEXT("ConstructWidget<UUserWidget> returned null for widget_add_userwidget_canvaspanel");
+            return false;
+        }
+        if (!CanvasPanel->AddChildToCanvas(ChildWidget))
+        {
+            OutError = TEXT("AddChildToCanvas returned null for widget_add_userwidget_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ChildWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(ChildWidget->GetFName());
+        }
+        ChildWidget->Modify();
+        ChildWidget->MarkPackageDirty();
+        CanvasPanel->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = TEXT("GeneratedClass is null after compiling widget_add_userwidget_canvaspanel");
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_border_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/Border_1"), OutError);
+        UBorder* Border = Cast<UBorder>(ParentWidget);
+        if (!Border)
+        {
+            OutError = TEXT("Resolved widget is not a Border for CanvasPanel_1/Border_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        Border->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_1"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_border_canvaspanel");
+            return false;
+        }
+        if (!Border->SetContent(ImageWidget))
+        {
+            OutError = TEXT("SetContent returned false for widget_add_image_border_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ImageWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(ImageWidget->GetFName());
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        Border->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_sizebox_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/SizeBox_1"), OutError);
+        USizeBox* SizeBox = Cast<USizeBox>(ParentWidget);
+        if (!SizeBox)
+        {
+            OutError = TEXT("Resolved widget is not a SizeBox for CanvasPanel_1/SizeBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        SizeBox->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_1"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_sizebox_canvaspanel");
+            return false;
+        }
+        if (!SizeBox->SetContent(ImageWidget))
+        {
+            OutError = TEXT("SetContent returned false for widget_add_image_sizebox_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ImageWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(ImageWidget->GetFName());
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        SizeBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_add_image_horizontalbox_canvaspanel"))
+    {
+        UWidget* ParentWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_1/HorizontalBox_1"), OutError);
+        UHorizontalBox* HorizontalBox = Cast<UHorizontalBox>(ParentWidget);
+        if (!HorizontalBox)
+        {
+            OutError = TEXT("Resolved widget is not a HorizontalBox for CanvasPanel_1/HorizontalBox_1");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        HorizontalBox->Modify();
+        UImage* ImageWidget = WidgetBlueprint->WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("Image_1"));
+        if (!ImageWidget)
+        {
+            OutError = TEXT("ConstructWidget<UImage> returned null for widget_add_image_horizontalbox_canvaspanel");
+            return false;
+        }
+        if (!HorizontalBox->AddChildToHorizontalBox(ImageWidget))
+        {
+            OutError = TEXT("AddChildToHorizontalBox returned null for widget_add_image_horizontalbox_canvaspanel");
+            return false;
+        }
+        if (!WidgetBlueprint->WidgetVariableNameToGuidMap.Contains(ImageWidget->GetFName()))
+        {
+            WidgetBlueprint->OnVariableAdded(ImageWidget->GetFName());
+        }
+        ImageWidget->Modify();
+        ImageWidget->MarkPackageDirty();
+        HorizontalBox->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    if (Spec.Name == TEXT("widget_remove_textblock_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_22/TextBlock_31"), OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_remove_richtextblock_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_22/RichTextBlock_31"), OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_remove_textblock_overlay"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("Overlay_116/TextBlock_36"), OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_remove_image_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/Image_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_image_overlay"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("Overlay_1/Image_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_image_verticalbox"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("VerticalBox_1/Image_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_image_horizontalbox"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("HorizontalBox_1/Image_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_button_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/Button_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_border_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/Border_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_sizebox_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/SizeBox_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_gridpanel_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/GridPanel_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_backgroundblur_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/BackgroundBlur_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_invalidationbox_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/InvalidationBox_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_retainerbox_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/RetainerBox_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_safezone_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/SafeZone_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_scalebox_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/ScaleBox_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_scrollbox_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/ScrollBox_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_widgetswitcher_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/WidgetSwitcher_1"), OutError);
+    }
+    if (Spec.Name == TEXT("widget_remove_wrapbox_canvaspanel"))
+    {
+        return RemoveWidgetBlueprintLeaf(WidgetBlueprint, TEXT("CanvasPanel_1/WrapBox_1"), OutError);
+    }
+
+    if (Spec.Name == TEXT("widget_write_layout_canvaspanelslot"))
+    {
+        UWidget* TargetWidget = ResolveWidgetByPath(WidgetBlueprint->WidgetTree, TEXT("CanvasPanel_22/Image_29"), OutError);
+        if (!TargetWidget)
+        {
+            return false;
+        }
+
+        UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(TargetWidget->Slot);
+        if (!CanvasSlot)
+        {
+            OutError = TEXT("Resolved widget slot is not a CanvasPanelSlot for CanvasPanel_22/Image_29");
+            return false;
+        }
+
+        WidgetBlueprint->Modify();
+        TargetWidget->Modify();
+        CanvasSlot->Modify();
+        CanvasSlot->SetAnchors(FAnchors(0.5f, 0.5f, 0.5f, 0.5f));
+        CanvasSlot->SetAlignment(FVector2D(0.5f, 0.5f));
+        CanvasSlot->SetPosition(FVector2D(0.0f, 0.0f));
+        CanvasSlot->SetSize(FVector2D(200.0f, 60.0f));
+        CanvasSlot->MarkPackageDirty();
+        TargetWidget->MarkPackageDirty();
+        WidgetBlueprint->MarkPackageDirty();
+        FKismetEditorUtilities::CompileBlueprint(WidgetBlueprint);
+        if (!WidgetBlueprint->GeneratedClass)
+        {
+            OutError = FString::Printf(TEXT("GeneratedClass is null after compiling %s"), *Spec.Name);
+            return false;
+        }
+        return true;
+    }
+
+    OutError = FString::Printf(TEXT("Unsupported widget blueprint operation: %s"), *Spec.Name);
+    return false;
+}
+
 UBlueprint* CreateActorBlueprintAsset(const FString& PackageName, const FString& AssetName, UClass* ParentClass, const FString& FixtureValueDefault)
 {
     UPackage* Package = CreatePackage(*PackageName);
@@ -3598,6 +7110,17 @@ bool WriteOperationSidecars(const FString& OperationDir, const FOperationFixture
         RootObject->SetStringField(TEXT("error_contains"), Spec.ErrorContains);
     }
     RootObject->SetStringField(TEXT("notes"), Spec.Notes);
+    if (!Spec.IgnorePackageSectionsJson.IsEmpty())
+    {
+        TArray<TSharedPtr<FJsonValue>> IgnorePackageSections;
+        const TSharedRef<TJsonReader<TCHAR>> IgnorePackageSectionsReader = TJsonReaderFactory<TCHAR>::Create(Spec.IgnorePackageSectionsJson);
+        if (!FJsonSerializer::Deserialize(IgnorePackageSectionsReader, IgnorePackageSections))
+        {
+            OutError = FString::Printf(TEXT("Failed to parse ignore package sections JSON for %s: %s"), *Spec.Name, *Spec.IgnorePackageSectionsJson);
+            return false;
+        }
+        RootObject->SetArrayField(TEXT("ignore_package_sections"), IgnorePackageSections);
+    }
 
     if (bIncludeSavedHashIgnore)
     {
@@ -3900,6 +7423,18 @@ int32 UBPXGenerateFixturesCommandlet::Main(const FString& Params)
             }
             break;
         }
+        case EParseFixtureKind::WidgetBlueprint:
+        {
+            UWidgetBlueprint* WidgetBlueprint = DuplicateWidgetBlueprintAsset(Spec.Key, PackageName, AssetName, ErrorText);
+            if (!WidgetBlueprint)
+            {
+                UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                return 5;
+            }
+
+            AssetObject = WidgetBlueprint;
+            break;
+        }
         case EParseFixtureKind::DataTable:
         {
             UDataTable* DataTable = NewObject<UDataTable>(Package, FName(*AssetName), RF_Public | RF_Standalone);
@@ -4045,6 +7580,7 @@ int32 UBPXGenerateFixturesCommandlet::Main(const FString& Params)
     {
         const bool bUseSinglePackageMutation = IsSinglePackageOperation(Spec);
         const bool bUseParseBlueprintMutation = IsParseBlueprintOperation(Spec);
+        const bool bUseWidgetBlueprintMutation = IsWidgetBlueprintOperation(Spec);
         const bool bUseDataTableMutation = IsDataTableOperation(Spec);
         const bool bUseDataTableUpdateMutation = IsDataTableUpdateOperation(Spec);
         const bool bUseCompositeDataTableRejectMutation = IsCompositeDataTableRejectOperation(Spec);
@@ -4533,6 +8069,54 @@ int32 UBPXGenerateFixturesCommandlet::Main(const FString& Params)
                 if (!ApplyParseBlueprintOperationAfterState(FixtureBlueprint, Spec, ErrorText))
                 {
                     UE_LOG(LogBPXFixtureGenerator, Error, TEXT("Failed to mutate parse-backed operation fixture %s: %s"), *Spec.Name, *ErrorText);
+                    return 7;
+                }
+                if (!SavePackageToDisk(FixtureBlueprint->GetOutermost(), FixtureBlueprint, FixtureSource, ErrorText))
+                {
+                    UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                    return 7;
+                }
+                if (!CopyFileToOutput(FixtureSource, AfterOutput, bForce, ErrorText))
+                {
+                    UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                    return 8;
+                }
+            }
+        }
+        else if (bUseWidgetBlueprintMutation)
+        {
+            const FString FixtureKey = ParseWidgetFixtureKeyForOperation(Spec);
+            UWidgetBlueprint* FixtureBlueprint = DuplicateWidgetBlueprintAsset(FixtureKey, FixturePackageName, FixtureKey, ErrorText);
+            if (!FixtureBlueprint)
+            {
+                UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                return 7;
+            }
+
+            if (!SavePackageToDisk(FixtureBlueprint->GetOutermost(), FixtureBlueprint, FixtureSource, ErrorText))
+            {
+                UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                return 7;
+            }
+            if (!CopyFileToOutput(FixtureSource, BeforeOutput, bForce, ErrorText))
+            {
+                UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                return 8;
+            }
+
+            if (Spec.Expect == TEXT("error_equal"))
+            {
+                if (!CopyFileToOutput(FixtureSource, AfterOutput, bForce, ErrorText))
+                {
+                    UE_LOG(LogBPXFixtureGenerator, Error, TEXT("%s"), *ErrorText);
+                    return 8;
+                }
+            }
+            else
+            {
+                if (!ApplyWidgetBlueprintOperationAfterState(FixtureBlueprint, Spec, ErrorText))
+                {
+                    UE_LOG(LogBPXFixtureGenerator, Error, TEXT("Failed to mutate widget blueprint fixture %s: %s"), *Spec.Name, *ErrorText);
                     return 7;
                 }
                 if (!SavePackageToDisk(FixtureBlueprint->GetOutermost(), FixtureBlueprint, FixtureSource, ErrorText))

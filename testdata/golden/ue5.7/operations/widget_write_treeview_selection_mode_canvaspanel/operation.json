@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/TreeView_1",
+		"property": "listview-selection-mode",
+		"value": "Multi"
+	},
+	"ue_procedure": "Set SelectionMode to Multi on the TreeView child under the root CanvasPanel on WBP_CanvasPanel_TreeView",
+	"expect": "byte_equal",
+	"notes": "Covers TreeView selection-mode rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

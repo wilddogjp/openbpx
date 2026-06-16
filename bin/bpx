@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+set -eu
+
+script_dir="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+
+os="$(uname -s 2>/dev/null | tr '[:upper:]' '[:lower:]')"
+arch="$(uname -m 2>/dev/null | tr '[:upper:]' '[:lower:]')"
+ext=""
+
+case "$os" in
+  linux*) os="linux" ;;
+  darwin*) os="darwin" ;;
+  mingw*|msys*|cygwin*) os="windows"; ext=".exe" ;;
+  *)
+    echo "unsupported OS for bundled bpx: $os" >&2
+    exit 1
+    ;;
+esac
+
+case "$arch" in
+  x86_64|amd64) arch="amd64" ;;
+  arm64|aarch64) arch="arm64" ;;
+  *)
+    echo "unsupported architecture for bundled bpx: $arch" >&2
+    exit 1
+    ;;
+esac
+
+candidate="$script_dir/../plugin-bin/bpx-$os-$arch$ext"
+if [ ! -f "$candidate" ]; then
+  echo "bundled bpx binary not found: $candidate" >&2
+  exit 1
+fi
+
+exec "$candidate" "$@"

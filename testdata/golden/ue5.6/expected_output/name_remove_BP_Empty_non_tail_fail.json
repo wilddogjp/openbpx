@@ -8,8 +8,6 @@
   ],
   "expectedCode": 1,
   "expectedStderr": "error: name remove currently supports tail entry only (--index must be nameCount-1)",
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "name_remove_BP_Empty_non_tail_fail",
   "oracle": "ue-fixture"
 }

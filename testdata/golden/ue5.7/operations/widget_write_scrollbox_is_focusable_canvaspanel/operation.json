@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ScrollBox_1",
+		"property": "scrollbox-is-focusable",
+		"value": "true"
+	},
+	"ue_procedure": "Enable focus on the ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox",
+	"expect": "byte_equal",
+	"notes": "Covers ScrollBox bIsFocusable bool rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

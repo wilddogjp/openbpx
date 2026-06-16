@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "Button_1",
+		"property": "button-normal-draw-as",
+		"value": "RoundedBox"
+	},
+	"ue_procedure": "Set Button_1 normal state brush draw type on WBP_ButtonVisualSmoke",
+	"expect": "byte_equal",
+	"notes": "Covers Button.WidgetStyle.Normal.DrawAs enum write on a state brush.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}

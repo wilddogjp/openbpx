@@ -159,7 +159,61 @@ func RewriteNameMap(asset *uasset.Asset, names []uasset.NameEntry) ([]byte, erro
 	}, false); err != nil {
 		return nil, err
 	}
+	if err := patchThumbnailTableFileOffsets(raw, out, asset, func(oldPos int64) int64 {
+		return translateNameMapOffset(oldPos, patches)
+	}); err != nil {
+		return nil, err
+	}
 
+	if err := FinalizePackageBytes(out, asset.Summary.FileVersionUE5); err != nil {
+		return nil, fmt.Errorf("finalize package bytes: %w", err)
+	}
+	return out, nil
+}
+
+// ExpandNamesReferencedFromExportDataCount raises
+// NamesReferencedFromExportDataCount to at least targetCount. This is useful
+// for write flows that append NameMap entries and immediately reference them
+// from export data.
+func ExpandNamesReferencedFromExportDataCount(asset *uasset.Asset, targetCount int32) ([]byte, error) {
+	if asset == nil {
+		return nil, fmt.Errorf("asset is nil")
+	}
+	if len(asset.Raw.Bytes) == 0 {
+		return nil, fmt.Errorf("asset has no raw bytes")
+	}
+	if targetCount < 0 {
+		targetCount = 0
+	}
+	if targetCount > asset.Summary.NameCount {
+		targetCount = asset.Summary.NameCount
+	}
+
+	var order binary.ByteOrder = binary.LittleEndian
+	if asset.Summary.UsesByteSwappedSerialization() {
+		order = binary.BigEndian
+	}
+
+	countFields, err := scanSummaryNameCountFields(asset.Raw.Bytes, asset.Summary.FileVersionUE5)
+	if err != nil {
+		return nil, fmt.Errorf("scan summary name counts: %w", err)
+	}
+	if countFields.NamesReferencedFromExportDataCountPos < 0 {
+		return append([]byte(nil), asset.Raw.Bytes...), nil
+	}
+
+	current, err := readInt32At(asset.Raw.Bytes, countFields.NamesReferencedFromExportDataCountPos, order)
+	if err != nil {
+		return nil, fmt.Errorf("read summary NamesReferencedFromExportDataCount: %w", err)
+	}
+	if current >= targetCount {
+		return append([]byte(nil), asset.Raw.Bytes...), nil
+	}
+
+	out := append([]byte(nil), asset.Raw.Bytes...)
+	if err := writeInt32At(out, countFields.NamesReferencedFromExportDataCountPos, targetCount, order); err != nil {
+		return nil, fmt.Errorf("patch summary NamesReferencedFromExportDataCount: %w", err)
+	}
 	if err := FinalizePackageBytes(out, asset.Summary.FileVersionUE5); err != nil {
 		return nil, fmt.Errorf("finalize package bytes: %w", err)
 	}
@@ -272,7 +326,9 @@ func findNameMapEndOffset(asset *uasset.Asset, raw []byte) (int64, error) {
 
 type summaryNameCountFields struct {
 	NameCountPos                          int
+	ExportCountPos                        int
 	GenerationNameCountPos                []int
+	GenerationExportCountPos              []int
 	NamesReferencedFromExportDataCountPos int
 }
 
@@ -379,6 +435,7 @@ func scanSummaryNameCountFields(data []byte, unversionedFileUE5 int32) (summaryN
 	if _, err := r.readInt32(); err != nil { // GatherableTextDataOffset
 		return fields, err
 	}
+	fields.ExportCountPos = r.off
 	if _, err := r.readInt32(); err != nil { // ExportCount
 		return fields, err
 	}
@@ -451,9 +508,11 @@ func scanSummaryNameCountFields(data []byte, unversionedFileUE5 int32) (summaryN
 		return fields, fmt.Errorf("invalid generation count: %d", generationCount)
 	}
 	for i := int32(0); i < generationCount; i++ {
+		exportPos := r.off
 		if _, err := r.readInt32(); err != nil { // ExportCount
 			return fields, err
 		}
+		fields.GenerationExportCountPos = append(fields.GenerationExportCountPos, exportPos)
 		namePos := r.off
 		if _, err := r.readInt32(); err != nil { // NameCount
 			return fields, err

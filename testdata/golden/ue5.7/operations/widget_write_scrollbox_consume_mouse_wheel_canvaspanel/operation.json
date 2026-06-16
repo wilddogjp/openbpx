@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ScrollBox_1",
+		"property": "scrollbox-consume-mouse-wheel",
+		"value": "Always"
+	},
+	"ue_procedure": "Set ConsumeMouseWheel to Always on the ScrollBox child under the root CanvasPanel on WBP_CanvasPanel_ScrollBox",
+	"expect": "byte_equal",
+	"notes": "Covers ScrollBox consume-mouse-wheel enum rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

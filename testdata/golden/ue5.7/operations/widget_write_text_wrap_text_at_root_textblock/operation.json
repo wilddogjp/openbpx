@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "TextBlock_72",
+		"property": "text-wrap-text-at",
+		"value": "320"
+	},
+	"ue_procedure": "Set WrapTextAt to 320 on the root TextBlock on WBP_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root TextBlock WrapTextAt float insertion across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

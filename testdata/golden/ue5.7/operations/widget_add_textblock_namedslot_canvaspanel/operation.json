@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "CanvasPanel_22/NamedSlot_1",
+		"type": "textblock",
+		"name": "TextBlock_1"
+	},
+	"ue_procedure": "Add one TextBlock child under the NamedSlot child on WBP_CanvasPanel_NamedSlot",
+	"expect": "byte_equal",
+	"notes": "Covers widget-add for a single content child under NamedSlot.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-variable-guid-map-values",
+		"saved-hash"
+	]
+}

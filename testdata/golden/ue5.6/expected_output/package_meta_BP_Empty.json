@@ -5,13 +5,13 @@
     "testdata/golden/parse/BP_Empty.uasset"
   ],
   "expected": {
-    "assetRegistryDataOffset": 7301,
-    "bulkDataStartOffset": 23635,
+    "assetRegistryDataOffset": 7337,
+    "bulkDataStartOffset": 23559,
     "compatibleEngine": {
-      "branch": "",
-      "changelist": 0,
-      "major": 0,
-      "minor": 0,
+      "branch": "++UE5+Release-5.6",
+      "changelist": 43139311,
+      "major": 5,
+      "minor": 6,
       "patch": 0
     },
     "customVersions": [
@@ -57,10 +57,10 @@
       }
     ],
     "dataResourceOffset": 0,
-    "dependsOffset": 7209,
+    "dependsOffset": 7245,
     "exports": {
       "count": 12,
-      "offset": 5865
+      "offset": 5901
     },
     "file": "testdata/golden/parse/BP_Empty.uasset",
     "fileVersionLicensee": 0,
@@ -76,32 +76,30 @@
     "importTypeHierarchiesOffset": 0,
     "imports": {
       "count": 15,
-      "offset": 5265
+      "offset": 5301
     },
     "isUnversioned": false,
     "name": {
       "count": 103,
-      "offset": 526
+      "offset": 562
     },
     "packageFlags": "0x00040000",
     "packageFlagsRaw": 262144,
-    "packageGuid": "5f372743-6d6e-4739-8711-0e92e1e31894",
+    "packageGuid": "dfc23040-1865-449d-9e28-8e3e134c776d",
     "packageName": "/Game/BPXFixtures/Parse/BP_Empty",
-    "persistentGuid": "5f372743-6d6e-4739-8711-0e92e1e31894",
+    "persistentGuid": "dfc23040-1865-449d-9e28-8e3e134c776d",
     "preloadDependencyCount": -1,
-    "preloadDependencyOffset": 18276,
+    "preloadDependencyOffset": 18280,
     "savedByEngine": {
-      "branch": "",
-      "changelist": 0,
-      "major": 0,
-      "minor": 0,
-      "patch": 0
+      "branch": "++UE5+Release-5.6",
+      "changelist": 44394996,
+      "major": 5,
+      "minor": 6,
+      "patch": 1
     },
-    "savedHash": "46a7f2fa88411e596df64f48980fb570529340e7",
+    "savedHash": "b32019b761c4b825f7be11deafd730d214061207",
     "thumbnailTableOffset": 0
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "package_meta_BP_Empty",
   "oracle": "ue-fixture"
 }

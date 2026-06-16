@@ -1,0 +1,15 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "Button_1",
+		"property": "button-normal-image-size",
+		"value": "96,48"
+	},
+	"ue_procedure": "Set Button_1 normal state brush image size on WBP_ButtonVisualSmoke",
+	"expect": "byte_equal",
+	"notes": "Covers Button.WidgetStyle.Normal.ImageSize write using DeprecateSlateVector2D payload semantics.",
+	"ignore_package_sections": [
+		"editor-thumbnails"
+	]
+}

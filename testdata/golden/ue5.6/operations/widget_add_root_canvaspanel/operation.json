@@ -1,0 +1,16 @@
+{
+  "command": "blueprint widget-add",
+  "args": {
+    "parent": "root",
+    "type": "canvaspanel",
+    "name": "CanvasPanel_21"
+  },
+  "ue_procedure": "Open WBP_Minimum, create a root CanvasPanel named CanvasPanel_21, save, and let UE compile the WidgetBlueprint.",
+  "expect": "byte_equal",
+  "notes": "Covers widget-add root creation on an empty WidgetBlueprint by creating designer/generated CanvasPanel root widgets and wiring WidgetTree RootWidget/AllWidgets.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "saved-hash",
+    "widget-variable-guid-map-values"
+  ]
+}

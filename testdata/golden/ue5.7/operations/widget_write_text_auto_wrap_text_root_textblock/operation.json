@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "TextBlock_72",
+		"property": "text-auto-wrap-text",
+		"value": "true"
+	},
+	"ue_procedure": "Enable AutoWrapText on the root TextBlock on WBP_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root TextBlock AutoWrapText bool insertion across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

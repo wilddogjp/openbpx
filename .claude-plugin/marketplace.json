@@ -1,0 +1,31 @@
+{
+  "name": "openbpx",
+  "owner": {
+    "name": "Wild Dog, Inc."
+  },
+  "metadata": {
+    "description": "OpenBPX Claude Code plugins for Unreal Engine asset inspection and safe edit workflows.",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "openbpx",
+      "source": "./",
+      "description": "BPX plugin for Unreal Engine asset inspection and safe edit workflows.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Wild Dog, Inc.",
+        "url": "https://wilddog.jp"
+      },
+      "category": "coding",
+      "tags": [
+        "bpx",
+        "openbpx",
+        "unreal-engine",
+        "uasset",
+        "umap",
+        "blueprint"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ScaleBox_1",
+		"property": "scalebox-user-specified-scale",
+		"value": "1.25"
+	},
+	"ue_procedure": "Set UserSpecifiedScale to 1.25 on the ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox",
+	"expect": "byte_equal",
+	"notes": "Covers ScaleBox user-specified scale rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

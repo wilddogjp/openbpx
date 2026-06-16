@@ -11,14 +11,9 @@
     "directory": "testdata/golden/parse",
     "edges": [
       {
-        "count": 27,
+        "count": 18,
         "from": "/Game/BPXFixtures/Parse/BP_Empty",
         "to": "/Script/Engine"
-      },
-      {
-        "count": 12,
-        "from": "/Game/BPXFixtures/Parse/BP_Empty",
-        "to": "/Script/BlueprintGraph"
       },
       {
         "count": 9,
@@ -43,6 +38,11 @@
       {
         "count": 9,
         "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 9,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty_StringTableRef",
         "to": "/Script/Engine"
       },
       {
@@ -112,18 +112,53 @@
       },
       {
         "count": 8,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 8,
         "from": "/Game/BPXFixtures/Parse/BP_Mid",
         "to": "/Script/Engine"
       },
       {
-        "count": 6,
-        "from": "/Game/BPXFixtures/Parse/BP_Empty",
-        "to": "/Script/CoreUObject"
+        "count": 8,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "/Script/UMG"
+      },
+      {
+        "count": 8,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "/Script/UMG"
+      },
+      {
+        "count": 8,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "/Script/UMG"
       },
       {
         "count": 6,
         "from": "/Game/BPXFixtures/Parse/BP_MathTypes",
         "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 6,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "/Script/UMG"
+      },
+      {
+        "count": 6,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "/Script/UMG"
+      },
+      {
+        "count": 6,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "/Script/UMG"
+      },
+      {
+        "count": 6,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "/Script/UMG"
       },
       {
         "count": 5,
@@ -134,6 +169,11 @@
         "count": 5,
         "from": "/Game/BPXFixtures/Parse/BP_Mid",
         "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 5,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "/Script/UMG"
       },
       {
         "count": 4,
@@ -158,6 +198,16 @@
       {
         "count": 4,
         "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 4,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 4,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty_StringTableRef",
         "to": "/Script/BlueprintGraph"
       },
       {
@@ -251,6 +301,86 @@
         "to": "/Script/Engine"
       },
       {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "/Script/UMGEditor"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "/Script/BlueprintGraph"
+      },
+      {
+        "count": 3,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "/Script/UMGEditor"
+      },
+      {
         "count": 2,
         "from": "/Game/BPXFixtures/Parse/BP_AllScalarTypes",
         "to": "/Script/CoreUObject"
@@ -278,6 +408,11 @@
       {
         "count": 2,
         "from": "/Game/BPXFixtures/Parse/BP_DependsMap",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/BP_Empty_StringTableRef",
         "to": "/Script/CoreUObject"
       },
       {
@@ -359,9 +494,169 @@
         "count": 2,
         "from": "/Game/BPXFixtures/Parse/S_PlayerData",
         "to": "/Script/UnrealEd"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "/Script/CoreUObject"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "/Script/Engine"
+      },
+      {
+        "count": 2,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "/Script/SlateCore"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_RichTextBlock",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_CanvasPanel_TextBlock",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_Minimum",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_Overlay_TextBlock",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_RichTextBlock",
+        "to": "<none>"
+      },
+      {
+        "count": 1,
+        "from": "/Game/BPXFixtures/Parse/WBP_TextBlock",
+        "to": "<none>"
       }
     ],
-    "fileCount": 28,
+    "fileCount": 36,
     "filter": "",
     "groupBy": "root",
     "objectCounts": {
@@ -373,26 +668,26 @@
       "/Game/BPXFixtures/Parse/BP_Mid:/Game/BPXFixtures/Parse/BP_Mid": 1,
       "/Game/BPXFixtures/Parse/BP_Mid:BP_Mid_C": 1,
       "/Game/BPXFixtures/Parse/BP_Mid:Default__BP_Mid_C": 1,
-      "/Script/BlueprintGraph:/Script/BlueprintGraph": 22,
-      "/Script/BlueprintGraph:EdGraphSchema_K2": 22,
+      "/Script/BlueprintGraph:/Script/BlueprintGraph": 30,
+      "/Script/BlueprintGraph:EdGraphSchema_K2": 30,
       "/Script/BlueprintGraph:K2Node_CallParentFunction": 2,
-      "/Script/BlueprintGraph:K2Node_Event": 22,
+      "/Script/BlueprintGraph:K2Node_Event": 30,
       "/Script/BlueprintGraph:K2Node_FunctionEntry": 22,
-      "/Script/CoreUObject:/Script/CoreUObject": 23,
+      "/Script/CoreUObject:/Script/CoreUObject": 31,
       "/Script/CoreUObject:LinearColor": 1,
-      "/Script/CoreUObject:Object": 22,
+      "/Script/CoreUObject:Object": 30,
       "/Script/CoreUObject:Rotator": 2,
       "/Script/CoreUObject:Transform": 1,
       "/Script/CoreUObject:UserDefinedStruct": 1,
       "/Script/CoreUObject:Vector": 2,
-      "/Script/Engine:/Script/Engine": 27,
+      "/Script/Engine:/Script/Engine": 35,
       "/Script/Engine:Actor": 22,
       "/Script/Engine:AssetImportData": 2,
       "/Script/Engine:Blueprint": 22,
       "/Script/Engine:BlueprintGeneratedClass": 22,
       "/Script/Engine:DataTable": 2,
       "/Script/Engine:Default__Actor": 20,
-      "/Script/Engine:EdGraph": 22,
+      "/Script/Engine:EdGraph": 30,
       "/Script/Engine:MaterialInstanceConstant": 1,
       "/Script/Engine:MaterialInstanceEditorOnlyData": 1,
       "/Script/Engine:SCS_Node": 22,
@@ -401,8 +696,25 @@
       "/Script/Engine:StringTable": 1,
       "/Script/Engine:TableRowBase": 2,
       "/Script/Engine:UserDefinedEnum": 1,
+      "/Script/SlateCore:/Script/SlateCore": 8,
+      "/Script/SlateCore:Geometry": 8,
+      "/Script/UMG:/Script/UMG": 8,
+      "/Script/UMG:CanvasPanel": 3,
+      "/Script/UMG:CanvasPanelSlot": 2,
+      "/Script/UMG:Default__UserWidget": 8,
+      "/Script/UMG:Overlay": 2,
+      "/Script/UMG:OverlaySlot": 1,
+      "/Script/UMG:RichTextBlock": 2,
+      "/Script/UMG:TextBlock": 3,
+      "/Script/UMG:UserWidget": 8,
+      "/Script/UMG:WidgetBlueprintGeneratedClass": 8,
+      "/Script/UMG:WidgetTree": 8,
+      "/Script/UMGEditor:/Script/UMGEditor": 8,
+      "/Script/UMGEditor:Default__WidgetBlueprint": 8,
+      "/Script/UMGEditor:WidgetBlueprint": 8,
       "/Script/UnrealEd:/Script/UnrealEd": 1,
-      "/Script/UnrealEd:UserDefinedStructEditorData": 1
+      "/Script/UnrealEd:UserDefinedStructEditorData": 1,
+      "WidgetTree": 8
     },
     "parseFailCount": 0,
     "parseFailures": [],
@@ -411,14 +723,16 @@
     "rootCounts": {
       "/Engine/EngineMaterials": 2,
       "/Game/BPXFixtures": 6,
-      "/Script/BlueprintGraph": 90,
-      "/Script/CoreUObject": 52,
-      "/Script/Engine": 211,
-      "/Script/UnrealEd": 2
+      "/Script/BlueprintGraph": 114,
+      "/Script/CoreUObject": 68,
+      "/Script/Engine": 227,
+      "/Script/SlateCore": 16,
+      "/Script/UMG": 53,
+      "/Script/UMGEditor": 24,
+      "/Script/UnrealEd": 2,
+      "<none>": 8
     }
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "import_graph_parse_group_by_root",
   "oracle": "ue-fixture"
 }

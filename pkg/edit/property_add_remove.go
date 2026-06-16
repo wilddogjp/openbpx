@@ -37,12 +37,24 @@ type PropertyRemoveResult struct {
 type propertyAddSpec struct {
 	Name       string
 	Type       string
+	Flags      uint8
 	ArrayIndex int32
 	Value      any
 }
 
 // BuildPropertyAddMutation builds one export mutation for `bpx prop add`.
 func BuildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON string) (*PropertyAddResult, error) {
+	return buildPropertyAddMutation(asset, exportIndex, specJSON, "")
+}
+
+// BuildPropertyAddMutationBefore builds one export mutation for `bpx prop add`
+// and inserts the new top-level property immediately before another top-level
+// property when it exists on the target export.
+func BuildPropertyAddMutationBefore(asset *uasset.Asset, exportIndex int, specJSON string, beforeProperty string) (*PropertyAddResult, error) {
+	return buildPropertyAddMutation(asset, exportIndex, specJSON, beforeProperty)
+}
+
+func buildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON string, beforeProperty string) (*PropertyAddResult, error) {
 	if asset == nil {
 		return nil, fmt.Errorf("asset is nil")
 	}
@@ -92,7 +104,14 @@ func BuildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON str
 
 	coerced, err := coerceForType(asset, rootTypeNode.Name, nil, spec.Value)
 	if err != nil {
-		return nil, fmt.Errorf("coerce value for %s: %w", spec.Name, err)
+		if strings.EqualFold(rootTypeNode.Name, "ArrayProperty") {
+			coerced, err = coerceArrayPropertyAddValue(asset, rootTypeNode, spec.Value)
+		} else if strings.EqualFold(rootTypeNode.Name, "MapProperty") {
+			coerced, err = coerceMapPropertyAddValue(asset, rootTypeNode, spec.Value)
+		}
+		if err != nil {
+			return nil, fmt.Errorf("coerce value for %s: %w", spec.Name, err)
+		}
 	}
 	var order binary.ByteOrder = binary.LittleEndian
 	if asset.Summary.UsesByteSwappedSerialization() {
@@ -103,7 +122,7 @@ func BuildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON str
 		return nil, fmt.Errorf("encode property %s: %w", spec.Name, err)
 	}
 
-	flags := uint8(0)
+	flags := spec.Flags
 	if spec.ArrayIndex != 0 {
 		flags |= propertyFlagHasArrayIndex
 	}
@@ -126,8 +145,14 @@ func BuildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON str
 		return nil, fmt.Errorf("invalid property bounds while rewriting")
 	}
 
+	insertBefore := strings.TrimSpace(beforeProperty)
+	insertedTag := false
 	tagBlob := append([]byte{}, asset.Raw.Bytes[propertyStart:prefixEnd]...)
 	for i, p := range parsed.Properties {
+		if !insertedTag && insertBefore != "" && p.Name.Display(asset.Names) == insertBefore {
+			tagBlob = append(tagBlob, serializedTag...)
+			insertedTag = true
+		}
 		tagStart := p.Offset
 		tagEnd := noneStart
 		if i+1 < len(parsed.Properties) {
@@ -138,7 +163,9 @@ func BuildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON str
 		}
 		tagBlob = append(tagBlob, asset.Raw.Bytes[tagStart:tagEnd]...)
 	}
-	tagBlob = append(tagBlob, serializedTag...)
+	if !insertedTag {
+		tagBlob = append(tagBlob, serializedTag...)
+	}
 
 	noneBytes := asset.Raw.Bytes[noneStart:parsed.EndOffset]
 	tagBlob = append(tagBlob, noneBytes...)
@@ -181,6 +208,91 @@ func BuildPropertyAddMutation(asset *uasset.Asset, exportIndex int, specJSON str
 		NewSize:      newSize,
 		ByteDelta:    len(newPayload) - (serialEnd - serialStart),
 	}, nil
+}
+
+func coerceArrayPropertyAddValue(asset *uasset.Asset, rootTypeNode *typeTreeNode, input any) (any, error) {
+	if rootTypeNode == nil || !strings.EqualFold(rootTypeNode.Name, "ArrayProperty") {
+		return nil, fmt.Errorf("property type is not ArrayProperty")
+	}
+	if len(rootTypeNode.Children) == 0 {
+		return nil, fmt.Errorf("array type has no child type")
+	}
+	items, err := toAnySlice(input)
+	if err != nil {
+		return nil, fmt.Errorf("array replacement requires JSON array")
+	}
+	elemType := rootTypeNode.Children[0].Name
+	wrapped := make([]any, 0, len(items))
+	for _, item := range items {
+		coerced, err := coerceForType(asset, elemType, nil, item)
+		if err != nil {
+			return nil, err
+		}
+		wrapped = append(wrapped, map[string]any{
+			"type":  elemType,
+			"value": coerced,
+		})
+	}
+	return map[string]any{
+		"arrayType": elemType,
+		"value":     wrapped,
+	}, nil
+}
+
+func coerceMapPropertyAddValue(asset *uasset.Asset, rootTypeNode *typeTreeNode, input any) (any, error) {
+	if rootTypeNode == nil || !strings.EqualFold(rootTypeNode.Name, "MapProperty") {
+		return nil, fmt.Errorf("property type is not MapProperty")
+	}
+	if len(rootTypeNode.Children) < 2 {
+		return nil, fmt.Errorf("map type has insufficient child types")
+	}
+	inMap, ok := input.(map[string]any)
+	if !ok {
+		return nil, fmt.Errorf("map replacement requires JSON object")
+	}
+	keyType := rootTypeNode.Children[0].Name
+	valueType := rootTypeNode.Children[1].Name
+
+	entries, err := toMapEntrySlice(inMap["value"])
+	if err != nil {
+		return nil, err
+	}
+	wrappedEntries := make([]map[string]any, 0, len(entries))
+	for _, entry := range entries {
+		keyVal := extractWrappedValue(entry["key"])
+		valVal := extractWrappedValue(entry["value"])
+		coercedKey, err := coerceForType(asset, keyType, nil, keyVal)
+		if err != nil {
+			return nil, err
+		}
+		coercedValue, err := coerceForType(asset, valueType, nil, valVal)
+		if err != nil {
+			return nil, err
+		}
+		wrappedEntries = append(wrappedEntries, map[string]any{
+			"key": map[string]any{
+				"type":  keyType,
+				"value": coercedKey,
+			},
+			"value": map[string]any{
+				"type":  valueType,
+				"value": coercedValue,
+			},
+		})
+	}
+
+	out := map[string]any{
+		"keyType":   keyType,
+		"valueType": valueType,
+		"value":     wrappedEntries,
+	}
+	if replaceMap, ok := inMap["replaceMap"].(bool); ok {
+		out["replaceMap"] = replaceMap
+	}
+	if removed, ok := inMap["removed"]; ok {
+		out["removed"] = removed
+	}
+	return out, nil
 }
 
 // BuildPropertyRemoveMutation builds one export mutation for `bpx prop remove`.
@@ -346,9 +458,22 @@ func parsePropertyAddSpec(specJSON string) (*propertyAddSpec, error) {
 		arrayIndex = int32(i64)
 	}
 
+	flags := uint8(0)
+	if v, exists := raw["flags"]; exists {
+		i64, err := asInt64(v)
+		if err != nil {
+			return nil, fmt.Errorf("invalid spec.flags: %w", err)
+		}
+		if i64 < 0 || i64 > int64(^uint8(0)) {
+			return nil, fmt.Errorf("spec.flags out of range: %d", i64)
+		}
+		flags = uint8(i64)
+	}
+
 	return &propertyAddSpec{
 		Name:       name,
 		Type:       typeName,
+		Flags:      flags,
 		ArrayIndex: arrayIndex,
 		Value:      value,
 	}, nil
@@ -359,16 +484,32 @@ func parsePropertyTypeNodesForAdd(asset *uasset.Asset, typeName string) (*typeTr
 	if normalized == "" {
 		return nil, nil, fmt.Errorf("spec.type is required")
 	}
-	if strings.ContainsAny(typeName, "(),") || normalized != typeName {
-		return nil, nil, fmt.Errorf("spec.type currently supports only non-nested types, got %q", typeName)
-	}
-	typeRef, err := resolveNameRef(asset, normalized)
+	tree, err := parseTypeExpression(typeName)
 	if err != nil {
 		return nil, nil, err
 	}
-	return &typeTreeNode{Name: normalized}, []uasset.PropertyTypeNode{
-		{Name: typeRef, InnerCount: 0},
-	}, nil
+	nodes := make([]uasset.PropertyTypeNode, 0, 8)
+	var walk func(n *typeTreeNode) error
+	walk = func(n *typeTreeNode) error {
+		ref, err := resolveNameRef(asset, n.Name)
+		if err != nil {
+			return err
+		}
+		nodes = append(nodes, uasset.PropertyTypeNode{
+			Name:       ref,
+			InnerCount: int32(len(n.Children)),
+		})
+		for _, child := range n.Children {
+			if err := walk(child); err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+	if err := walk(tree); err != nil {
+		return nil, nil, err
+	}
+	return tree, nodes, nil
 }
 
 func resolveNameRef(asset *uasset.Asset, value string) (uasset.NameRef, error) {

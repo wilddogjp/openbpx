@@ -25,20 +25,20 @@
         "arrayIndex": 0,
         "flags": 0,
         "name": "NavigationSystemConfig",
-        "offset": 4633,
+        "offset": 4669,
         "size": 4,
         "type": "ObjectProperty",
         "value": {
           "index": 7,
           "resolved": "export:7:NavigationSystemModuleConfig_0"
         },
-        "valueOffset": 4658
+        "valueOffset": 4694
       },
       {
         "arrayIndex": 0,
         "flags": 0,
         "name": "BookmarkArray",
-        "offset": 4662,
+        "offset": 4698,
         "size": 44,
         "type": "ArrayProperty(ObjectProperty)",
         "value": {
@@ -116,27 +116,25 @@
             }
           ]
         },
-        "valueOffset": 4699
+        "valueOffset": 4735
       },
       {
         "arrayIndex": 0,
         "flags": 8,
         "name": "ActorGuid",
-        "offset": 4743,
+        "offset": 4779,
         "size": 16,
         "type": "StructProperty(Guid(/Script/CoreUObject))",
         "value": {
           "structType": "Guid",
-          "value": "0e1f0404-2f48-440d-ba34-e86a3ed1b43f"
+          "value": "bbaf4ed8-7d8d-433b-9219-931d3ababfbe"
         },
-        "valueOffset": 4792
+        "valueOffset": 4828
       }
     ],
     "selector": "LyraWorldSettings",
     "warnings": null
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "level_var_list_L_Minimal_LyraWorldSettings",
   "oracle": "ue-fixture"
 }

@@ -1,0 +1,18 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "CanvasPanel_1/Border_1",
+		"type": "image",
+		"name": "Image_1"
+	},
+	"ue_procedure": "Add one bare Image child under the existing Border_1 child on WBP_CanvasPanel_Border",
+	"expect": "byte_equal",
+	"notes": "Covers widget-add follow-up under a single-child Border wrapper nested below a root CanvasPanel.",
+	"ignore_package_sections": [
+		"saved-hash",
+		"editor-thumbnails",
+		"widget-variable-guid-map-values",
+		"blueprint-search-tail"
+	]
+}

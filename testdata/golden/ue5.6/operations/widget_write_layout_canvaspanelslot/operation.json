@@ -1,0 +1,15 @@
+{
+  "command": "blueprint widget-write",
+  "args": {
+    "widget": "CanvasPanel_22/Image_29",
+    "property": "layout-data",
+    "value": "{\"position\":[0,0],\"size\":[200,60],\"anchors\":[0.5,0.5,0.5,0.5],\"alignment\":[0.5,0.5]}"
+  },
+  "ue_procedure": "Open WBP_CanvasPanel_Image, select Image_29, set the CanvasPanelSlot anchors to center/center, alignment to 0.5/0.5, position to 0/0, and size to 200/60, then save and let UE compile the WidgetBlueprint.",
+  "expect": "byte_equal",
+  "notes": "Covers full CanvasPanelSlot LayoutData rewrite in one command so BPX can match a UE-authored slot layout change fixture.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "saved-hash"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "TextBlock_72",
+		"property": "text-shadow-color-and-opacity",
+		"value": "0.05,0.1,0.15,0.8"
+	},
+	"ue_procedure": "Set ShadowColorAndOpacity on the root TextBlock on WBP_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root TextBlock shadow-color rewrite inside the text style payload.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

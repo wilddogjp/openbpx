@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/RetainerBox_1",
+		"property": "retainerbox-render-on-invalidation",
+		"value": "false"
+	},
+	"ue_procedure": "Disable RenderOnInvalidation on the RetainerBox child under the root CanvasPanel on WBP_CanvasPanel_RetainerBox",
+	"expect": "byte_equal",
+	"notes": "Covers RetainerBox render-on-invalidation bool rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

@@ -1,391 +1,391 @@
 {
   "version": 1,
-  "generated": "2026-03-08",
+  "generated": "2026-04-27",
   "fixtures": [
     {
       "path": "golden/ue5.6/expected_output/blueprint_bytecode_BP_WithFunctions_export5.json",
-      "sha256": "b33d7b42647f6b081e2b01422ec4f4ade4a3b395649fc8ddfdf28d131b6b3cea",
-      "size_bytes": 1038
+      "sha256": "490a301a1b5d22ca0432fe1879236851d1f912fbead418db54570265ac5c1b6e",
+      "size_bytes": 949
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_call_args_BP_Empty_member_OpenLevelBySoftObjectPtr.json",
-      "sha256": "c5c509ba3410a500457b305d8f23dc7f2d585787772bf66f83bd431f4c86cd06",
-      "size_bytes": 600
+      "sha256": "38e2d3bdb4b8120b61815a6ded368435a001be84b7c46701bd7c17d3acf8a5ca",
+      "size_bytes": 511
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_disasm_BP_WithFunctions_export5_json.json",
-      "sha256": "98d55412b762471144a00cf2acd26e7c90ffb3cd38affadcb82b0231afa1380c",
-      "size_bytes": 1063
+      "sha256": "07bafb3e48f1151293d0559616049dc065b93aab63bafc431f819f7e9e3a7aab",
+      "size_bytes": 974
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_infer_pack_BP_WithFunctions_export5.json",
-      "sha256": "c005f39b6d3639927e4ae9db1240bc9286dfd8c4418f49c7a6c86ad30c915369",
-      "size_bytes": 800
+      "sha256": "0c45632b444016949ffa0dabc81dd91d59a13ad8a2453ba28c185e302516d376",
+      "size_bytes": 711
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_info_BP_WithFunctions.json",
-      "sha256": "bb30fcaa8b10466d0f7e5869690a5b5e7a299cbcb1fae8a24727e4c99cf53247",
-      "size_bytes": 13054
+      "sha256": "a8e31b516f160aa4f7cb4442ce5ba60c4d67d78785693fd1e3f7c0cca01e5448",
+      "size_bytes": 12965
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_refs_BP_Empty_softpath_L_TestTitle.json",
-      "sha256": "46fa3c3fc670c1a6e9b6266a5e05209c1f209ab020dcecbb5f27c36e8f9f67d4",
-      "size_bytes": 640
+      "sha256": "afe080005683ff46d4b436e0fc44e8e0e08ad19c014106e7ba2aa587f20ddb79",
+      "size_bytes": 551
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_scan_functions_parse_recursive.json",
-      "sha256": "7706ad54242f87a8bead6cb48402ec9200c9c1727b3dfcf4fd2e732bcfe36635",
-      "size_bytes": 3308
+      "sha256": "237dd76ba5d2f0515b3dad35a69685f8db85aebce87af83fe76a916f929563a3",
+      "size_bytes": 3219
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_scan_functions_parse_recursive_aggregate.json",
-      "sha256": "b9478a470175dd9122745add5386ee9f36f00708bad9473316b165c62cd9cea0",
-      "size_bytes": 3337
+      "sha256": "91dc626cb8628172cce2e2d3f53ee697a7cec0372fd1a4ef80e702d019a96404",
+      "size_bytes": 3248
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_search_BP_Empty_class_K2Node_Event_show_NodePos_Function.json",
-      "sha256": "ebad74b16a80db89a70ef52d2267b2ac250322735b8c27362a9a2b94723c8fe7",
-      "size_bytes": 2362
+      "sha256": "e5d0c59fc0d0d030b106f33f1ac6ce12097f7f2a35c541c1e6e3ebfb6610ba3e",
+      "size_bytes": 2273
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_trace_BP_Empty_K2Node_Event_0_to_UserConstructionScript.json",
-      "sha256": "9fe91cefaf870788ddab8ddb3e429feedb9d7438bc345f01f061e938fce2355c",
-      "size_bytes": 857
+      "sha256": "65144b5cf8b77ce84a9d54736327886fbd1b685c86bbe25bfd25a37ada9c1df4",
+      "size_bytes": 768
     },
     {
       "path": "golden/ue5.6/expected_output/class_BP_Empty_export2.json",
-      "sha256": "4d68948854b205fbb3f69a0d561954e3d23989760a994fe02cf03d2afa3005cd",
-      "size_bytes": 1073
+      "sha256": "a99e70f827434e82c0e0bad520979b4b3d69df069130311953e0e42ef3f12197",
+      "size_bytes": 984
     },
     {
       "path": "golden/ue5.6/expected_output/datatable_read_DT_Complex.json",
-      "sha256": "71b8a099fff17f825476cd431f0aa50639faad4542896fe12f4eb35c788eed49",
-      "size_bytes": 3333
+      "sha256": "a21d7bd5fca3cd260b96ee641d0bad2ccbebb480d20eebec841bb22c0557b61c",
+      "size_bytes": 3244
     },
     {
       "path": "golden/ue5.6/expected_output/datatable_read_DT_Simple.json",
-      "sha256": "e3f297dbcdc541b157955a6dffa32f0248cbbdb476586bffc97083bb6461051e",
-      "size_bytes": 3329
+      "sha256": "ac1c9a9d8867909e033a9e35828268d735afcf8d2cd22f42051543dba0beaf1d",
+      "size_bytes": 3240
     },
     {
       "path": "golden/ue5.6/expected_output/dump_BP_Empty_json.json",
-      "sha256": "5c91f23e48144853776da1ea99dd9a2e3ec1bde5452c7ffc7aa6fa46be539cb4",
-      "size_bytes": 34899
+      "sha256": "93113bf6b3fa10fbc88011e184d7cf6a56d3be1d54e0812705ba668f0f45f03a",
+      "size_bytes": 34856
     },
     {
       "path": "golden/ue5.6/expected_output/enum_list_E_Direction.json",
-      "sha256": "6783d1e06d81c3c977b24e38f6fd73bd2ea668a6ac13a22ce3a66e7c45a01ec9",
-      "size_bytes": 753
+      "sha256": "fec399829e68fe9a3ea6dfe136cf9fefee4124a1564a62379af98120053d5061",
+      "size_bytes": 664
     },
     {
       "path": "golden/ue5.6/expected_output/export_info_BP_Empty_export2.json",
-      "sha256": "79c73f55811250b0901d07a7f884eb2736a4494dd8bff90e975191d9b6cb223b",
-      "size_bytes": 1390
+      "sha256": "717e1b3e5e6baa2b592945062fa3cf70f32e97ea9b459a073c169cdff5b292ba",
+      "size_bytes": 1301
     },
     {
       "path": "golden/ue5.6/expected_output/export_list_BP_Empty.json",
-      "sha256": "6ade2034e1d5660b4d7fdf5532dd77cb4542a036b5a8bc53aae4a2d981b9ca94",
-      "size_bytes": 3390
+      "sha256": "f1b04c623fab8d9c22242bd5ba5274d6918eb867771ee093b173c2bd481b3943",
+      "size_bytes": 3301
     },
     {
       "path": "golden/ue5.6/expected_output/export_list_BP_ManyImports.json",
-      "sha256": "692de38138ad980f6841c3c8f6072485ade5bce06112ce5d74176ead1f9dddd7",
-      "size_bytes": 3432
+      "sha256": "499da5e60c98978dd238128dd0d1e57804bbcdef6ad6f9614620c968b61b9f43",
+      "size_bytes": 3343
     },
     {
       "path": "golden/ue5.6/expected_output/export_list_BP_SimpleVars.json",
-      "sha256": "de25e1572fc272cf797b17e2a7f624e480249c0c3835103f9ed14f2dc390c65f",
-      "size_bytes": 3428
+      "sha256": "939350310b1ce16885fbf3a1f7490d4b68450af8563b01d2014d1efba026d247",
+      "size_bytes": 3339
     },
     {
       "path": "golden/ue5.6/expected_output/export_list_DT_Simple.json",
-      "sha256": "52ad80045e038e4e85e976f3e09a62a3d9b171fd06266665276e538ad994e1a9",
-      "size_bytes": 864
+      "sha256": "1aecb831d1541884ea67a53ff97c4bf43d5305d588a28fc58d6eeef214afa2f8",
+      "size_bytes": 775
     },
     {
       "path": "golden/ue5.6/expected_output/find_assets_parse_recursive.json",
-      "sha256": "fdd8bb6ed03e4dc3d1084d7634bfcf080c431840abdc512f6697bc3796e32ea3",
-      "size_bytes": 1873
+      "sha256": "0dd2b4273e378bbda651552b5e2f1ba3ca3bad58a72ab58862149f36a4cfbda8",
+      "size_bytes": 2238
     },
     {
       "path": "golden/ue5.6/expected_output/find_summary_parse_recursive.json",
-      "sha256": "0b194d9048996b747944b2ddd94dce870fbdb6bfc77dc658d38cb016a8b8ddd1",
-      "size_bytes": 1931
+      "sha256": "564bf2a9221d2d1cec607c23b392af485081cef124679fa9e5ec4ea97689d791",
+      "size_bytes": 2296
     },
     {
       "path": "golden/ue5.6/expected_output/import_graph_parse_group_by_object.json",
-      "sha256": "0dce5d11e3b804d98e530092b3459a93df876dc114337aa5181150000dca1e1f",
-      "size_bytes": 50171
+      "sha256": "e70c299fd535f37a208b6633586e9347df9617ad14e609d6dc7b113ede03e825",
+      "size_bytes": 76123
     },
     {
       "path": "golden/ue5.6/expected_output/import_graph_parse_group_by_root.json",
-      "sha256": "9248ba9dbbdaa8202f714ef984377049b7f746fba8e3792e6bb359bdf0ede74c",
-      "size_bytes": 11653
+      "sha256": "7e19e6ab39b3fd1f3eae4c4bf0a563cb8bbd6a9385c4f03a508d14a841e9a345",
+      "size_bytes": 20097
     },
     {
       "path": "golden/ue5.6/expected_output/import_list_BP_ManyImports.json",
-      "sha256": "156c8e96e9d720268243360369a02f34dbcc62d57b43dc609bd83762da56d4b6",
-      "size_bytes": 4781
+      "sha256": "20506748023a588881b49aaff701e6b6eb664f8b8ec53a6dcaa52b8b8f8acb32",
+      "size_bytes": 4692
     },
     {
       "path": "golden/ue5.6/expected_output/import_search_BP_ManyImports_object_actor.json",
-      "sha256": "ac99dcc4532e4c52a3f0b4b4cb1227e4717e6029d4901e3e44eab262b38a235e",
-      "size_bytes": 1099
+      "sha256": "4e2e437c485523881a5bfe6965b71a489a8fbeaad6fd8fb96a9241c1c43ae10d",
+      "size_bytes": 1010
     },
     {
       "path": "golden/ue5.6/expected_output/info_BP_Empty.json",
-      "sha256": "18cfdf71ef124ea75841d6918c1822c3dd3c33c92e132a2678768de7420e3294",
-      "size_bytes": 737
+      "sha256": "1c36d85bdca1069cf0827a8769f2b9b398bfe5e714d6beec961096c23f8faf90",
+      "size_bytes": 672
     },
     {
       "path": "golden/ue5.6/expected_output/info_BP_SimpleVars.json",
-      "sha256": "b79bcb4efed3acc9efba1fccb6fc4f87c5f4148cf72f3806a9a28b9043c059fb",
-      "size_bytes": 757
+      "sha256": "ddc430a7a66dbcd2ddaf3e485f26208183393b77d69fb6c5a176c4a6b177a2c4",
+      "size_bytes": 692
     },
     {
       "path": "golden/ue5.6/expected_output/info_DT_Simple.json",
-      "sha256": "4da1b3a74a0f2b9e8e3e1f5eb870def9cb432ee30930ac18619236d0735a788d",
-      "size_bytes": 731
+      "sha256": "5a5764e118160c1da093848bbf9ad3ec762f62944794ba36628f6f803310c288",
+      "size_bytes": 666
     },
     {
       "path": "golden/ue5.6/expected_output/info_E_Direction.json",
-      "sha256": "37b9545c24d2efd376a75bbdc2e30e6f10abee70d8e00bff1b1c19f6e606c1c9",
-      "size_bytes": 737
+      "sha256": "c98a1899d65afa9289e3b182dade7ffa49ca45caf1d0cd91793ff9b95ae3f519",
+      "size_bytes": 672
     },
     {
       "path": "golden/ue5.6/expected_output/info_S_PlayerData.json",
-      "sha256": "9bab9866479af4a91ed47e21410a35698a7af7508a4c407e77b97feefa7cc239",
-      "size_bytes": 741
+      "sha256": "e8a99598984a5d7e7a57036c63b2a6eec6f7b9860572a4cfdbc315984b807e0c",
+      "size_bytes": 676
     },
     {
       "path": "golden/ue5.6/expected_output/level_actor_search_L_Minimal_actor_class_LyraWorldSettings.json",
-      "sha256": "bce72e820cb2c9cac12ab8bb5c39c9bb0d392b1e0d88fdf6474abba222486cdc",
-      "size_bytes": 986
+      "sha256": "80833378ff2b896961eb7cac262927310fc1d7be8efbd20bdc077214282cdfc7",
+      "size_bytes": 897
     },
     {
       "path": "golden/ue5.6/expected_output/level_info_L_Minimal_export1.json",
-      "sha256": "e392f33f54959944875a4af4069653a46dcd9fc29aad80751c06b39732db7e3f",
-      "size_bytes": 2997
+      "sha256": "41588649f468f0d69be57d8c0964088dc18f7ee3b0111f94a8fef26889148878",
+      "size_bytes": 2908
     },
     {
       "path": "golden/ue5.6/expected_output/level_var_list_L_Minimal_LyraWorldSettings.json",
-      "sha256": "8ae18b1923a08dcf48c590b3e35162d92c181d5cb8602ec7fc933a82761fbea3",
-      "size_bytes": 3492
+      "sha256": "0b7f1be488b3d9e491eb85ee664fd92c1a131f78b7557a359f91c8e760ac4da8",
+      "size_bytes": 3403
     },
     {
       "path": "golden/ue5.6/expected_output/localization_query_BP_Empty_StringTableRef_export11_key_UI_Start.json",
-      "sha256": "d8e0182eac5fb801b55d791644696deb2233d022bb2ac6764f6cd010bd2c140e",
-      "size_bytes": 767
+      "sha256": "ba1a974ae75f0707962a0b0cf2069f5d64ec95829c5ca525de42a1134dfdefb9",
+      "size_bytes": 575
     },
     {
       "path": "golden/ue5.6/expected_output/localization_read_BP_Empty_StringTableRef_export11.json",
-      "sha256": "ace51950164275fca698956e926348dd5ee34ee29a20b2b5f7e88047ffb021f8",
-      "size_bytes": 1407
+      "sha256": "c3c61b618ddce58d8e77606912672d5eb18f82155f10a9cdc8f594e60d2056b3",
+      "size_bytes": 1215
     },
     {
       "path": "golden/ue5.6/expected_output/localization_resolve_BP_Empty_PackageNamespace_locres.json",
-      "sha256": "6d8ff687303e6e6ffd84439551e3f0fea298c0cb48da3ae0df6d0357c475b82b",
-      "size_bytes": 1638
+      "sha256": "df384e86721005ab292c64756e38ddaccc441f0338af2edbf2f35ba0e3887641",
+      "size_bytes": 1549
     },
     {
       "path": "golden/ue5.6/expected_output/localization_resolve_BP_Empty_StringTableRef_locres.json",
-      "sha256": "be5b539322581f8c5eb79ae23e28e3bff60238df19ab9cf178dfdffccaf96c80",
-      "size_bytes": 1542
+      "sha256": "1ade29b2a940bbbc1aa0b4c89d2e53b5b67a96be2904f27b2011a5e4e5915e1f",
+      "size_bytes": 1350
     },
     {
       "path": "golden/ue5.6/expected_output/material_read_MI_Chrome.json",
-      "sha256": "7021d8b91acb5fa1c84d6f7787e5471671b868b71b9e33be9c5d709a792e42a5",
-      "size_bytes": 2806
+      "sha256": "1dadb5e587a16ec63ad5a1395f58213206cade3f2f35a7657546ba802aa3b804",
+      "size_bytes": 2717
     },
     {
       "path": "golden/ue5.6/expected_output/metadata_BP_WithMetadata_export1.json",
-      "sha256": "031ff061c6dfefb9105cca5a0db8e4589bff6db52f73fa66b9fa5753343dc2fd",
-      "size_bytes": 12264
+      "sha256": "2203da445fe7bd993b17e2bed850890d973b4a043a3dd2bced3d8b88ce9d9976",
+      "size_bytes": 12175
     },
     {
       "path": "golden/ue5.6/expected_output/name_add_BP_Empty_dry_run.json",
-      "sha256": "bc3e11acc05e2fc075cc182587bd5d26ad44666c8ae2b15e27b83896987602c6",
-      "size_bytes": 589
+      "sha256": "7a4ba48095a8c7f481294af7c1e50113559f43bc2dc37c7d7ef04a962997bd34",
+      "size_bytes": 500
     },
     {
       "path": "golden/ue5.6/expected_output/name_add_BP_Empty_hash_override_dry_run.json",
-      "sha256": "a48fb6c732c82292d36124fdd12ea1297b0eddd1f9ec72a23133f39ce08577d5",
-      "size_bytes": 707
+      "sha256": "638e1fedaf5aa29009e8fdb9a21eeade9a74ac4344db7a8c3e991f557e734043",
+      "size_bytes": 618
     },
     {
       "path": "golden/ue5.6/expected_output/name_list_BP_Empty.json",
-      "sha256": "58c24641f3a4ba00d822b7b20024f889762052f64a86d158bc34c50683abee0c",
-      "size_bytes": 14583
+      "sha256": "476c52776b833c85b64bc32157aa8c1cce8a7dc47a60b66dde7ec5268be89568",
+      "size_bytes": 14494
     },
     {
       "path": "golden/ue5.6/expected_output/name_remove_BP_Empty_non_tail_fail.json",
-      "sha256": "c8731603614ba1465e0e07690500b5032992580f8155b51a91424fe21f91c24a",
-      "size_bytes": 405
+      "sha256": "f87570fcfcc39e7b5d942ffbad6e7f6499a099c17dba764f7539646d5b0e6f1b",
+      "size_bytes": 316
     },
     {
       "path": "golden/ue5.6/expected_output/name_remove_ref_rewrite_single_export_data_fail.json",
-      "sha256": "93702249c3e9e7d62d1ebbe97e9936a110802413d8aac6ec14fab4d6f37a49b8",
-      "size_bytes": 440
+      "sha256": "7339d58863e09d680dbfc52ecb718954e2078ba13ab2a478a8cf3a43fc05b07a",
+      "size_bytes": 351
     },
     {
       "path": "golden/ue5.6/expected_output/name_set_BP_Empty_dry_run.json",
-      "sha256": "074524da7b35270a494c5b806e7a7477d0efe0896da17c82a50e040b63246ad5",
-      "size_bytes": 746
+      "sha256": "790f11a4c97985cab8f3c2bbe9f074e73b8cdffca6cf17888829e578dcb3fbe7",
+      "size_bytes": 657
     },
     {
       "path": "golden/ue5.6/expected_output/name_set_BP_Empty_hash_override_dry_run.json",
-      "sha256": "38019f93a4c5aca098f8c208611879a97b658e8bb50d71bb84e6b47d18fc06ea",
-      "size_bytes": 824
+      "sha256": "3e09724ca6fda2d0d64ffbffe596b988bd3fb93b9c70c54b5353b452692a3425",
+      "size_bytes": 735
     },
     {
       "path": "golden/ue5.6/expected_output/package_custom_versions_BP_CustomVersions.json",
-      "sha256": "30f0af59cf8ec764daaf5ca91ce7a460faebe515f960ec076b30b50737e228d0",
-      "size_bytes": 1343
+      "sha256": "0750d8d4b217d629c299c5285ac302f422df9ae2a7658e72c47d806b7b725bed",
+      "size_bytes": 1254
     },
     {
       "path": "golden/ue5.6/expected_output/package_depends_BP_DependsMap.json",
-      "sha256": "d90320174ac9ecb8151f0ba21eff42235740f918e97de5406bf7127aded0d982",
-      "size_bytes": 2905
+      "sha256": "796be8e2dd2a28da656552e1328de6d76425422a966f8f3a76c6449434c7a2b1",
+      "size_bytes": 2816
     },
     {
       "path": "golden/ue5.6/expected_output/package_meta_BP_Empty.json",
-      "sha256": "7e15d62f149b1b21d38ed5434d6f7dd00c38d610ba956708fe711085acff7995",
-      "size_bytes": 2554
+      "sha256": "53bd486a350632e5c7b94d19b815df155b3d433459b1958e2c8b13654259a2fd",
+      "size_bytes": 2513
     },
     {
       "path": "golden/ue5.6/expected_output/package_resolve_index_BP_Empty_import6.json",
-      "sha256": "4de2afbd7fed9ce250771bd00452dcb0a0618252d09ad93bb75473fa23812866",
-      "size_bytes": 438
+      "sha256": "397eb11e28a471b4f3587ad11b7bcc2a83e01c24b4bca70f637f26ba1bad6024",
+      "size_bytes": 349
     },
     {
       "path": "golden/ue5.6/expected_output/package_section_asset_registry_BP_Empty.json",
-      "sha256": "b18ef8adacd0d50dd2904470baef0c17b0a34a1c2ec2778b6ea290c89207460b",
-      "size_bytes": 15210
+      "sha256": "d90c4f87a68f824f981dd665574af5a903b9406a21f498154f7c43783f704c77",
+      "size_bytes": 15077
     },
     {
       "path": "golden/ue5.6/expected_output/package_section_soft_object_paths_BP_SoftRefs.json",
-      "sha256": "5cb7fbdd63b80313186da85d732118f6e21d2963f5f9898b7355605faf42f46e",
-      "size_bytes": 3402
+      "sha256": "1423f99549b0f0ac68ba3d8233661f3a1c68e56f039cd39c73cf3be30f1c8c17",
+      "size_bytes": 3313
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_AllScalarTypes_export1.json",
-      "sha256": "348eed97b50d030f85df907f65f0ed725a90188a19e05dc79a1f4fdd8e04a9d2",
-      "size_bytes": 62109
+      "sha256": "38eac08f454f62511cf8c2ea74685638130f586b4017c5a864170b0dc97d3023",
+      "size_bytes": 62020
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_Containers_export1.json",
-      "sha256": "7e4ed7298619fc04b598e8e2883740ee4c1c902a3003e1d3c5f2840421e9beeb",
-      "size_bytes": 11343
+      "sha256": "9769f07db2778ffbd41fa6c3cb2ee8210f8bbc9b5834a53a085ad1303dc1b987",
+      "size_bytes": 11254
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_Empty_export1.json",
-      "sha256": "bd284f192078eb8dff5de68e9bb72934045657a9efbf3591be8662db90e97177",
-      "size_bytes": 11318
+      "sha256": "ff9801d6856987efcac0ebc8eb8474eeab2ce111244df0c664e563e1fda9c91b",
+      "size_bytes": 11229
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_GameplayTags_export1.json",
-      "sha256": "5e2b47025552115e8fd2398c5152055617f4426321bcab03d9c70f19c723e6b5",
-      "size_bytes": 11353
+      "sha256": "3bfd0e602ba3a6f6c244171de24d486f180379f08f7980b8b23bccec2af5dc9a",
+      "size_bytes": 11264
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_MathTypes_export1.json",
-      "sha256": "ac058d8da2ab0756651b489984cb4c546bbf733802b378297ee7814f4a87bf2a",
-      "size_bytes": 39605
+      "sha256": "18bedb93edfb16b559be832e0c817e5a496a150c9829ae24942d181b816b1975",
+      "size_bytes": 39516
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_Nested_export1.json",
-      "sha256": "bad9d7a6b1d3abdf51e660101a36f7e0cfd8d7e6f3981d6778f84b56d22485f6",
-      "size_bytes": 11323
+      "sha256": "2ee70c53dd0b213270edeb2b1e7ed63d326d84c001373256f73fb328fff32f0e",
+      "size_bytes": 11234
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_RefTypes_export1.json",
-      "sha256": "eddbf82cff50f2c5e081c8dab7fbfc5dca7f2db5c5e3d64a7b17ec9f27039384",
-      "size_bytes": 11333
+      "sha256": "00c31361581ae125577a8b2e38b0dd87f02699c8ed0e90f697b932a464030fbf",
+      "size_bytes": 11244
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_SoftRefs_export1.json",
-      "sha256": "b1dc0a45447b7ea43159a398037f27a107fb0bcb3cafd1336dbe7fca1f294f8d",
-      "size_bytes": 11333
+      "sha256": "8cdf21ff346978395f9d7fc8e6cc2d03028734c5240927ddaa87fd69a1c56d52",
+      "size_bytes": 11244
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_WithFunctions_export1.json",
-      "sha256": "1b9e2a3178dc01f02695b4559655c59feb399a2fb1d41781dba3580eb7c3eabb",
-      "size_bytes": 11358
+      "sha256": "8bfa282fbbf2b4bb08135fe75ae153a47b4f8c55e7ad61d81fbad4f81892cbaa",
+      "size_bytes": 11269
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_S_PlayerData_export2.json",
-      "sha256": "710bfd1430bba3b39d2ec69b0316afb588f1fbecbc13ee8477189aa937bbac14",
-      "size_bytes": 2188
+      "sha256": "da2b3573dd053f23682672f4f75acc69b2498d41916243ed3af65347fd03e5b0",
+      "size_bytes": 2099
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_prop_set_custom_struct_enum_after_export5.json",
-      "sha256": "2ab01239334a18980e3e59584685a34baf8729f9450a013e90c066da0e032e9e",
-      "size_bytes": 2427
+      "sha256": "0ac098898cf19367a6077f8f89df5526f0f8449f8b24e6781e2249405768df40",
+      "size_bytes": 2338
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_prop_set_custom_struct_enum_before_export5.json",
-      "sha256": "f69a9b18699e7b5aabe41cb49e628af04aea294ce214d280cffa41a1575a1c57",
-      "size_bytes": 2430
+      "sha256": "3fec1629a4188471f383667445a3b39119f4600655dd6e045a943414645151fe",
+      "size_bytes": 2341
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_prop_set_custom_struct_int_after_export5.json",
-      "sha256": "34cebbf2a216a82af9f7fb22e699495b95fc2bf2f3e724cd4cf6b2e69427e040",
-      "size_bytes": 1259
+      "sha256": "113448e90f5daaa45bd93bc4b4968e8fe5d61d5088ff9b1305111b45008735b9",
+      "size_bytes": 1170
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_prop_set_custom_struct_int_before_export5.json",
-      "sha256": "74808a4bb616c4807ea4add1dca3a4eb1f0925dc4ba6469d6574529915b2eeed",
-      "size_bytes": 1261
+      "sha256": "930a20c317903b0667d3507d237b9143ebf14a800bb82756db68daf94279cf33",
+      "size_bytes": 1172
     },
     {
       "path": "golden/ue5.6/expected_output/raw_BP_Empty_export2.json",
-      "sha256": "f98a5f002f5e474a7fcc076cb9fdd11295325a3265127751b932065d4092c994",
-      "size_bytes": 771
+      "sha256": "5cd784a5e4f78eb7d3391f220769bbf77d53c906b5480fb8e9197b298358a273",
+      "size_bytes": 674
     },
     {
       "path": "golden/ue5.6/expected_output/stringtable_read_ST_UI.json",
-      "sha256": "f21562f9922904214d3723ac3223d9c2c585ab2d808201ba5941c3177cb5a664",
-      "size_bytes": 747
+      "sha256": "86bf1195a04af8c69cc42f8465430c56b44975d608ab7a5b8073584629eeaed3",
+      "size_bytes": 658
     },
     {
       "path": "golden/ue5.6/expected_output/struct_definition_S_PlayerData.json",
-      "sha256": "a72b0feec89c59ac5926cfeeb3fdbcd90ecadd401f14c259520cbe01a078b4e5",
-      "size_bytes": 3725
+      "sha256": "1fadabf9604fc48685cc236a9fa05d7264f0ee849086b287d6c99c4251b368b7",
+      "size_bytes": 3636
     },
     {
       "path": "golden/ue5.6/expected_output/struct_details_S_PlayerData_export2.json",
-      "sha256": "a355210bcf28415cb4ed3033b28396331eab0a303ef44b1469e543b090112f0b",
-      "size_bytes": 2475
+      "sha256": "d9bcb224bf40b1439010d4091d015c5cdb04e2c3adc524de98ee729f4ece7f1e",
+      "size_bytes": 2386
     },
     {
       "path": "golden/ue5.6/expected_output/validate_BP_Empty.json",
-      "sha256": "bba2654397770eef54b841c95f3ed42e10bf5f641a5d944ddf71b69318384cc5",
-      "size_bytes": 1047
+      "sha256": "bd7bd1541d7f3d125fbccbca20deb584a8dec63f3f34206bcc0e2c33ebfbf5b3",
+      "size_bytes": 958
     },
     {
       "path": "golden/ue5.6/expected_output/validate_BP_Empty_binary_equality.json",
-      "sha256": "c911dbff6bfd77762b46f9c646482174cc0f26ac4ea49821903bbdca2558058a",
-      "size_bytes": 1252
+      "sha256": "2d2f3480db0dd9002d76729ecd749d4d8ec9407be66564fdb89bcd8c5d4e48dc",
+      "size_bytes": 1163
     },
     {
       "path": "golden/ue5.6/expected_output/var_list_BP_SimpleVars.json",
-      "sha256": "393188bb2037a19db702464f325bca60f88e65aeca78b7982b412d7839fb1aa8",
-      "size_bytes": 1911
+      "sha256": "ea609c9af361eb2be612aafbdb0891de72942494775f5cadc617f08a0c9878bc",
+      "size_bytes": 1822
     },
     {
       "path": "golden/ue5.6/expected_output/var_list_BP_Unicode.json",
-      "sha256": "2e4c9b9644407a08d403b0b7cadab0aef6cf33bd28a345405dbdccd4137472ae",
-      "size_bytes": 868
+      "sha256": "cf6246b0c675bbe70cd05c4350113d35aeb3a0e01c0b42b60dc9e3b2617c192b",
+      "size_bytes": 779
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row/after.uasset",
-      "sha256": "ee29c9a93993a4e769f00f5d05185e503e169cebd3ca9aeb51a2619680ae660b",
-      "size_bytes": 2750
+      "sha256": "b9a86f3f625d99a95fabcbf9ca15983885c8c62d90ccd8b5769d91d3697a429f",
+      "size_bytes": 2786
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row/before.uasset",
-      "sha256": "54f4dcd927b07ae246add90ef1d2466f7c02bdb27fae0f22d64af4fcd3bc7628",
-      "size_bytes": 2590
+      "sha256": "e0b9bd6f92d5a0a9480e7456814e6dffdddc6197c74a62112a92f796076a7ce2",
+      "size_bytes": 2626
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row/operation.json",
@@ -394,13 +394,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_composite_reject/after.uasset",
-      "sha256": "9bf8c5ed8125083ce90775ac18fd66215ed6d804f9c974d0f88b34f420186fcd",
-      "size_bytes": 2513
+      "sha256": "e73261206414071a1ceb85e52d7b1be2b2bb7527d5c56bed44dac4089d69e5aa",
+      "size_bytes": 2549
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_composite_reject/before.uasset",
-      "sha256": "9bf8c5ed8125083ce90775ac18fd66215ed6d804f9c974d0f88b34f420186fcd",
-      "size_bytes": 2513
+      "sha256": "e73261206414071a1ceb85e52d7b1be2b2bb7527d5c56bed44dac4089d69e5aa",
+      "size_bytes": 2549
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_composite_reject/operation.json",
@@ -409,13 +409,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_values_mixed/after.uasset",
-      "sha256": "7ce9f010fff5afe84820b43e214d58a81f4b99757fe3e33a92b88e2cdf418f08",
-      "size_bytes": 2788
+      "sha256": "e570a8f30f00810e5f18b096293179f3fe9a2815b2777be4be891eb1ae3effe0",
+      "size_bytes": 2824
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_values_mixed/before.uasset",
-      "sha256": "bb0d93f6a4d21ceb53586a5a1dbd578c1abac6f6b80b8dff82a63f02decefb32",
-      "size_bytes": 2616
+      "sha256": "e5fbc23e0c5404df6979dc860295937552c33d1cd0461e5fa32b340ba5890eb2",
+      "size_bytes": 2652
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_values_mixed/operation.json",
@@ -424,13 +424,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_values_scalar/after.uasset",
-      "sha256": "2a2295e16ccd99edd5b47b8ff54db61d8e0ffd38059068482faa903d757e633c",
-      "size_bytes": 2778
+      "sha256": "3c23655a765d175811eca06d0b614d37484dce44b60e96d27f9d848bb289b18a",
+      "size_bytes": 2814
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_values_scalar/before.uasset",
-      "sha256": "34078311c662aabae9260bce4e0d731255eabcc2d549d86efeb7768c8b45b1f6",
-      "size_bytes": 2618
+      "sha256": "59ef1d8573cf65b36a7be6b3c5011f9b750aae6d09a793371b0c5cebf4505899",
+      "size_bytes": 2654
     },
     {
       "path": "golden/ue5.6/operations/dt_add_row_values_scalar/operation.json",
@@ -439,13 +439,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row/after.uasset",
-      "sha256": "a02fd548e0a6dc7fb68125861e7c0f7de9b8068b221701ebc41969f4baf0407d",
-      "size_bytes": 2596
+      "sha256": "e95106adabd3d57f9c8efb6015807aeae4d93ef0c640d7581d0fae97eb1675c4",
+      "size_bytes": 2632
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row/before.uasset",
-      "sha256": "df02487adecffdf412bb08d755fd35ef319d75c14a84eac676ed00b223b1041a",
-      "size_bytes": 2756
+      "sha256": "63ab5c35ef88a47a0bb519e1c09e1b62ecdbc5c30b6f5715144fbcf88150bff3",
+      "size_bytes": 2792
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row/operation.json",
@@ -454,13 +454,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row_base/after.uasset",
-      "sha256": "7c757f361d2e351674d7c8b527ad68126d02b549414b878bf71aacf5c703926a",
-      "size_bytes": 2607
+      "sha256": "d19da91fd187e3c751038ddaa5ddaa55eb145f7965a77addf25a484c28721b5a",
+      "size_bytes": 2643
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row_base/before.uasset",
-      "sha256": "b7cbdec14d6869294f2bc5a44942c5f3b7053aab38daa749ba119be042a610d1",
-      "size_bytes": 2778
+      "sha256": "8e52c9c5360a2e112d63bf698154cbe2d75f30c7e89c8f08b90e20c2238e5685",
+      "size_bytes": 2814
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row_base/operation.json",
@@ -469,13 +469,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row_composite_reject/after.uasset",
-      "sha256": "fbc9da0917bb2d0e052499dd7465c4c415f686c5332a56ce373a03c9406c4f7c",
-      "size_bytes": 2522
+      "sha256": "7f322618101b7de58b762f2e5da3c10856ce460bff0250a88f58412c7c9a8afa",
+      "size_bytes": 2558
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row_composite_reject/before.uasset",
-      "sha256": "fbc9da0917bb2d0e052499dd7465c4c415f686c5332a56ce373a03c9406c4f7c",
-      "size_bytes": 2522
+      "sha256": "7f322618101b7de58b762f2e5da3c10856ce460bff0250a88f58412c7c9a8afa",
+      "size_bytes": 2558
     },
     {
       "path": "golden/ue5.6/operations/dt_remove_row_composite_reject/operation.json",
@@ -484,13 +484,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_update_complex/after.uasset",
-      "sha256": "e41b8482e9232747318f8eee8fad16ab80cd1f0505c7a4a9b091e804b29bcced",
-      "size_bytes": 2604
+      "sha256": "3d4ca3e93eff6b23cae318779a25776d9b85a5c1663e9ddf15dc52702dceef0a",
+      "size_bytes": 2640
     },
     {
       "path": "golden/ue5.6/operations/dt_update_complex/before.uasset",
-      "sha256": "e41b8482e9232747318f8eee8fad16ab80cd1f0505c7a4a9b091e804b29bcced",
-      "size_bytes": 2604
+      "sha256": "3d4ca3e93eff6b23cae318779a25776d9b85a5c1663e9ddf15dc52702dceef0a",
+      "size_bytes": 2640
     },
     {
       "path": "golden/ue5.6/operations/dt_update_complex/operation.json",
@@ -499,13 +499,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_update_float/after.uasset",
-      "sha256": "2f16f49bd07097bb9933b6e049356fda21bf7b0441bf4d6738c2c6f478d481ce",
-      "size_bytes": 2600
+      "sha256": "d264b4e2cc0c6b13c92e4cae9abd393ea71f50bc37fb7adde2351b99225fbc0d",
+      "size_bytes": 2636
     },
     {
       "path": "golden/ue5.6/operations/dt_update_float/before.uasset",
-      "sha256": "f392b52119b17bde7b8319cf953dedab638d20fd6c99f422f4b28d6b46e2cd5b",
-      "size_bytes": 2600
+      "sha256": "f425fb2ae3402635258402d521ee8ac08a2f9d3cf6972a6b18e083a47c982e89",
+      "size_bytes": 2636
     },
     {
       "path": "golden/ue5.6/operations/dt_update_float/operation.json",
@@ -514,13 +514,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_update_int/after.uasset",
-      "sha256": "511be579c4c08f5347d884fb9a48c360c6861eaf85e530adf9a5365670a2f282",
-      "size_bytes": 2596
+      "sha256": "231d7efb08523e74ed93c95fe5cd0a0c5d19d70ee48f9e8616492183d36fb242",
+      "size_bytes": 2632
     },
     {
       "path": "golden/ue5.6/operations/dt_update_int/before.uasset",
-      "sha256": "37e3211e308a8462a48e65efc0cf6257b0ecf1e051b43659e37aac2420b05df0",
-      "size_bytes": 2596
+      "sha256": "0fdec12458cc5647b05a226cfeab2f5428c097904023b31f62e2d59e1a5a0970",
+      "size_bytes": 2632
     },
     {
       "path": "golden/ue5.6/operations/dt_update_int/operation.json",
@@ -529,13 +529,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_update_multi_field/after.uasset",
-      "sha256": "6af5f9cee5422487a129dce4e5b3d2aa4938e2c1238f0d6813b4b37a513d2326",
-      "size_bytes": 2612
+      "sha256": "884a049796e2c8ecaf89c92b2a78b5e0a457403bf317cccbe10731f113227bbd",
+      "size_bytes": 2648
     },
     {
       "path": "golden/ue5.6/operations/dt_update_multi_field/before.uasset",
-      "sha256": "d5ecfc01abb1ca240d1cc5364c25b34a2a4c3bb4b40e7197e5bb928f3e78964f",
-      "size_bytes": 2612
+      "sha256": "e864202ffd3e7b5585eed5bcae7a412751b82840051799e8d19fde4715620ba6",
+      "size_bytes": 2648
     },
     {
       "path": "golden/ue5.6/operations/dt_update_multi_field/operation.json",
@@ -544,13 +544,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_update_row_composite_reject/after.uasset",
-      "sha256": "3617f36898ba46007ce51c712f904b4535eca9399f18f8bd6bcc63f1dfa9b544",
-      "size_bytes": 2522
+      "sha256": "a503f7479775fb0c156e8152e7105b99ac4d6b450ad89ae33b86fce22ae3a966",
+      "size_bytes": 2558
     },
     {
       "path": "golden/ue5.6/operations/dt_update_row_composite_reject/before.uasset",
-      "sha256": "3617f36898ba46007ce51c712f904b4535eca9399f18f8bd6bcc63f1dfa9b544",
-      "size_bytes": 2522
+      "sha256": "a503f7479775fb0c156e8152e7105b99ac4d6b450ad89ae33b86fce22ae3a966",
+      "size_bytes": 2558
     },
     {
       "path": "golden/ue5.6/operations/dt_update_row_composite_reject/operation.json",
@@ -559,13 +559,13 @@
     },
     {
       "path": "golden/ue5.6/operations/dt_update_string/after.uasset",
-      "sha256": "30f6cd38b69fa86cf295d0719547d33e50a5c3545ecdf4d2b75e51f1ccce7592",
-      "size_bytes": 2610
+      "sha256": "55f0c5501f447faa08dda5dabfab36df1df0b5c1409d17d7cd1a9d624ced4e87",
+      "size_bytes": 2646
     },
     {
       "path": "golden/ue5.6/operations/dt_update_string/before.uasset",
-      "sha256": "728d53432f0c81ca268a497b12c7e56665b16232faa728e15d590964efe6d28a",
-      "size_bytes": 2602
+      "sha256": "4eb45baab7f65cd5dac9cabcdaa91ffe47e9b01e2443fd44e054933d8b8d65d9",
+      "size_bytes": 2638
     },
     {
       "path": "golden/ue5.6/operations/dt_update_string/operation.json",
@@ -574,13 +574,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value/after.uasset",
-      "sha256": "61d72081567d346396731d848a9bdf1a7e4c764076cc7b1c5dd6e5dec08af90f",
-      "size_bytes": 24601
+      "sha256": "b9dcddad95a2e390fc3923e31205ba421f2d185ef0b24e7f6e4cc4e1a30c7e6d",
+      "size_bytes": 24525
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value/before.uasset",
-      "sha256": "b605eb3f38a3fe269800bf4d7a71882086b5b0552e4cfabb1a287ebb2206c7d5",
-      "size_bytes": 24601
+      "sha256": "93f40a4573df765d7944af28443a1e47fb4e06a48c328bf3d4d302675582e7a5",
+      "size_bytes": 24525
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value/operation.json",
@@ -589,13 +589,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_anchor/after.uasset",
-      "sha256": "0b1307a7ca70512fa70cc32ef4c50b39543a87ac072593085d9debd1c5f8cdce",
-      "size_bytes": 24653
+      "sha256": "ccccd1015d85a84469443786c54360ddac44416458549fe01313f14d822ea969",
+      "size_bytes": 24577
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_anchor/before.uasset",
-      "sha256": "aca63728ff42c63849aaa2e119d162ebbfb2384cb54d8fdd0e5adfb226317942",
-      "size_bytes": 24653
+      "sha256": "df936788905f195670d3f8d750d520f4905a76084db16d7b9ebf3b5b23577565",
+      "size_bytes": 24577
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_anchor/operation.json",
@@ -604,13 +604,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_anchor_alt/after.uasset",
-      "sha256": "83ca72797799d89a406161bbba35c9db76b2f35fffab512c69543e6d7488a64c",
-      "size_bytes": 24677
+      "sha256": "84703141a75e1ac206137dfa0a5c4147da8f10eec6d6216ccdad23f0c9a7ebd4",
+      "size_bytes": 24601
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_anchor_alt/before.uasset",
-      "sha256": "83ca72797799d89a406161bbba35c9db76b2f35fffab512c69543e6d7488a64c",
-      "size_bytes": 24677
+      "sha256": "84703141a75e1ac206137dfa0a5c4147da8f10eec6d6216ccdad23f0c9a7ebd4",
+      "size_bytes": 24601
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_anchor_alt/operation.json",
@@ -619,13 +619,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_missing/after.uasset",
-      "sha256": "8b93faea99b0c1cb91589d924d7074c7038275b826dfd93e67c8cb935d8293b1",
-      "size_bytes": 24657
+      "sha256": "fe65f6917b011b9e63cc5368b721996dade07d0f579c0529100cfda4a6860130",
+      "size_bytes": 24581
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_missing/before.uasset",
-      "sha256": "8b93faea99b0c1cb91589d924d7074c7038275b826dfd93e67c8cb935d8293b1",
-      "size_bytes": 24657
+      "sha256": "fe65f6917b011b9e63cc5368b721996dade07d0f579c0529100cfda4a6860130",
+      "size_bytes": 24581
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_missing/operation.json",
@@ -634,13 +634,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric/after.uasset",
-      "sha256": "c3542b8d3592a9c041ad9db9ba785b79d9f3348c31d0feb9c17dbec7863f72e7",
-      "size_bytes": 24657
+      "sha256": "8f46287e235d332543c18de0ef7b2c3c183a2dae25a795f662cda364f5b60bee",
+      "size_bytes": 24581
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric/before.uasset",
-      "sha256": "095e921f76d09d40fd6e0de160d4223672b6f8cbe0e2d67e4fadd309c8f2444d",
-      "size_bytes": 24657
+      "sha256": "3863d85f708e4f0a3b2af3efe342dd8bc41bf098ea0266c81bca3bf09a86936c",
+      "size_bytes": 24581
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric/operation.json",
@@ -649,13 +649,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric_two/after.uasset",
-      "sha256": "3d6e9ab02557c9d1bf743e70ba76cb5827d2baf425a623aea1723196ca4be11d",
-      "size_bytes": 24604
+      "sha256": "3cf2bfdea037a89675619a9259e112953ba818851ccb3ccf856a6b9a5ff04362",
+      "size_bytes": 24528
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric_two/before.uasset",
-      "sha256": "9056ff7388466fbca048567775dcf65b1223f3bb552317a8fdeb039685340be3",
-      "size_bytes": 24681
+      "sha256": "32627b09accd1a0a4116992a9b256e300af26f66614dd1746dbe424e72e4a435",
+      "size_bytes": 24605
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric_two/operation.json",
@@ -664,13 +664,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric_zero/after.uasset",
-      "sha256": "a35586c0738bc5c6162203bacaf69668c5e00177f1f02030c780f607de6d4ee3",
-      "size_bytes": 24693
+      "sha256": "d01cf490014fd70c6f59ea20e9c62d0a9faced0e9f567b59afbf2974785560e9",
+      "size_bytes": 24617
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric_zero/before.uasset",
-      "sha256": "a35586c0738bc5c6162203bacaf69668c5e00177f1f02030c780f607de6d4ee3",
-      "size_bytes": 24693
+      "sha256": "d01cf490014fd70c6f59ea20e9c62d0a9faced0e9f567b59afbf2974785560e9",
+      "size_bytes": 24617
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_numeric_zero/operation.json",
@@ -679,13 +679,13 @@
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_to_c_reject/after.uasset",
-      "sha256": "4593a8ec3d01337c60fc24ecd5a802b5191e0779ede97596d41464c9313d2abe",
-      "size_bytes": 24681
+      "sha256": "31773d4579a79c66a6aae96058d3f14656508f8f189ae731322468b10e9a096d",
+      "size_bytes": 24605
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_to_c_reject/before.uasset",
-      "sha256": "4593a8ec3d01337c60fc24ecd5a802b5191e0779ede97596d41464c9313d2abe",
-      "size_bytes": 24681
+      "sha256": "31773d4579a79c66a6aae96058d3f14656508f8f189ae731322468b10e9a096d",
+      "size_bytes": 24605
     },
     {
       "path": "golden/ue5.6/operations/enum_write_value_to_c_reject/operation.json",
@@ -694,13 +694,13 @@
     },
     {
       "path": "golden/ue5.6/operations/export_set_header/after.uasset",
-      "sha256": "5f56e0d20b641f4526836e93b711dfd28978ee1265ae6ac9a71974e9ea4c51ea",
-      "size_bytes": 23821
+      "sha256": "91ff92fb959ec1b6ec0ea57036afc08272dc8eb8efae8ec9cc5ebb689ad3be17",
+      "size_bytes": 23745
     },
     {
       "path": "golden/ue5.6/operations/export_set_header/before.uasset",
-      "sha256": "5f56e0d20b641f4526836e93b711dfd28978ee1265ae6ac9a71974e9ea4c51ea",
-      "size_bytes": 23821
+      "sha256": "91ff92fb959ec1b6ec0ea57036afc08272dc8eb8efae8ec9cc5ebb689ad3be17",
+      "size_bytes": 23745
     },
     {
       "path": "golden/ue5.6/operations/export_set_header/operation.json",
@@ -744,13 +744,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_rekey/after.uasset",
-      "sha256": "bcd04d6bc3dadded456703a7df1b0a2f66604a5750907939b21618d3b5aecb2a",
-      "size_bytes": 23923
+      "sha256": "c1ee1364f12f803380af5077ff625b6534cb2f386bf2872b55c771ed9aaf9de6",
+      "size_bytes": 23847
     },
     {
       "path": "golden/ue5.6/operations/localization_rekey/before.uasset",
-      "sha256": "52f7dc7ac54642f251c84770e1afe996161b2e981e84a57f5e6a4942bee8fd68",
-      "size_bytes": 23921
+      "sha256": "a4b48aad9182b02eca1154c92ad04cd45e6bae4c24040e4e02f09eda76c0ff13",
+      "size_bytes": 23845
     },
     {
       "path": "golden/ue5.6/operations/localization_rekey/operation.json",
@@ -759,13 +759,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_rekey_alt/after.uasset",
-      "sha256": "3223e63a25f76a3674728a69943a27612bc235dc771779f80d1a14f5279a25e4",
-      "size_bytes": 23947
+      "sha256": "35a5c1d10029f6add17945ffb6f98346ccc12b85e1e08b11b2ae41a995950bc5",
+      "size_bytes": 23871
     },
     {
       "path": "golden/ue5.6/operations/localization_rekey_alt/before.uasset",
-      "sha256": "b352886626c25a1abeb1981a3ccc396c07d457186c95d6edd966b268a885789c",
-      "size_bytes": 23945
+      "sha256": "d9374fdb869c32dcc15d1e80c9d5bf7dc113de2cea5926c1a9212ad05e0ca064",
+      "size_bytes": 23869
     },
     {
       "path": "golden/ue5.6/operations/localization_rekey_alt/operation.json",
@@ -774,13 +774,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_rewrite_namespace/after.uasset",
-      "sha256": "9e6502d350f81cfbc42d24509192b9b15daa2ff0f5dd2b3340091c7348669075",
-      "size_bytes": 23999
+      "sha256": "fe2c319973e78b7ffe2b12b2188967d8ef1d125753988ef7aaeb0ea83b1fd6f9",
+      "size_bytes": 23923
     },
     {
       "path": "golden/ue5.6/operations/localization_rewrite_namespace/before.uasset",
-      "sha256": "7ec33abc5eadd18b46b5ff468c8f4d30dd2be7d9c89dbc5c435f1a19f550477e",
-      "size_bytes": 24001
+      "sha256": "321450fae0c2dbf97cee0526fc92296e8623629ca62dd29fc8520972c5b70891",
+      "size_bytes": 23925
     },
     {
       "path": "golden/ue5.6/operations/localization_rewrite_namespace/operation.json",
@@ -789,13 +789,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_rewrite_namespace_alt/after.uasset",
-      "sha256": "ab14450248bef6a4ee4c40f30ee777279102603a0a87bfeb12b39e0a4a375fe3",
-      "size_bytes": 24025
+      "sha256": "11f659e29a25493dc1a2f9b7d3517b9a9bc0100a4235b5f5e0376389b403571b",
+      "size_bytes": 23949
     },
     {
       "path": "golden/ue5.6/operations/localization_rewrite_namespace_alt/before.uasset",
-      "sha256": "27fa6a639af71f63cd92f8f9d57cd3c7b2ff95fdb7b0e808d6d8618b786a1280",
-      "size_bytes": 24025
+      "sha256": "1df02dffd9e554e85b01a6752f47cceb5df025c9d6f1917128127e3b9c365652",
+      "size_bytes": 23949
     },
     {
       "path": "golden/ue5.6/operations/localization_rewrite_namespace_alt/operation.json",
@@ -804,13 +804,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id/after.uasset",
-      "sha256": "c03ec7de84e0ae782909d519d7291f748394d20aab4dc18370df6f27fd533cf0",
-      "size_bytes": 23814
+      "sha256": "9d717226cb709bd9941009e1d61eecf7850297c117abe840bc9e88af89b7cad0",
+      "size_bytes": 23738
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id/before.uasset",
-      "sha256": "cb8aeef9553ebb05ebd610bd769b63483d3bd662ca9d2def8a662599bf43210d",
-      "size_bytes": 23827
+      "sha256": "98d1fe694a95255b4a00b5a14eed7718b400e67087cbc13dc347f60bbfff8f84",
+      "size_bytes": 23751
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id/operation.json",
@@ -819,13 +819,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_alt_key/after.uasset",
-      "sha256": "106e13fb4d373f2167c55a86398a7fef6e6ed73155db6ad21a182682a95bbc46",
-      "size_bytes": 23866
+      "sha256": "98737106610830e3da9d63b7807d7ba8cfe54190d64112d156326365ca77be85",
+      "size_bytes": 23790
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_alt_key/before.uasset",
-      "sha256": "2b604d21033efdbd008b32415816a75d5a019e3481990f05cd458ffa569f7450",
-      "size_bytes": 23875
+      "sha256": "fbadadec6c7ca52377a12f199f4744bd21494580dcca5886c08a2ee49a1d7ed7",
+      "size_bytes": 23799
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_alt_key/operation.json",
@@ -834,13 +834,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_base_text/after.uasset",
-      "sha256": "87fd1de80320fc18246267ff2b29391af164164a03e8e40c1737d99233f82413",
-      "size_bytes": 23993
+      "sha256": "2be68973033f7348e9655aa2f474ca40681e4707a084b74415a4486cd1a208c8",
+      "size_bytes": 23917
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_base_text/before.uasset",
-      "sha256": "52173cdc69c5502d6be8809d54cdb06c4ad9b64cf714b8b832bf0930bb3963d9",
-      "size_bytes": 23997
+      "sha256": "0bc4afb4d23913ebb6fe999b91e48275664f5d9fc3ac8a1ad076aef469f5cc29",
+      "size_bytes": 23921
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_base_text/operation.json",
@@ -849,13 +849,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_base_text_alt/after.uasset",
-      "sha256": "88349f9a4b72fd9ba360f51dd277accdd31f09d654d9f432ac0bb6019faf505c",
-      "size_bytes": 24023
+      "sha256": "8fb68e80bb746ea39b95462911ff5c78fcbab27526b678efb5fed72a7df312a8",
+      "size_bytes": 23947
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_base_text_alt/before.uasset",
-      "sha256": "2c40506c9dc096936b849ec91a864e4727900a29fae64d84c4282fa9058c946f",
-      "size_bytes": 24021
+      "sha256": "d176f2ec22f5ad43ca8d77fc41227ae5292dc24d5ec8df7d65678aed9c5606a3",
+      "size_bytes": 23945
     },
     {
       "path": "golden/ue5.6/operations/localization_set_id_base_text_alt/operation.json",
@@ -864,13 +864,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source/after.uasset",
-      "sha256": "b11b3a55be9cc6dfdd040888b9b05174859fbb633a82ee57f0f924dfc131a7ae",
-      "size_bytes": 23959
+      "sha256": "666c1c8a72adba0e4e1b4fd7fad364f79255e2ee95c55df0e998800c5a6235c5",
+      "size_bytes": 23883
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source/before.uasset",
-      "sha256": "f08861caf622add68f5b356704f30eccd19e11029e9d2cda984afc328a64503b",
-      "size_bytes": 23957
+      "sha256": "d1a0174b97b6745f0f87828763907c1adc565eb403f74a7b095adbccb8411144",
+      "size_bytes": 23881
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source/operation.json",
@@ -879,13 +879,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_alt_ascii/after.uasset",
-      "sha256": "7746dfbcc2876940bd7e2f352b4fd598c1193e481a18f7f8f0d17e5caabd6bb5",
-      "size_bytes": 24013
+      "sha256": "94feb1c33186936b57a43b75e718e0086f37d2654c88c97c497135a08b8cd461",
+      "size_bytes": 23937
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_alt_ascii/before.uasset",
-      "sha256": "7d80a0d0c84a39de571c4865d347d258112998e80a272c08a9076abea953ba9f",
-      "size_bytes": 24021
+      "sha256": "f6324b4612bedcb7954749376e1d8bf3538fa4195913ad92f2c97b60054f4193",
+      "size_bytes": 23945
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_alt_ascii/operation.json",
@@ -894,13 +894,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_empty/after.uasset",
-      "sha256": "7ee13b28f95db61b2e3d6832a812843d6391928400cff3718fd773c1304dcc84",
-      "size_bytes": 23793
+      "sha256": "44c8dee586ae4e3d84f878622bc02eb5d03ffc9f6f3234f286749424e1f6b10c",
+      "size_bytes": 23717
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_empty/before.uasset",
-      "sha256": "b80937924a9784a84edcc5640e904ff68cf8447eadd62e03b3062858f5033dc1",
-      "size_bytes": 23997
+      "sha256": "ae194ac985e7b2ff39b31dbc26a45855c9cd3b812cf0e347983e0377b725365f",
+      "size_bytes": 23921
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_empty/operation.json",
@@ -909,13 +909,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_unicode/after.uasset",
-      "sha256": "496b105156d38cc9a32e43fefcadbfba77bd2ae29d991df636d5db500f9eaf8e",
-      "size_bytes": 24017
+      "sha256": "5eaf0cca0c159f165deef2cc81ff5de0b927b08c9ad09697aad48b6a9ee966c4",
+      "size_bytes": 23941
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_unicode/before.uasset",
-      "sha256": "7170ce4a796a34fc3e0dc90cd097d7e1ac02df40a5c160243f765a1fa3498833",
-      "size_bytes": 24005
+      "sha256": "ab0e728aa93566972db67bcb09f46823b1083a7fbecc4f7d7f8138525781f964",
+      "size_bytes": 23929
     },
     {
       "path": "golden/ue5.6/operations/localization_set_source_unicode/operation.json",
@@ -924,13 +924,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref/after.uasset",
-      "sha256": "c9b407db3abc5d74ee4c95270694db29c9329d9bca263f8755303ffee9b505a9",
-      "size_bytes": 23805
+      "sha256": "d45d70c9cf6be54706226aa8caac5cea8b1a8c353950d8995daa08300b2f78a3",
+      "size_bytes": 23729
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref/before.uasset",
-      "sha256": "e210424242369b9518a5e4522dcc8a578806b42f0e2807db1fd4b83f52eb150d",
-      "size_bytes": 24017
+      "sha256": "74a8a891ee727ed7fab776f230d0b4458c304e305b31fd2d1a82932c916cecea",
+      "size_bytes": 23941
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref/operation.json",
@@ -939,13 +939,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_alt_key/after.uasset",
-      "sha256": "97f1343c6dd9d4a5623ce213a82348534578c95b04769b6fbc67b877b94148c4",
-      "size_bytes": 23849
+      "sha256": "f90775ebbc4f6405984ce5a550bfbb2c4d815d90a1ae741ff4c5bd75129184e3",
+      "size_bytes": 23773
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_alt_key/before.uasset",
-      "sha256": "a38b51402e87cab0a88e663744bb2f3a027e8711f8998a24aff3bb6bd2d9fa0f",
-      "size_bytes": 24065
+      "sha256": "2fb1e1a545741ef818e31be08a051a424ed7b5f703f3002b6ff677e2bd0bac6a",
+      "size_bytes": 23989
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_alt_key/operation.json",
@@ -954,13 +954,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_missing_table/after.uasset",
-      "sha256": "4839447f2ab401bb3c4a03e498092d5447f01d5c4ab13d3e2eaa7d86cb10acbb",
-      "size_bytes": 24105
+      "sha256": "83c738daf4ef2bea640919c92d83ff3a57af04854c6cbfdbac423d8a87e7b323",
+      "size_bytes": 24029
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_missing_table/before.uasset",
-      "sha256": "4839447f2ab401bb3c4a03e498092d5447f01d5c4ab13d3e2eaa7d86cb10acbb",
-      "size_bytes": 24105
+      "sha256": "83c738daf4ef2bea640919c92d83ff3a57af04854c6cbfdbac423d8a87e7b323",
+      "size_bytes": 24029
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_missing_table/operation.json",
@@ -969,13 +969,13 @@
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_missing_table_alt/after.uasset",
-      "sha256": "edf1f5d28173dad13eb9bce66506ca413b72794eecc880808ae43b265f477b84",
-      "size_bytes": 24137
+      "sha256": "509f93fd52dcfdbf16ab6da9c80ad91007794e0b9ab5cbacc4f9ef5e79b9c22e",
+      "size_bytes": 24061
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_missing_table_alt/before.uasset",
-      "sha256": "edf1f5d28173dad13eb9bce66506ca413b72794eecc880808ae43b265f477b84",
-      "size_bytes": 24137
+      "sha256": "509f93fd52dcfdbf16ab6da9c80ad91007794e0b9ab5cbacc4f9ef5e79b9c22e",
+      "size_bytes": 24061
     },
     {
       "path": "golden/ue5.6/operations/localization_set_stringtable_ref_missing_table_alt/operation.json",
@@ -984,13 +984,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category/after.uasset",
-      "sha256": "91385b9385b87f567d875fde4109d5ee4f99c9449a7c5a9709848d4c3f3efec5",
-      "size_bytes": 31599
+      "sha256": "72e56fe94f55886511ccea836e5726d41056825e1285e7909aacdf96412e6844",
+      "size_bytes": 31493
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category/before.uasset",
-      "sha256": "3e1844d860d0ed9235c90a347dcf9ecf30ead415df1d5af39d1473ffb8efc245",
-      "size_bytes": 31598
+      "sha256": "5d1cc2ad6e4bb149921a50f17219648f897ffefdbfecaaac6e2ea0a0c9dbac70",
+      "size_bytes": 31492
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category/operation.json",
@@ -999,13 +999,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category_ascii_alt/after.uasset",
-      "sha256": "fac8a79ef6650901a94a44542a6116c27657a282fb970672d1adfd7e93d7ce31",
-      "size_bytes": 31647
+      "sha256": "b3fad87b327077c9d795a752cf6827c4300856543fa1b11730f0b186be2ca0f2",
+      "size_bytes": 31541
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category_ascii_alt/before.uasset",
-      "sha256": "51f1a601f3cd23353cafa43f4c4a95f2f2c8c9fb154c3e7d8e69a825a81cebdd",
-      "size_bytes": 31652
+      "sha256": "1f8a35820435f2e786ae518c0320a7c8d7706ea0596b3ba8fc69be7cdfd19ca8",
+      "size_bytes": 31546
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category_ascii_alt/operation.json",
@@ -1014,13 +1014,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category_unicode/after.uasset",
-      "sha256": "67718452c79c273db3ece5eca6e7ac0899ccf0790bee512a8d488fc2a77d7552",
-      "size_bytes": 31644
+      "sha256": "8ab2067c3f3837285f1c26029fadb4815aed1c23ebe324fbf659e78c2eb9428e",
+      "size_bytes": 31538
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category_unicode/before.uasset",
-      "sha256": "1393726e82c4a43cbec2873d800bf5e2204482731683b269d9a60dd23a626e93",
-      "size_bytes": 31638
+      "sha256": "c6b970754125f4aab3b612e4436565a035f251c73f734f0b6964f730b6587d41",
+      "size_bytes": 31532
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_category_unicode/operation.json",
@@ -1029,13 +1029,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object/after.uasset",
-      "sha256": "2fe2a870b749bdaf16edf1d0c09f8b620f6b1ed5718e0ab307d569fee824ffe4",
-      "size_bytes": 23927
+      "sha256": "fb93d1f032ef277db163485394ac3e6f6f689315312999ae7ffa982af3399dee",
+      "size_bytes": 23851
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object/before.uasset",
-      "sha256": "5a3fd3236903dd535fef7832cda097300d21dd1af7359fe4bc21c06a30d9b9c8",
-      "size_bytes": 23925
+      "sha256": "050b49ce2b5fba9cb2af1563522ed304a7ae5d9defe3b85c5d1657e39746a713",
+      "size_bytes": 23849
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object/operation.json",
@@ -1044,13 +1044,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_empty/after.uasset",
-      "sha256": "aedd46e391d02fac4dd75b1db30a7266f089ba14122505e3a1935e9f1e2dd0dc",
-      "size_bytes": 23765
+      "sha256": "a649d435bdab0558bff4af72cfb172514e3def552ffb134a35b88afc95a0a8c9",
+      "size_bytes": 23689
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_empty/before.uasset",
-      "sha256": "d0c3667dbf6e3ade36522ba894a5f013ed95984a43b4ce1d2795f76b640e1d56",
-      "size_bytes": 23965
+      "sha256": "d28e928c0f826ca19e8511c6090ef36f19a8377e16f6dc1d20640a608a16758a",
+      "size_bytes": 23889
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_empty/operation.json",
@@ -1059,13 +1059,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_tooltip_reject/after.uasset",
-      "sha256": "234d4b87b58b7662214a24593fe4e0abf40b19af6b977d01607621617207a980",
-      "size_bytes": 24025
+      "sha256": "ee9cb68f2db889913da50e570a0268c251a17b9c9def277f1edb2b8642e52156",
+      "size_bytes": 23949
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_tooltip_reject/before.uasset",
-      "sha256": "234d4b87b58b7662214a24593fe4e0abf40b19af6b977d01607621617207a980",
-      "size_bytes": 24025
+      "sha256": "ee9cb68f2db889913da50e570a0268c251a17b9c9def277f1edb2b8642e52156",
+      "size_bytes": 23949
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_tooltip_reject/operation.json",
@@ -1074,13 +1074,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_unicode/after.uasset",
-      "sha256": "5cc5c50cdb4d48355637f67e966089bd9bc9f384a9545321ba54bf8d396db55e",
-      "size_bytes": 23993
+      "sha256": "42b9a06e7b89ae60eae05412d4ccf2a8804fa4f6264e37fe7abd33e58b42fde5",
+      "size_bytes": 23917
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_unicode/before.uasset",
-      "sha256": "bc5b15d538b88ff86d8dafc7ec616c2b2b274ebae95e9882c73244049954f9b6",
-      "size_bytes": 23981
+      "sha256": "2eaa62b2e9bf80f8bdc24495ec704d36634b96cbbff14603d280522911f6864b",
+      "size_bytes": 23905
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_object_unicode/operation.json",
@@ -1089,13 +1089,13 @@
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_tooltip/after.uasset",
-      "sha256": "db19dfb6fb892197621296b09dad18347dd870098f3d51fbebb4c915155594ca",
-      "size_bytes": 23937
+      "sha256": "3c5a8f4e7f5d7aa591864e25ff21e79b0d71f4e722037b043450cbde2651ed7a",
+      "size_bytes": 23861
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_tooltip/before.uasset",
-      "sha256": "db19dfb6fb892197621296b09dad18347dd870098f3d51fbebb4c915155594ca",
-      "size_bytes": 23937
+      "sha256": "3c5a8f4e7f5d7aa591864e25ff21e79b0d71f4e722037b043450cbde2651ed7a",
+      "size_bytes": 23861
     },
     {
       "path": "golden/ue5.6/operations/metadata_set_tooltip/operation.json",
@@ -1104,28 +1104,28 @@
     },
     {
       "path": "golden/ue5.6/operations/name_add/after.uasset",
-      "sha256": "851c1c63f769e92eb5aeb513c089637d671cf08d429c710529a103e4c6677916",
-      "size_bytes": 23706
+      "sha256": "0d1436b8ced03142b6620b40e2e73ad0b635dca5e9e593270fa5c1c61a50ac2f",
+      "size_bytes": 23630
     },
     {
       "path": "golden/ue5.6/operations/name_add/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add/operation.json",
-      "sha256": "3b0392bd6e3c3db2d02c761f854e8784e90d5c57e5d9d78dfeba17f3267173d8",
-      "size_bytes": 191
+      "sha256": "0bfe63c8aaf4ac8324c98263edd0e3058750be2f227238e0ce121b5b69f2df50",
+      "size_bytes": 313
     },
     {
       "path": "golden/ue5.6/operations/name_add_duplicate_reject/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add_duplicate_reject/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add_duplicate_reject/operation.json",
@@ -1134,88 +1134,88 @@
     },
     {
       "path": "golden/ue5.6/operations/name_add_hash_override/after.uasset",
-      "sha256": "755a6cc01dcf032a470d2987afefedea3eb0d7f61ad0cef430e344f5db03a5ed",
-      "size_bytes": 23710
+      "sha256": "0e009c6b211e576cd5ab546a39b8278d51227e99a63420d03393e1647fb94130",
+      "size_bytes": 23634
     },
     {
       "path": "golden/ue5.6/operations/name_add_hash_override/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add_hash_override/operation.json",
-      "sha256": "8bbfe884733112bf02adaf7c58b7c137a0112227321746023db60a76e69c1fca",
-      "size_bytes": 307
+      "sha256": "fa00b3d6fa09f4e9cf3037bd20b39142ad46de4a74c2f7b1562e1ce24d8e6d44",
+      "size_bytes": 429
     },
     {
       "path": "golden/ue5.6/operations/name_add_hash_override_alt/after.uasset",
-      "sha256": "f3402e683da7167676cb31b445505e17a25ab802d0bd632d137f363050f3c215",
-      "size_bytes": 23713
+      "sha256": "681694a232ede3eb34d1c1fcf3e164b90c574d5012d963a01ce051612efa04a4",
+      "size_bytes": 23637
     },
     {
       "path": "golden/ue5.6/operations/name_add_hash_override_alt/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add_hash_override_alt/operation.json",
-      "sha256": "75fd91aeb6e3a455352051205343c73aa35adb644365fa39a05be4089f171383",
-      "size_bytes": 330
+      "sha256": "1f1fc9f04bc7df835b51faa109a92c703f8f3d37b219c73b1dd272c6db263714",
+      "size_bytes": 452
     },
     {
       "path": "golden/ue5.6/operations/name_add_long_ascii/after.uasset",
-      "sha256": "9897b642090f0af712c0cf4033c49d8312ace643caa6244e7e543f885037a345",
-      "size_bytes": 23719
+      "sha256": "432502f72a2a1191286a8600302c71235d7bfe4d212e4515cace92575057e9f6",
+      "size_bytes": 23643
     },
     {
       "path": "golden/ue5.6/operations/name_add_long_ascii/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add_long_ascii/operation.json",
-      "sha256": "27f19f89a8dc9cbb6f3dc2df336fdae36c475947f992f530e9babffa9d49c9cc",
-      "size_bytes": 226
+      "sha256": "62d33c8fde4e075000aff4530902ac239d0591f3ac3f438f321d391aee351cd5",
+      "size_bytes": 348
     },
     {
       "path": "golden/ue5.6/operations/name_add_unicode/after.uasset",
-      "sha256": "9a4a26655233dfd93e1781202f6a36facaa2f304c4f07e196c3050e31702a195",
-      "size_bytes": 23705
+      "sha256": "fd6420e654dd142ec6b32fd6203adde630fefe754fe7a697dfc6521829960637",
+      "size_bytes": 23629
     },
     {
       "path": "golden/ue5.6/operations/name_add_unicode/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_add_unicode/operation.json",
-      "sha256": "4bc0a1ca4376cdbfc00218429017e8826f32d2e142030d871e06f5861a801ff5",
-      "size_bytes": 209
+      "sha256": "8a4491f0265c847255c4e7469cb8d4ba713d457e5e2cd29d67c0b5d18d2d358a",
+      "size_bytes": 331
     },
     {
       "path": "golden/ue5.6/operations/name_remove/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "f3b798b0973c4336f283b62f672e99053f2d9beb5d4fec042acd1a9983762721",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove/before.uasset",
-      "sha256": "68fbeaaff7e1fd5310f02664cca5a659960cdf967d708b87d5631f1eef958a14",
-      "size_bytes": 23710
+      "sha256": "701c24c0a4e7ac238e5fe4b4193898c977272e4f8089a9921a0a6885dee4e51d",
+      "size_bytes": 23634
     },
     {
       "path": "golden/ue5.6/operations/name_remove/operation.json",
-      "sha256": "164ee82404d388e6193bff1b237d43d9864a7bdb5e2cb48c1b0ac04267ba28d5",
-      "size_bytes": 201
+      "sha256": "4397aaae07733d44ed7c2c03f195388caf2656a1e5f3a4d8598f2967740ef07d",
+      "size_bytes": 323
     },
     {
       "path": "golden/ue5.6/operations/name_remove_export_region_reject/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_export_region_reject/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_export_region_reject/operation.json",
@@ -1224,28 +1224,28 @@
     },
     {
       "path": "golden/ue5.6/operations/name_remove_hash/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "7b83921f001afcacf1297b7f4f917bcd3da3b3b17a05a980d4db9a0e968171eb",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_hash/before.uasset",
-      "sha256": "de0cb1bd7d0f9e0825251af5fdb956223be580184e12ad4640cc7b57e8de5e18",
-      "size_bytes": 23704
+      "sha256": "fa1337abc1515a7c5ca692267962addd8d7c1dd938a97d2b2127c8c5a6b25852",
+      "size_bytes": 23628
     },
     {
       "path": "golden/ue5.6/operations/name_remove_hash/operation.json",
-      "sha256": "91facb55366bfcb9bc4a9ba91e5a1e971fe48c05d293f048f260d46d1b6174bf",
-      "size_bytes": 248
+      "sha256": "f790a0643ed0ba3d550099e74b6f64b64ed3bc13fd7fa8960b216c1a6ea7c99f",
+      "size_bytes": 370
     },
     {
       "path": "golden/ue5.6/operations/name_remove_non_tail_reject/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_non_tail_reject/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_non_tail_reject/operation.json",
@@ -1254,13 +1254,13 @@
     },
     {
       "path": "golden/ue5.6/operations/name_remove_non_tail_reject_alt/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_non_tail_reject_alt/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_non_tail_reject_alt/operation.json",
@@ -1269,13 +1269,13 @@
     },
     {
       "path": "golden/ue5.6/operations/name_remove_referenced_reject/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_referenced_reject/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_referenced_reject/operation.json",
@@ -1284,13 +1284,13 @@
     },
     {
       "path": "golden/ue5.6/operations/name_remove_referenced_reject_alt/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_referenced_reject_alt/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_referenced_reject_alt/operation.json",
@@ -1299,133 +1299,133 @@
     },
     {
       "path": "golden/ue5.6/operations/name_remove_unicode/after.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "24922f794743d94222da10e7df366169bf8e5918c06b339e340161da894f46a2",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_remove_unicode/before.uasset",
-      "sha256": "59471e626fa5ec27f5b8da3910f2055c817f70576e3d2b676c31a7210fc32d04",
-      "size_bytes": 23709
+      "sha256": "0399506f5fa124bd4bcd40669249e119fd23472f3bb1d602356d997032e311d5",
+      "size_bytes": 23633
     },
     {
       "path": "golden/ue5.6/operations/name_remove_unicode/operation.json",
-      "sha256": "7e0cedec50ec39ee2c78402eb0129ae9f7dad0a6a22a4e010143c79de81f0384",
-      "size_bytes": 219
+      "sha256": "691ae99c60afe4c33de8ef49f8fad87049de90c9f42aba605987a0d662665678",
+      "size_bytes": 341
     },
     {
       "path": "golden/ue5.6/operations/name_set/after.uasset",
-      "sha256": "48603e860576440c48a8ca3965222a00052ddbfe5a882538b13c1d3ed682d397",
-      "size_bytes": 23684
+      "sha256": "43c5d45e314c1de426c84a5798555ea1b9d6e5ca1635937dbd062401c05003e3",
+      "size_bytes": 23608
     },
     {
       "path": "golden/ue5.6/operations/name_set/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set/operation.json",
-      "sha256": "4b8a4fcf5d10a7d248e6b279aa5a9969ca8adc81aa5130e34ddfc4d1c0c8099a",
-      "size_bytes": 219
+      "sha256": "516189012238d765fd67bb7b9e4745ea29273bbab5b60c26cac76ffe4f252b19",
+      "size_bytes": 341
     },
     {
       "path": "golden/ue5.6/operations/name_set_ascii_alt/after.uasset",
-      "sha256": "7f1b6723b407f31cdfa773309513c798cf3aa0f4cea4b69359e1705e1c3ca30a",
-      "size_bytes": 23693
+      "sha256": "de5f56755386eb1d45f103ad731d21cd93d6dc3b301ee9ecf56567f059608692",
+      "size_bytes": 23617
     },
     {
       "path": "golden/ue5.6/operations/name_set_ascii_alt/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_ascii_alt/operation.json",
-      "sha256": "78b6ac05142e29afabbc1e8925d8b55486f0f0197de02f02764920139ef93798",
-      "size_bytes": 240
+      "sha256": "89b41cd3dae29f57d737425f32c5d5b85fe09879868f4e9e5b8916e5e5a6532d",
+      "size_bytes": 362
     },
     {
       "path": "golden/ue5.6/operations/name_set_case_variant/after.uasset",
-      "sha256": "6be3b4bdede56d4092f19dae3f6e95b29f4ac70023753aab67b6cb104f315286",
-      "size_bytes": 23689
+      "sha256": "05e0cf290cee2c98536f62362528af7f965a3ca2217e10d67360c05d776c6cc6",
+      "size_bytes": 23613
     },
     {
       "path": "golden/ue5.6/operations/name_set_case_variant/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_case_variant/operation.json",
-      "sha256": "40fc9ebcdfbae2b399f354c568bd5a30d8070272e653657401169ba27f042f8a",
-      "size_bytes": 260
+      "sha256": "53ea72830a7bae922a9b0ff7eb08d29ccceeced41cc510c14c34b4d0d7a5b990",
+      "size_bytes": 382
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_only/after.uasset",
-      "sha256": "030b2d3b069fba902628307769d2f89d62319a33232362f7ea5d48ad190ac8c9",
-      "size_bytes": 23687
+      "sha256": "bb8710be27dc9197a795cf89e8656e223a43ae650ae0d5d789d84f8d56b9edb8",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_only/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_only/operation.json",
-      "sha256": "10a9b6fa91eabfb89cb83b35645923fd065b365600b7d30b692afc121db58c60",
-      "size_bytes": 335
+      "sha256": "c6aa8621c0a807bb04586572a7583bc000bab3406cbda3e1a39106e40c7723fb",
+      "size_bytes": 457
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_override/after.uasset",
-      "sha256": "6e68820565bf334a678343ff8bd4f665caccee0918d437acd76479fc18e8a640",
-      "size_bytes": 23687
+      "sha256": "2f8384eae0291778a72b87aa293bcb9b504d21028d67abf4c14d364e12884a6d",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_override/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_override/operation.json",
-      "sha256": "d4086ff8a63572fdd2b1059c4cdafd8432b01cc48a3f92ec35fa990197f8f027",
-      "size_bytes": 327
+      "sha256": "17ca00d328e15fe1ba2d97768c16c119fe134c91f28fb05786e6ca9f201257d6",
+      "size_bytes": 449
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_override_alt/after.uasset",
-      "sha256": "db947aabdb2cd0869d0c4e16c36500089c8be2db172ec5dc9e635170cb972af8",
-      "size_bytes": 23685
+      "sha256": "1aa234f9ff48d2ae66ba6da7e9b36343ec9c4c2cdff0687fec42523aaaee364c",
+      "size_bytes": 23609
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_override_alt/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_hash_override_alt/operation.json",
-      "sha256": "7d37d289f7e19853445145130d04bd67a7ce7ff30d9c1f24de1f48e77a5a9e79",
-      "size_bytes": 333
+      "sha256": "4fe0da46f603e27877a623bbe3f8dd6105074303cddf6946620825df5677166e",
+      "size_bytes": 455
     },
     {
       "path": "golden/ue5.6/operations/name_set_unicode/after.uasset",
-      "sha256": "10d35e1deddbbc0b237064fb591555fad4c3ba23b3a16673b62faae8d93e453e",
-      "size_bytes": 23677
+      "sha256": "f6da6e1ca1daa5137e088ee8f587e4185231df38cc95fff5302ab9f579623cd0",
+      "size_bytes": 23601
     },
     {
       "path": "golden/ue5.6/operations/name_set_unicode/before.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/name_set_unicode/operation.json",
-      "sha256": "ab2f42390f2f17c185cecff5009e4f968e6c35d6ef464bcb0b21f220e49a1b2e",
-      "size_bytes": 232
+      "sha256": "e312c39ed27a872d00668e0d2478090bc45b9dbf547b57bf2e276e6ec5e099c7",
+      "size_bytes": 354
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags/after.uasset",
-      "sha256": "9d394381fb0673906724730f86af9f461048ce54c2af7fe95b6300e9108e84e7",
-      "size_bytes": 23830
+      "sha256": "8f29a174394a1c3c899b7e59c7e2b80de38f782285b3e7d2cbf1edda49a2c2ec",
+      "size_bytes": 23754
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags/before.uasset",
-      "sha256": "ecf34db009e81ceabef1e304949e4ce0036b6bef7b7c7c3df08010b19e4638a3",
-      "size_bytes": 23830
+      "sha256": "5d67c16300a642b39ca541c0f11552145612a5e106a50be745aff6fdb3cb6247",
+      "size_bytes": 23754
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags/operation.json",
@@ -1434,13 +1434,13 @@
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_clear_zero/after.uasset",
-      "sha256": "4ac6dbb9d6b68766839a21e66a86080c1c52896008680978d6dd82a3e7dd2360",
-      "size_bytes": 23906
+      "sha256": "def44b82c16ef2010550265d7422b01e98fdb1a240c1eb07e638f87797411944",
+      "size_bytes": 23830
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_clear_zero/before.uasset",
-      "sha256": "4ac6dbb9d6b68766839a21e66a86080c1c52896008680978d6dd82a3e7dd2360",
-      "size_bytes": 23906
+      "sha256": "def44b82c16ef2010550265d7422b01e98fdb1a240c1eb07e638f87797411944",
+      "size_bytes": 23830
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_clear_zero/operation.json",
@@ -1449,13 +1449,13 @@
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_filtereditoronly_reject/after.uasset",
-      "sha256": "7b87ca6750c2a6e294ed622c0ec88ae3b572dd8dc937b900f61ef082801e2662",
-      "size_bytes": 23990
+      "sha256": "2ae57ac715fb52f81969ebe0f09e327c3eb78ba4ed6c23e514d582ecdc4db36f",
+      "size_bytes": 23914
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_filtereditoronly_reject/before.uasset",
-      "sha256": "7b87ca6750c2a6e294ed622c0ec88ae3b572dd8dc937b900f61ef082801e2662",
-      "size_bytes": 23990
+      "sha256": "2ae57ac715fb52f81969ebe0f09e327c3eb78ba4ed6c23e514d582ecdc4db36f",
+      "size_bytes": 23914
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_filtereditoronly_reject/operation.json",
@@ -1464,13 +1464,13 @@
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_raw/after.uasset",
-      "sha256": "fded976bbbb663756c8e3d841828be8cf4979cff0e37fa081e3acfda2e5c7d4f",
-      "size_bytes": 23862
+      "sha256": "99cecea647db9abcb1ca337e95a1a5f7dc1c8513243e1fec4ae8b604e424542f",
+      "size_bytes": 23786
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_raw/before.uasset",
-      "sha256": "7d6a65c721626384c73c5a2d5025a37466b8a6e5905baef9c8631c00476ee91b",
-      "size_bytes": 23862
+      "sha256": "ad31174506e177109968552b67d616253159386154bc5c07e517ced3dc63265a",
+      "size_bytes": 23786
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_raw/operation.json",
@@ -1479,13 +1479,13 @@
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_runtimegenerated/after.uasset",
-      "sha256": "659da1e935c3dff9d3f98d735650fb7c9ebf73a26abc92af56fd17ccb51f1d51",
-      "size_bytes": 23946
+      "sha256": "194d88cc5aac4e4e80c61fed6a80ea0f158b1ac41d22258b1788a3141e8c1c19",
+      "size_bytes": 23870
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_runtimegenerated/before.uasset",
-      "sha256": "a43796800da71fe6cf28bc90254fa9203126e34ffcee3c36c9a4a4fa378cd4c8",
-      "size_bytes": 23946
+      "sha256": "b0ecf6b7cc19361b2ae856fd5662fb4e5f2e4dc648030c9542b423104299fabf",
+      "size_bytes": 23870
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_runtimegenerated/operation.json",
@@ -1494,13 +1494,13 @@
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_unversionedprops_reject/after.uasset",
-      "sha256": "ee7dac20ed11ddef08da8e361c655269e3b360ee41353fb99b6752f770735b6e",
-      "size_bytes": 23990
+      "sha256": "9f8ff00268fed0e3f1c1aa31d003e7b60239cfb06c5611d320cb0c34514062ad",
+      "size_bytes": 23914
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_unversionedprops_reject/before.uasset",
-      "sha256": "ee7dac20ed11ddef08da8e361c655269e3b360ee41353fb99b6752f770735b6e",
-      "size_bytes": 23990
+      "sha256": "9f8ff00268fed0e3f1c1aa31d003e7b60239cfb06c5611d320cb0c34514062ad",
+      "size_bytes": 23914
     },
     {
       "path": "golden/ue5.6/operations/package_set_flags_unversionedprops_reject/operation.json",
@@ -1509,13 +1509,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_add/after.uasset",
-      "sha256": "93366caa94d9101bbe9b93f63bc1058836aadfb9ab2a93d5685392035b63624b",
-      "size_bytes": 23881
+      "sha256": "d96fa51b96ce11c2f372198c940fca85f2a18c83d677cf9b7c2c5b6864523cc2",
+      "size_bytes": 23805
     },
     {
       "path": "golden/ue5.6/operations/prop_add/before.uasset",
-      "sha256": "6165f8122008bc8b67af0b3a194d0b0d95cc001387b8850e8d60a98d01dfe39c",
-      "size_bytes": 23856
+      "sha256": "65935905b904b00905bd7c44dff52ecf6c66cd83e0dec091bba293a8408d1839",
+      "size_bytes": 23780
     },
     {
       "path": "golden/ue5.6/operations/prop_add/operation.json",
@@ -1524,13 +1524,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_add_fixture_int/after.uasset",
-      "sha256": "f2e563848a357e793d67fc60c1463be3e833d830fc199d8b3a3e0d7e03d8d652",
-      "size_bytes": 24438
+      "sha256": "2762e83db07eb52d96827ceec2d82bb131c7413c976973e74b727ee5804437f7",
+      "size_bytes": 24362
     },
     {
       "path": "golden/ue5.6/operations/prop_add_fixture_int/before.uasset",
-      "sha256": "ff44ddfd4ae304dfa09ea8ad566488f340bee7fff1b6bd2f98bc0ff7bd22200a",
-      "size_bytes": 24409
+      "sha256": "fe532dd485baf73e748dbc7f3fe39c52e8a14e2530e2a2f6eb251379bb3c30da",
+      "size_bytes": 24333
     },
     {
       "path": "golden/ue5.6/operations/prop_add_fixture_int/operation.json",
@@ -1539,13 +1539,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_remove/after.uasset",
-      "sha256": "dc9c3b4a0a958b772ebfaee7c9e87b7c9830b3b0cf59be66b3222bc0d5b33868",
-      "size_bytes": 23876
+      "sha256": "cb7479a8a8dd3395f313a238986b1ed808ac463a9cee92e4e286a4d63909ca71",
+      "size_bytes": 23800
     },
     {
       "path": "golden/ue5.6/operations/prop_remove/before.uasset",
-      "sha256": "569a68ca81dbf4ec30c31557b618c5601df30f01e272f2ef5f64da1ceeb74ae7",
-      "size_bytes": 23901
+      "sha256": "7c8682aa999ecc2d5ec6773ccfd42d59ee76f5b1f7af37723954e263dbf16a57",
+      "size_bytes": 23825
     },
     {
       "path": "golden/ue5.6/operations/prop_remove/operation.json",
@@ -1554,13 +1554,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_remove_fixture_int/after.uasset",
-      "sha256": "43a54cc3ba33697adb64c5bb1a059748e383f60797f1346efd11bff69731c10b",
-      "size_bytes": 24429
+      "sha256": "96272ba57382de18c0f2f9530adf004fd6b06d44591966d14a19f3d9cd2c2dab",
+      "size_bytes": 24353
     },
     {
       "path": "golden/ue5.6/operations/prop_remove_fixture_int/before.uasset",
-      "sha256": "1fc953f9275ca2459eb01003a6838659b29e756e7627eabf646ef2c3fed38b43",
-      "size_bytes": 24458
+      "sha256": "31a030cf42c06f4959b66f1ee2545e625d2f0493a9fc778c241f24f2169a7e84",
+      "size_bytes": 24382
     },
     {
       "path": "golden/ue5.6/operations/prop_remove_fixture_int/operation.json",
@@ -1569,13 +1569,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_element/after.uasset",
-      "sha256": "709def598e991ec4c25cb2b7f3dd7f7eec95ec1c0e3ff3621aeeaf6a0b5d2fd6",
-      "size_bytes": 24394
+      "sha256": "842daea13d1b13872a5621989db3ca57ef9aa0363ea06033aec6f66e74f80e3f",
+      "size_bytes": 24318
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_element/before.uasset",
-      "sha256": "aec5ea8161c70a93054b8228c7e499e53f45bd2e5f379c80e5140f16001d09f6",
-      "size_bytes": 24394
+      "sha256": "9c259a7cd83cf3041f70d4a79130fee43695a769d661c4afe27d2eaa926913ce",
+      "size_bytes": 24318
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_element/operation.json",
@@ -1584,13 +1584,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_replace_empty/after.uasset",
-      "sha256": "2fc561ea0b27cfa19190f635a2ffde4aab87e667c77ecdb42c4f50453866d2a2",
-      "size_bytes": 24426
+      "sha256": "eb24eec8fd4771a04faaa2439f88fa9b028411bfbc1e7c9fc7e8a911bc277e90",
+      "size_bytes": 24350
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_replace_empty/before.uasset",
-      "sha256": "41c5b8da4521d156c05c2f74730009c6fdd858820e37e8b5d0a577a1dae038eb",
-      "size_bytes": 24434
+      "sha256": "5c95a3e39894e146c48c87ec18b54d0964506b0a033361e2ae2bcd315840a1c8",
+      "size_bytes": 24358
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_replace_empty/operation.json",
@@ -1599,13 +1599,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_replace_longer/after.uasset",
-      "sha256": "db6860c8e747e8e25333df19431c9ee38d2faddb3934f636640744e1697fb17b",
-      "size_bytes": 24466
+      "sha256": "c6078ed3f75627b7b1ba52ab504970e10234a64713ee063b3662cc21847b0851",
+      "size_bytes": 24390
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_replace_longer/before.uasset",
-      "sha256": "763036c3d3efb1a658684f0ac528ecd877f609f2023b2014c9373a8a3c25a90f",
-      "size_bytes": 24442
+      "sha256": "d34551765867fb9f72ce4325e32a4e30929b3802484af56dae37363fd722074d",
+      "size_bytes": 24366
     },
     {
       "path": "golden/ue5.6/operations/prop_set_array_replace_longer/operation.json",
@@ -1614,13 +1614,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_bool/after.uasset",
-      "sha256": "715b9077ed7e6d5c0681b90f665c9e7af15cf1dfa25c8ea48e665ace10145452",
-      "size_bytes": 31509
+      "sha256": "6f45a9e0ff61b4f6511cd219f0fdbb2e0bfb4dbc75f46e9b352b23aa4bc1317e",
+      "size_bytes": 31403
     },
     {
       "path": "golden/ue5.6/operations/prop_set_bool/before.uasset",
-      "sha256": "1c39c07c3ad3ba4b9266afd2d4d635e94eb330de1b457f75b91676b889eaed98",
-      "size_bytes": 31550
+      "sha256": "ae2f2eb3ec41fab924a0728ea742676a004f0e0868fd266dd5952d757e585cf8",
+      "size_bytes": 31444
     },
     {
       "path": "golden/ue5.6/operations/prop_set_bool/operation.json",
@@ -1629,13 +1629,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_color/after.uasset",
-      "sha256": "cf53ec286eecec60576120f3725ea8c74e179d1735945e2c846c94d856299ef5",
-      "size_bytes": 30207
+      "sha256": "f0c4f85b56dee03053cffd9474831b0de73bdea31555a7da42b8e93966ebd31f",
+      "size_bytes": 30113
     },
     {
       "path": "golden/ue5.6/operations/prop_set_color/before.uasset",
-      "sha256": "9e678a8edbf9f2697f6300cdb02397ae238e28ea78d409c386ebda0efd29a2d1",
-      "size_bytes": 30063
+      "sha256": "0915d01fdce9a40a6f06f371087e411fe10c1bb1d02160c64822b7dac93e696d",
+      "size_bytes": 29969
     },
     {
       "path": "golden/ue5.6/operations/prop_set_color/operation.json",
@@ -1644,13 +1644,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_custom_struct_enum/after.uasset",
-      "sha256": "3e0d189caa810ee21828d5f7fbfddc23bab4993f9e39d3281ece9146f93e4d21",
-      "size_bytes": 24783
+      "sha256": "dd3c9c0057ac63be6d7c3900470256fcfacd1925f81b7547399a88f67f6d03cc",
+      "size_bytes": 24707
     },
     {
       "path": "golden/ue5.6/operations/prop_set_custom_struct_enum/before.uasset",
-      "sha256": "f0406d2f10e9facc9f6f5bc992a6bcbb7081f59795f1ea4e76b812561ee0e446",
-      "size_bytes": 24806
+      "sha256": "4e8b61d21016f7a0a68407c452b181843c28d2aeacfab74383bdc50a8063848b",
+      "size_bytes": 24730
     },
     {
       "path": "golden/ue5.6/operations/prop_set_custom_struct_enum/operation.json",
@@ -1659,13 +1659,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_custom_struct_int/after.uasset",
-      "sha256": "f956ca8881d3696c2029882c42e8f35349dba6a5e604c4a5bf05950fee9de778",
-      "size_bytes": 24511
+      "sha256": "3e787a2a134a683de8e6f656d95602ddae582808500052f5dfd631c4886cd542",
+      "size_bytes": 24435
     },
     {
       "path": "golden/ue5.6/operations/prop_set_custom_struct_int/before.uasset",
-      "sha256": "412f4dc6e6784dd51787679ab481fbe5ab78866fcab6426a2819eab3d1ceeae5",
-      "size_bytes": 24511
+      "sha256": "a6e9b7018488cbe2716e4c9d7daecc88614f9fb46057b413aa93b45f1e49b96d",
+      "size_bytes": 24435
     },
     {
       "path": "golden/ue5.6/operations/prop_set_custom_struct_int/operation.json",
@@ -1674,13 +1674,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_double/after.uasset",
-      "sha256": "6f68be50ee430b3fdb6853d925177f29d7ece8843ae475dadc1c8cb50b87278a",
-      "size_bytes": 24359
+      "sha256": "33acb8d711ba3a148a6a26e04caf2e564d61ff4a6953e1a7a150bb2c854aedf9",
+      "size_bytes": 24283
     },
     {
       "path": "golden/ue5.6/operations/prop_set_double/before.uasset",
-      "sha256": "6a56c91e8666b2ee83b251be729feaf14bf488df482d8fba4546a8e803bdc495",
-      "size_bytes": 24359
+      "sha256": "299e9a84bc3b08e8588d0ab7f7d4c7d1d9cfa5375abf92b2edc1dac207ad56c3",
+      "size_bytes": 24283
     },
     {
       "path": "golden/ue5.6/operations/prop_set_double/operation.json",
@@ -1689,13 +1689,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum/after.uasset",
-      "sha256": "6e7b15743ae69ee7b50642afcfef4f3dafb2eed6b5421e61f5ae21803e59979b",
-      "size_bytes": 24581
+      "sha256": "2b620fda893c20d10fd06a6c400a6588088ed9eea82160e364409b7de72a815b",
+      "size_bytes": 24505
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum/before.uasset",
-      "sha256": "9d08fa9aa460bb8d0ee7ef8b23b7d13d162328e693ec03df30a5df59f5c7faed",
-      "size_bytes": 24581
+      "sha256": "1d574743182daa52bba0bc15a6bf6771a4389dcd4f52020a666d75e70f794d02",
+      "size_bytes": 24505
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum/operation.json",
@@ -1704,13 +1704,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum_anchor/after.uasset",
-      "sha256": "a076f761f2bf0a30b5602660741c058c4a57b2327e7d8342cab4d3326101e520",
-      "size_bytes": 24633
+      "sha256": "6ebb2d15a558c627e135b264e2cc269ed489146b1f9e79c02ca21f000f073e55",
+      "size_bytes": 24557
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum_anchor/before.uasset",
-      "sha256": "18df6c436f54fdb1f0b5d4546d4125b6d04e19ce97c69ba3f57ab97bf3b99a0b",
-      "size_bytes": 24633
+      "sha256": "787fe9dec517a4764725530a2906b7acd894efd378877131ad1fd3c470300b15",
+      "size_bytes": 24557
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum_anchor/operation.json",
@@ -1719,13 +1719,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum_numeric/after.uasset",
-      "sha256": "c50bf28b29c6519e24a1aa075d32c4b73f7962cb5485e530c9a1c28945e6cb9f",
-      "size_bytes": 24637
+      "sha256": "f04b880ef866c64cfecef5b75e865df23875e103f86b42a9b91e44ebaeb96559",
+      "size_bytes": 24561
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum_numeric/before.uasset",
-      "sha256": "1af18f8d8e262095e30775c53c2ca6df997ee2c26f6eca0bc52dd011c3fb3e8a",
-      "size_bytes": 24637
+      "sha256": "302904e2526e547a2d3a36d4fb75f4e017c7581b8c1fffd03e1e1420628e0680",
+      "size_bytes": 24561
     },
     {
       "path": "golden/ue5.6/operations/prop_set_enum_numeric/operation.json",
@@ -1734,13 +1734,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_float/after.uasset",
-      "sha256": "596bd5bbdc38c7d01681ea3260510b9dbf370080f154b721a5d0bbc09d62336d",
-      "size_bytes": 24327
+      "sha256": "9e596fdef8f486aa10baafa7862551ba75324150a870101d83322d6b31f46f25",
+      "size_bytes": 24251
     },
     {
       "path": "golden/ue5.6/operations/prop_set_float/before.uasset",
-      "sha256": "335e5ae3d7c1d399371bfec9f9a35ed68d72579e6a144fdd70400e2bef75406c",
-      "size_bytes": 24327
+      "sha256": "e2ac18b2c4339c70e3c5b0426e79d7f2793720469bb117ea79b193563579bc20",
+      "size_bytes": 24251
     },
     {
       "path": "golden/ue5.6/operations/prop_set_float/operation.json",
@@ -1749,13 +1749,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_float_special/after.uasset",
-      "sha256": "36a6570df63ed9d72e9227fa1ed115f9aa921df68c7a1a225358afdd4685caae",
-      "size_bytes": 24375
+      "sha256": "03790ef25888e8296f31be7cdfcc8c85dfc1977dc1f23fcee2f2929a1408730f",
+      "size_bytes": 24299
     },
     {
       "path": "golden/ue5.6/operations/prop_set_float_special/before.uasset",
-      "sha256": "3dbc36800ecb844fa423d11a700168c006ed49ecc205ee904b9fdb6c26b0da21",
-      "size_bytes": 24375
+      "sha256": "b1146079c5b94e703932514ca30cf9167802dd1264d4d82ca23aef639d6deea5",
+      "size_bytes": 24299
     },
     {
       "path": "golden/ue5.6/operations/prop_set_float_special/operation.json",
@@ -1764,13 +1764,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int/after.uasset",
-      "sha256": "6b91e9c9309a7907067fe0da9ff2c537f02b3dd13c39f2d8cc2b468fab345207",
-      "size_bytes": 24312
+      "sha256": "aa94375542cb6d294d1c3aea2c8378812c6edf4808973ff9ebf0062af05d60f2",
+      "size_bytes": 24236
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int/before.uasset",
-      "sha256": "9aac3c04581fc9a8e79f44cced848488b02108108696f1295815dd88853f0b05",
-      "size_bytes": 24310
+      "sha256": "787676a9b36a975e666048e9a5c3231f50b7d4173d73f881b3156d8709f9295b",
+      "size_bytes": 24234
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int/operation.json",
@@ -1779,13 +1779,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int64/after.uasset",
-      "sha256": "4ea422439d32d0c5e6eae6f99f51d6b4ce7381d07f1edcd5759d62a022d247c2",
-      "size_bytes": 24353
+      "sha256": "5f10aea62e2dd405bf3670e2a10b1059bbc08549662909f1c732713284a65938",
+      "size_bytes": 24277
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int64/before.uasset",
-      "sha256": "36466f9228b96adba7d58941c872325b4acbd827989e81acedc90a546e650088",
-      "size_bytes": 24353
+      "sha256": "80edae969f907b00b64192bdc703bb72f3033c5b8a608f1814850a1e33ec81a4",
+      "size_bytes": 24277
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int64/operation.json",
@@ -1794,13 +1794,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_max/after.uasset",
-      "sha256": "f265172e238d302fcc44d58b68488684d923aba0e46a6bc22a45a16326ca9843",
-      "size_bytes": 24333
+      "sha256": "6c4a41428c51c96728acd17e7ba6d9605980e79f2c019c03f2ff89c5c1930bb6",
+      "size_bytes": 24257
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_max/before.uasset",
-      "sha256": "002ef791b42f07458bffa0772ddb8d0df660559eba88522ee69ef7143f220bdf",
-      "size_bytes": 24333
+      "sha256": "a333fc830e1950334eef1a13f044e09aee8c0393f2a41d4954df6d3643c1b977",
+      "size_bytes": 24257
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_max/operation.json",
@@ -1809,13 +1809,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_min/after.uasset",
-      "sha256": "0bee8e157b28286a1032a458d6e8d20761272f905892673c70c3d4469c8fa22d",
-      "size_bytes": 24333
+      "sha256": "b4d25e8a3954347cfb5ec507289d5a4f11739d1104e841448c29a2818110ec14",
+      "size_bytes": 24257
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_min/before.uasset",
-      "sha256": "0ea0b66d4234d02db3c829831c4f7a9ced14d554171d712caf4d32f54367c0c7",
-      "size_bytes": 24333
+      "sha256": "f84d14409a3f08456d816550284e4828d59a5ac32650a97b990b3e1dbf5dd0ae",
+      "size_bytes": 24257
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_min/operation.json",
@@ -1824,13 +1824,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_negative/after.uasset",
-      "sha256": "1addfaafccc7fc79b2a22969d44f7f5b42371b84ca0c422406b300ab67c2bfc8",
-      "size_bytes": 24369
+      "sha256": "df6f82bee62a866cebc9e41b71bc7594afb4b8ae4339ae8b72835b647acce056",
+      "size_bytes": 24293
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_negative/before.uasset",
-      "sha256": "7b6da4e0b3b032c8cb8139d3b43b28ae5153da6ffd18348610579c16e6a4c5c1",
-      "size_bytes": 24369
+      "sha256": "75e5fb2c84b1ea28f9034cb10e890ef4012981b06037d94e37edecb4c156f768",
+      "size_bytes": 24293
     },
     {
       "path": "golden/ue5.6/operations/prop_set_int_negative/operation.json",
@@ -1839,13 +1839,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_map_value/after.uasset",
-      "sha256": "99365886256b265efaeaa2e0a0c60089282c663155dd99c8ff6aae08d7283232",
-      "size_bytes": 24404
+      "sha256": "dd23b53d9849fe515db54915a36f52e5a576efaa36ef23a55ab2a3d3195351e6",
+      "size_bytes": 24328
     },
     {
       "path": "golden/ue5.6/operations/prop_set_map_value/before.uasset",
-      "sha256": "403f7e954d8150c5f6dd6a76791b54bf4e02c33984722b3882ace3fdfeb732df",
-      "size_bytes": 24404
+      "sha256": "5667d0d4292a5524f08de593b7cbf6f28f189a7ac5df8e78d9756a6b687805df",
+      "size_bytes": 24328
     },
     {
       "path": "golden/ue5.6/operations/prop_set_map_value/operation.json",
@@ -1854,13 +1854,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_name/after.uasset",
-      "sha256": "2f3e108c7116e2079eb3a397786bc4b21464ec2c315f34e44ad4f55b41c84564",
-      "size_bytes": 24318
+      "sha256": "10a588f3d44c4e14a19eb748e99476d57dcea528e1b118b0d392cf41738319de",
+      "size_bytes": 24242
     },
     {
       "path": "golden/ue5.6/operations/prop_set_name/before.uasset",
-      "sha256": "772da8b796b692bc75f557158522565e09de2164f9e8c2c56a211bee40e2809b",
-      "size_bytes": 24318
+      "sha256": "9cb937f2dd46a2d7e8c0d1116970ff393d1bad60befb21b46dd3451e66ebefd1",
+      "size_bytes": 24242
     },
     {
       "path": "golden/ue5.6/operations/prop_set_name/operation.json",
@@ -1869,13 +1869,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_nested_array_struct/after.uasset",
-      "sha256": "3272b2f1dc314a5d51e7fcb556b729e71c83033fae8fe266e50f4a73108ecfb1",
-      "size_bytes": 23985
+      "sha256": "59125e20c9336bdeeaee93c1a86856cd94b009e7e63cb85ec8c2394bc2ed1415",
+      "size_bytes": 23909
     },
     {
       "path": "golden/ue5.6/operations/prop_set_nested_array_struct/before.uasset",
-      "sha256": "3272b2f1dc314a5d51e7fcb556b729e71c83033fae8fe266e50f4a73108ecfb1",
-      "size_bytes": 23985
+      "sha256": "59125e20c9336bdeeaee93c1a86856cd94b009e7e63cb85ec8c2394bc2ed1415",
+      "size_bytes": 23909
     },
     {
       "path": "golden/ue5.6/operations/prop_set_nested_array_struct/operation.json",
@@ -1884,13 +1884,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_nested_struct/after.uasset",
-      "sha256": "3108e6578739f9563fccf3e0b01fe0da177cb3160665a2c7346d0ea38c3edadb",
-      "size_bytes": 30229
+      "sha256": "3d382a451791357b4ff3311dab8a749d9b4654f8ae4e4fdfba8f39bfbfb2a4a9",
+      "size_bytes": 30135
     },
     {
       "path": "golden/ue5.6/operations/prop_set_nested_struct/before.uasset",
-      "sha256": "977e00deb4f063e45ab69ace0384c5647a20a1da89e2c32f7e8b380905c60bc7",
-      "size_bytes": 30103
+      "sha256": "06ae6f194896c2a0293b8ef4c0d2889a0042a5783aeb2c96b3629a02008ce2bd",
+      "size_bytes": 30009
     },
     {
       "path": "golden/ue5.6/operations/prop_set_nested_struct/operation.json",
@@ -1899,13 +1899,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_rotator/after.uasset",
-      "sha256": "13375455be8793aab54c2886bd71ff3faf4ff59c2fdad2a41590f51e20594d2e",
-      "size_bytes": 24397
+      "sha256": "4dc004d7831019d7809a16d922f0f28ab1d52da780687153ee4214130794cf6c",
+      "size_bytes": 24321
     },
     {
       "path": "golden/ue5.6/operations/prop_set_rotator/before.uasset",
-      "sha256": "37f969b8bb1e0d32274c73cd8d73168dd3ad98656b70deffc453b4e16163e265",
-      "size_bytes": 24397
+      "sha256": "d50e4360a0e8f688b47bd233c568d9ccb69708cccc6837847bb74e01b9230fc2",
+      "size_bytes": 24321
     },
     {
       "path": "golden/ue5.6/operations/prop_set_rotator/operation.json",
@@ -1914,13 +1914,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_rotator_axis_roll/after.uasset",
-      "sha256": "2c21a9bace4f3edb07d7da8d0ce4e0a5a2dba081ba42cffa54908ad9ff1af928",
-      "size_bytes": 24469
+      "sha256": "c58fea0caddc25d9c54da07800039921e2c9c1f88d960a6ad18cdafe52603cd1",
+      "size_bytes": 24393
     },
     {
       "path": "golden/ue5.6/operations/prop_set_rotator_axis_roll/before.uasset",
-      "sha256": "34a0c7ffe24b086e7bfee460a40a64dc680ca2f50a440818bfcf5371e23c9e2a",
-      "size_bytes": 24469
+      "sha256": "5739d727e3648ab083d1e29b067f195c933fb1a5e7c5ec1c58bab9600b9de99d",
+      "size_bytes": 24393
     },
     {
       "path": "golden/ue5.6/operations/prop_set_rotator_axis_roll/operation.json",
@@ -1929,13 +1929,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_soft_object/after.uasset",
-      "sha256": "6672cd3745b4d995929a35ba3b2a127302a513bb9c4143d1924080339d88fcbb",
-      "size_bytes": 23937
+      "sha256": "b7993602342df333626a0d25f9c1254b07b0c1baa0e7a550e67ba96f7305068f",
+      "size_bytes": 23861
     },
     {
       "path": "golden/ue5.6/operations/prop_set_soft_object/before.uasset",
-      "sha256": "6672cd3745b4d995929a35ba3b2a127302a513bb9c4143d1924080339d88fcbb",
-      "size_bytes": 23937
+      "sha256": "b7993602342df333626a0d25f9c1254b07b0c1baa0e7a550e67ba96f7305068f",
+      "size_bytes": 23861
     },
     {
       "path": "golden/ue5.6/operations/prop_set_soft_object/operation.json",
@@ -1944,13 +1944,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_diff_len/after.uasset",
-      "sha256": "f6c5822d48e87486c76c42c67d3e69321bfedc3703a69a72864b7d1e5e2d86bf",
-      "size_bytes": 24396
+      "sha256": "4dfe62fdf9d8461997233269512b545fd46660ff12a9b5b6b5c4991b4246ea00",
+      "size_bytes": 24320
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_diff_len/before.uasset",
-      "sha256": "006d31b188d195a4bbd3b6caabfbac96d6daa5d3e54586aec8ae369e470dca4a",
-      "size_bytes": 24387
+      "sha256": "ce860573a45d2845e25b210dc295474aef3fd3591b2552ecb5a3d8ce8141f4ec",
+      "size_bytes": 24311
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_diff_len/operation.json",
@@ -1959,13 +1959,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_empty/after.uasset",
-      "sha256": "c15286e09e63aea4953e56b586e9ce6964f3fef4af7493ba69e5832d0770242f",
-      "size_bytes": 24364
+      "sha256": "85a0ee1b938d36372ecaacdd0358edb2b671ae87b31986d1d4daa0c9e0bd1e78",
+      "size_bytes": 24288
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_empty/before.uasset",
-      "sha256": "6538e1ce80f28dd4930973fbd3b4c3859c961a5bd2cc51b083e13c944797d2e2",
-      "size_bytes": 24370
+      "sha256": "869dd8526935d69e8a1c7271ae05020cb6c6a81047a8f227c8add798fe733ff8",
+      "size_bytes": 24294
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_empty/operation.json",
@@ -1974,13 +1974,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_long_expand/after.uasset",
-      "sha256": "a0a3e4eb85511c1253ecf9b85aa1853732c433cf76d309fa8de9229d559acdcc",
-      "size_bytes": 24471
+      "sha256": "36cd55da36d34ff8fdb03dc07f9f27cb6c64238f8a6e8ecfca832d6fa02190e0",
+      "size_bytes": 24395
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_long_expand/before.uasset",
-      "sha256": "269ccdcb56baab02f2b9045a76c160191ba099c1f159f7e4687c16ff268b6d4c",
-      "size_bytes": 24409
+      "sha256": "9f7e006b19b5c53d363e5d61f4a79f83c7c37c986f396127b14f4e5bb293f346",
+      "size_bytes": 24333
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_long_expand/operation.json",
@@ -1989,13 +1989,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_same_len/after.uasset",
-      "sha256": "a2a6de8a1d611c7888e569887b2a8ec9f39b9410e68ab29859e37e2206f5dd69",
-      "size_bytes": 24390
+      "sha256": "3948b72dc505e07fbaf835a44d52ea26ee8975098e81f47c4b2cedcbe1f764d6",
+      "size_bytes": 24314
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_same_len/before.uasset",
-      "sha256": "feeb0a54a055c4d7de5e97accd53ade1dcc08c229826dd352d626091919936e9",
-      "size_bytes": 24390
+      "sha256": "8874a1f17281fe0ac10288fa24456b65c43f9f10c437bf4e80eafaefe30ecce8",
+      "size_bytes": 24314
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_same_len/operation.json",
@@ -2004,13 +2004,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_shrink/after.uasset",
-      "sha256": "c252b484f46e4713a5d2c416dbc029e603439f15144f2451876d8b45f8d10a90",
-      "size_bytes": 24370
+      "sha256": "c84967a17f77a783adbc1631bff5c3e500e0c2fe38bf4e941fec4a7e5b6ddf3e",
+      "size_bytes": 24294
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_shrink/before.uasset",
-      "sha256": "1bb55de175fc621df0f3a5e398132f8446a1a099d8149fcddba8f74b31772e4e",
-      "size_bytes": 24420
+      "sha256": "efe1af78427e8bfa5f21a12557097a7fb402f739423a0c6606ba563565d4b831",
+      "size_bytes": 24344
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_shrink/operation.json",
@@ -2019,13 +2019,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_unicode/after.uasset",
-      "sha256": "4ed2377c1262b6b21d2e36db3b8a1ba6867e2d906edbd1455d7b5d096c1b8eac",
-      "size_bytes": 24388
+      "sha256": "dfe8162b82321578247a811cbc6a9f392c39366b903be2f34bd2fab9cfc8d3bc",
+      "size_bytes": 24312
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_unicode/before.uasset",
-      "sha256": "93885b4ed06fda3139d14559994442468d6b75372f7a871d94e83dbf0a4ae59c",
-      "size_bytes": 24385
+      "sha256": "24d0c182ee27c6d0c37fd142c40569fc9db0c5f9b7cd565e2402038e983d246b",
+      "size_bytes": 24309
     },
     {
       "path": "golden/ue5.6/operations/prop_set_string_unicode/operation.json",
@@ -2034,13 +2034,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_text/after.uasset",
-      "sha256": "2d605b5d11c0621012ae4ef5dbd93c8108d86f7ac3b37bc29f8b68966d2214d0",
-      "size_bytes": 31551
+      "sha256": "f7a3094b5f8e7f2348c440d6d8670ba681d0d43de45bf578ae8b2e3a9401e61c",
+      "size_bytes": 31445
     },
     {
       "path": "golden/ue5.6/operations/prop_set_text/before.uasset",
-      "sha256": "0605f1a41b10c676fd9a40181751d02d30da9f1b3977166d7aa12124afe39056",
-      "size_bytes": 31550
+      "sha256": "eaf088f90799ca98682431f07049d9fa8fa0a8b065f1caef9e26444292320b77",
+      "size_bytes": 31444
     },
     {
       "path": "golden/ue5.6/operations/prop_set_text/operation.json",
@@ -2049,13 +2049,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_transform/after.uasset",
-      "sha256": "10def8f7fd61aa0abce72e831aba602d1936d52d39501c643e7728ab3c87f1d8",
-      "size_bytes": 30209
+      "sha256": "3c2119aa828ed75dce48db058aa2ad03b106f4f2f4639e1181b431632ca4173c",
+      "size_bytes": 30115
     },
     {
       "path": "golden/ue5.6/operations/prop_set_transform/before.uasset",
-      "sha256": "23cccf3e2baa648c4b34c6a81654872979525f5c38803da0af5c44cabaa12ae9",
-      "size_bytes": 30083
+      "sha256": "1db03fb630d0064bc93fed3e8ac56d9ad26eec3f9039602d8535e480c70a9b52",
+      "size_bytes": 29989
     },
     {
       "path": "golden/ue5.6/operations/prop_set_transform/operation.json",
@@ -2064,13 +2064,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_vector/after.uasset",
-      "sha256": "0a1ae2faebe006e925f73222ac106daf93e1428ab92882b7e61ff5b577873b68",
-      "size_bytes": 24391
+      "sha256": "ac1420adf8680e6fcbcca8d3f48ce882b94ab981e762441f0f70257213a719d8",
+      "size_bytes": 24315
     },
     {
       "path": "golden/ue5.6/operations/prop_set_vector/before.uasset",
-      "sha256": "bb9da4e58fe37622eba7b37070fb7c283dca00f6dec13cbbb3a6d07fb12fdddd",
-      "size_bytes": 24391
+      "sha256": "414c60bdd39d2efe869b4dc075ab739fa69a8a4b81e69ccaf66ec1b9697f88e8",
+      "size_bytes": 24315
     },
     {
       "path": "golden/ue5.6/operations/prop_set_vector/operation.json",
@@ -2079,13 +2079,13 @@
     },
     {
       "path": "golden/ue5.6/operations/prop_set_vector_axis_x/after.uasset",
-      "sha256": "cb78a0e6a74f36d573b088da83a26fcbe0af229fa53ded13ef87031223b646ad",
-      "size_bytes": 24435
+      "sha256": "8d1bf65ecac96e9ee128caa27a465e81960df7d55c865ef130feb7febd314175",
+      "size_bytes": 24359
     },
     {
       "path": "golden/ue5.6/operations/prop_set_vector_axis_x/before.uasset",
-      "sha256": "d3f6571cb971287c3a93a687932bcfbfbd3459a35282b96a859f55144c213517",
-      "size_bytes": 24435
+      "sha256": "57236309d4f080d4b3240f93e3f3ce6ebc13511623acba993f264640815caee6",
+      "size_bytes": 24359
     },
     {
       "path": "golden/ue5.6/operations/prop_set_vector_axis_x/operation.json",
@@ -2094,13 +2094,13 @@
     },
     {
       "path": "golden/ue5.6/operations/ref_rewrite_multi/after.uasset",
-      "sha256": "6763e321c0f015a0066f8717ad7fc67137ccb7cf7ad7d4a1ac681c26a6ccfe25",
-      "size_bytes": 27792
+      "sha256": "0f1c8e66b6454d8e33ed5c0fa297d28ab16d80798eef12e4492e138c7182ba10",
+      "size_bytes": 27702
     },
     {
       "path": "golden/ue5.6/operations/ref_rewrite_multi/before.uasset",
-      "sha256": "8737bbaa39deb39293ef2bf1081179d5ccb1f85cde38485f137e0cb75385b785",
-      "size_bytes": 27792
+      "sha256": "799c60574a2f1728f221a727a354824e0dc52c05b3f4eda4e8d8b1cbdf1cfd1c",
+      "size_bytes": 27702
     },
     {
       "path": "golden/ue5.6/operations/ref_rewrite_multi/operation.json",
@@ -2109,13 +2109,13 @@
     },
     {
       "path": "golden/ue5.6/operations/ref_rewrite_single/after.uasset",
-      "sha256": "dd609a8db212fb544dc7c3154ad20041ef7944cb18b91d303e3a53604b4ddec5",
-      "size_bytes": 26595
+      "sha256": "5ede136f45a902f8a163a2caeced7343e1337adef1fe8acea03aa238909fa78c",
+      "size_bytes": 26509
     },
     {
       "path": "golden/ue5.6/operations/ref_rewrite_single/before.uasset",
-      "sha256": "91bba3ab3d013c1c6be1181da2c4c44f546e12cb6de58af20c33e277f8d94834",
-      "size_bytes": 26595
+      "sha256": "981e52fc3ba84b3179a2869485b03912c45d3261fc60e65df57afb46708a231b",
+      "size_bytes": 26509
     },
     {
       "path": "golden/ue5.6/operations/ref_rewrite_single/operation.json",
@@ -2124,13 +2124,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry/after.uasset",
-      "sha256": "199bd1ff1492151bc5615ea400f9f5583bc5910905508150dfbfcab1a2b1bcce",
-      "size_bytes": 2413
+      "sha256": "047c8e8de211cb4a24208879ba05c372c87949eb5c0790b64c038c1259ba7d94",
+      "size_bytes": 2449
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry/before.uasset",
-      "sha256": "7a39f0cc49a1d152839f2002d3e332ff6cc40d1f193148a5be82f4215d2ccb5f",
-      "size_bytes": 2570
+      "sha256": "aa5ff9940e0bbe9a3f74505d0f999e4fbe38bf2a8eb0c30a3662814580e14237",
+      "size_bytes": 2606
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry/operation.json",
@@ -2139,13 +2139,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry_btn_start/after.uasset",
-      "sha256": "e2cf0697acd13bea37482d71603d0091b0ae0da96ca2162fcf5e0ce70eb79234",
-      "size_bytes": 2527
+      "sha256": "a5392f64c6a07b7f259ca3233571ac7037ae487b26df2f420c959d2ff5798273",
+      "size_bytes": 2563
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry_btn_start/before.uasset",
-      "sha256": "25484b6b44f74c5abdbc0707748f4d34a990b63205ea9eedc7cd2b7279c400fb",
-      "size_bytes": 2690
+      "sha256": "1cfae894cf33000dac2528915c66593745d9336c0318608466577398be27a701",
+      "size_bytes": 2726
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry_btn_start/operation.json",
@@ -2154,13 +2154,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry_missing_reject/after.uasset",
-      "sha256": "6608d7d7aa65419fd07d811f50425fbf87a236348caa929b3933e6c7eca79f88",
-      "size_bytes": 2750
+      "sha256": "1ee33fdc68e9dadfebe987c1f2d562763fbcc0781b30fbea325b2bb48d3aed2d",
+      "size_bytes": 2786
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry_missing_reject/before.uasset",
-      "sha256": "6608d7d7aa65419fd07d811f50425fbf87a236348caa929b3933e6c7eca79f88",
-      "size_bytes": 2750
+      "sha256": "1ee33fdc68e9dadfebe987c1f2d562763fbcc0781b30fbea325b2bb48d3aed2d",
+      "size_bytes": 2786
     },
     {
       "path": "golden/ue5.6/operations/stringtable_remove_entry_missing_reject/operation.json",
@@ -2169,13 +2169,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace/after.uasset",
-      "sha256": "d4f894173f031597dcf3e11a91e0b1fd7354513c46865ce85716d493ae43cdc2",
-      "size_bytes": 2659
+      "sha256": "c698dcba44faf1a017abad8e3a46d77aa3d7a3cef6fb073d061fbaa96839913c",
+      "size_bytes": 2695
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace/before.uasset",
-      "sha256": "2df42f06e85288f7e87aefc70ad554584a8a4134217ca5bda08bba4a3d000dbd",
-      "size_bytes": 2582
+      "sha256": "2edc70badf3b30d4144c8ea260b322fe35b703d76c3886592defca772e75b891",
+      "size_bytes": 2618
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace/operation.json",
@@ -2184,13 +2184,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace_alt/after.uasset",
-      "sha256": "665febf17dc41f45d3c86c4f9228f1ef2879a9ef578e480ff1bbff3c126edfc5",
-      "size_bytes": 2685
+      "sha256": "9dcf54e465725205f37611ff9b5d70bbcb85f1d2c4404c9390fb7b94cb4ad83c",
+      "size_bytes": 2721
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace_alt/before.uasset",
-      "sha256": "1aa970f475008c58ac52d32613b744db818f3d44eb844c8f8d46118ac9ef6db2",
-      "size_bytes": 2630
+      "sha256": "455ee61ac179d59a180008c09164153a496db95024943c8c677885dc99535926",
+      "size_bytes": 2666
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace_alt/operation.json",
@@ -2199,13 +2199,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace_unicode/after.uasset",
-      "sha256": "ea0af4cb343d5b5c3b14fd22e9106f6baad2be004918856c5c4ffc0933128e7d",
-      "size_bytes": 2777
+      "sha256": "0ef7596e0183e29f883a2497a6df59ccbc331c6823ddd69e3bb3308e4b05f135",
+      "size_bytes": 2813
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace_unicode/before.uasset",
-      "sha256": "32bce820bfa5c9fa3fbd48cc132641e32e18099a285a06a3b1edd8ec355392b1",
-      "size_bytes": 2678
+      "sha256": "a601329083583f44fbdf39c49684c85d15d4350e223e550908835462ad3779d7",
+      "size_bytes": 2714
     },
     {
       "path": "golden/ue5.6/operations/stringtable_set_namespace_unicode/operation.json",
@@ -2214,13 +2214,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry/after.uasset",
-      "sha256": "055b815e4edbf67a2cae9ef94f3816d95b97ddcc76362c73d724c51d742c3dfd",
-      "size_bytes": 2568
+      "sha256": "6315e9cfc0db34ea0d974f65af56ce58204fb4423ada6fa513ee5846a27a70ac",
+      "size_bytes": 2604
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry/before.uasset",
-      "sha256": "5344e671faa319eea53a5dd4888066dd377c6669eb2f67b8fc595ccd101d4398",
-      "size_bytes": 2558
+      "sha256": "9798febcf0dfe9605e6534ae22de21c33e77e1c132666139b5d86751751e949c",
+      "size_bytes": 2594
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry/operation.json",
@@ -2229,13 +2229,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_btn_start/after.uasset",
-      "sha256": "8ccc48e5226ff0ea0ff1fd7a22290392230adf92509c80ac001df445dcd24d39",
-      "size_bytes": 2678
+      "sha256": "3842fe5b8a05548c30f944adf3a222b0796e02e68f3878888904d7b1a9e0bb0d",
+      "size_bytes": 2714
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_btn_start/before.uasset",
-      "sha256": "c33c7893f0b73364ddabc936b8bae779ed4aca7d556ff4bf8f18eda2bfffc728",
-      "size_bytes": 2678
+      "sha256": "bdd4345a67637a340c2c95fcc6bbd3d8fc9b885803e89568bc3ce094d892df6e",
+      "size_bytes": 2714
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_btn_start/operation.json",
@@ -2244,13 +2244,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_title_unicode/after.uasset",
-      "sha256": "4f0ac91b607e1f9e53ec2f07cdadb03b9cb3f7df34d24ac68a9dd6409ce3b063",
-      "size_bytes": 2724
+      "sha256": "b09ed85f1f115260188ca32f57a6c4db87359bbbec42883e832d15625f67f4f2",
+      "size_bytes": 2760
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_title_unicode/before.uasset",
-      "sha256": "7e09f8d7dd21fe3835a6a4a90cb90eca37ceb906006f559d450850d6c5d883f5",
-      "size_bytes": 2726
+      "sha256": "31fbb9e4d02b0150fb98283f1d2290e7c04a2e6e95892fdd1326b8e312ed67f3",
+      "size_bytes": 2762
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_title_unicode/operation.json",
@@ -2259,13 +2259,13 @@
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_unicode/after.uasset",
-      "sha256": "e89ed3b20bd5813e05d7c0505c921f28a93b4996847325caec5375aa55dd6b91",
-      "size_bytes": 2633
+      "sha256": "098a2871e928cd14261420840846b9ca16cb21a7b34feab664593fa30f4e4a3b",
+      "size_bytes": 2669
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_unicode/before.uasset",
-      "sha256": "00238f5340b008f451634aea1b54d167a54496f0d021cd1e9e5a4bf78f26508e",
-      "size_bytes": 2654
+      "sha256": "2c44494d8cf831cd1a62e113bc52bed4750fb5e541fc0a98bc911377d836ae21",
+      "size_bytes": 2690
     },
     {
       "path": "golden/ue5.6/operations/stringtable_write_entry_unicode/operation.json",
@@ -2274,13 +2274,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_rename_simple/after.uasset",
-      "sha256": "ee94175d374ab40c7fea4edce5f81a449887f3541b27e2fcedbc596c5375d085",
-      "size_bytes": 25287
+      "sha256": "f16a7c99f8b606a8c6665dd379fe963c1bc2a35d7b50f42bca3f965d3c00bc85",
+      "size_bytes": 25205
     },
     {
       "path": "golden/ue5.6/operations/var_rename_simple/before.uasset",
-      "sha256": "c10111977bf8399219bd64d4986b4d00c812c7f7b3b260b5c93b4d532a3d69c1",
-      "size_bytes": 25287
+      "sha256": "de8fbb92c61103cf5ea663ddd410f44c7fe0bc72ade7456d2c9c20dfbeeb836e",
+      "size_bytes": 25205
     },
     {
       "path": "golden/ue5.6/operations/var_rename_simple/operation.json",
@@ -2289,13 +2289,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_rename_unicode/after.uasset",
-      "sha256": "0dbf9c5dedab439901706a83790f97b5d00c1271f538397d42eaecb6b9f3f6fb",
-      "size_bytes": 25270
+      "sha256": "2e5386e25497b95fa9496bc6e0e91afc47976136850cdf920dd1491e6d2b01d6",
+      "size_bytes": 25188
     },
     {
       "path": "golden/ue5.6/operations/var_rename_unicode/before.uasset",
-      "sha256": "5f79e8c4fa5172fef04573915fbb0807dac8f4320f94d256f73fab5e5fed1b03",
-      "size_bytes": 25285
+      "sha256": "f41225dcd5b7c5f050ed9fbff53ba8f6e0bc87a6f9d12fe1b7b4c29fb78ae620",
+      "size_bytes": 25203
     },
     {
       "path": "golden/ue5.6/operations/var_rename_unicode/operation.json",
@@ -2304,13 +2304,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_rename_with_refs/after.uasset",
-      "sha256": "6bef483162bcc4d1be6b2a51028b2013843e9b38a338416aad067eb2d2e43095",
-      "size_bytes": 26538
+      "sha256": "97f9df0e3826b22d84f2d466edcf90f7ab717851ceade5123f6554860ab7a144",
+      "size_bytes": 26452
     },
     {
       "path": "golden/ue5.6/operations/var_rename_with_refs/before.uasset",
-      "sha256": "54707de2e61736e50c82f1fac71fa6b9b413e3a3410539e571efb9d8fe77e27b",
-      "size_bytes": 26523
+      "sha256": "75d8300a2c7ca429a11a3c974c58af652449e3baab7404138efb687f4c7979b3",
+      "size_bytes": 26437
     },
     {
       "path": "golden/ue5.6/operations/var_rename_with_refs/operation.json",
@@ -2319,13 +2319,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_empty/after.uasset",
-      "sha256": "eb8316ecb86a8b86e200932af7ed02e656c447c5827cca98eb5957a9b9be3652",
-      "size_bytes": 24364
+      "sha256": "e3187a41bf4229e549da681d482946e00af400fd2146743bc015a1d0b3a09555",
+      "size_bytes": 24288
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_empty/before.uasset",
-      "sha256": "0caeb7cbd1ae339c22a83859298282ff7da52d91c58e0c82b9f554140345d1ad",
-      "size_bytes": 24370
+      "sha256": "8803a4e06a282b543e38231dd1ff88096ae6114c4776be586dc8478b00fbabaa",
+      "size_bytes": 24294
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_empty/operation.json",
@@ -2334,13 +2334,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_int/after.uasset",
-      "sha256": "96853a5bfa7c2491170712b97d2265bf7ea5c9e69577b471eea13c6fcf5fc7f1",
-      "size_bytes": 24356
+      "sha256": "e03287e4b7f37f6872aee83312b6569312a45b6600e671d8c7331012addb6901",
+      "size_bytes": 24280
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_int/before.uasset",
-      "sha256": "dd15677cc61df8d368c87f5972d3366de1119e070c6b8889ace27f75d1456f38",
-      "size_bytes": 24354
+      "sha256": "a2534e18591612095b4dc207f526b73214eb06161d61279bc31d1b8a80eff033",
+      "size_bytes": 24278
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_int/operation.json",
@@ -2349,13 +2349,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_long/after.uasset",
-      "sha256": "1cf81075ae247fb7369bf8b0360daee1a9d2d175ed9d606b0c47c5c2e380a7ed",
-      "size_bytes": 24399
+      "sha256": "fc5bbc495ab665ed3adaec67156083de0b5d702e740e2a37429012f8a1741651",
+      "size_bytes": 24323
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_long/before.uasset",
-      "sha256": "284d754af246a73900428fa3f09f579346b7035b590377b00b39e8944b39f3cf",
-      "size_bytes": 24365
+      "sha256": "9f72c5d4e20fba1abf009364978c7ff32cc732b6a6f86616bce4ffc0aebbaa9b",
+      "size_bytes": 24289
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_long/operation.json",
@@ -2364,13 +2364,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_string/after.uasset",
-      "sha256": "47e66f61984a01848c7d90ed1ca36f4285c633ce8418b24b370ebbef5608aaee",
-      "size_bytes": 31601
+      "sha256": "0845cd55ce631d99c2779909b196c4ebdc910bfc93b28e20e6e654cf0a0a19d4",
+      "size_bytes": 31495
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_string/before.uasset",
-      "sha256": "df6095c8d805292065dfb259aa9de72a56d51105affcb533d15f4117606cb662",
-      "size_bytes": 31601
+      "sha256": "c81709d60d2003735b08abb633d6ab3232df880cd734c28fb1f90f58a5bef5c7",
+      "size_bytes": 31495
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_string/operation.json",
@@ -2379,13 +2379,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_unicode/after.uasset",
-      "sha256": "eaf1a82ee974a615c5f4502a6118d8fa660562135f41588acf1489444f5da607",
-      "size_bytes": 24388
+      "sha256": "2e502d4287d5ff39f2dd701321609e143fe6a7be61d38a579c9be3e41bf1b498",
+      "size_bytes": 24312
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_unicode/before.uasset",
-      "sha256": "0614b3f8931e34fc19abbcde9b2285b6520f179e706266c49d52e2deb0f8fcc1",
-      "size_bytes": 24385
+      "sha256": "b836e1784b338adf9cdc6a6cd7646ab45198eb95090a81949fce5257178061bc",
+      "size_bytes": 24309
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_unicode/operation.json",
@@ -2394,13 +2394,13 @@
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_vector/after.uasset",
-      "sha256": "c7f7ce13cdf792d545c9fbd434dc5dbd401a250107c48ef724b240aee8547043",
-      "size_bytes": 30097
+      "sha256": "83f3e4993831384f2a63996a1952974d8c342caad137a1f886b65c5d9ad88b33",
+      "size_bytes": 30003
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_vector/before.uasset",
-      "sha256": "306d03099ff1dc30598628ea9e4edd62dee8661918df1bf21b9f0c05cbbd81de",
-      "size_bytes": 30103
+      "sha256": "6045f11a8c3d559d98c54aa48bec4c6ca4aca2a351dc0d56352df9f0ff243ff2",
+      "size_bytes": 30009
     },
     {
       "path": "golden/ue5.6/operations/var_set_default_vector/operation.json",
@@ -2408,14 +2408,819 @@
       "size_bytes": 260
     },
     {
+      "path": "golden/ue5.6/operations/widget_add_button_canvaspanel/after.uasset",
+      "sha256": "8ba59884a02588a1669f5c55c098bfa62d6df615c60aba61c08a51a1bcc834c2",
+      "size_bytes": 23407
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_button_canvaspanel/before.uasset",
+      "sha256": "a07a83582b80a9078af66a6180dccede2b9a4fec0327bb58efb3a966be9caa2b",
+      "size_bytes": 21004
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_button_canvaspanel/operation.json",
+      "sha256": "851bcea6932ae4623468dd0f788ec96758a14083b244b2759ccc622ca2c0714b",
+      "size_bytes": 496
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_border_canvaspanel/after.uasset",
+      "sha256": "2b57c9520c16d4dce42ef60aaa853357e1ca907a76aa835df839a39664edf5d0",
+      "size_bytes": 24560
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_border_canvaspanel/before.uasset",
+      "sha256": "d050edb5f4be123f63aa094084f09f264f071dce245c4f792b3e0630464b3c96",
+      "size_bytes": 22197
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_border_canvaspanel/operation.json",
+      "sha256": "1b8c6053e9556eeac9eb9300282783a663ac7675c04c4994e70e0632a0b4d3a1",
+      "size_bytes": 519
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_canvaspanel/after.uasset",
+      "sha256": "c30eec2f1cd6abe5b6e8cef936a7554ba83e7a02a6311cb711464398739ae325",
+      "size_bytes": 27873
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_canvaspanel/before.uasset",
+      "sha256": "8995931b802c83688bff9520dc0dc327d4378f7b17ca280e17368766ab393872",
+      "size_bytes": 25530
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_canvaspanel/operation.json",
+      "sha256": "0d0ad445723284ce61f5210f84ff4ecf5b9ff6de5263d88914bdb50b98a43e75",
+      "size_bytes": 413
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_canvaspanel_nonempty/after.uasset",
+      "sha256": "7d02a1f19792725f778598ec4e022ee9d71a229ae2107efc325086924719581d",
+      "size_bytes": 26123
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_canvaspanel_nonempty/before.uasset",
+      "sha256": "b6443ca2ef561257d364348e2b2464c7ff47094083c23365f1f860b5455c9dea",
+      "size_bytes": 24048
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_canvaspanel_nonempty/operation.json",
+      "sha256": "b158fcffefdbf15716517b15a84f170de8b35fb6212a0eddacc2b0058fa41bc5",
+      "size_bytes": 621
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_horizontalbox_canvaspanel/after.uasset",
+      "sha256": "67e060a61a208a8a228f550cf5c08626a056392a62aee36e6feba75583de3725",
+      "size_bytes": 24687
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_horizontalbox_canvaspanel/before.uasset",
+      "sha256": "8e2b28357c749ba672b6a6550da0b9e183833c2da3afe22b09d498409a971a0f",
+      "size_bytes": 22303
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_horizontalbox_canvaspanel/operation.json",
+      "sha256": "c4dc929bf9fb30f4397224172af422f935842149dc246c825a29dbc206dbd2b2",
+      "size_bytes": 532
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_nested_overlay/after.uasset",
+      "sha256": "20b8d8519481b578b08501cfe84f32208246ff254b56527049690545288538c5",
+      "size_bytes": 28605
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_nested_overlay/before.uasset",
+      "sha256": "a09670d1f9aa14ebfe46d3ee9189bcca2ec49821dbac395bf5f2af1967674771",
+      "size_bytes": 27076
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_nested_overlay/operation.json",
+      "sha256": "2e3027e75b616b95708d752ae72c872ed6a946bfd35ef2160873f326a3dc5c65",
+      "size_bytes": 625
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_overlay/after.uasset",
+      "sha256": "25322c06fc93c034e18e1bd2750d5801deb7254227f61c17b7525ca8022ceb3e",
+      "size_bytes": 27777
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_overlay/before.uasset",
+      "sha256": "95959b5638a65ee0ef86fa1c0947adba9149d51a6fe9932e840310da3bef5024",
+      "size_bytes": 25461
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_overlay/operation.json",
+      "sha256": "14e7dba5c02aaff9a9a3b4201b99bda4eb875c04fc88b9f07e76a0b0a51a2946",
+      "size_bytes": 610
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_overlay_nonempty/after.uasset",
+      "sha256": "c653037dc9a1e9ea21e9d57202a8bccc88bdc35375dc28cb56107fbf6637c45a",
+      "size_bytes": 26139
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_overlay_nonempty/before.uasset",
+      "sha256": "6218bac72a5cc8c652b3ccffe94006352db3d07f78d618022b614f1641db1a06",
+      "size_bytes": 24070
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_overlay_nonempty/operation.json",
+      "sha256": "970a6bfcf4075500bdc7fa5c7e6b74c3383b7ddedf45b00b828cb27b94eb1734",
+      "size_bytes": 634
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_sizebox_canvaspanel/after.uasset",
+      "sha256": "70d46f48fd492cc5c7fce46a52f968644ee3a09128264e57483fe415e86fd99f",
+      "size_bytes": 24579
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_sizebox_canvaspanel/before.uasset",
+      "sha256": "77bd5f8e5a5e80448ff362eea17b46e9ef33cd04d354bf520f3246114d6ccb75",
+      "size_bytes": 22213
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_image_sizebox_canvaspanel/operation.json",
+      "sha256": "017f7458e23e8b7683bcfba6693c244766e9978175c9095f5e3964fa77518615",
+      "size_bytes": 523
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_richtextblock_canvaspanel/after.uasset",
+      "sha256": "b13087399f8618eabda9d8b04f08f29df8713808042b46ccc86a1f1b96570964",
+      "size_bytes": 23451
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_richtextblock_canvaspanel/before.uasset",
+      "sha256": "d47798dd994200cb242842d44a58946aa4a1b17b5cf891b511701f0cac3df690",
+      "size_bytes": 21025
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_richtextblock_canvaspanel/operation.json",
+      "sha256": "10e9e991ec37747f42b57e1f6e79f21b3f8e70426662bc1d65bc7b28a4020c5a",
+      "size_bytes": 554
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_canvaspanel/after.uasset",
+      "sha256": "56e1be011e2d2cce0531c7bc329d478f35e2e26933e445796f8fb039aa8fa9fc",
+      "size_bytes": 23187
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_canvaspanel/before.uasset",
+      "sha256": "a4d1e7d4a3cb54519ffe81608da7f03181184230a9064beedc97e0928253b976",
+      "size_bytes": 22518
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_canvaspanel/operation.json",
+      "sha256": "4bdfe8a27f6d4e4e4a7454ba92cb4221c3f5e686b8928b97571c5edb2467f971",
+      "size_bytes": 586
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_horizontalbox/after.uasset",
+      "sha256": "ae11ee1572a41057e479827f3b2a61c3251fee30d8129402491f6122c2175e0b",
+      "size_bytes": 20865
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_horizontalbox/before.uasset",
+      "sha256": "62be0738ede34aa2a9182105db0c9b31cd63bb4cf67b61f544014bb1e75765b5",
+      "size_bytes": 20194
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_horizontalbox/operation.json",
+      "sha256": "f33391d6bd9895f68a56c4a6194803a05381816267ed96482190d445f9240d79",
+      "size_bytes": 431
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_verticalbox/after.uasset",
+      "sha256": "b6a85ae801fac1f40a8fb44b5bfd2de21eab896fb1a2a5e003b3517be747a52d",
+      "size_bytes": 20857
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_verticalbox/before.uasset",
+      "sha256": "00d853d2b7a9e50ba953d2e5fca13f5122b4127a6f67bfc566cb571727a1c8ac",
+      "size_bytes": 20188
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_root_verticalbox/operation.json",
+      "sha256": "66352c7034e7da16184e8d485c52ff9b8af4b6fdf3b4b6586e3991d67f22163d",
+      "size_bytes": 422
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_two_image_overlay/after.uasset",
+      "sha256": "d7ac081df174ae181bbc80c3411f3d10e64d05dcdfcc42df8def554b6fa31e84",
+      "size_bytes": 26567
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_add_two_image_overlay/before.uasset",
+      "sha256": "41ac88fa826f37250d7362ba679e619ad55536c4c8bb9635803027a98cae42e0",
+      "size_bytes": 21865
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_backgroundblur_canvaspanel/after.uasset",
+      "sha256": "f96273f1f92c42a73dbe9968b59de65fe515f29d1583ee58afd4618e56b81129",
+      "size_bytes": 21175
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_backgroundblur_canvaspanel/before.uasset",
+      "sha256": "7c8a074463d2a8e8ef1561110b32089f335578c5d5665968e243e292250afacd",
+      "size_bytes": 22309
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_backgroundblur_canvaspanel/operation.json",
+      "sha256": "7dd28ae2bcb9cee99f44424a6c680f3f4ac042470090dbe4a337a1eb2d1ed0d9",
+      "size_bytes": 478
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_border_canvaspanel/after.uasset",
+      "sha256": "346453f7901c784f530fa26a88eb19ea4161123d48a3d3e5e5930ea49dda8958",
+      "size_bytes": 21078
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_border_canvaspanel/before.uasset",
+      "sha256": "4061ace5db97a6947964c05391c399ad9923b9533d4c811cb69ad0122f90f1e2",
+      "size_bytes": 22188
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_border_canvaspanel/operation.json",
+      "sha256": "b5649f2cbb5f540762e6a40eaafeb37679567ee85535cd83c589e4536f3518f6",
+      "size_bytes": 446
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_button_canvaspanel/after.uasset",
+      "sha256": "1262e47b1bd195f283da72d2a3b2addc1d02d44945d6f98e6923c40ff6c34d15",
+      "size_bytes": 21078
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_button_canvaspanel/before.uasset",
+      "sha256": "3fb0352b589869bbfa9d123905395f04608a532b2e8655de47beecaf1e086cac",
+      "size_bytes": 23592
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_button_canvaspanel/operation.json",
+      "sha256": "2de347249ba7fe01e23e3eac057e75f96fb91ccc3befd2f90f1f4f6a11345ae4",
+      "size_bytes": 446
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_gridpanel_canvaspanel/after.uasset",
+      "sha256": "b5b9105ab6d4f3d074f7ae5c2e44142412319c0783971d995d133420afd7078b",
+      "size_bytes": 21115
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_gridpanel_canvaspanel/before.uasset",
+      "sha256": "15cd54c769a2bc04cf5630a35241c805bb8f5c6f230c0b7b5122b92f8d91f43b",
+      "size_bytes": 22234
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_gridpanel_canvaspanel/operation.json",
+      "sha256": "66582b92c52cf52e2d03b77d62f9e05182b79f343227499624fdbf7d19973827",
+      "size_bytes": 458
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_canvaspanel/after.uasset",
+      "sha256": "ccd5d91a04634fbdb70a00e25c994b4a530b5a8c5982dab09d78345c3338a5bd",
+      "size_bytes": 21066
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_canvaspanel/before.uasset",
+      "sha256": "f04bfc4f9d56f6847614aa5854add8ff9c8dd2a3e1e783668ad34c1c0a31e9ca",
+      "size_bytes": 23573
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_canvaspanel/operation.json",
+      "sha256": "5b90fc53c57546a8fbc77856cf43e6393435480d6b605e05dd756de73e4f3367",
+      "size_bytes": 453
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_horizontalbox/after.uasset",
+      "sha256": "58fb0d76d4d3dcab953b5d71af557d882af32e3b10375fb0bb83adef1832da2b",
+      "size_bytes": 21092
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_horizontalbox/before.uasset",
+      "sha256": "dcf0ab3c8f363f70362d1b6156df2cb2c3555a4a58fb58611813577543f53787",
+      "size_bytes": 23605
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_horizontalbox/operation.json",
+      "sha256": "740856d42e0f782233bfa57b333c140fb997c56aa4cdfa8934ffe2c0d8cc056e",
+      "size_bytes": 445
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_overlay/after.uasset",
+      "sha256": "89ff577fabb5f18ec10088be492557f9f13f4e4e4bc35a2a1ce423836365636d",
+      "size_bytes": 21112
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_overlay/before.uasset",
+      "sha256": "1ea9febac9ebaf9f2ed89e7e39a73bbd4832343bdc364684801a4b9ca20aebed",
+      "size_bytes": 23586
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_overlay/operation.json",
+      "sha256": "2631aeb0d2ebc90441160ecdcc41110a0d9dada258bfcd890ca88dd8b56ef701",
+      "size_bytes": 411
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_verticalbox/after.uasset",
+      "sha256": "19c007e78c4292cb9b803d2ef86534d3051574d217b4db53e3057fe29a3296dc",
+      "size_bytes": 21066
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_verticalbox/before.uasset",
+      "sha256": "97343356bbddac89ccc33dbc6c5c307e113dd81bd3fe5ca5b93f1638b921956c",
+      "size_bytes": 23573
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_image_verticalbox/operation.json",
+      "sha256": "946925efe07de8463206991a07980f3085223f615d623c9d48e2b4dc1a52c744",
+      "size_bytes": 437
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_invalidationbox_canvaspanel/after.uasset",
+      "sha256": "5624882f872ad0abffa7abbe8cc20d918e90b26f2f6a96860be4e2766576e476",
+      "size_bytes": 21187
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_invalidationbox_canvaspanel/before.uasset",
+      "sha256": "8765d4602cabe7b1f24f212a652e9a8a39eedd463bc1f8e00247502551bd0ad1",
+      "size_bytes": 23764
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_invalidationbox_canvaspanel/operation.json",
+      "sha256": "f5c9f140e9c3ca83c17d6eb2f20238b69f6a48140533c4cb7f126a9f54dfec83",
+      "size_bytes": 482
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_retainerbox_canvaspanel/after.uasset",
+      "sha256": "f9179d7dace146ffaaa240a44c1b03c2277ee6946664bb21ec086a35f5e80df8",
+      "size_bytes": 21139
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_retainerbox_canvaspanel/before.uasset",
+      "sha256": "42b3b4989a61e36bd9ae6c98448fd5d0de2a9817d4ca1898ea3cbabd54a527e3",
+      "size_bytes": 23688
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_retainerbox_canvaspanel/operation.json",
+      "sha256": "fb04b9fd6b72faf30beceb798f1fb7120203e852877e9ac2d9355d9cad56769a",
+      "size_bytes": 466
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_richtextblock_canvaspanel/after.uasset",
+      "sha256": "4d068cf42d988b55db6337d85bc1acb252be06c6279d8f104e4d9df78116a161",
+      "size_bytes": 21273
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_richtextblock_canvaspanel/before.uasset",
+      "sha256": "6a3901893720719d85d986044b5496b7231637f680c14cfba8e4775dc78efeee",
+      "size_bytes": 23819
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_richtextblock_canvaspanel/operation.json",
+      "sha256": "cd9fc4d8e72b191a9510fca469d13514649cf5a22b212a0cf799f5f5819afb66",
+      "size_bytes": 460
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_safezone_canvaspanel/after.uasset",
+      "sha256": "1f951319173d1664f0a07f75ae4ff9cd5f06aa25f6bc1de1fa89bfa2a784d41a",
+      "size_bytes": 21103
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_safezone_canvaspanel/before.uasset",
+      "sha256": "0dc1f5a93ace796aabd3032de36e234f3cb22bd871b3079c7e2916e06909dbe8",
+      "size_bytes": 23631
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_safezone_canvaspanel/operation.json",
+      "sha256": "41e24640513590fcac9036f4e806459fc6b0038cdd59b2ea373d04b5134efdff",
+      "size_bytes": 454
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_scalebox_canvaspanel/after.uasset",
+      "sha256": "0dcf50df79c440e5036c8dc80f8cd57a54f570e0ef83f7f72dee251cb56d5b95",
+      "size_bytes": 21103
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_scalebox_canvaspanel/before.uasset",
+      "sha256": "44414c57ab31abf9a59e13bffa0e293bd6c78fa1c9c8cad94b7bfef8fd2a577e",
+      "size_bytes": 22219
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_scalebox_canvaspanel/operation.json",
+      "sha256": "bd64e7c4a5a8c7e2456ffe97b7d9ffe538703a4e931ca196ebd6317ff38e1fe1",
+      "size_bytes": 454
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_scrollbox_canvaspanel/after.uasset",
+      "sha256": "719d5b99bbe25d6f2890960fdb1fa25ed00560913e10b8d95a3227e31470a64f",
+      "size_bytes": 21115
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_scrollbox_canvaspanel/before.uasset",
+      "sha256": "3bf47fc17bea203cd60bcee2fc14d24fec9809eed842953919f23da04a09630d",
+      "size_bytes": 22234
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_scrollbox_canvaspanel/operation.json",
+      "sha256": "b2cc3dbf3293a9bed71c43c1a8a840e61b15233e53e6e2d76436e2b594c124fc",
+      "size_bytes": 458
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_sizebox_canvaspanel/after.uasset",
+      "sha256": "b4d2cb2fd8a1511b2e2e7776cce8874369ad31b01589ef081ca6ab05cb14e2b4",
+      "size_bytes": 21091
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_sizebox_canvaspanel/before.uasset",
+      "sha256": "68cb713570b69fc19e2338e4ea4c0744c02fbe8951e329e320c4c44a2aea1586",
+      "size_bytes": 22204
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_sizebox_canvaspanel/operation.json",
+      "sha256": "f3f2922044996ec261343c20e613dc4a2c85158aca757a33bfd5227d217da45e",
+      "size_bytes": 450
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_textblock_canvaspanel/after.uasset",
+      "sha256": "3f86dd3962c7342434de2dbc033641ad355c2aa9c2cda2b5ed3621bc016f30d8",
+      "size_bytes": 21071
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_textblock_canvaspanel/before.uasset",
+      "sha256": "54d44ff540f666f9b56865b9f93f6db0dcec0b50dbe9b38646afe50c0f749f9d",
+      "size_bytes": 22279
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_textblock_canvaspanel/operation.json",
+      "sha256": "2aa3c972fdc0230325ad7351446329ad473a9aa28a01790dcf8e871a1134355b",
+      "size_bytes": 444
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_textblock_overlay/after.uasset",
+      "sha256": "8b0ac12b6830af1b36681f7f5c1b6a637985a1d3e6498429ab58b352ffeec617",
+      "size_bytes": 21023
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_textblock_overlay/before.uasset",
+      "sha256": "b01aee95a0083ac6fcf50bd4fc98e93f1114be4388726889b2e75d0a265d4123",
+      "size_bytes": 22227
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_textblock_overlay/operation.json",
+      "sha256": "af5cd0ba12b1d70da049b4f180513d224b34071ad127be7a8ac1c28bc7875f72",
+      "size_bytes": 429
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_widgetswitcher_canvaspanel/after.uasset",
+      "sha256": "f5eb7833e270eea1d7f54c9779876cb54e362aae062dd63e5fe914b311d00f47",
+      "size_bytes": 21175
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_widgetswitcher_canvaspanel/before.uasset",
+      "sha256": "dd9769e831c6ec48af31c654b557641eb7381e132bd18f16cfb21131c4e828cf",
+      "size_bytes": 23745
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_widgetswitcher_canvaspanel/operation.json",
+      "sha256": "c328edff5da789bddbf60d1796009c707f184e93ed605808c4da92172fecd5b0",
+      "size_bytes": 478
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_wrapbox_canvaspanel/after.uasset",
+      "sha256": "e920d9793a2876539efb538a70701656ae2699c031adf7369435dcc82bec94fc",
+      "size_bytes": 21091
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_wrapbox_canvaspanel/before.uasset",
+      "sha256": "fd02be4722a215d7b387e71a550cc0c93ec31d168c08fa5da165cbf5db2e2027",
+      "size_bytes": 22204
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_remove_wrapbox_canvaspanel/operation.json",
+      "sha256": "d692b4e10ad3ea4e0b8acbf1e67599517f76103f93d45169bf7e7a0ec55f0692",
+      "size_bytes": 450
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_brush_image/after.uasset",
+      "sha256": "3790868596b3200113737dd765ad5d57f9423f43fb3a3fd68bc45b5d2c5347fc",
+      "size_bytes": 28824
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_brush_image/before.uasset",
+      "sha256": "54d7e6bc8e63577a3996c5e3616f066d18774752fd2b18591c71c322a627e521",
+      "size_bytes": 24650
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_brush_image/operation.json",
+      "sha256": "3a2ada48eb0b67d80b35754dd0745022856f45a2ea6592b5388e0939faba34bd",
+      "size_bytes": 737
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_draw_as/after.uasset",
+      "sha256": "ec3391ac3db49cd26f3e2ab6742f05c02bd5b44496160d5affd437d751a86ec5",
+      "size_bytes": 22489
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_draw_as/before.uasset",
+      "sha256": "882385da10863e99344424858d356bd8665bb3529192eef787c1b1f898acb973",
+      "size_bytes": 22489
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_draw_as/operation.json",
+      "sha256": "513cf83e92bf2921975a6e1edad87894f21d41015c92051f212ec98bc7722443",
+      "size_bytes": 408
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_image_size/after.uasset",
+      "sha256": "24487b2df5bfc69f477e0fe856cc196d7c375feef455746fc59d3319afb7dc03",
+      "size_bytes": 22963
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_image_size/before.uasset",
+      "sha256": "83049078f1c430421d36251b6fecc366ad137608a6027da3ae0464226b3a797c",
+      "size_bytes": 22498
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_image_size/operation.json",
+      "sha256": "743c2448850599f5491adcc9b84054218484721ee653fc3074b1f23d6365a42a",
+      "size_bytes": 435
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_normal/after.uasset",
+      "sha256": "265295aa09a8cc95ecd6fd1565d8528a1316277be6061051d43923cf2abb401f",
+      "size_bytes": 23413
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_normal/before.uasset",
+      "sha256": "b516ad69e9c01ba08421599b5b6c5a000959bf4e1a05a9ab9502c9ba09db246c",
+      "size_bytes": 22486
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_normal/operation.json",
+      "sha256": "08c004ebb8b7cb86341dd51634b279f3385c9796fce61ac2214745a081dd54fd",
+      "size_bytes": 539
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_tint/after.uasset",
+      "sha256": "a4d66c2d1c68a0ac1f84ce489f8df6a59b2f39398916e05afb20e327dfe7ff36",
+      "size_bytes": 23106
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_tint/before.uasset",
+      "sha256": "3f573dce123c182edc6f38dc996a21550f059b13202c2182934b5f9371a00ffd",
+      "size_bytes": 22480
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_button_brush_tint/operation.json",
+      "sha256": "6d7c3545c1bede33b0268a8f70da28c1d264a7e3b058ad36b9819871d960ab08",
+      "size_bytes": 422
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_layout_canvaspanelslot/after.uasset",
+      "sha256": "98a121305c0f61d82d6913c9194cb98488ba2e4cde26d53216d5f19559b4fb17",
+      "size_bytes": 27146
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_layout_canvaspanelslot/before.uasset",
+      "sha256": "ba4215ad06f9a826766e801bb167dbcb9bebbd336f899944df61d29fae3a0bc6",
+      "size_bytes": 25992
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_layout_canvaspanelslot/operation.json",
+      "sha256": "6b83923867a58664e4cccbc84b6815d6163df30da1160661590f7f19616411c0",
+      "size_bytes": 703
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_canvaspanel_child/after.uasset",
+      "sha256": "4f200678f09f3be9810f7206e66b361a60d69ac6041b1ee9914994897c23af14",
+      "size_bytes": 22390
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_canvaspanel_child/before.uasset",
+      "sha256": "83cf06b81f31a348d460f4d6f5dd962a7c50360e1e1a66b11554d5245231995b",
+      "size_bytes": 22288
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_canvaspanel_child/operation.json",
+      "sha256": "01fc3ed98220c5dd687e5a7ff71e7e7f7b40a3e8a58e19a30c18a839ed1414f9",
+      "size_bytes": 548
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_root_richtextblock/after.uasset",
+      "sha256": "d7d9a1e3ad6e21262426092068ffa1cba85780c5ab1c5644c7931377c68b9f9f",
+      "size_bytes": 22604
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_root_richtextblock/before.uasset",
+      "sha256": "fe19f586bc84fa3a5cc2e70fb6037cf09a8bd6e7aa63566f10a8007c21229951",
+      "size_bytes": 22502
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_root_richtextblock/operation.json",
+      "sha256": "beff0531030e591566ca10d9db3bbe3fe66d36fda15a54fa16610014f371ae38",
+      "size_bytes": 371
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_root_textblock/after.uasset",
+      "sha256": "b06a5b02d95d08bc1320c425fc1e374e87b5e8d505fa10fe43a041cb7162a1aa",
+      "size_bytes": 21189
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_root_textblock/before.uasset",
+      "sha256": "6965402149506dc286006c745e57f61afac85980b00f9fa0525b35c12a451865",
+      "size_bytes": 21087
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_opacity_root_textblock/operation.json",
+      "sha256": "238a923b05035a4cac38d6b52f9cc74fd87c7b16ea567945f3ef2af22e4fe7d7",
+      "size_bytes": 474
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_outline_color/after.uasset",
+      "sha256": "0b794751d9d076e5759ff80efcc5e2e575bf235e336f77c172e0408dab37eb43",
+      "size_bytes": 23250
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_outline_color/before.uasset",
+      "sha256": "9f3e02e428af2d52f042e396dfc5e32aa260e23bae37da13bc80b94d72ba1577",
+      "size_bytes": 22514
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_outline_color/operation.json",
+      "sha256": "0d3d66cbc96a333f82a2c19b1994fcc79b9eb2c8c68d1707b25b772c6dba9142",
+      "size_bytes": 475
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_outline_size/after.uasset",
+      "sha256": "47e61731dd6e91b816e21036c07b17e78039b42e0d5a174a7522e2e5a6b3a34b",
+      "size_bytes": 23154
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_outline_size/before.uasset",
+      "sha256": "a82cb888e578b24784007484a4669e954493e7b19c4bca8849816927d26c7423",
+      "size_bytes": 22511
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_outline_size/operation.json",
+      "sha256": "dafe4ddce2be1459625bbc4a07183ee032a700bd9e28dd4ea9060200c1288b5e",
+      "size_bytes": 460
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_shadow_color/after.uasset",
+      "sha256": "d8598daf01896c840fedcf45fc28768d650df2c07c0b673d21d724c89bb26abc",
+      "size_bytes": 22941
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_shadow_color/before.uasset",
+      "sha256": "5bae4869073315d73331a5c97ebb763793de08771b1c3c22e9510bfac2606b69",
+      "size_bytes": 22511
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_shadow_color/operation.json",
+      "sha256": "9a797077a5889cca6cb1ebdd9e2d37a6c32ce9b822d75ac40aea1ce7b13ef005",
+      "size_bytes": 502
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_shadow_offset/after.uasset",
+      "sha256": "53671395ec86bc4202e14da86e011031525313ee8768bc1e58d7544bc27f57be",
+      "size_bytes": 22930
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_shadow_offset/before.uasset",
+      "sha256": "4ced0fe2f0e973e0631f913d96bad1ecce3144db95d0375741e76baa7bd47a48",
+      "size_bytes": 22514
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_richtext_default_shadow_offset/operation.json",
+      "sha256": "805a1950aba7e1f5e635e3b2a8fdd54856f9b612154efed6b067bddc995de8ee",
+      "size_bytes": 469
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_canvaspanel_child/after.uasset",
+      "sha256": "73604cc65c6cb1c80a085fa71dd2e3dd6d5e81c45f1b87e5798f0e3f9feed721",
+      "size_bytes": 24084
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_canvaspanel_child/before.uasset",
+      "sha256": "b6443ca2ef561257d364348e2b2464c7ff47094083c23365f1f860b5455c9dea",
+      "size_bytes": 24048
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_canvaspanel_child/operation.json",
+      "sha256": "d7464c639ec3c72c5e5d01aa28e32abae57edd4f18003aae81a30f49ce6e2727",
+      "size_bytes": 673
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_canvaspanel_child_richtextblock/after.uasset",
+      "sha256": "a8d71d5146073ab0fd275d5f22391f270d1a84332f086e74918b57b6ca970e53",
+      "size_bytes": 24076
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_canvaspanel_child_richtextblock/before.uasset",
+      "sha256": "cd7789849c97ed3a0bb5da0d0445ea0c9a939bd0e7ec96906f8299609a3948eb",
+      "size_bytes": 23849
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_canvaspanel_child_richtextblock/operation.json",
+      "sha256": "bb8e1b7906768e40fa2a0f53038c84230f95a5ea086c9fc1e4c0631ac4b3104b",
+      "size_bytes": 546
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_overlay_child/after.uasset",
+      "sha256": "f07dc94cd854af2fe16cd503c14de95f7d95367d1842b0ff20abc99abec38041",
+      "size_bytes": 24020
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_overlay_child/before.uasset",
+      "sha256": "24302a865db9c644e3f3a921d519cbfb55b21c5d6ed1e078aa46530060a6ff5a",
+      "size_bytes": 23984
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_overlay_child/operation.json",
+      "sha256": "fdad57a707635e652e05dd9fb2139784fb312c23d7af849d89a832dc4c768c7d",
+      "size_bytes": 658
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_root_richtextblock/after.uasset",
+      "sha256": "20843ba5acf25eb0ea89b88d3242791f65a0200d4648a8197c9252a50b57ac8c",
+      "size_bytes": 22704
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_root_richtextblock/before.uasset",
+      "sha256": "efc6d5e478eb43ba0143644355a826c92caef9473ae5a3ac705be1688a74d140",
+      "size_bytes": 22493
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_root_richtextblock/operation.json",
+      "sha256": "53fa8f0361937e778690f47ad9d051bdea0600cb366520f342cfd67f96e19066",
+      "size_bytes": 464
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_root_textblock/after.uasset",
+      "sha256": "e7e12a8ab40b0b002dd7f771ca0b1b56536c1883edce968a0e7c2bc4b1203f3d",
+      "size_bytes": 24831
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_root_textblock/before.uasset",
+      "sha256": "2ba5cf10740cc28d250d16b3ffa788caf94b51bc331ad81fcf0e34c44de83a1d",
+      "size_bytes": 24836
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_text_root_textblock/operation.json",
+      "sha256": "1a8b1cee0b463c4d3b61ab181b16a1fe4983ff2f799961934dc542f1051d7798",
+      "size_bytes": 575
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_overlay_child/after.uasset",
+      "sha256": "54145ee7724011ce4f0465b3a50aad635aa6b986857fed508c0db0907855f740",
+      "size_bytes": 22415
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_overlay_child/before.uasset",
+      "sha256": "76c7f71f11115d187f0da21b3c455cf1af3179b3cc40483641091b687b204807",
+      "size_bytes": 22245
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_overlay_child/operation.json",
+      "sha256": "4818ac065f5665ba819aa9df578e22fc053a11c2387c3e5578c026aab64f93d9",
+      "size_bytes": 535
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_root_richtextblock/after.uasset",
+      "sha256": "56e4435a9b931dba1cd19d646f095682cefeca07b6d3b97e8e7871e6a6f0df1d",
+      "size_bytes": 22729
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_root_richtextblock/before.uasset",
+      "sha256": "259e1654b7a4c8ebe4979cebc435fe16d26b8c940b065ab1b2bd2b2d73d38b46",
+      "size_bytes": 22511
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_root_richtextblock/operation.json",
+      "sha256": "165f3a6b09152acbd2dee3ea0ccf9323797df18bfd78599c1e4a84fc145fb1ec",
+      "size_bytes": 373
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_root_textblock/after.uasset",
+      "sha256": "e1e34ab8cdb4fae0aff0a105df15feb0cef6bb4b7cf6c28e7ebe27b1fafba849",
+      "size_bytes": 21266
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_root_textblock/before.uasset",
+      "sha256": "e9a79f79e56a4a5b03c406546818d5ee8735c61fae9d53c571846e42a3f508f4",
+      "size_bytes": 21096
+    },
+    {
+      "path": "golden/ue5.6/operations/widget_write_visibility_root_textblock/operation.json",
+      "sha256": "15428cc6871b6d65b218b62a22ebd651e78128478e8309fa12e7b7f745d35708",
+      "size_bytes": 476
+    },
+    {
       "path": "golden/ue5.6/operations/write_roundtrip/after.uasset",
-      "sha256": "5dc86e1fe9e80b33cf05a66115777244c354533200ef15a5b66f67fe31d331d8",
-      "size_bytes": 23891
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip/before.uasset",
-      "sha256": "5dc86e1fe9e80b33cf05a66115777244c354533200ef15a5b66f67fe31d331d8",
-      "size_bytes": 23891
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip/operation.json",
@@ -2424,13 +3229,13 @@
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_empty_stringtable_ref/after.uasset",
-      "sha256": "aa33de7813cc8ffec50f752031d33c2ab90e3bacadac954b9615cf6b43f2705a",
-      "size_bytes": 24006
+      "sha256": "2ea0cfce0871e79d680e1fe7ff0d4a56053cfbaa3d11f9b9da85a7e3a991e5dd",
+      "size_bytes": 23716
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_empty_stringtable_ref/before.uasset",
-      "sha256": "aa33de7813cc8ffec50f752031d33c2ab90e3bacadac954b9615cf6b43f2705a",
-      "size_bytes": 24006
+      "sha256": "2ea0cfce0871e79d680e1fe7ff0d4a56053cfbaa3d11f9b9da85a7e3a991e5dd",
+      "size_bytes": 23716
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_empty_stringtable_ref/operation.json",
@@ -2439,13 +3244,13 @@
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_withfunctions/after.uasset",
-      "sha256": "8c78738d496877d3c39c652fbd9be9f6d54de287b5f4896b8603ca2e5983100c",
-      "size_bytes": 24095
+      "sha256": "b028902c7847228142340c41cf5f63be968d934fcef1966b6f624661e9bfaa38",
+      "size_bytes": 23763
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_withfunctions/before.uasset",
-      "sha256": "8c78738d496877d3c39c652fbd9be9f6d54de287b5f4896b8603ca2e5983100c",
-      "size_bytes": 24095
+      "sha256": "b028902c7847228142340c41cf5f63be968d934fcef1966b6f624661e9bfaa38",
+      "size_bytes": 23763
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_withfunctions/operation.json",
@@ -2454,13 +3259,13 @@
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_withmetadata/after.uasset",
-      "sha256": "f7c4cf5712cc8e69e0af35b7495a6c0a789bed9333dd63574628ef409637b36d",
-      "size_bytes": 24074
+      "sha256": "014e24213afe7d91f420f5286ae2d7cdc7a990ac7997b21c46566f42088e79e6",
+      "size_bytes": 23749
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_withmetadata/before.uasset",
-      "sha256": "f7c4cf5712cc8e69e0af35b7495a6c0a789bed9333dd63574628ef409637b36d",
-      "size_bytes": 24074
+      "sha256": "014e24213afe7d91f420f5286ae2d7cdc7a990ac7997b21c46566f42088e79e6",
+      "size_bytes": 23749
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_bp_withmetadata/operation.json",
@@ -2469,13 +3274,13 @@
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_dt_simple/after.uasset",
-      "sha256": "698ae2d1b5c5490b5009f8cf402aba9ef6985475e280a02e78d119498203a076",
-      "size_bytes": 1853
+      "sha256": "0b7548f44c8be93fcf5ac1d8fa2fec7e96052a960555732e1c751533f706851c",
+      "size_bytes": 1813
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_dt_simple/before.uasset",
-      "sha256": "698ae2d1b5c5490b5009f8cf402aba9ef6985475e280a02e78d119498203a076",
-      "size_bytes": 1853
+      "sha256": "0b7548f44c8be93fcf5ac1d8fa2fec7e96052a960555732e1c751533f706851c",
+      "size_bytes": 1813
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_dt_simple/operation.json",
@@ -2484,13 +3289,13 @@
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_st_ui/after.uasset",
-      "sha256": "f38342985780612f4131df6af81f8ef4296fea06b17d3405261167055e5ccfad",
-      "size_bytes": 2618
+      "sha256": "10a9d3e2596a50803efeb7dcb42ed7e6fcf84a018eae47548d0750da9a07f2de",
+      "size_bytes": 2198
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_st_ui/before.uasset",
-      "sha256": "f38342985780612f4131df6af81f8ef4296fea06b17d3405261167055e5ccfad",
-      "size_bytes": 2618
+      "sha256": "10a9d3e2596a50803efeb7dcb42ed7e6fcf84a018eae47548d0750da9a07f2de",
+      "size_bytes": 2198
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_st_ui/operation.json",
@@ -2499,13 +3304,13 @@
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_umap/after.uasset",
-      "sha256": "dfa6c9d749568fb4af7cda9c8d4d103df6327b9d5cec56727ec15ff798aa1e07",
-      "size_bytes": 6557
+      "sha256": "3d0961a6f84f37ea4472e999358e86d691705e04ac2f8851afec7effd68843e9",
+      "size_bytes": 6494
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_umap/before.uasset",
-      "sha256": "dfa6c9d749568fb4af7cda9c8d4d103df6327b9d5cec56727ec15ff798aa1e07",
-      "size_bytes": 6557
+      "sha256": "3d0961a6f84f37ea4472e999358e86d691705e04ac2f8851afec7effd68843e9",
+      "size_bytes": 6494
     },
     {
       "path": "golden/ue5.6/operations/write_roundtrip_umap/operation.json",
@@ -2514,38 +3319,38 @@
     },
     {
       "path": "golden/ue5.6/parse/BP_AllScalarTypes.uasset",
-      "sha256": "a36c4c7fa7133c053d64d60441b48f15dca68da2dbd3199df825cc3a4e322a56",
-      "size_bytes": 31509
+      "sha256": "5ed298584d1c956ded96b3248169fe0c66f0b9f567158f6ef3fde1a273740f54",
+      "size_bytes": 31403
     },
     {
       "path": "golden/ue5.6/parse/BP_Base.uasset",
-      "sha256": "ce307740f5361ba6cf8988b7120598259a2ec9d1022ffade49023471aa2e90bb",
-      "size_bytes": 23665
+      "sha256": "21639af0a4f4b312023093623614fe597a78f0c49846b8cceac99466e4242b11",
+      "size_bytes": 23589
     },
     {
       "path": "golden/ue5.6/parse/BP_Child.uasset",
-      "sha256": "143d315329044e722f778477fe4ac8e041769404b23ec1a6a804bd4103cd0d35",
-      "size_bytes": 33728
+      "sha256": "266d1845f3459d73db74c480ba04f79a7ae41b17f11694f58ffc8d7f987689fa",
+      "size_bytes": 33608
     },
     {
       "path": "golden/ue5.6/parse/BP_Containers.uasset",
-      "sha256": "c14230592738615b4a767c7d0c0b96048b203a49e5d999006e3409918c7adbd5",
-      "size_bytes": 23781
+      "sha256": "bd5dddd6d14ca5d2ff5099c0a7630704f5891f6ed308d436a0d1d517f571f30d",
+      "size_bytes": 23705
     },
     {
       "path": "golden/ue5.6/parse/BP_CustomVersions.uasset",
-      "sha256": "f46619fda5ef429df09021dbb46160df100d04dc2ffbeb4ac510ce13d659ee4e",
-      "size_bytes": 23861
+      "sha256": "dcf76c6d6ae83f2e1353692323e0509d6983279921c406ba5d4c16954a34f800",
+      "size_bytes": 23785
     },
     {
       "path": "golden/ue5.6/parse/BP_DependsMap.uasset",
-      "sha256": "1516b55a384dc5bd83ce5081422bbc2c08c2adfc8386e14920a99f05eb62e658",
-      "size_bytes": 23781
+      "sha256": "5e15af47d50ed7980e5c6dc649449d2d7fb8d0365b4e082dddc4524562f1e4fe",
+      "size_bytes": 23705
     },
     {
       "path": "golden/ue5.6/parse/BP_Empty.uasset",
-      "sha256": "1dda2c38e31cf08e2e429b0e2365b047acbac9aebf3592844a1cda7aed0e7383",
-      "size_bytes": 23687
+      "sha256": "20af74a116b90ce49ffe9bd92413c63bca4b245666bc0ad622c756ff88403819",
+      "size_bytes": 23611
     },
     {
       "path": "golden/ue5.6/parse/BP_Empty_PackageNamespace.uasset",
@@ -2554,93 +3359,93 @@
     },
     {
       "path": "golden/ue5.6/parse/BP_Empty_StringTableRef.uasset",
-      "sha256": "249083cba4048fb88a04ec05934c93af1312640c0416025c692bf96cb75061d7",
-      "size_bytes": 23687
+      "sha256": "2ea0cfce0871e79d680e1fe7ff0d4a56053cfbaa3d11f9b9da85a7e3a991e5dd",
+      "size_bytes": 23716
     },
     {
       "path": "golden/ue5.6/parse/BP_GameplayTags.uasset",
-      "sha256": "59ed71632b1b3247172a890b149a5438ffb9d2691826f45586bce2648cf81a85",
-      "size_bytes": 23825
+      "sha256": "a4e4d78361cb7ac5adabdf354143f648337ba0fb04210ab99398b7ede70bc50c",
+      "size_bytes": 23749
     },
     {
       "path": "golden/ue5.6/parse/BP_LargeArray.uasset",
-      "sha256": "de3a91153520bcacc1281b20c70eec3f745761409456812e29034393ce84ad96",
-      "size_bytes": 25298
+      "sha256": "b3226d36a786fdc30a8658907a73a42eda050d52bce236be77dbbfe8869ffa2e",
+      "size_bytes": 25216
     },
     {
       "path": "golden/ue5.6/parse/BP_ManyImports.uasset",
-      "sha256": "9f3392b21566d1bf7d5fb79b4f90dfd15a02d8acd0f05a0183a20846749fd128",
-      "size_bytes": 23803
+      "sha256": "1b67d289ad6e553e555c0da6f2d8524a0ec649bdb5e5f079114df2f331395ca1",
+      "size_bytes": 23727
     },
     {
       "path": "golden/ue5.6/parse/BP_MathTypes.uasset",
-      "sha256": "a4eb243eb03262bf9dee4d2c404dbbe3c6386fa88d6d3124499844cbad60ffc0",
-      "size_bytes": 29983
+      "sha256": "73c53566a9d5c142c52ebc336e3a852616b24a830030618679fb32272c474f38",
+      "size_bytes": 29889
     },
     {
       "path": "golden/ue5.6/parse/BP_Mid.uasset",
-      "sha256": "1040b3b13b6553c2e9b83c194e90d378eae81929bd510b06ae8a36c9f5f1dd11",
-      "size_bytes": 33699
+      "sha256": "e0d8fe4c719badecec85b37819785c9b17de604d74a38cc7f07ecd38c9088f5d",
+      "size_bytes": 33579
     },
     {
       "path": "golden/ue5.6/parse/BP_Nested.uasset",
-      "sha256": "a8bcde3616abb9e5feaf45d3f960ba840ac6f010b814fe3cb8ba9dcae4704dec",
-      "size_bytes": 23709
+      "sha256": "8bd4fef39023cad153089646c5be0148929353b4bfd7cde4f065772727adb062",
+      "size_bytes": 23633
     },
     {
       "path": "golden/ue5.6/parse/BP_RefTypes.uasset",
-      "sha256": "75099b4664cff7a9333bf2d3acf6ebac24cbc10626e71164f17e34e7b5f1f7c1",
-      "size_bytes": 23745
+      "sha256": "48e4dd2eb96f4158d4c1fc638ef2e3ef9050189d3e602123214b3da9a84b70a7",
+      "size_bytes": 23669
     },
     {
       "path": "golden/ue5.6/parse/BP_SimpleVars.uasset",
-      "sha256": "964f6f86bda8921228bd4c33e70a1f7481a1643b61f08f62dfa58232d0d4af00",
-      "size_bytes": 32183
+      "sha256": "4999fbd8ec3decec410a538b370edb3242fd33e7e57a67297d912adf54706f4d",
+      "size_bytes": 32077
     },
     {
       "path": "golden/ue5.6/parse/BP_SoftRefs.uasset",
-      "sha256": "745ff95db5bb5ec3bcb518937b53b820ff9230d823372ed0bcaf5714b3d3f28e",
-      "size_bytes": 23745
+      "sha256": "17535238a8b312c24f23bfc38da9ee2d7050181b2415fa6013534352a0856fd6",
+      "size_bytes": 23669
     },
     {
       "path": "golden/ue5.6/parse/BP_Unicode.uasset",
-      "sha256": "b0f9fbc77eb5302d7be355e3230ac830b223bd04d4c3193098524cf9c0e03ac6",
-      "size_bytes": 27294
+      "sha256": "d22b0b5e4002ae916555fb8d2d1dccac87092c66ee80a139cdfb0bffc1bac0a0",
+      "size_bytes": 27204
     },
     {
       "path": "golden/ue5.6/parse/BP_WithFunctions.uasset",
-      "sha256": "5d3ff80f9a08892574cc5bfa60fbcc2f50a4eabd9d5e9ae9a9fdd157bff1598e",
-      "size_bytes": 23839
+      "sha256": "b028902c7847228142340c41cf5f63be968d934fcef1966b6f624661e9bfaa38",
+      "size_bytes": 23763
     },
     {
       "path": "golden/ue5.6/parse/BP_WithMetadata.uasset",
-      "sha256": "9975d1027f448cdc4332edeb75704d214d70226acabcc8adc110e4ef208f0e3e",
-      "size_bytes": 23825
+      "sha256": "014e24213afe7d91f420f5286ae2d7cdc7a990ac7997b21c46566f42088e79e6",
+      "size_bytes": 23749
     },
     {
       "path": "golden/ue5.6/parse/BP_WithThumbnail.uasset",
-      "sha256": "5069bc93c6ca0bd12f280d75a4795ba9b52d17e4312f305ba35fa8ebaeb636c2",
-      "size_bytes": 23839
+      "sha256": "677fb5dc475d9b1b5fffbb7f70005b8828931ed1de6a97d1f0a1434e2ace6519",
+      "size_bytes": 23763
     },
     {
       "path": "golden/ue5.6/parse/DT_Complex.uasset",
-      "sha256": "34744397abc6c72d51e6bc63793f26a145746714788c6f8915b77ae0ae1a161c",
-      "size_bytes": 1781
+      "sha256": "41a0309686ac06d98cfdeed521c5cad66e42d3ebebab417423eb4aa85435bb06",
+      "size_bytes": 1817
     },
     {
       "path": "golden/ue5.6/parse/DT_Simple.uasset",
-      "sha256": "2ae3bbbe2542fca2a98af1983f890792ada710adf85edbdce9ed9562365c1dae",
-      "size_bytes": 1777
+      "sha256": "0b7548f44c8be93fcf5ac1d8fa2fec7e96052a960555732e1c751533f706851c",
+      "size_bytes": 1813
     },
     {
       "path": "golden/ue5.6/parse/E_Direction.uasset",
-      "sha256": "422aa1fa4ff1f9080c9a06c114bcb3ac2cff92740d192ff6fea8ba6b9c6c1327",
-      "size_bytes": 1190
+      "sha256": "902d8dca38833dd713402766088fafb7a84ed77eee1e0c66a9e10caf92b00b6c",
+      "size_bytes": 1226
     },
     {
       "path": "golden/ue5.6/parse/L_Minimal.umap",
-      "sha256": "1ca2656c89cddbb3776a6e38ff73635754ff318ec38b700074662d66594fe0c9",
-      "size_bytes": 6458
+      "sha256": "3d0961a6f84f37ea4472e999358e86d691705e04ac2f8851afec7effd68843e9",
+      "size_bytes": 6494
     },
     {
       "path": "golden/ue5.6/parse/Localization_Test.locres",
@@ -2649,18 +3454,58 @@
     },
     {
       "path": "golden/ue5.6/parse/MI_Chrome.uasset",
-      "sha256": "88d5419234905ba3f915fd19ea5b10f1b8c4c6c8deb7af229b5a565c0a547ab1",
-      "size_bytes": 2196
+      "sha256": "9588fd1bd5ff3b85b8237fd509b176e74b2aa4840f863866380d392ccdbc250a",
+      "size_bytes": 2232
     },
     {
       "path": "golden/ue5.6/parse/ST_UI.uasset",
-      "sha256": "216b1949f021792eb235c468070aa3cfd727b86f7e2abbaa71e4a7341f81ad47",
-      "size_bytes": 2162
+      "sha256": "10a9d3e2596a50803efeb7dcb42ed7e6fcf84a018eae47548d0750da9a07f2de",
+      "size_bytes": 2198
     },
     {
       "path": "golden/ue5.6/parse/S_PlayerData.uasset",
-      "sha256": "ed4f2ee021a6064a776e63f3f46d949ab44c55e321f9fb63f37f860618d4b040",
-      "size_bytes": 3711
+      "sha256": "afc20b29d8b96994f775d195226f81710a9147f17411e0fcfb2594177a24f58f",
+      "size_bytes": 3747
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_CanvasPanel.uasset",
+      "sha256": "0389c554b53e30a9d25ad96a9e74f0450b14621fdf01c806dd3c378dc11195a8",
+      "size_bytes": 20822
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_CanvasPanel_RichTextBlock.uasset",
+      "sha256": "5075837d23a0c24e9510d0d90278e07e648ae77e3b0ee6ca0c8bad69efb146eb",
+      "size_bytes": 23772
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_CanvasPanel_TextBlock.uasset",
+      "sha256": "e1fd78c14d410d1b7a85940961aca4cc84f6c83cbc2ff57f5568eabdfde07bdd",
+      "size_bytes": 22228
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_Minimum.uasset",
+      "sha256": "3999351ea7f5035a0693ee857523aa30ae8454d20c0c76727abebbf47d173ea3",
+      "size_bytes": 20105
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_Overlay.uasset",
+      "sha256": "6bc29c4119543bcd599b219aadf4a310cfce5acfd1e385a9053c3becfc9154f5",
+      "size_bytes": 20770
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_Overlay_TextBlock.uasset",
+      "sha256": "412191a7a76e20c0f0901b634a1d2e6bc2fd93ed990562e3890f912025250a1a",
+      "size_bytes": 22172
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_RichTextBlock.uasset",
+      "sha256": "1db9d36c554ee123fd2204bcadb0b2e72cc83cc2cd8db571f5a2b3f9919889be",
+      "size_bytes": 22407
+    },
+    {
+      "path": "golden/ue5.6/parse/WBP_TextBlock.uasset",
+      "sha256": "4b682e14c7722c600be0cc9781abb0d9cc4a480935940b110ac1f55335251c7e",
+      "size_bytes": 20988
     },
     {
       "path": "golden/ue5.7/expected_output/blueprint_bytecode_BP_WithFunctions_export5.json",
@@ -3774,8 +4619,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_add/operation.json",
-      "sha256": "3b0392bd6e3c3db2d02c761f854e8784e90d5c57e5d9d78dfeba17f3267173d8",
-      "size_bytes": 191
+      "sha256": "0bfe63c8aaf4ac8324c98263edd0e3058750be2f227238e0ce121b5b69f2df50",
+      "size_bytes": 313
     },
     {
       "path": "golden/ue5.7/operations/name_add_duplicate_reject/after.uasset",
@@ -3804,8 +4649,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_add_hash_override/operation.json",
-      "sha256": "8bbfe884733112bf02adaf7c58b7c137a0112227321746023db60a76e69c1fca",
-      "size_bytes": 307
+      "sha256": "fa00b3d6fa09f4e9cf3037bd20b39142ad46de4a74c2f7b1562e1ce24d8e6d44",
+      "size_bytes": 429
     },
     {
       "path": "golden/ue5.7/operations/name_add_hash_override_alt/after.uasset",
@@ -3819,8 +4664,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_add_hash_override_alt/operation.json",
-      "sha256": "75fd91aeb6e3a455352051205343c73aa35adb644365fa39a05be4089f171383",
-      "size_bytes": 330
+      "sha256": "1f1fc9f04bc7df835b51faa109a92c703f8f3d37b219c73b1dd272c6db263714",
+      "size_bytes": 452
     },
     {
       "path": "golden/ue5.7/operations/name_add_long_ascii/after.uasset",
@@ -3834,8 +4679,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_add_long_ascii/operation.json",
-      "sha256": "27f19f89a8dc9cbb6f3dc2df336fdae36c475947f992f530e9babffa9d49c9cc",
-      "size_bytes": 226
+      "sha256": "62d33c8fde4e075000aff4530902ac239d0591f3ac3f438f321d391aee351cd5",
+      "size_bytes": 348
     },
     {
       "path": "golden/ue5.7/operations/name_add_unicode/after.uasset",
@@ -3849,8 +4694,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_add_unicode/operation.json",
-      "sha256": "4bc0a1ca4376cdbfc00218429017e8826f32d2e142030d871e06f5861a801ff5",
-      "size_bytes": 209
+      "sha256": "8a4491f0265c847255c4e7469cb8d4ba713d457e5e2cd29d67c0b5d18d2d358a",
+      "size_bytes": 331
     },
     {
       "path": "golden/ue5.7/operations/name_remove/after.uasset",
@@ -3864,8 +4709,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_remove/operation.json",
-      "sha256": "164ee82404d388e6193bff1b237d43d9864a7bdb5e2cb48c1b0ac04267ba28d5",
-      "size_bytes": 201
+      "sha256": "4397aaae07733d44ed7c2c03f195388caf2656a1e5f3a4d8598f2967740ef07d",
+      "size_bytes": 323
     },
     {
       "path": "golden/ue5.7/operations/name_remove_export_region_reject/after.uasset",
@@ -3894,8 +4739,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_remove_hash/operation.json",
-      "sha256": "91facb55366bfcb9bc4a9ba91e5a1e971fe48c05d293f048f260d46d1b6174bf",
-      "size_bytes": 248
+      "sha256": "f790a0643ed0ba3d550099e74b6f64b64ed3bc13fd7fa8960b216c1a6ea7c99f",
+      "size_bytes": 370
     },
     {
       "path": "golden/ue5.7/operations/name_remove_non_tail_reject/after.uasset",
@@ -3969,8 +4814,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_remove_unicode/operation.json",
-      "sha256": "7e0cedec50ec39ee2c78402eb0129ae9f7dad0a6a22a4e010143c79de81f0384",
-      "size_bytes": 219
+      "sha256": "691ae99c60afe4c33de8ef49f8fad87049de90c9f42aba605987a0d662665678",
+      "size_bytes": 341
     },
     {
       "path": "golden/ue5.7/operations/name_set/after.uasset",
@@ -3984,8 +4829,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set/operation.json",
-      "sha256": "4b8a4fcf5d10a7d248e6b279aa5a9969ca8adc81aa5130e34ddfc4d1c0c8099a",
-      "size_bytes": 219
+      "sha256": "516189012238d765fd67bb7b9e4745ea29273bbab5b60c26cac76ffe4f252b19",
+      "size_bytes": 341
     },
     {
       "path": "golden/ue5.7/operations/name_set_ascii_alt/after.uasset",
@@ -3999,8 +4844,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set_ascii_alt/operation.json",
-      "sha256": "78b6ac05142e29afabbc1e8925d8b55486f0f0197de02f02764920139ef93798",
-      "size_bytes": 240
+      "sha256": "89b41cd3dae29f57d737425f32c5d5b85fe09879868f4e9e5b8916e5e5a6532d",
+      "size_bytes": 362
     },
     {
       "path": "golden/ue5.7/operations/name_set_case_variant/after.uasset",
@@ -4014,8 +4859,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set_case_variant/operation.json",
-      "sha256": "40fc9ebcdfbae2b399f354c568bd5a30d8070272e653657401169ba27f042f8a",
-      "size_bytes": 260
+      "sha256": "53ea72830a7bae922a9b0ff7eb08d29ccceeced41cc510c14c34b4d0d7a5b990",
+      "size_bytes": 382
     },
     {
       "path": "golden/ue5.7/operations/name_set_hash_only/after.uasset",
@@ -4029,8 +4874,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set_hash_only/operation.json",
-      "sha256": "10a9b6fa91eabfb89cb83b35645923fd065b365600b7d30b692afc121db58c60",
-      "size_bytes": 335
+      "sha256": "c6aa8621c0a807bb04586572a7583bc000bab3406cbda3e1a39106e40c7723fb",
+      "size_bytes": 457
     },
     {
       "path": "golden/ue5.7/operations/name_set_hash_override/after.uasset",
@@ -4044,8 +4889,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set_hash_override/operation.json",
-      "sha256": "d4086ff8a63572fdd2b1059c4cdafd8432b01cc48a3f92ec35fa990197f8f027",
-      "size_bytes": 327
+      "sha256": "17ca00d328e15fe1ba2d97768c16c119fe134c91f28fb05786e6ca9f201257d6",
+      "size_bytes": 449
     },
     {
       "path": "golden/ue5.7/operations/name_set_hash_override_alt/after.uasset",
@@ -4059,8 +4904,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set_hash_override_alt/operation.json",
-      "sha256": "7d37d289f7e19853445145130d04bd67a7ce7ff30d9c1f24de1f48e77a5a9e79",
-      "size_bytes": 333
+      "sha256": "4fe0da46f603e27877a623bbe3f8dd6105074303cddf6946620825df5677166e",
+      "size_bytes": 455
     },
     {
       "path": "golden/ue5.7/operations/name_set_unicode/after.uasset",
@@ -4074,8 +4919,8 @@
     },
     {
       "path": "golden/ue5.7/operations/name_set_unicode/operation.json",
-      "sha256": "ab2f42390f2f17c185cecff5009e4f968e6c35d6ef464bcb0b21f220e49a1b2e",
-      "size_bytes": 232
+      "sha256": "e312c39ed27a872d00668e0d2478090bc45b9dbf547b57bf2e276e6ec5e099c7",
+      "size_bytes": 354
     },
     {
       "path": "golden/ue5.7/operations/package_set_flags/after.uasset",

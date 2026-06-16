@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/UniformGridPanel_1",
+		"property": "uniformgridpanel-min-desired-slot-height",
+		"value": "48"
+	},
+	"ue_procedure": "Set MinDesiredSlotHeight to 48 on the UniformGridPanel child under the root CanvasPanel on WBP_CanvasPanel_UniformGridPanel",
+	"expect": "byte_equal",
+	"notes": "Covers UniformGridPanel min-desired-slot-height rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

@@ -7,11 +7,11 @@
     "assetKind": "DataTable",
     "customVersionCount": 2,
     "engineVersion": {
-      "branch": "",
-      "changelist": 0,
-      "major": 0,
-      "minor": 0,
-      "patch": 0
+      "branch": "++UE5+Release-5.6",
+      "changelist": 44394996,
+      "major": 5,
+      "minor": 6,
+      "patch": 1
     },
     "exportCount": 2,
     "file": "testdata/golden/parse/DT_Simple.uasset",
@@ -21,11 +21,9 @@
     "nameCount": 23,
     "packageFlags": 0,
     "packageName": "/Game/BPXFixtures/Parse/DT_Simple",
-    "summarySize": 367,
-    "totalHeaderSize": 1459
+    "summarySize": 403,
+    "totalHeaderSize": 1495
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "info_DT_Simple",
   "oracle": "ue-fixture"
 }

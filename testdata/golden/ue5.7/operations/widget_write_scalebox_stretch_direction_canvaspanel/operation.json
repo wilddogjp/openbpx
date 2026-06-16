@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/ScaleBox_1",
+		"property": "scalebox-stretch-direction",
+		"value": "DownOnly"
+	},
+	"ue_procedure": "Set StretchDirection to DownOnly on the ScaleBox child under the root CanvasPanel on WBP_CanvasPanel_ScaleBox",
+	"expect": "byte_equal",
+	"notes": "Covers ScaleBox stretch-direction enum rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

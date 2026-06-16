@@ -16,8 +16,6 @@
     "member": "OpenLevelBySoftObjectPtr",
     "warnings": []
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "blueprint_call_args_BP_Empty_member_OpenLevelBySoftObjectPtr",
   "oracle": "ue-fixture"
 }

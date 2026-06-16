@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_22/RichTextBlock_31",
+		"property": "text",
+		"value": "Updated rich canvas child text"
+	},
+	"ue_procedure": "Update the child RichTextBlock text under the root CanvasPanel on WBP_CanvasPanel_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers child RichTextBlock text rewrite under CanvasPanel across designer/generated WidgetTree exports.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-text-localization-keys",
+		"saved-hash"
+	]
+}

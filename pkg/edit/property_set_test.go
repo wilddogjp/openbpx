@@ -215,6 +215,28 @@ func TestCoerceTextPropertyUsesEditorPersistedFlagsForPlainString(t *testing.T) 
 	}
 }
 
+func TestCoerceTextPropertyAllowsNilCurrentForAdd(t *testing.T) {
+	got, err := coerceTextProperty(&uasset.Asset{}, nil, map[string]any{
+		"flags":                  0,
+		"historyType":            "Base",
+		"historyTypeCode":        0,
+		"namespace":              "NS",
+		"key":                    "Key",
+		"sourceString":           "hello",
+		"value":                  "hello",
+		"cultureInvariantString": "hello",
+	})
+	if err != nil {
+		t.Fatalf("coerceTextProperty(nil current): %v", err)
+	}
+	if gotHistory, ok := got["historyType"].(string); !ok || gotHistory != "Base" {
+		t.Fatalf("historyType: got %#v want %q", got["historyType"], "Base")
+	}
+	if gotSource, ok := got["sourceString"].(string); !ok || gotSource != "hello" {
+		t.Fatalf("sourceString: got %#v want %q", got["sourceString"], "hello")
+	}
+}
+
 type testExport struct {
 	objectNameIndex int32
 	payload         []byte

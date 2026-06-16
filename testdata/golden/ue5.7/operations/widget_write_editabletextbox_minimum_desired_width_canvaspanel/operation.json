@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/EditableTextBox_1",
+		"property": "editabletextbox-minimum-desired-width",
+		"value": "240"
+	},
+	"ue_procedure": "Set MinimumDesiredWidth to 240 on the EditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_EditableTextBox",
+	"expect": "byte_equal",
+	"notes": "Covers EditableTextBox minimum-desired-width rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

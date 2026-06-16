@@ -1,0 +1,16 @@
+{
+  "command": "blueprint widget-add",
+  "args": {
+    "parent": "CanvasPanel_1/Overlay_1",
+    "type": "image",
+    "name": "Image_3"
+  },
+  "ue_procedure": "Open WBP_MultiLevelSmoke, add one bare Image child named Image_3 under CanvasPanel_1/Overlay_1, save, and let UE compile the WidgetBlueprint.",
+  "expect": "byte_equal",
+  "notes": "Covers widget-add on a nested top-level Overlay child under a root CanvasPanel, including generated-tree rootless companion rewrites for the nested Overlay branch.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "saved-hash",
+    "widget-variable-guid-map-values"
+  ]
+}

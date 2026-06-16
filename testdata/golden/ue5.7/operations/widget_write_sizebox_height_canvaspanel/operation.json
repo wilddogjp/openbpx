@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/SizeBox_1",
+		"property": "sizebox-height-override",
+		"value": "72"
+	},
+	"ue_procedure": "Set HeightOverride to 72 on the SizeBox child under the root CanvasPanel on WBP_CanvasPanel_SizeBox",
+	"expect": "byte_equal",
+	"notes": "Covers SizeBox height-override rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

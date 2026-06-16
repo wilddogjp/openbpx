@@ -238,6 +238,15 @@ func (w *byteWriter) writeFString(v string) {
 	w.writeBytes(z[:])
 }
 
+func (w *byteWriter) writeUTF8String(v string) {
+	if v == "" {
+		w.writeInt32(0)
+		return
+	}
+	w.writeInt32(int32(len(v)))
+	w.writeBytes([]byte(v))
+}
+
 func readInt32At(data []byte, off int, order binary.ByteOrder) (int32, error) {
 	if off < 0 || off+4 > len(data) {
 		return 0, fmt.Errorf("int32 read out of range: %d", off)

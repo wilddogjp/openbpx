@@ -9,7 +9,7 @@
   "expected": {
     "aggregate": true,
     "directory": "testdata/golden/parse",
-    "fileCount": 28,
+    "fileCount": 36,
     "fileToFunctions": {
       "testdata/golden/parse/BP_AllScalarTypes.uasset": [
         "K2Node_FunctionEntry_0"
@@ -104,8 +104,6 @@
     "pattern": "*.uasset",
     "recursive": true
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "blueprint_scan_functions_parse_recursive_aggregate",
   "oracle": "ue-fixture"
 }

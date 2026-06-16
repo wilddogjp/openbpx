@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "TextBlock_72",
+		"property": "text-typeface",
+		"value": "Bold"
+	},
+	"ue_procedure": "Set Font.TypefaceFontName to Bold on the root TextBlock on WBP_TextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers root TextBlock typeface rewrite inside SlateFontInfo.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

@@ -1,0 +1,18 @@
+{
+  "command": "blueprint widget-write",
+  "args": {
+    "property": "visibility",
+    "value": "Collapsed",
+    "widget": "TextBlock_72"
+  },
+  "ue_procedure": "Set Visibility to Collapsed on the root TextBlock on WBP_TextBlock",
+  "expect": "byte_equal",
+  "notes": "Covers root widget Visibility write across designer/generated WidgetTree exports.",
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
+}

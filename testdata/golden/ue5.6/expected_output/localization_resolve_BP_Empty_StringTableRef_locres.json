@@ -36,7 +36,7 @@
     "entryCount": 1,
     "exportFilter": 11,
     "file": "testdata/golden/parse/BP_Empty_StringTableRef.uasset",
-    "gatherableTextDataCount": 1,
+    "gatherableTextDataCount": 0,
     "locres": {
       "path": "testdata/golden/parse/Localization_Test.locres",
       "version": 2
@@ -44,12 +44,8 @@
     "missingCount": 0,
     "missingOnly": false,
     "resolvedCount": 1,
-    "warnings": [
-      "gatherable text data is package-level (count=1) and is omitted when --export is specified"
-    ]
+    "warnings": []
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "localization_resolve_BP_Empty_StringTableRef_locres",
   "oracle": "ue-fixture"
 }

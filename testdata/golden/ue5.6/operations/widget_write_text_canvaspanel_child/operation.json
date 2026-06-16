@@ -1,0 +1,22 @@
+{
+  "command": "blueprint widget-write",
+  "args": {
+    "property": "text",
+    "value": "after",
+    "widget": "CanvasPanel_22/TextBlock_31"
+  },
+  "ue_procedure": "Update the child TextBlock text under the root CanvasPanel on WBP_CanvasPanel_TextBlock to after",
+  "expect": "byte_equal",
+  "notes": "Covers child TextBlock text rewrite under CanvasPanel across designer/generated WidgetTree exports using compile/save-aligned before/after assets.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "widget-text-localization-keys"
+  ],
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
+}

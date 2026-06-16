@@ -64,22 +64,19 @@ func TestOperationFixtureCommandCoverage(t *testing.T) {
 
 			byteEqualCountByCommand := map[string]int{}
 			errorEqualCountByCommand := map[string]int{}
-			for _, entry := range entries {
-				if !entry.IsDir() {
-					continue
-				}
-				specPath := filepath.Join(operationsDir, entry.Name(), "operation.json")
+			for _, opDir := range listOperationSpecDirs(entries, operationsDir) {
+				specPath := filepath.Join(opDir, "operation.json")
 				body, err := os.ReadFile(specPath)
 				if err != nil {
-					t.Fatalf("read %s operation spec: %v", entry.Name(), err)
+					t.Fatalf("read %s operation spec: %v", filepath.Base(opDir), err)
 				}
 				var spec operationSpec
 				if err := json.Unmarshal(body, &spec); err != nil {
-					t.Fatalf("parse %s operation spec: %v", entry.Name(), err)
+					t.Fatalf("parse %s operation spec: %v", filepath.Base(opDir), err)
 				}
 				command := strings.TrimSpace(spec.Command)
 				if command == "" {
-					t.Fatalf("%s operation command is empty", entry.Name())
+					t.Fatalf("%s operation command is empty", filepath.Base(opDir))
 				}
 				expect := strings.TrimSpace(spec.Expect)
 				if expect == "" {

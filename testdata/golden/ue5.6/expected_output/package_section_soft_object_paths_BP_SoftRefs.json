@@ -9,7 +9,7 @@
   "expected": {
     "count": 13,
     "dataBase64": "AAAAAAAAAAARAAAAAAAAABoAAABTaW1wbGVDb25zdHJ1Y3Rpb25TY3JpcHRfMAAAAAAAAAAAEAAAAAAAAAAWAAAAVXNlckNvbnN0cnVjdGlvblNjcmlwdAAAAAAAAAAAEAAAAAAAAAAKAAAARXZlbnRHcmFwaAAAAAAAAAAAEAAAAAAAAAAtAAAAVXNlckNvbnN0cnVjdGlvblNjcmlwdC5LMk5vZGVfRnVuY3Rpb25FbnRyeV8wAAAAAAAAAABMAAAAAAAAABYAAABVc2VyQ29uc3RydWN0aW9uU2NyaXB0AAAAAAAAAABMAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAZAAAARXZlbnRHcmFwaC5LMk5vZGVfRXZlbnRfMAAAAAAAAAAAEAAAAAAAAAAZAAAARXZlbnRHcmFwaC5LMk5vZGVfRXZlbnRfMQAAAAAAAAAAEAAAAAAAAAAZAAAARXZlbnRHcmFwaC5LMk5vZGVfRXZlbnRfMgAAAAAAAAAATAAAAAAAAAALAAAAUmVjZWl2ZVRpY2sAAAAAAAAAAEwAAAAAAAAAGAAAAFJlY2VpdmVBY3RvckJlZ2luT3ZlcmxhcAAAAAAAAAAATAAAAAAAAAAQAAAAUmVjZWl2ZUJlZ2luUGxheQ==",
-    "endOffset": 3392,
+    "endOffset": 3428,
     "entries": [
       {
         "assetName": "BP_SoftRefs_C",
@@ -78,7 +78,7 @@
       }
     ],
     "file": "testdata/golden/parse/BP_SoftRefs.uasset",
-    "offset": 2881,
+    "offset": 2917,
     "present": true,
     "section": "softObjectPaths",
     "sectionName": "soft-object-paths",
@@ -86,8 +86,6 @@
     "truncated": false,
     "warnings": []
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "package_section_soft_object_paths_BP_SoftRefs",
   "oracle": "ue-fixture"
 }

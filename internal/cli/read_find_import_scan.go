@@ -56,11 +56,12 @@ func runImport(args []string, stdout, stderr io.Writer) int {
 		args,
 		stdout,
 		stderr,
-		"usage: bpx import <list|search|graph> ...",
+		"usage: bpx import <list|search|graph|add> ...",
 		"unknown import command: %s\n",
 		subcommandSpec{Name: "list", Run: runImportList},
 		subcommandSpec{Name: "search", Run: runImportSearch},
 		subcommandSpec{Name: "graph", Run: runImportGraph},
+		subcommandSpec{Name: "add", Run: runImportAdd},
 	)
 }
 

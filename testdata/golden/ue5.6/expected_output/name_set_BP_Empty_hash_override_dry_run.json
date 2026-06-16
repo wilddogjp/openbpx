@@ -28,10 +28,8 @@
       "nonCaseHash": 16518,
       "value": "/Script/Engine"
     },
-    "outputBytes": 23695
+    "outputBytes": 23619
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "name_set_BP_Empty_hash_override_dry_run",
   "oracle": "ue-fixture"
 }

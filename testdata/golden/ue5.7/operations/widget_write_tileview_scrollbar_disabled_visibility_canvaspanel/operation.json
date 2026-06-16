@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/TileView_1",
+		"property": "tileview-scrollbar-disabled-visibility",
+		"value": "Hidden"
+	},
+	"ue_procedure": "Set ScrollbarDisabledVisibility to Hidden on the TileView child under the root CanvasPanel on WBP_CanvasPanel_TileView",
+	"expect": "byte_equal",
+	"notes": "Covers TileView scrollbar-disabled-visibility rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash",
+		"blueprint-search-tail"
+	]
+}

@@ -18,7 +18,7 @@ import (
 const (
 	structuredOutputFormatJSON = "json"
 	structuredOutputFormatTOML = "toml"
-	defaultToolVersion         = "0.1.8"
+	defaultToolVersion         = "0.2.0"
 )
 
 var currentStructuredOutputFormat = structuredOutputFormatJSON
@@ -848,6 +848,7 @@ func helpCatalog() []helpCategory {
 				"bpx import list <file.uasset>",
 				"bpx import search <file.uasset> [--object <name>] [--class-package <pkg>] [--class-name <cls>]",
 				"bpx import graph <directory> [--pattern \"*.uasset\"] [--recursive] [--group-by root|object] [--filter <token>]",
+				"bpx import add <file.uasset> --texture </Game/Path/TextureName> [--dry-run] [--backup]",
 				"bpx prop list <file.uasset> --export <n>",
 				"bpx var list <file.uasset>",
 				"bpx name list <file.uasset>",
@@ -861,6 +862,7 @@ func helpCatalog() []helpCategory {
 				"bpx localization resolve <file.uasset> [--export <n>] --culture <culture> [--locres <path>] [--missing-only]",
 				"bpx datatable read <file.uasset> [--export <n>] [--row <name>] [--format json|toml|csv|tsv] [--out path]",
 				"bpx blueprint info <file.uasset> [--export <n>]",
+				"bpx blueprint widget-read <file.uasset> [--export <n>]",
 				"bpx blueprint bytecode <file.uasset> --export <n> [--range-source auto|export-map|ustruct-script|serial-full] [--strict-range] [--diagnostics]",
 				"bpx blueprint disasm <file.uasset> --export <n> [--format json|toml|text] [--analysis] [--entrypoint <vm>] [--max-steps <n>] [--range-source auto|export-map|ustruct-script|serial-full] [--strict-range] [--diagnostics]",
 				"bpx blueprint trace <file.uasset> --from <Node|Node.Pin> [--to-node <token>] [--to-function <token>] [--max-depth <n>]",
@@ -912,6 +914,11 @@ func helpCatalog() []helpCategory {
 				"bpx localization set-stringtable-ref <file.uasset> --export <n> --path <dot.path> --table <table-id> --key <key> [--dry-run] [--backup]",
 				"bpx localization rewrite-namespace <file.uasset> --from <ns-old> --to <ns-new> [--dry-run] [--backup]",
 				"bpx localization rekey <file.uasset> --namespace <ns> --from-key <k-old> --to-key <k-new> [--dry-run] [--backup]",
+				"bpx blueprint widget-init <out.uasset> --template <minimum> [--engine <auto|ue5.6>] [--asset-name <Name>] [--package-path </Game/...>] [--parent-class </Script/Module.ClassName>] [--force] [--dry-run] [--backup]",
+				"bpx blueprint widget-parent-class <file.uasset> --class </Script/Module.ClassName> [--export <n>] [--dry-run] [--backup]",
+				"bpx blueprint widget-add <file.uasset> --parent <path|name|root> --type <image|textblock|richtextblock|progressbar|slider|spacer|scrollbar|editabletext|editabletextbox|multilineeditabletextbox|spinbox|comboboxstring|checkbox|userwidget|button|border|retainerbox|invalidationbox|menuanchor|namedslot|sizebox|scalebox|backgroundblur|safezone|windowtitlebararea|canvaspanel|overlay|verticalbox|horizontalbox|stackbox|scrollbox|wrapbox|gridpanel|uniformgridpanel|widgetswitcher|listview|tileview|treeview> --name <Widget_N> [--class </Game/...> when --type userwidget] [--export <n>] [--dry-run] [--backup]",
+				"bpx blueprint widget-remove <file.uasset> --widget <path|name> [--export <n>] [--dry-run] [--backup]",
+				"bpx blueprint widget-write <file.uasset> --widget <path|name> --property <text|visibility|render-opacity|brush-image|progressbar-percent|progressbar-fill-color|slider-value|slider-min-value|slider-max-value|slider-step-size|slider-orientation|spacer-size|scrollbar-thickness|scrollbar-orientation|checkbox-checked-state|checkbox-is-checked|editabletext-hint-text|editabletext-is-read-only|editabletext-is-password|editabletext-minimum-desired-width|editabletext-justification|editabletextbox-hint-text|editabletextbox-is-read-only|editabletextbox-is-password|editabletextbox-minimum-desired-width|editabletextbox-justification|multilineeditabletextbox-hint-text|multilineeditabletextbox-is-read-only|multilineeditabletextbox-justification|spinbox-value|spinbox-min-value|spinbox-max-value|spinbox-delta|comboboxstring-selected-option|comboboxstring-options|is-focusable|button-is-focusable|checkbox-is-focusable|slider-is-focusable|scrollbox-is-focusable|comboboxstring-is-focusable|listview-entry-widget-class|listview-orientation|listview-selection-mode|listview-consume-mouse-wheel|listview-is-focusable|listview-return-focus-to-selection|listview-clear-scroll-velocity-on-selection|listview-scroll-into-view-alignment|listview-wheel-scroll-multiplier|listview-enable-scroll-animation|listview-allow-overscroll|listview-enable-right-click-scrolling|listview-enable-touch-scrolling|listview-is-pointer-scrolling-enabled|listview-is-gamepad-scrolling-enabled|listview-horizontal-entry-spacing|listview-vertical-entry-spacing|listview-scrollbar-padding|tileview-entry-width|tileview-entry-height|tileview-scrollbar-disabled-visibility|tileview-entry-size-includes-entry-spacing|scrollbox-orientation|scrollbox-scrollbar-visibility|scrollbox-consume-mouse-wheel|sizebox-width-override|sizebox-width|sizebox-height-override|sizebox-height|sizebox-min-desired-width|sizebox-min-desired-height|sizebox-max-desired-width|sizebox-max-desired-height|sizebox-min-aspect-ratio|sizebox-max-aspect-ratio|scalebox-stretch|scalebox-stretch-direction|scalebox-user-specified-scale|scalebox-ignore-inherited-scale|wrapbox-wrap-size|wrapbox-explicit-wrap-size|wrapbox-inner-slot-padding|wrapbox-orientation|widgetswitcher-active-widget-index|retainerbox-retain-render|retainerbox-render-on-invalidation|retainerbox-render-on-phase|retainerbox-phase|retainerbox-phase-count|backgroundblur-strength|backgroundblur-apply-alpha-to-blur|safezone-pad-left|safezone-pad-right|safezone-pad-top|safezone-pad-bottom|invalidationbox-can-cache|uniformgridpanel-min-desired-slot-width|uniformgridpanel-min-desired-slot-height|uniformgridpanel-slot-padding|text-color-and-opacity|text-color|text-font|text-font-family|text-typeface|text-font-size|text-justification|text-auto-wrap-text|text-wrap-text-at|text-line-height-percentage|text-shadow-offset|text-shadow-color-and-opacity|text-outline-size|text-outline-color|button-normal-image|button-hovered-image|button-pressed-image|button-disabled-image|button-normal-tint|button-hovered-tint|button-pressed-tint|button-disabled-tint|button-normal-image-size|button-hovered-image-size|button-pressed-image-size|button-disabled-image-size|button-normal-draw-as|button-hovered-draw-as|button-pressed-draw-as|button-disabled-draw-as|menu-anchor-placement|button-background-color|button-color-and-opacity|border-padding|border-brush-color|border-content-color-and-opacity|border-horizontal-alignment|border-vertical-alignment|grid-row-fill|grid-column-fill|richtext-style-set|richtext-decorator-classes|richtext-override-default-style|richtext-default-font|richtext-default-font-family|richtext-default-typeface|richtext-default-font-size|richtext-default-color-and-opacity|richtext-default-shadow-offset|richtext-default-shadow-color-and-opacity|richtext-default-outline-size|richtext-default-outline-color|richtext-auto-wrap-text|richtext-wrap-text-at|richtext-line-height-percentage|richtext-justification|slot-padding|slot-size|slot-horizontal-alignment|slot-vertical-alignment|slot-row|slot-column|slot-row-span|slot-column-span|slot-layer|slot-nudge|layout-position|layout-size|layout-anchors|layout-alignment|layout-data> --value <value> [--export <n>] [--dry-run] [--backup]",
 				"bpx level var-set <file.umap> --actor <name|PersistentLevel.Name|export-index> --path <dot.path> --value '<json>' [--dry-run] [--backup]",
 			},
 		},
@@ -1049,6 +1056,8 @@ func helpTopicBehaviorLines(topic string) []string {
 			"`list`: lists ImportMap entries for one package.",
 			"`search`: filters imports by object/class tokens (requires at least one filter).",
 			"`graph`: aggregates import dependency edges across a directory.",
+			"`add`: append-only Texture2D import reference insertion for an existing `/Game/...` asset path.",
+			"Use `blueprint widget-write --property brush-image` as the normal image-texture workflow; use `import add` when you need manual import management before lower-level edits.",
 			"`graph` reports per-file parse failures without aborting the whole scan.",
 		}
 	case "prop":
@@ -1118,6 +1127,12 @@ func helpTopicBehaviorLines(topic string) []string {
 	case "blueprint":
 		return []string{
 			"`info`: summarizes blueprint/function exports.",
+			"`widget-read`: reads WidgetBlueprint / WidgetTree hierarchy as normalized JSON, plus logical widget aggregation and high-level widget/slot summaries.",
+			"`widget-init`: clones a validated empty WidgetBlueprint template into a new output asset and rewrites package/object identity.",
+			"`widget-parent-class`: rewrites the WidgetBlueprint parent class on an otherwise rootless WidgetBlueprint.",
+			"`widget-add`: creates a root container/content widget or inserts a bare child widget under supported panel/content parents.",
+			"`widget-remove`: removes one non-root leaf widget from the logical WidgetTree plus related WidgetBlueprint metadata.",
+			"`widget-write`: updates one logical widget across designer/generated trees.",
 			"`bytecode`: extracts selected bytecode range as base64.",
 			"`disasm`: disassembles bytecode (json|toml|text, optional analysis).",
 			"`trace`: traces an execution path between nodes.",
@@ -1126,6 +1141,19 @@ func helpTopicBehaviorLines(topic string) []string {
 			"`search`: token-searches nodes/pins in one blueprint package.",
 			"`scan-functions`: aggregates function names across a directory.",
 			"`infer-pack`: emits CFG/callsite/def-use inference artifacts.",
+			"`widget-init` currently supports the `minimum` template and rewrites identity only within validated template layouts.",
+			"`widget-init` expects `--package-path` to be a directory like `/Game/UI`; BPX appends the asset name automatically. `--parent-class` currently accepts compiled `/Script/...` classes, including project/plugin module classes such as `/Script/LyraGame.LyraActivatableWidget`.",
+			"`widget-parent-class` currently supports only rootless WidgetBlueprints and compiled `/Script/...` parent classes, including project/plugin module classes.",
+			"`widget-add` supports non-empty `CanvasPanel` / `Overlay` / `VerticalBox` / `HorizontalBox` / `StackBox` / `ScrollBox` / `WrapBox` / `GridPanel` / `UniformGridPanel` / `WidgetSwitcher` parents plus single-child `Button` / `CheckBox` / `Border` / `RetainerBox` / `InvalidationBox` / `MenuAnchor` / `NamedSlot` / `SizeBox` / `ScaleBox` / `BackgroundBlur` / `SafeZone` / `WindowTitleBarArea` parents; `--parent root` supports the same container/content set except leaf widgets such as `Image` / `TextBlock` / `RichTextBlock` / `ProgressBar` / `Slider` / `Spacer` / `ScrollBar` / `EditableText` / `EditableTextBox` / `MultiLineEditableTextBox` / `SpinBox` / `ComboBoxString` / `UserWidget`. `--type userwidget` requires `--class </Game/...>` and instantiates the referenced WidgetBlueprintGeneratedClass as a child.",
+			"`widget-remove` currently supports non-root leaf widgets only and rewrites WidgetTree/Blueprint metadata plus removable orphan export/import/name entries when the remaining package references validate cleanly.",
+			"Widget-building commands (`widget-init`, `widget-parent-class`, `widget-add`, `widget-remove`, `widget-write`) are order-sensitive and must be run sequentially against the same asset.",
+			"Do not parallelize repeated widget mutations on one asset; later steps depend on the exact bytes/layout produced by earlier steps.",
+			"`widget-write` supports `text`, `visibility`, `render-opacity`, `brush-image`, basic widget helpers such as `progressbar-percent`, `progressbar-fill-color`, `slider-value`, `slider-min-value`, `slider-max-value`, `slider-step-size`, `slider-orientation`, `spacer-size`, `scrollbar-thickness`, `scrollbar-orientation`, `checkbox-checked-state`, `checkbox-is-checked`, `editabletext-hint-text`, `editabletext-is-read-only`, `editabletext-is-password`, `editabletext-minimum-desired-width`, `editabletext-justification`, `editabletextbox-hint-text`, `editabletextbox-is-read-only`, `editabletextbox-is-password`, `editabletextbox-minimum-desired-width`, `editabletextbox-justification`, `multilineeditabletextbox-hint-text`, `multilineeditabletextbox-is-read-only`, `multilineeditabletextbox-justification`, `spinbox-value`, `spinbox-min-value`, `spinbox-max-value`, `spinbox-delta`, `comboboxstring-selected-option`, `comboboxstring-options`, focus helpers such as `is-focusable`, `button-is-focusable`, `checkbox-is-focusable`, `slider-is-focusable`, `scrollbox-is-focusable`, `comboboxstring-is-focusable`, `scrollbox-orientation`, `scrollbox-scrollbar-visibility`, `scrollbox-consume-mouse-wheel`, `sizebox-width-override`, `sizebox-height-override`, `sizebox-min/max-desired-*`, `sizebox-min/max-aspect-ratio`, `scalebox-stretch`, `scalebox-stretch-direction`, `scalebox-user-specified-scale`, `scalebox-ignore-inherited-scale`, `wrapbox-wrap-size`, `wrapbox-explicit-wrap-size`, `wrapbox-inner-slot-padding`, `wrapbox-orientation`, `widgetswitcher-active-widget-index`, `retainerbox-retain-render`, `retainerbox-render-on-invalidation`, `retainerbox-render-on-phase`, `retainerbox-phase`, `retainerbox-phase-count`, `backgroundblur-strength`, `backgroundblur-apply-alpha-to-blur`, `safezone-pad-left/right/top/bottom`, `invalidationbox-can-cache`, and `uniformgridpanel-min-desired-slot-width` / `uniformgridpanel-min-desired-slot-height` / `uniformgridpanel-slot-padding`, `TextBlock` style helpers such as `text-color`, `text-font`, `text-typeface`, `text-font-size`, `text-justification`, `text-auto-wrap-text`, `text-wrap-text-at`, `text-line-height-percentage`, `text-shadow-offset`, `text-shadow-color-and-opacity`, and `text-outline-size` / `text-outline-color`, button state-brush helpers such as `button-normal-image`, `button-normal-tint`, `button-normal-image-size`, and `button-normal-draw-as`, `menu-anchor-placement`, button/border appearance helpers such as `button-background-color`, `button-color-and-opacity`, `border-padding`, and `border-brush-color`, `RichTextBlock` helpers such as `richtext-style-set`, `richtext-decorator-classes`, `richtext-override-default-style`, `richtext-default-font`, `richtext-default-typeface`, `richtext-default-font-size`, `richtext-default-color-and-opacity`, `richtext-default-shadow-offset`, `richtext-default-shadow-color-and-opacity`, `richtext-default-outline-size`, `richtext-default-outline-color`, `richtext-auto-wrap-text`, `richtext-wrap-text-at`, `richtext-line-height-percentage`, and `richtext-justification`, grid fill helpers such as `grid-row-fill` / `grid-column-fill`, and slot/layout helpers such as `slot-padding`, `slot-size`, `slot-row`, `slot-column`, `slot-row-span`, `slot-column-span`, `slot-layer`, `slot-nudge`, `layout-position`, and `layout-data`.",
+			"`widget-read` summaries currently cover widget-level text/brush/button/border/grid/basic-widget data and slot-level layout/grid helpers for the supported classes.",
+			"`widget-move` / `widget-clone`, broader RichTextBlock styling such as transform policy, strike brushes, and material-backed font overrides, and CommonUI-specific writes are not implemented yet.",
+			"For image widgets, prefer `widget-write --property brush-image`; it adds missing texture imports automatically.",
+			"`widget-write --property brush-image` expects a full Unreal texture path like `/Game/UI/T_Icon`, not a filesystem path.",
+			"If your shell rewrites `/Game/...` arguments (for example Git Bash/MSYS path conversion), disable that rewriting before running widget commands.",
 			"`bytecode`/`disasm` support range selection (`auto|export-map|ustruct-script|serial-full`).",
 		}
 	case "enum":
@@ -1187,7 +1215,7 @@ func helpTopicBehaviorLines(topic string) []string {
 
 func topicHasWriteCommands(topic string) bool {
 	switch topic {
-	case "prop", "write", "var", "ref", "name", "export", "package", "datatable", "metadata", "enum", "stringtable", "localization", "level":
+	case "prop", "write", "var", "ref", "name", "export", "package", "datatable", "metadata", "enum", "stringtable", "localization", "level", "blueprint":
 		return true
 	default:
 		return false

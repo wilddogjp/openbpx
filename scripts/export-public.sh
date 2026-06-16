@@ -79,6 +79,7 @@ esac
 INCLUDE_PATHS=(
   ".agents"
   ".claude-plugin"
+  ".codex-plugin"
   "CHANGELOG.md"
   "CONTRIBUTING.md"
   ".github/workflows/auto-tag-release.yml"
@@ -93,6 +94,7 @@ INCLUDE_PATHS=(
   "LICENSE"
   "README.md"
   "SECURITY.md"
+  "bin"
   "cmd"
   "docs/build-distribution.md"
   "docs/assets"
@@ -106,6 +108,7 @@ INCLUDE_PATHS=(
   "internal"
   "pkg"
   "packaging/homebrew"
+  "plugin-bin"
   "skills"
   "scripts"
   "testdata"

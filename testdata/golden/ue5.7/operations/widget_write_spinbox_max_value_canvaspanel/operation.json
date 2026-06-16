@@ -1,0 +1,16 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/SpinBox_1",
+		"property": "spinbox-max-value",
+		"value": "100"
+	},
+	"ue_procedure": "Set MaxValue to 100 on the SpinBox child under the root CanvasPanel on WBP_CanvasPanel_SpinBox",
+	"expect": "byte_equal",
+	"notes": "Covers SpinBox maximum value rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

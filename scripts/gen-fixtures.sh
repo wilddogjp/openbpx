@@ -182,8 +182,6 @@ prebuild_profiles() {
   local profile_lyra_root
   local profile_build_bat
   local profile_uproject
-  local build_cmd
-
   mapfile -t profiles < <(emit_build_profiles)
 
   for profile in "${profiles[@]}"; do
@@ -206,8 +204,11 @@ prebuild_profiles() {
     fi
     "${sync_cmd[@]}"
 
-    build_cmd="$profile_build_bat LyraEditor Win64 Development -Project=$profile_uproject -Module=BPXFixtureGenerator -NoUBTMakefiles -WaitMutex -NoHotReloadFromIDE"
-    cmd.exe /c "$build_cmd" < /dev/null
+    powershell.exe \
+      -NoProfile \
+      -ExecutionPolicy Bypass \
+      -Command "& '$profile_build_bat' LyraEditor Win64 Development '-Project=$profile_uproject' '-Module=BPXFixtureGenerator' -NoUBTMakefiles -WaitMutex -NoHotReloadFromIDE" \
+      < /dev/null
   done
 }
 

@@ -159,8 +159,6 @@
       }
     ]
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "import_list_BP_ManyImports",
   "oracle": "ue-fixture"
 }

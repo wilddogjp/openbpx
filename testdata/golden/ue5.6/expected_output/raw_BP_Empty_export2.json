@@ -7,16 +7,14 @@
   ],
   "expected": {
     "className": "BlueprintGeneratedClass",
-    "dataBase64": "AEsAAAAAAAAAPgAAAAAAAAAAAAAABAAAAAAMAAAAPAAAAAAAAAAAAAAA+v///wAAAAABAAAAPgAAAAAAAAAaAAAAAAAAAAEAIAABAAAAAQAAABQAAAAAAAAA+v///8cw1TCpMOswyDAAAAEAAAAIAAAABAAIAAQAAAAAADwAAAAAAAAAAPb///8AAAAAAAAAAAAAAAAEAYQA+////yMAAAAAAAAAAQAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAAwAAAA==",
+    "dataBase64": "AEsAAAAAAAAAPgAAAAAAAAAAAAAABAAAAAAMAAAAPAAAAAAAAAAAAAAA+v///wAAAAABAAAAPgAAAAAAAAAaAAAAAAAAAAEAIAABAAAAAQAAABQAAAAAAAAACAAAAERlZmF1bHQAAQAAAAgAAAAEAAgABAAAAAAAPAAAAAAAAAAA9v///wAAAAAAAAAAAAAAAAQBhAD7////IwAAAAAAAAABAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAADAAAA",
     "export": 2,
     "file": "testdata/golden/parse/BP_Empty.uasset",
     "objectName": "BP_Empty_C",
-    "serialOffset": 19091,
-    "serialSize": 193,
+    "serialOffset": 19095,
+    "serialSize": 189,
     "truncated": false
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "raw_BP_Empty_export2",
   "oracle": "ue-fixture"
 }

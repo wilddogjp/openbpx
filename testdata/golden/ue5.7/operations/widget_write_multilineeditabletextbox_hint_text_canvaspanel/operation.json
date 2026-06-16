@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-write",
+	"args":
+	{
+		"widget": "CanvasPanel_1/MultiLineEditableTextBox_1",
+		"property": "multilineeditabletextbox-hint-text",
+		"value": "Enter description"
+	},
+	"ue_procedure": "Set HintText to Enter description on the MultiLineEditableTextBox child under the root CanvasPanel on WBP_CanvasPanel_MultiLineEditableTextBox",
+	"expect": "byte_equal",
+	"notes": "Covers MultiLineEditableTextBox hint-text rewrite on a bare CanvasPanel child.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-text-localization-keys",
+		"saved-hash"
+	]
+}

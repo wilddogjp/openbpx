@@ -18,90 +18,90 @@
           "arrayIndex": 0,
           "flags": 16,
           "name": "bNotForClientOrServer",
-          "offset": 3945,
+          "offset": 3981,
           "size": 0,
           "type": "BoolProperty",
           "value": true,
-          "valueOffset": 3970
+          "valueOffset": 4006
         },
         {
           "arrayIndex": 0,
           "flags": 0,
           "name": "Brush",
-          "offset": 3970,
+          "offset": 4006,
           "size": 4,
           "type": "ObjectProperty",
           "value": {
             "index": 5,
             "resolved": "export:5:Brush"
           },
-          "valueOffset": 3995
+          "valueOffset": 4031
         },
         {
           "arrayIndex": 0,
           "flags": 0,
           "name": "BrushComponent",
-          "offset": 3999,
+          "offset": 4035,
           "size": 4,
           "type": "ObjectProperty",
           "value": {
             "index": 2,
             "resolved": "export:2:BrushComponent0"
           },
-          "valueOffset": 4024
+          "valueOffset": 4060
         },
         {
           "arrayIndex": 0,
           "flags": 0,
           "name": "bHidden",
-          "offset": 4028,
+          "offset": 4064,
           "size": 0,
           "type": "BoolProperty",
           "value": false,
-          "valueOffset": 4053
+          "valueOffset": 4089
         },
         {
           "arrayIndex": 0,
           "flags": 0,
           "name": "SpawnCollisionHandlingMethod",
-          "offset": 4053,
+          "offset": 4089,
           "size": 8,
           "type": "EnumProperty(ESpawnActorCollisionHandlingMethod(/Script/Engine),ByteProperty)",
           "value": {
             "enumType": "ESpawnActorCollisionHandlingMethod",
             "value": "ESpawnActorCollisionHandlingMethod::AlwaysSpawn"
           },
-          "valueOffset": 4114
+          "valueOffset": 4150
         },
         {
           "arrayIndex": 0,
           "flags": 0,
           "name": "RootComponent",
-          "offset": 4122,
+          "offset": 4158,
           "size": 4,
           "type": "ObjectProperty",
           "value": {
             "index": 2,
             "resolved": "export:2:BrushComponent0"
           },
-          "valueOffset": 4147
+          "valueOffset": 4183
         },
         {
           "arrayIndex": 0,
           "flags": 8,
           "name": "ActorGuid",
-          "offset": 4151,
+          "offset": 4187,
           "size": 16,
           "type": "StructProperty(Guid(/Script/CoreUObject))",
           "value": {
             "structType": "Guid",
-            "value": "2aed6fa3-1235-4fe3-bfef-4034aa7bd420"
+            "value": "f0d2c1f3-36b7-42c6-931c-ead773ca0899"
           },
-          "valueOffset": 4200
+          "valueOffset": 4236
         }
       ],
       "serial": {
-        "offset": 3944,
+        "offset": 3980,
         "scriptSerializationEnd": 280,
         "scriptSerializationStart": 0,
         "size": 288
@@ -111,8 +111,6 @@
     },
     "file": "testdata/golden/parse/L_Minimal.umap"
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "level_info_L_Minimal_export1",
   "oracle": "ue-fixture"
 }

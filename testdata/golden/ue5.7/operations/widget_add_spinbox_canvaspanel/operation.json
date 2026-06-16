@@ -1,0 +1,17 @@
+{
+	"command": "blueprint widget-add",
+	"args":
+	{
+		"parent": "CanvasPanel_22",
+		"type": "spinbox",
+		"name": "SpinBox_23"
+	},
+	"ue_procedure": "Add one bare SpinBox child under the root CanvasPanel on WBP_CanvasPanel",
+	"expect": "byte_equal",
+	"notes": "Covers widget-add for SpinBox under CanvasPanel.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"widget-variable-guid-map-values",
+		"saved-hash"
+	]
+}

@@ -40,6 +40,7 @@ These are read/validate commands (implemented plus planned additions).
 | Localization | `bpx localization resolve <file.uasset> [--export <n>] --culture <culture> [--locres <path>] [--missing-only]` | ✅ Implemented | Preview resolved display strings via `.locres` |
 | DataTable | `bpx datatable read <file.uasset> [--export <n>] [--row <name>] [--format json\|toml\|csv\|tsv] [--out path]` | ✅ Implemented | Reads all rows by default; `--row` filters; `CompositeDataTable` includes `compositeParents` |
 | Blueprint | `bpx blueprint info <file.uasset> [--export <n>]` | ✅ Implemented | Function/blueprint summary |
+| Blueprint | `bpx blueprint widget-read <file.uasset> [--export <n>]` | ✅ Implemented | Reads WidgetBlueprint / WidgetTree hierarchy, logical widget aggregation, and widget/slot summaries |
 | Blueprint | `bpx blueprint bytecode <file.uasset> --export <n> [--range-source auto\|export-map\|ustruct-script\|serial-full] [--strict-range] [--diagnostics]` | ✅ Implemented | Raw bytecode (base64) |
 | Blueprint | `bpx blueprint disasm <file.uasset> --export <n> [--format json\|toml\|text] [--analysis] [--entrypoint <vm>] [--max-steps <n>] [--range-source auto\|export-map\|ustruct-script\|serial-full] [--strict-range] [--diagnostics]` | ✅ Implemented | `--analysis` adds inference metadata; for large blueprints, narrow with `export list --class Function` first |
 | Blueprint | `bpx blueprint trace <file.uasset> --from <Node\|Node.Pin> [--to-node <token>] [--to-function <token>] [--max-depth <n>]` | ✅ Implemented | Returns shortest exec-link route across K2 nodes |
@@ -100,8 +101,14 @@ This area is managed as two groups:
 
 | Category | `bpx` Command | Status | Risk | Notes |
 |---|---|---|---|---|
+| Blueprint | `bpx blueprint widget-init <out.uasset> --template <minimum> [--engine <auto\|ue5.6>] [--asset-name <Name>] [--package-path </Game/...>] [--parent-class </Script/Module.ClassName>] [--force] [--dry-run] [--backup]` | ✅ Implemented | High | Creates a new output asset from a validated `WBP_Minimum` template; fails unless destination identity and post-rewrite WidgetBlueprint shape validate |
+| Blueprint | `bpx blueprint widget-parent-class <file.uasset> --class </Script/Module.ClassName> [--export <n>] [--dry-run] [--backup]` | ✅ Implemented | High | Safe-only rewrite for rootless WidgetBlueprint parent classes |
+| Blueprint | `bpx blueprint widget-add <file.uasset> --parent <path\|name\|root> --type <type> --name <Widget_N> [--class </Game/...>] [--export <n>] [--dry-run] [--backup]` | ✅ Implemented | High | Adds one supported root/container/child widget with explicit parent child-capacity checks |
+| Blueprint | `bpx blueprint widget-remove <file.uasset> --widget <path\|name> [--export <n>] [--dry-run] [--backup]` | ✅ Implemented | High | Conservative non-root leaf removal; rewrites tree/guid/generated-class metadata and compacts removable orphan export/import/name entries when references permit |
+| Blueprint | `bpx blueprint widget-write <file.uasset> --widget <path\|name> --property <property> --value <value> [--export <n>] [--dry-run] [--backup]` | ✅ Implemented | High | Updates supported widget, slot/layout, style, and text properties for one logical widget |
 | Variable | `bpx var rename <file.uasset> --from <old> --to <new>` | ✅ Implemented | High | Bulk rename via NameMap references; warns and still performs NameMap-level rename when declaration is missing |
 | Reference | `bpx ref rewrite <file.uasset> --from "/Game/Old" --to "/Game/New"` | ✅ Implemented | High | Cross-rewrites NameMap + decodable SoftObjectPath/Text/Str references |
+| Import | `bpx import add <file.uasset> --texture </Game/Path/TextureName>` | ✅ Implemented | High | Append-only Texture2D reference import; adds package + object imports as needed, does not import external image bytes |
 | NameMap | `bpx name add <file.uasset> --value <name> [--non-case-hash <u16>] [--case-preserving-hash <u16>]` | ✅ Implemented | High | Appends entry; rejects duplicates; auto-computes hashes when omitted |
 | NameMap | `bpx name remove <file.uasset> --index <n>` | ✅ Implemented | High | Safety constraints: tail index only, cannot remove indices within `NamesReferencedFromExportDataCount` or active Import/Export refs |
 | Property | `bpx prop add <file.uasset> --export <n> --spec '<json>'` | ✅ Implemented | High | Top-level property add; `spec.type` currently limited to non-nested types |
@@ -117,7 +124,6 @@ This area is managed as two groups:
 
 | Category | `bpx` Command | Status | Handling | Reason |
 |---|---|---|---|---|
-| Import | `bpx import add <file.uasset> --spec '<json>'` | ❌ Not implemented | ⛔ Unsupported | Requires ImportMap insertion and `FPackageIndex` rewiring |
 | Import | `bpx import remove <file.uasset> --index <n>` | ❌ Not implemented | ⛔ Unsupported | Requires global import-reference recalculation |
 | Export | `bpx export add <file.uasset> --spec '<json>'` | ❌ Not implemented | ⛔ Unsupported | Requires ExportMap/header/dependency reconstruction |
 | Export | `bpx export remove <file.uasset> --index <n>` | ❌ Not implemented | ⛔ Unsupported | Requires global export-reference recalculation |
@@ -308,3 +314,46 @@ Planned additions:
 
 - `--dry-run` (write commands only)
 - `--backup` (write commands only)
+
+## Widget Blueprint Commands
+
+Command signatures live in the read and high-level edit tables above. This section records the current WidgetBlueprint-specific scope and constraints.
+
+| Area | Current Support |
+|---|---|
+| Read output | `widget-read` emits normalized `WidgetBlueprint` / `WidgetTree` JSON, `logicalWidgets`, and high-level widget/slot summaries such as text, brush, style, grid fill, layout, padding, size, and alignment fields |
+| Creation | `widget-init` clones the validated minimum template, rewrites package/object identity, and can set an initial compiled `/Script/...` parent class |
+| Parent class | `widget-parent-class` rewrites `WidgetBlueprint.ParentClass` and generated-class super references only while the WidgetBlueprint is rootless |
+| Add/remove | `widget-add` supports the current panel/content/leaf widget set with child-capacity checks; `widget-remove` supports conservative non-root leaf removal |
+| Property writes | `widget-write` covers supported widget, slot/layout, brush, button/border/menu/grid, scalar, TextBlock, and RichTextBlock helper families |
+
+Supported `widget-add --type` values include common UMG containers (`CanvasPanel`, `Overlay`, box panels, `ScrollBox`, `WrapBox`, `GridPanel`, `UniformGridPanel`, `WidgetSwitcher`, list/tile/tree views), single-child wrappers (`Button`, `Border`, `RetainerBox`, `InvalidationBox`, `MenuAnchor`, `NamedSlot`, `SizeBox`, `ScaleBox`, `BackgroundBlur`, `SafeZone`, `WindowTitleBarArea`), leaf widgets (`Image`, text widgets, `ProgressBar`, `Slider`, `Spacer`, `ScrollBar`, `CheckBox`, editable text widgets, `SpinBox`, `ComboBoxString`), and `userwidget`.
+
+Supported `widget-write --property` families include generic `text` / `visibility` / `render-opacity`, `brush-image`, slot/layout helpers, grid fill and grid-slot helpers, button state brush helpers, border/menu helpers, scalar widget helpers, list/tile/tree view helpers, TextBlock typography helpers, and RichTextBlock style-set/decorator/default-style helpers. Use `bpx help blueprint` for the exact token list accepted by the current binary.
+
+Recommended flow for a new WidgetBlueprint:
+
+1. Run `widget-init` to create the asset from the validated minimum template.
+2. Optionally set a compiled `/Script/...` parent class up front with `widget-init --parent-class /Script/...` or, while the asset is still rootless, `widget-parent-class --class /Script/...`.
+3. Add one root container or content widget with `widget-add --parent root --type <type>`.
+4. Add child widgets with `widget-add --parent <path|name> --type <type>`; `--type userwidget` also requires `--class /Game/.../WBP_Name`.
+5. Remove one leaf child when needed with `widget-remove --widget <path>`.
+6. Apply placement and content with `widget-write`.
+7. Re-read with `widget-read` and optionally run `validate` after multi-step edits.
+
+Behavior notes:
+
+- Widget-building commands are order-sensitive. Run `widget-init`, optional `widget-parent-class`, repeated `widget-add` / `widget-remove`, and `widget-write` steps sequentially against the same asset.
+- `widget-init --package-path` must be a directory like `/Game/UI`, not a full asset path like `/Game/UI/WBP_Login`. When output is already inside a UE or plugin `Content` directory, BPX derives the Unreal package path from that filesystem location and requires explicit `--package-path` / `--asset-name` values to match the output path and filename.
+- `widget-parent-class` accepts compiled `/Script/...` classes, including project/plugin module classes such as `/Script/LyraGame.LyraActivatableWidget`, and intentionally rejects non-rootless WidgetBlueprints.
+- `widget-add` enforces parent capacity: panel-style parents are multi-child, content-style parents are single-child, and leaf widgets are rejected as parents.
+- `widget-add --type userwidget` expects a WidgetBlueprint asset path such as `/Game/UI/WBP_Status` and instantiates the referenced `WidgetBlueprintGeneratedClass`.
+- `widget-remove` rewrites WidgetTree and WidgetBlueprint metadata, then removes orphan export/import/name entries only when the remaining package references validate cleanly.
+- Slot import/class resolution is explicit per parent class. For example, `GridPanel` uses `GridSlot` and `UniformGridPanel` uses `UniformGridSlot`.
+- Slot/layout helpers target the selected logical widget's slot exports, including custom `userwidget` children added by `widget-add --type userwidget`.
+- `brush-image` and button state image helpers accept full `Texture2D` package paths like `/Game/UI/T_Icon` and auto-add required `Package` / `Texture2D` imports when missing.
+- `richtext-style-set` accepts a full `DataTable` package path, and `richtext-decorator-classes` accepts one asset path or a JSON array of asset paths.
+- `grid-row-fill` / `grid-column-fill` rewrite the selected `GridPanel` widget's full `RowFill` / `ColumnFill` arrays.
+- `widget-move`, `widget-clone`, broader RichTextBlock styling, and CommonUI-specific widget/property writers are not implemented yet.
+- If your shell rewrites `/Game/...` arguments, disable that rewriting before running `widget-init` or `widget-write --property brush-image`.
+- `bpx import add --texture /Game/...` remains available as a standalone import-management primitive before lower-level edits such as `prop set Brush.ResourceObject`.

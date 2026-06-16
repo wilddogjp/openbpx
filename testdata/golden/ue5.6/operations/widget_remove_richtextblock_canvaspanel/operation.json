@@ -1,0 +1,14 @@
+{
+	"command": "blueprint widget-remove",
+	"args":
+	{
+		"widget": "CanvasPanel_22/RichTextBlock_31"
+	},
+	"ue_procedure": "Remove the bare RichTextBlock child under the root CanvasPanel on WBP_CanvasPanel_RichTextBlock",
+	"expect": "byte_equal",
+	"notes": "Covers widget-remove for a non-root RichTextBlock leaf under CanvasPanel, including orphan export/import compaction.",
+	"ignore_package_sections": [
+		"editor-thumbnails",
+		"saved-hash"
+	]
+}

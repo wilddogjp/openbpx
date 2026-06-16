@@ -1,0 +1,22 @@
+{
+  "command": "blueprint widget-write",
+  "args": {
+    "property": "text",
+    "value": "BPX after live check",
+    "widget": "CommonTextBlock_37"
+  },
+  "ue_procedure": "Update the root CommonTextBlock text on WBP_X_before",
+  "expect": "byte_equal",
+  "notes": "Covers root CommonTextBlock text rewrite across designer/generated WidgetTree exports.",
+  "ignore_package_sections": [
+    "editor-thumbnails",
+    "widget-text-localization-keys"
+  ],
+  "ignore_offsets": [
+    {
+      "offset": 24,
+      "length": 20,
+      "reason": "ue-save-nondeterministic"
+    }
+  ]
+}

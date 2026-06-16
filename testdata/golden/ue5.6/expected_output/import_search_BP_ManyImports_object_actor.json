@@ -37,8 +37,6 @@
       "object": "Actor"
     }
   },
-  "generatedAt": "2026-03-06T17:08:06Z",
-  "generatedBy": "scripts/gen_expected_output",
   "name": "import_search_BP_ManyImports_object_actor",
   "oracle": "ue-fixture"
 }
