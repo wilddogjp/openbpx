@@ -1,6 +1,6 @@
 {
   "name": "openbpx",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "BPX plugin for Unreal Engine asset inspection and safe edit workflows.",
   "author": {
     "name": "Wild Dog, Inc.",

@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "OpenBPX Claude Code plugins for Unreal Engine asset inspection and safe edit workflows.",
-    "version": "0.2.0"
+    "version": "0.2.1"
   },
   "plugins": [
     {
       "name": "openbpx",
       "source": "./",
       "description": "BPX plugin for Unreal Engine asset inspection and safe edit workflows.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "Wild Dog, Inc.",
         "url": "https://wilddog.jp"

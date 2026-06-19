@@ -20,7 +20,7 @@ body:
     attributes:
       label: BPX version or commit SHA
       description: Output of `bpx version` or the exact commit SHA.
-      placeholder: "0.2.0"
+      placeholder: "0.2.1"
     validations:
       required: true
   - type: input

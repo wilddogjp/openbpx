@@ -6,10 +6,17 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ## [Unreleased]
 
+## [0.2.1]
+
 ### Fixed
 
 - Codex marketplace installs now use the standard `plugins/openbpx` plugin layout so `openbpx` is discoverable from the GitHub marketplace source.
 - README install guidance now documents the current Codex marketplace add/install flow, including refresh steps for older marketplace snapshots.
+- Supported UE version window remains `FileVersionUE5=1000..1018` (UE 5.0 to UE 5.7).
+
+### Changed
+
+- BPX CLI, plugin manifests, issue-template version examples, installer help examples, and Homebrew formula references now target `0.2.1`.
 
 ## [0.2.0]
 
