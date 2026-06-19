@@ -1,0 +1,40 @@
+{
+  "name": "openbpx",
+  "version": "0.2.0",
+  "description": "BPX Codex plugin for Unreal Engine asset inspection and safe edit workflows.",
+  "author": {
+    "name": "Wild Dog, Inc.",
+    "url": "https://wilddog.jp"
+  },
+  "homepage": "https://github.com/wilddogjp/openbpx",
+  "repository": "https://github.com/wilddogjp/openbpx",
+  "license": "Apache-2.0",
+  "keywords": [
+    "bpx",
+    "openbpx",
+    "unreal-engine",
+    "uasset",
+    "umap",
+    "blueprint",
+    "codex-skill"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "OpenBPX",
+    "shortDescription": "Inspect and safely edit Unreal assets with bpx.",
+    "longDescription": "Use BPX command skills in Codex to inspect, validate, and make safety-constrained edits to Unreal .uasset and .umap files without launching Unreal Editor.",
+    "developerName": "Wild Dog, Inc.",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/wilddogjp/openbpx",
+    "defaultPrompt": [
+      "Inspect this Unreal asset with bpx.",
+      "Plan a safe BPX edit workflow.",
+      "Validate a BPX asset rewrite."
+    ],
+    "brandColor": "#2080E0"
+  }
+}

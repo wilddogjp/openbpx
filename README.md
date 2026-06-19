@@ -85,7 +85,7 @@ bpx prop set ./Sample.uasset --export 1 --path "MyValue" --value '123' --backup
 
 BPX plugins include bundled `bpx` binaries for Linux, macOS, and Windows (`amd64`/`arm64`), so a separate CLI install is optional for agent use.
 
-- Codex app: add a marketplace with **Source** `wilddogjp/openbpx`, **Git ref** `main`, and an empty **Sparse path**, then install `openbpx`.
+- Codex app: add a marketplace with **Source** `wilddogjp/openbpx` and **Git ref** `main`. Do not set a **Sparse path**; then install `openbpx` from the OpenBPX marketplace.
 - Claude Code local use: `claude --plugin-dir .`
 
 ```bash
@@ -93,7 +93,7 @@ claude plugin marketplace add .
 claude plugin install openbpx@openbpx
 ```
 
-If Codex says no plugin was found, leave **Sparse path** empty. This repository is not laid out under `plugins/codex`.
+If Codex says no plugin was found, remove and re-add the marketplace so Codex refreshes the current `plugins/openbpx` layout.
 
 ### CLI
 

@@ -109,6 +109,7 @@ INCLUDE_PATHS=(
   "pkg"
   "packaging/homebrew"
   "plugin-bin"
+  "plugins/openbpx"
   "skills"
   "scripts"
   "testdata"
