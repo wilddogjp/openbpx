@@ -6,6 +6,10 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ## [Unreleased]
 
+### Fixed
+
+- Codex marketplace installs now use the standard `plugins/openbpx` plugin layout so `openbpx` is discoverable from the GitHub marketplace source.
+
 ## [0.2.0]
 
 ### Added

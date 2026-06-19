@@ -8,7 +8,7 @@
       "name": "openbpx",
       "source": {
         "source": "local",
-        "path": "./"
+        "path": "./plugins/openbpx"
       },
       "policy": {
         "installation": "AVAILABLE",
