@@ -29,6 +29,7 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 
 ### Fixed
 
+- Homebrew formula and Linux installer help examples now target `0.2.0` release assets instead of stale `0.1.3` references.
 - WidgetBlueprint rewrites now preserve generated-class tail references, widget layout anchors/alignment, NameMap remap finalization, and leaf-removal metadata under fixture-backed safety checks.
 - UE 5.6 and UE 5.7 golden operation fixtures were realigned with plugin-generated expectations while retaining the supported UE window `FileVersionUE5=1000..1018` (UE 5.0 to 5.7).
 

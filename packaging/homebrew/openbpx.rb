@@ -1,21 +1,21 @@
 class Openbpx < Formula
   desc "Blueprint Toolkit CLI for Unreal Engine packages"
   homepage "https://github.com/wilddogjp/openbpx"
-  version "0.1.3"
+  version "0.2.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/wilddogjp/openbpx/releases/download/v0.1.3/bpx_0.1.3_darwin_arm64.tar.gz"
-      sha256 "32b3853c210f94b3d6165f1b7bf9025871c1203a26022eb5a4717017ddb14ab3"
+      url "https://github.com/wilddogjp/openbpx/releases/download/v0.2.0/bpx-darwin-arm64", using: :nounzip
+      sha256 "bf2948219abf20865045ff6f928cdec92a2a3e27eb8a9e08d71295092a59a11b"
     else
-      url "https://github.com/wilddogjp/openbpx/releases/download/v0.1.3/bpx_0.1.3_darwin_amd64.tar.gz"
-      sha256 "8e4f78eac11e2e4f3523eca10b546647edceb8f0c6c6c99978b923f0e569dfce"
+      url "https://github.com/wilddogjp/openbpx/releases/download/v0.2.0/bpx-darwin-amd64", using: :nounzip
+      sha256 "59d2038992c0258c744615c6f71b498b56e85074f3ac57666794e952fe47bfc0"
     end
   end
 
   def install
-    bin.install "bpx"
+    bin.install cached_download => "bpx"
   end
 
   test do

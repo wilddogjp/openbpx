@@ -41,6 +41,11 @@ nfpms:
     builds:
       - bpx
 
+release:
+  extra_files:
+    - glob: ./plugin-bin/bpx-darwin-amd64
+    - glob: ./plugin-bin/bpx-darwin-arm64
+
 checksum:
   name_template: "checksums.txt"
 

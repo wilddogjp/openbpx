@@ -10,7 +10,7 @@ Usage:
 
 Environment overrides:
   OPENBPX_RELEASE_REPO  GitHub repo in owner/name form (default: wilddogjp/openbpx)
-  OPENBPX_TAG           Release tag to install (for example: v0.1.3)
+  OPENBPX_TAG           Release tag to install (for example: v0.2.0)
   OPENBPX_ARCH          Target architecture (amd64 or arm64)
 EOF
 }
