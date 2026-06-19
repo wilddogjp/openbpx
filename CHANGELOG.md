@@ -9,6 +9,7 @@ The format is based on Keep a Changelog and the project follows Semantic Version
 ### Fixed
 
 - Codex marketplace installs now use the standard `plugins/openbpx` plugin layout so `openbpx` is discoverable from the GitHub marketplace source.
+- README install guidance now documents the current Codex marketplace add/install flow, including refresh steps for older marketplace snapshots.
 
 ## [0.2.0]
 
