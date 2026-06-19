@@ -176,7 +176,7 @@ func TestRunVersionPrintsSemanticVersion(t *testing.T) {
 	if stderr.Len() != 0 {
 		t.Fatalf("unexpected stderr: %s", stderr.String())
 	}
-	if got, want := strings.TrimSpace(stdout.String()), "0.2.0"; got != want {
+	if got, want := strings.TrimSpace(stdout.String()), "0.2.1"; got != want {
 		t.Fatalf("version: got %q want %q", got, want)
 	}
 }
@@ -191,7 +191,7 @@ func TestRunVersionAliasPrintsSemanticVersion(t *testing.T) {
 	if stderr.Len() != 0 {
 		t.Fatalf("unexpected stderr: %s", stderr.String())
 	}
-	if got, want := strings.TrimSpace(stdout.String()), "0.2.0"; got != want {
+	if got, want := strings.TrimSpace(stdout.String()), "0.2.1"; got != want {
 		t.Fatalf("version alias: got %q want %q", got, want)
 	}
 }
