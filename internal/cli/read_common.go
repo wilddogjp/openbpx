@@ -54,7 +54,7 @@ func collectExportsByClassKeyword(asset *uasset.Asset, keywords []string) []map[
 func exportReadInfo(asset *uasset.Asset, idx int) map[string]any {
 	exp := asset.Exports[idx]
 	props := asset.ParseExportProperties(idx)
-	return map[string]any{
+	detail := map[string]any{
 		"index":      idx + 1,
 		"objectName": exp.ObjectName.Display(asset.Names),
 		"className":  asset.ResolveClassName(exp),
@@ -70,6 +70,8 @@ func exportReadInfo(asset *uasset.Asset, idx int) map[string]any {
 		"properties": toPropertyOutputs(asset, props.Properties, true),
 		"warnings":   props.Warnings,
 	}
+	attachDecodeReport(detail, detail["properties"].([]map[string]any), props.Warnings)
+	return detail
 }
 
 func toPropertyOutputs(asset *uasset.Asset, props []uasset.PropertyTag, withValue bool) []map[string]any {
@@ -93,6 +95,84 @@ func toPropertyOutputs(asset *uasset.Asset, props []uasset.PropertyTag, withValu
 		items = append(items, item)
 	}
 	return items
+}
+
+// buildDecodeReport summarizes every payload BPX could not fully decode in one
+// property list. It returns (report, warnings) and (nil, nil) when everything
+// decoded, so a clean read keeps its existing output shape.
+//
+// Undecoded payloads are reported explicitly rather than left as opaque
+// rawBase64 blobs: a caller must be able to see what BPX did not understand
+// without walking the value tree itself.
+func buildDecodeReport(items []map[string]any) (map[string]any, []string) {
+	notes := make([]uasset.UndecodedNote, 0)
+	for _, item := range items {
+		value, ok := item["value"]
+		if !ok {
+			continue
+		}
+		name, _ := item["name"].(string)
+		uasset.AnnotateUndecoded(value)
+		notes = append(notes, uasset.CollectUndecoded(value, name)...)
+	}
+	if len(notes) == 0 {
+		return nil, nil
+	}
+
+	undecoded := 0
+	partial := 0
+	types := map[string]int{}
+	reported := make([]map[string]any, 0, len(notes))
+	warnings := make([]string, 0, len(notes)+1)
+	for _, note := range notes {
+		switch note.Status {
+		case uasset.DecodeStatusPartial:
+			partial++
+		default:
+			undecoded++
+		}
+		if note.Type != "" {
+			types[note.Type]++
+		}
+		entry := map[string]any{
+			"path":   note.Path,
+			"status": note.Status,
+			"reason": note.Reason,
+		}
+		if note.Type != "" {
+			entry["type"] = note.Type
+		}
+		if note.Bytes > 0 {
+			entry["bytes"] = note.Bytes
+		}
+		reported = append(reported, entry)
+		warnings = append(warnings, fmt.Sprintf("%s at %s: %s", note.Status, note.Path, note.Reason))
+	}
+
+	summary := fmt.Sprintf(
+		"decode incomplete: %d undecoded, %d partial payload(s); values are preserved as rawBase64 and must not be read as decoded data",
+		undecoded,
+		partial,
+	)
+	warnings = append([]string{summary}, warnings...)
+
+	return map[string]any{
+		"undecoded": undecoded,
+		"partial":   partial,
+		"types":     types,
+		"items":     reported,
+	}, warnings
+}
+
+// attachDecodeReport adds the decode report and its warnings to a response when
+// anything failed to decode.
+func attachDecodeReport(resp map[string]any, items []map[string]any, existing []string) {
+	report, warnings := buildDecodeReport(items)
+	if report == nil {
+		return
+	}
+	resp["decodeReport"] = report
+	resp["warnings"] = append(append([]string{}, existing...), warnings...)
 }
 
 func enrichDecodedTextValue(v any) {

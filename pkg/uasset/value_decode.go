@@ -11,6 +11,10 @@ const maxTextPropertyDecodeDepth = 8
 
 // DecodePropertyValue decodes one property value for common scalar/reference types.
 // It returns (value, true) when decoded; otherwise (nil, false).
+//
+// Payloads that could not be interpreted are preserved as raw bytes. Read-facing
+// callers should mark them with AnnotateUndecoded so a raw fallback is never
+// mistaken for a decoded value; the edit pipeline consumes the unannotated form.
 func (a *Asset) DecodePropertyValue(tag PropertyTag) (any, bool) {
 	if tag.ValueOffset < 0 || tag.Size < 0 {
 		return nil, false
