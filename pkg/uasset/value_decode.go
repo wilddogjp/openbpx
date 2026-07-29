@@ -1614,10 +1614,13 @@ func (a *Asset) decodeKnownStructFromReader(r *byteReader, structType string) (a
 	default:
 		size := knownStructFixedSize(low)
 		if size <= 0 {
-			if isKnownTaggedStructDecodeCandidate(low) || isLikelyTaggedAssetStructType(full) {
-				return a.decodeTaggedStructFromReader(r, full)
-			}
-			return nil, false
+			// Any struct without a native Serialize() writes its own tagged property
+			// stream terminated by a None tag, so it is self-describing on disk and
+			// needs no reflection to read. decodeTaggedStructFromReader validates the
+			// stream and rewinds on failure, so attempting it is safe for every
+			// unknown struct type: natively serialized payloads fail the tag parse and
+			// fall back to raw bytes.
+			return a.decodeTaggedStructFromReader(r, full)
 		}
 		start := r.offset()
 		raw, err := r.readBytes(size)
@@ -1627,11 +1630,6 @@ func (a *Asset) decodeKnownStructFromReader(r *byteReader, structType string) (a
 		}
 		return a.decodeKnownStructFromBytes(normalized, raw)
 	}
-}
-
-func isLikelyTaggedAssetStructType(structType string) bool {
-	low := strings.ToLower(structType)
-	return strings.Contains(low, "(/game/") || strings.Contains(low, "(/engine/")
 }
 
 func isKnownTaggedStructDecodeCandidate(structTypeLower string) bool {

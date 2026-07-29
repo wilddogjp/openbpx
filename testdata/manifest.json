@@ -314,8 +314,8 @@
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_S_PlayerData_export2.json",
-      "sha256": "da2b3573dd053f23682672f4f75acc69b2498d41916243ed3af65347fd03e5b0",
-      "size_bytes": 2099
+      "sha256": "465f94ce22c8ee426751b34662f4e716c57f04979f58f5b01c84763606ff769c",
+      "size_bytes": 13430
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_prop_set_custom_struct_enum_after_export5.json",
@@ -349,13 +349,13 @@
     },
     {
       "path": "golden/ue5.6/expected_output/struct_definition_S_PlayerData.json",
-      "sha256": "1fadabf9604fc48685cc236a9fa05d7264f0ee849086b287d6c99c4251b368b7",
-      "size_bytes": 3636
+      "sha256": "8e78e0da5f1a5ca38cf8e2e44fd0c0dc34557f6a55a3f17eb1e18ab5fe43ff7a",
+      "size_bytes": 16367
     },
     {
       "path": "golden/ue5.6/expected_output/struct_details_S_PlayerData_export2.json",
-      "sha256": "d9bcb224bf40b1439010d4091d015c5cdb04e2c3adc524de98ee729f4ece7f1e",
-      "size_bytes": 2386
+      "sha256": "b5f3520c9ef23d8b13386d79d7b40aa60cbceb827cc9cb2c42799bb9712356d1",
+      "size_bytes": 14417
     },
     {
       "path": "golden/ue5.6/expected_output/validate_BP_Empty.json",
@@ -3819,8 +3819,8 @@
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_S_PlayerData_export2.json",
-      "sha256": "f6f9e9ce5ecf73b8165a57be5695d8de2108a3dbc853423b43d9635a23c0cffd",
-      "size_bytes": 2188
+      "sha256": "0a19a42805a1a6e8526f7864ebbd2dbf023e37e70f3e30b1d35f4e5a2fd7d933",
+      "size_bytes": 13519
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_prop_set_custom_struct_enum_after_export5.json",
@@ -3854,13 +3854,13 @@
     },
     {
       "path": "golden/ue5.7/expected_output/struct_definition_S_PlayerData.json",
-      "sha256": "f0fcc6dab28d9046f1ea7032989f6f2a9fdbc71a06c82dfc622f67c817b537cc",
-      "size_bytes": 3725
+      "sha256": "a259729794997e3ce9e9b1d45ec1895f4785368b54ba2dd5cd3252e480c09471",
+      "size_bytes": 16456
     },
     {
       "path": "golden/ue5.7/expected_output/struct_details_S_PlayerData_export2.json",
-      "sha256": "1e780b9c4f30ef9a5c56969d44115663f892f134c53f28dacf21542fac0256ff",
-      "size_bytes": 2475
+      "sha256": "ce78f2ed1550daf3d2e06f6efb4105b1ee22bad58ca124a3f61c2fa34fc44502",
+      "size_bytes": 14506
     },
     {
       "path": "golden/ue5.7/expected_output/validate_BP_Empty.json",
