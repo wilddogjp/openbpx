@@ -24,8 +24,8 @@
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_info_BP_WithFunctions.json",
-      "sha256": "a8e31b516f160aa4f7cb4442ce5ba60c4d67d78785693fd1e3f7c0cca01e5448",
-      "size_bytes": 12965
+      "sha256": "c5ab69578d01d55eb4443df2c3de0545e55203027a93a9053932ec6bbf8d495d",
+      "size_bytes": 16179
     },
     {
       "path": "golden/ue5.6/expected_output/blueprint_refs_BP_Empty_softpath_L_TestTitle.json",
@@ -199,8 +199,8 @@
     },
     {
       "path": "golden/ue5.6/expected_output/metadata_BP_WithMetadata_export1.json",
-      "sha256": "2203da445fe7bd993b17e2bed850890d973b4a043a3dd2bced3d8b88ce9d9976",
-      "size_bytes": 12175
+      "sha256": "8343ee33b5a111daa49fbd8019aa9f7600546c07946dae9c447e35c409430eca",
+      "size_bytes": 15301
     },
     {
       "path": "golden/ue5.6/expected_output/name_add_BP_Empty_dry_run.json",
@@ -269,53 +269,53 @@
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_AllScalarTypes_export1.json",
-      "sha256": "38eac08f454f62511cf8c2ea74685638130f586b4017c5a864170b0dc97d3023",
-      "size_bytes": 62020
+      "sha256": "25451fcb354c6ad9771e2e65cee87807877b1239228c154ad9683a6527381906",
+      "size_bytes": 71074
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_Containers_export1.json",
-      "sha256": "9769f07db2778ffbd41fa6c3cb2ee8210f8bbc9b5834a53a085ad1303dc1b987",
-      "size_bytes": 11254
+      "sha256": "df039dc3ddf0aad5b3d830d5113214391a68342a53a34143580ae572dbe6eb46",
+      "size_bytes": 14292
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_Empty_export1.json",
-      "sha256": "ff9801d6856987efcac0ebc8eb8474eeab2ce111244df0c664e563e1fda9c91b",
-      "size_bytes": 11229
+      "sha256": "b9efd1e7db87eaea8d7a98de3d2fc565d073bfdadd945254bec732ab74d8effe",
+      "size_bytes": 14267
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_GameplayTags_export1.json",
-      "sha256": "3bfd0e602ba3a6f6c244171de24d486f180379f08f7980b8b23bccec2af5dc9a",
-      "size_bytes": 11264
+      "sha256": "f8508ccaefdf08724c93198d284010600b58ec4ca2b97e05ec933c454b79b90b",
+      "size_bytes": 14302
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_MathTypes_export1.json",
-      "sha256": "18bedb93edfb16b559be832e0c817e5a496a150c9829ae24942d181b816b1975",
-      "size_bytes": 39516
+      "sha256": "dcabbd304ad2159b69ba95c91a98f709e5ef520c74a6788b399eae119937634f",
+      "size_bytes": 46003
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_Nested_export1.json",
-      "sha256": "2ee70c53dd0b213270edeb2b1e7ed63d326d84c001373256f73fb328fff32f0e",
-      "size_bytes": 11234
+      "sha256": "e5480a9d2bc63f4f982f879e656653c9a13a4f7ca7fc3cb9ee2b65560f2d4797",
+      "size_bytes": 14272
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_RefTypes_export1.json",
-      "sha256": "00c31361581ae125577a8b2e38b0dd87f02699c8ed0e90f697b932a464030fbf",
-      "size_bytes": 11244
+      "sha256": "9019b6505211bca1b1d1755c6ce7346e6800566b1c452bf1e5dabc62799336ae",
+      "size_bytes": 14282
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_SoftRefs_export1.json",
-      "sha256": "8cdf21ff346978395f9d7fc8e6cc2d03028734c5240927ddaa87fd69a1c56d52",
-      "size_bytes": 11244
+      "sha256": "8fb273889d805e548e4f2303558a7091fac19a0ffc2ed5e31240a611b48dbfec",
+      "size_bytes": 14282
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_BP_WithFunctions_export1.json",
-      "sha256": "8bfa282fbbf2b4bb08135fe75ae153a47b4f8c55e7ad61d81fbad4f81892cbaa",
-      "size_bytes": 11269
+      "sha256": "e660622e5764fa7123e8ed82abc03f7f65394ba447976203d2d9610a068fa5fc",
+      "size_bytes": 14307
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_S_PlayerData_export2.json",
-      "sha256": "da2b3573dd053f23682672f4f75acc69b2498d41916243ed3af65347fd03e5b0",
-      "size_bytes": 2099
+      "sha256": "465f94ce22c8ee426751b34662f4e716c57f04979f58f5b01c84763606ff769c",
+      "size_bytes": 13430
     },
     {
       "path": "golden/ue5.6/expected_output/prop_list_prop_set_custom_struct_enum_after_export5.json",
@@ -349,13 +349,13 @@
     },
     {
       "path": "golden/ue5.6/expected_output/struct_definition_S_PlayerData.json",
-      "sha256": "1fadabf9604fc48685cc236a9fa05d7264f0ee849086b287d6c99c4251b368b7",
-      "size_bytes": 3636
+      "sha256": "8e78e0da5f1a5ca38cf8e2e44fd0c0dc34557f6a55a3f17eb1e18ab5fe43ff7a",
+      "size_bytes": 16367
     },
     {
       "path": "golden/ue5.6/expected_output/struct_details_S_PlayerData_export2.json",
-      "sha256": "d9bcb224bf40b1439010d4091d015c5cdb04e2c3adc524de98ee729f4ece7f1e",
-      "size_bytes": 2386
+      "sha256": "b5f3520c9ef23d8b13386d79d7b40aa60cbceb827cc9cb2c42799bb9712356d1",
+      "size_bytes": 14417
     },
     {
       "path": "golden/ue5.6/expected_output/validate_BP_Empty.json",
@@ -3529,8 +3529,8 @@
     },
     {
       "path": "golden/ue5.7/expected_output/blueprint_info_BP_WithFunctions.json",
-      "sha256": "01730d70a06369cc5f422f7a8d54009dc8231fdbc162a0aa582aa2f95e837f58",
-      "size_bytes": 13054
+      "sha256": "f0e1abfe24339f6a88da00f7e7ba9f27822d5d6dea6d4a2a9c725ce9bc8b40dd",
+      "size_bytes": 16268
     },
     {
       "path": "golden/ue5.7/expected_output/blueprint_refs_BP_Empty_softpath_L_TestTitle.json",
@@ -3704,8 +3704,8 @@
     },
     {
       "path": "golden/ue5.7/expected_output/metadata_BP_WithMetadata_export1.json",
-      "sha256": "a6b8579a568b6ea31e246fc2861dde3c1fa3baf39b62d794cacc5be364c932f7",
-      "size_bytes": 12264
+      "sha256": "2aef6bd7ed103c3984dae8877d350209dbe4d7a93865af6e1917b7a4cd690af6",
+      "size_bytes": 15390
     },
     {
       "path": "golden/ue5.7/expected_output/name_add_BP_Empty_dry_run.json",
@@ -3774,53 +3774,53 @@
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_AllScalarTypes_export1.json",
-      "sha256": "f6ae3f7df1c5a75a0e44e897293fa0bfb369ba74389e97aa8824b3d158a561e2",
-      "size_bytes": 62109
+      "sha256": "12160cf0cf99d8cc5706a934e0a30d060e77039fa0063a06c9bb0c7d8c57f8c5",
+      "size_bytes": 71163
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_Containers_export1.json",
-      "sha256": "c5784ce802ea6594024d79de21de94f776fd0763fde4628057d7490c33e91cd1",
-      "size_bytes": 11343
+      "sha256": "911b93d1d48d52fa30d8df669b312c451a2047f2ff3a4d1b638430f34846da2f",
+      "size_bytes": 14381
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_Empty_export1.json",
-      "sha256": "48e6bcdc62201c22b799286aa9e6de06382dea200717528efdfd18137b69c526",
-      "size_bytes": 11318
+      "sha256": "8a37b2acbaff15b8521d1f3006411eca2f7516f4a5a8c7d2eefd72e2abcaf601",
+      "size_bytes": 14356
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_GameplayTags_export1.json",
-      "sha256": "2c39a46b6e8338da1d2da519cf207d6b53bd128f67e54b3f75813599d111288b",
-      "size_bytes": 11353
+      "sha256": "ed89c2b82f9b191a36c37965248be3ee817e254f9dc2760adf158feb88606891",
+      "size_bytes": 14391
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_MathTypes_export1.json",
-      "sha256": "984084ff7c795416191e417a216cecf324db2b8380f8a013b64ce002b6a85f47",
-      "size_bytes": 39605
+      "sha256": "2015ccebe8f2c7ca5fabc40b394f61c6356fff8267a949208d15aefa7ce50bc6",
+      "size_bytes": 46092
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_Nested_export1.json",
-      "sha256": "5f0fb7d75e4f96d59a508d3f685d0eca3817638395f32508980cebf0c2732195",
-      "size_bytes": 11323
+      "sha256": "dbde6bf79ab3dda243445ae42933b501bb4d57630bd812e0593940b047b968ca",
+      "size_bytes": 14361
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_RefTypes_export1.json",
-      "sha256": "d5e52b814d07261c17b80a58c7490e7609ab8f4d2bf81d99755996fb90c00142",
-      "size_bytes": 11333
+      "sha256": "dcfaf822ca266284e9e6ea76e7a4ed79f014db299a68b28f7bff7cf755c46a24",
+      "size_bytes": 14371
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_SoftRefs_export1.json",
-      "sha256": "bf5953ec480ee26d22369ca8cbaa593ad57084ee65a19137a3281fa5972a7639",
-      "size_bytes": 11333
+      "sha256": "13f5d1f24a5d3528342ef5dbbc0afc4e63630fbacc2a8217baf685bdf34a421d",
+      "size_bytes": 14371
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_BP_WithFunctions_export1.json",
-      "sha256": "ede6e799e342072f008f8fb6b82837543175a4e68615067ed534a6ceed1e01bf",
-      "size_bytes": 11358
+      "sha256": "cc0028e64f4314d43638924dfb95df7dc2d5b52dbcf536de1b32bd04a466c67d",
+      "size_bytes": 14396
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_S_PlayerData_export2.json",
-      "sha256": "f6f9e9ce5ecf73b8165a57be5695d8de2108a3dbc853423b43d9635a23c0cffd",
-      "size_bytes": 2188
+      "sha256": "0a19a42805a1a6e8526f7864ebbd2dbf023e37e70f3e30b1d35f4e5a2fd7d933",
+      "size_bytes": 13519
     },
     {
       "path": "golden/ue5.7/expected_output/prop_list_prop_set_custom_struct_enum_after_export5.json",
@@ -3854,13 +3854,13 @@
     },
     {
       "path": "golden/ue5.7/expected_output/struct_definition_S_PlayerData.json",
-      "sha256": "f0fcc6dab28d9046f1ea7032989f6f2a9fdbc71a06c82dfc622f67c817b537cc",
-      "size_bytes": 3725
+      "sha256": "a259729794997e3ce9e9b1d45ec1895f4785368b54ba2dd5cd3252e480c09471",
+      "size_bytes": 16456
     },
     {
       "path": "golden/ue5.7/expected_output/struct_details_S_PlayerData_export2.json",
-      "sha256": "1e780b9c4f30ef9a5c56969d44115663f892f134c53f28dacf21542fac0256ff",
-      "size_bytes": 2475
+      "sha256": "ce78f2ed1550daf3d2e06f6efb4105b1ee22bad58ca124a3f61c2fa34fc44502",
+      "size_bytes": 14506
     },
     {
       "path": "golden/ue5.7/expected_output/validate_BP_Empty.json",

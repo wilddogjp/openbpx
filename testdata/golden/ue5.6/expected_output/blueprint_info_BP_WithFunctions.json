@@ -10,6 +10,36 @@
       {
         "classIndex": -7,
         "className": "Blueprint",
+        "decodeReport": {
+          "items": [
+            {
+              "bytes": 8,
+              "path": "LastEditedDocuments.value[0].value.value.SavedViewOffset.value.value",
+              "reason": "struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved",
+              "status": "undecoded",
+              "type": "DeprecateSlateVector2D"
+            },
+            {
+              "bytes": 8,
+              "path": "LastEditedDocuments.value[1].value.value.SavedViewOffset.value.value",
+              "reason": "struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved",
+              "status": "undecoded",
+              "type": "DeprecateSlateVector2D"
+            },
+            {
+              "bytes": 8,
+              "path": "LastEditedDocuments.value[2].value.value.SavedViewOffset.value.value",
+              "reason": "struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved",
+              "status": "undecoded",
+              "type": "DeprecateSlateVector2D"
+            }
+          ],
+          "partial": 0,
+          "types": {
+            "DeprecateSlateVector2D": 3
+          },
+          "undecoded": 3
+        },
         "index": 1,
         "objectName": "BP_WithFunctions",
         "outerIndex": 0,
@@ -154,8 +184,11 @@
                         "value": {
                           "structType": "DeprecateSlateVector2D",
                           "value": {
+                            "decodeStatus": "undecoded",
                             "rawBase64": "AAAAAAAAAAA=",
-                            "structType": "DeprecateSlateVector2D"
+                            "structType": "DeprecateSlateVector2D",
+                            "undecodedBytes": 8,
+                            "undecodedReason": "struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved"
                           }
                         }
                       },
@@ -226,8 +259,11 @@
                         "value": {
                           "structType": "DeprecateSlateVector2D",
                           "value": {
+                            "decodeStatus": "undecoded",
                             "rawBase64": "AAAAAAAAAAA=",
-                            "structType": "DeprecateSlateVector2D"
+                            "structType": "DeprecateSlateVector2D",
+                            "undecodedBytes": 8,
+                            "undecodedReason": "struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved"
                           }
                         }
                       },
@@ -298,8 +334,11 @@
                         "value": {
                           "structType": "DeprecateSlateVector2D",
                           "value": {
+                            "decodeStatus": "undecoded",
                             "rawBase64": "AAAAAAAAAAA=",
-                            "structType": "DeprecateSlateVector2D"
+                            "structType": "DeprecateSlateVector2D",
+                            "undecodedBytes": 8,
+                            "undecodedReason": "struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved"
                           }
                         }
                       },
@@ -366,7 +405,12 @@
           "size": 815
         },
         "superIndex": 0,
-        "warnings": null
+        "warnings": [
+          "decode incomplete: 3 undecoded, 0 partial payload(s); values are preserved as rawBase64 and must not be read as decoded data",
+          "undecoded at LastEditedDocuments.value[0].value.value.SavedViewOffset.value.value: struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved",
+          "undecoded at LastEditedDocuments.value[1].value.value.SavedViewOffset.value.value: struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved",
+          "undecoded at LastEditedDocuments.value[2].value.value.SavedViewOffset.value.value: struct DeprecateSlateVector2D has no built-in decoder and its payload is not tagged-property data (likely a native Serialize()); raw bytes preserved"
+        ]
       }
     ],
     "file": "testdata/golden/parse/BP_WithFunctions.uasset",

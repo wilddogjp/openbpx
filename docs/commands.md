@@ -160,6 +160,18 @@ Localization operations focus on `TextProperty` and `GatherableTextData`.
 - `value` is included only when decode succeeds.
 - If decode fails, `value` is omitted and command execution continues (safe fallback).
 
+### Undecoded Payload Reporting
+
+A payload that cannot be interpreted is preserved as `rawBase64` and reported explicitly, never left silent.
+
+- On the value: `decodeStatus` (`undecoded` or `partial`), `undecodedReason`, `undecodedBytes`.
+- On the response: a `decodeReport` object with `undecoded`, `partial`, `types`, and one `items` entry per payload (`path`, `status`, `type`, `reason`, `bytes`).
+- A summary line plus one line per item is appended to `warnings`.
+
+`decodeReport` is emitted only when something failed to decode; a fully decoded read keeps its previous output shape. Emitted by `prop list`, `export details`, `blueprint info`, and `metadata`.
+
+Typical cause: a `USTRUCT` with `WithSerializer = true` writes an unlabeled binary payload whose layout lives only in engine C++. Plain USTRUCTs are tagged and decode automatically.
+
 ### JSON Output Coverage
 
 | Item | Status | Notes |

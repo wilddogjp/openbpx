@@ -466,6 +466,7 @@ func runPropList(args []string, stdout, stderr io.Writer) int {
 		"properties": items,
 		"warnings":   parsed.Warnings,
 	}
+	attachDecodeReport(resp, items, parsed.Warnings)
 	return printJSON(stdout, resp)
 }
 

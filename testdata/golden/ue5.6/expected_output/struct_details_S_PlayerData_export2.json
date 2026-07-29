@@ -33,7 +33,357 @@
           "type": "ArrayProperty(StructProperty(StructVariableDescription(/Script/UnrealEd)))",
           "value": {
             "arrayType": "StructProperty",
-            "rawBase64": "AQAAADQAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAdAAAAAAAAADIAAAAAAAAAJwAAAAAAAAABAAAAGwAAAAAAAAABAAAAAQAAAAAAAAAAAAAAEAAAAAg3S727onCVRaFr5g7KMGqIGgAAAAAAAAAmAAAAAAAAAAAAAAAQAAAAAAwAAABNZW1iZXJWYXJfMAATAAAAAAAAACYAAAAAAAAAAAAAAAoAAAAABgAAAEZhbHNlABAAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAKAAAAAAAAACkAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAgAAAAAAAAACoAAAAAAAAAJQAAAAAAAAAAAAAABAAAAAAAAAAAIwAAAAAAAAAnAAAAAAAAAAEAAAAVAAAAAAAAAAEAAAACAAAAAAAAAAAAAACyAAAAACsAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAgAAAAAAAAACwAAAAAAAAAHwAAAAAAAAAAAAAACAAAAAAgAAAAAAAAAC0AAAAAAAAAIQAAAAAAAAAAAAAABAAAAAAAAAAADAAAAAAAAAALAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAACwAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAARAAAAAAAAABcAAAAAAAAAAgAAABgAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAgAAAAAGQAAAAAAAAAFAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAALAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAACwAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAsAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAmAAAAAAAAAAAAAAAKAAAAAAYAAABGYWxzZQAuAAAAAAAAACYAAAAAAAAAAAAAAAQAAAAAAAAAAB4AAAAAAAAAHAAAAAAAAAACAAAAHwAAAAAAAAAAAAAAJgAAAAAAAAAAAAAACAAAAAAAAAAAAAAAACAAAAAAAAAA"
+            "value": [
+              {
+                "type": "StructProperty",
+                "value": {
+                  "structType": "StructVariableDescription",
+                  "value": {
+                    "Category": {
+                      "flags": 0,
+                      "offset": 174,
+                      "type": "NameProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "NameProperty"
+                        }
+                      ],
+                      "value": {
+                        "index": 10,
+                        "name": "bool",
+                        "number": 0
+                      }
+                    },
+                    "ContainerType": {
+                      "flags": 0,
+                      "offset": 496,
+                      "type": "EnumProperty(EPinContainerType(/Script/Engine),ByteProperty)",
+                      "typeNodes": [
+                        {
+                          "innerCount": 2,
+                          "name": "EnumProperty"
+                        },
+                        {
+                          "innerCount": 1,
+                          "name": "EPinContainerType"
+                        },
+                        {
+                          "innerCount": 0,
+                          "name": "/Script/Engine"
+                        },
+                        {
+                          "innerCount": 0,
+                          "name": "ByteProperty"
+                        }
+                      ],
+                      "value": {
+                        "enumType": "EPinContainerType",
+                        "value": "EPinContainerType::None"
+                      }
+                    },
+                    "CurrentDefaultValue": {
+                      "flags": 0,
+                      "offset": 665,
+                      "type": "StrProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "StrProperty"
+                        }
+                      ],
+                      "value": "False"
+                    },
+                    "DefaultValue": {
+                      "flags": 0,
+                      "offset": 139,
+                      "type": "StrProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "StrProperty"
+                        }
+                      ],
+                      "value": "False"
+                    },
+                    "FriendlyName": {
+                      "flags": 0,
+                      "offset": 98,
+                      "type": "StrProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "StrProperty"
+                        }
+                      ],
+                      "value": "MemberVar_0"
+                    },
+                    "MetaData": {
+                      "flags": 0,
+                      "offset": 729,
+                      "type": "MapProperty(NameProperty,StrProperty)",
+                      "typeNodes": [
+                        {
+                          "innerCount": 2,
+                          "name": "MapProperty"
+                        },
+                        {
+                          "innerCount": 0,
+                          "name": "NameProperty"
+                        },
+                        {
+                          "innerCount": 0,
+                          "name": "StrProperty"
+                        }
+                      ],
+                      "value": {
+                        "keyType": "NameProperty",
+                        "replaceMap": false,
+                        "value": [],
+                        "valueType": "StrProperty"
+                      }
+                    },
+                    "PinValueType": {
+                      "flags": 0,
+                      "offset": 269,
+                      "type": "StructProperty(EdGraphTerminalType(/Script/Engine))",
+                      "typeNodes": [
+                        {
+                          "innerCount": 1,
+                          "name": "StructProperty"
+                        },
+                        {
+                          "innerCount": 1,
+                          "name": "EdGraphTerminalType"
+                        },
+                        {
+                          "innerCount": 0,
+                          "name": "/Script/Engine"
+                        }
+                      ],
+                      "value": {
+                        "structType": "EdGraphTerminalType",
+                        "value": {
+                          "TerminalCategory": {
+                            "flags": 0,
+                            "offset": 0,
+                            "type": "NameProperty",
+                            "typeNodes": [
+                              {
+                                "innerCount": 0,
+                                "name": "NameProperty"
+                              }
+                            ],
+                            "value": {
+                              "index": 32,
+                              "name": "None",
+                              "number": 0
+                            }
+                          },
+                          "TerminalSubCategory": {
+                            "flags": 0,
+                            "offset": 33,
+                            "type": "NameProperty",
+                            "typeNodes": [
+                              {
+                                "innerCount": 0,
+                                "name": "NameProperty"
+                              }
+                            ],
+                            "value": {
+                              "index": 32,
+                              "name": "None",
+                              "number": 0
+                            }
+                          },
+                          "TerminalSubCategoryObject": {
+                            "flags": 0,
+                            "offset": 66,
+                            "type": "ObjectProperty",
+                            "typeNodes": [
+                              {
+                                "innerCount": 0,
+                                "name": "ObjectProperty"
+                              }
+                            ],
+                            "value": {
+                              "index": 0,
+                              "resolved": "null"
+                            }
+                          },
+                          "bTerminalIsConst": {
+                            "flags": 0,
+                            "offset": 95,
+                            "type": "BoolProperty",
+                            "typeNodes": [
+                              {
+                                "innerCount": 0,
+                                "name": "BoolProperty"
+                              }
+                            ],
+                            "value": false
+                          },
+                          "bTerminalIsUObjectWrapper": {
+                            "flags": 0,
+                            "offset": 145,
+                            "type": "BoolProperty",
+                            "typeNodes": [
+                              {
+                                "innerCount": 0,
+                                "name": "BoolProperty"
+                              }
+                            ],
+                            "value": false
+                          },
+                          "bTerminalIsWeakPointer": {
+                            "flags": 0,
+                            "offset": 120,
+                            "type": "BoolProperty",
+                            "typeNodes": [
+                              {
+                                "innerCount": 0,
+                                "name": "BoolProperty"
+                              }
+                            ],
+                            "value": false
+                          }
+                        }
+                      }
+                    },
+                    "SubCategory": {
+                      "flags": 0,
+                      "offset": 207,
+                      "type": "NameProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "NameProperty"
+                        }
+                      ],
+                      "value": {
+                        "index": 32,
+                        "name": "None",
+                        "number": 0
+                      }
+                    },
+                    "SubCategoryObject": {
+                      "flags": 0,
+                      "offset": 240,
+                      "type": "SoftObjectProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "SoftObjectProperty"
+                        }
+                      ],
+                      "value": {
+                        "error": "soft object path index 0 out of range",
+                        "softObjectPathIndex": 0
+                      }
+                    },
+                    "ToolTip": {
+                      "flags": 0,
+                      "offset": 700,
+                      "type": "StrProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "StrProperty"
+                        }
+                      ],
+                      "value": ""
+                    },
+                    "VarGuid": {
+                      "flags": 8,
+                      "offset": 33,
+                      "type": "StructProperty(Guid(/Script/CoreUObject))",
+                      "typeNodes": [
+                        {
+                          "innerCount": 1,
+                          "name": "StructProperty"
+                        },
+                        {
+                          "innerCount": 1,
+                          "name": "Guid"
+                        },
+                        {
+                          "innerCount": 0,
+                          "name": "/Script/CoreUObject"
+                        }
+                      ],
+                      "value": {
+                        "structType": "Guid",
+                        "value": "bbbd4b37-70a2-4595-a16b-e60eca306a88"
+                      }
+                    },
+                    "VarName": {
+                      "flags": 0,
+                      "offset": 0,
+                      "type": "NameProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "NameProperty"
+                        }
+                      ],
+                      "value": {
+                        "index": 29,
+                        "name": "MemberVar_0_BBBD4B37459570A20EE66BA1886A30CA",
+                        "number": 0
+                      }
+                    },
+                    "bDontEditOnInstance": {
+                      "flags": 0,
+                      "offset": 565,
+                      "type": "BoolProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "BoolProperty"
+                        }
+                      ],
+                      "value": false
+                    },
+                    "bEnable3dWidget": {
+                      "flags": 0,
+                      "offset": 640,
+                      "type": "BoolProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "BoolProperty"
+                        }
+                      ],
+                      "value": false
+                    },
+                    "bEnableMultiLineText": {
+                      "flags": 0,
+                      "offset": 615,
+                      "type": "BoolProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "BoolProperty"
+                        }
+                      ],
+                      "value": false
+                    },
+                    "bEnableSaveGame": {
+                      "flags": 0,
+                      "offset": 590,
+                      "type": "BoolProperty",
+                      "typeNodes": [
+                        {
+                          "innerCount": 0,
+                          "name": "BoolProperty"
+                        }
+                      ],
+                      "value": false
+                    }
+                  }
+                }
+              }
+            ]
           },
           "valueOffset": 2885
         }

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"testing"
 )
 
@@ -51,7 +52,12 @@ func buildWidgetTestAsset(t *testing.T, rootType, rootName, childType, childName
 func buildBPXBinaryForTest(t *testing.T) string {
 	t.Helper()
 
-	outPath := filepath.Join(t.TempDir(), "bpx-test-bin")
+	name := "bpx-test-bin"
+	if runtime.GOOS == "windows" {
+		// Windows only executes files with an executable extension.
+		name += ".exe"
+	}
+	outPath := filepath.Join(t.TempDir(), name)
 	cmd := exec.Command("go", "build", "-o", outPath, "../../cmd/bpx")
 	if output, err := cmd.CombinedOutput(); err != nil {
 		t.Fatalf("build bpx binary: %v\n%s", err, string(output))
