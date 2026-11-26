@@ -7,6 +7,10 @@
     </picture>
 </p>
 
+<!-- yarkr:badges:start -->
+[![Indexed on Yarkr](https://api.yarkr.com/functions/v1/api/api/v1/badges/repos/wilddogjp/openbpx/version.svg)](https://yarkr.com/arks/wilddogjp/openbpx)
+<!-- yarkr:badges:end -->
+
 [![Test](https://github.com/wilddogjp/openbpx/actions/workflows/test.yml/badge.svg)](https://github.com/wilddogjp/openbpx/actions/workflows/test.yml)
 [![Release](https://img.shields.io/github/v/release/wilddogjp/openbpx)](https://github.com/wilddogjp/openbpx/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
@@ -65,6 +69,40 @@ bpx prop list ./Sample.uasset --export 1 --format json
 bpx prop set ./Sample.uasset --export 1 --path "MyValue" --value '123' --dry-run
 bpx prop set ./Sample.uasset --export 1 --path "MyValue" --value '123' --backup
 ```
+
+<!-- yarkr:install:start -->
+## Install with Yarkr
+
+This repo is indexed on [Yarkr](https://yarkr.com/arks/wilddogjp/openbpx) as the ark [wilddogjp/openbpx](https://yarkr.com/arks/wilddogjp/openbpx), so its skills install into Claude Code, Codex, Cursor and other agent harnesses with one command.
+
+### CLI
+
+Install the whole ark, which Yarkr keeps equal to this repo:
+
+```bash
+npx yarkr-cli sync wilddogjp/openbpx
+```
+
+Or add individual skills:
+
+```bash
+npx yarkr-cli add skill:wilddogjp/openbpx/bpx-blueprint
+npx yarkr-cli add skill:wilddogjp/openbpx/bpx-class
+npx yarkr-cli add skill:wilddogjp/openbpx/bpx-datatable
+```
+
+No Node.js? `curl -fsSL https://yarkr.com/install.sh | sh` (macOS, Linux) or `irm https://yarkr.com/install.ps1 | iex` (Windows PowerShell) installs `yarkr` as a standalone binary; then type `yarkr` in place of `npx yarkr-cli`.
+
+### MCP
+
+Connect your agent to the ark over MCP:
+
+```bash
+npx yarkr-cli mcp add wilddogjp/openbpx
+```
+
+Or point any MCP client at `https://api.yarkr.com/functions/v1/api/mcp/o/wilddogjp/openbpx`.
+<!-- yarkr:install:end -->
 
 ## Why OpenBPX?
 
